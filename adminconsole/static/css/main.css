@@ -24,7 +24,8 @@ body {
     height: 100vh;
 }
 
-p,span {
+p,
+span {
     font-family: abzee-italic;
     font-size: 12px;
     color: #282828;
@@ -104,7 +105,9 @@ h6 {
 .navlistmenu:hover {
     background-color: var(--primary);
     border-radius: 10px;
+    cursor: pointer;
 }
+
 .navlistmenu-active {
     background-color: var(--primary);
     border-radius: 10px;
@@ -194,18 +197,22 @@ ul {
 
 
 /* ===========checkin con=========== */
-.checkin-con{
+.checkin-con {
     padding: 10px;
 }
-.checkin-con h6{
-font-weight: 600;
 
+.checkin-con h6 {
+    font-weight: 600;
+    padding: 0;
+    margin: 0;
 }
-.checkin-con span{
+
+.checkin-con span {
     font-weight: 600;
     font-size: 14px;
 }
-.progress{
+
+.progress {
     height: 10px;
 }
 
