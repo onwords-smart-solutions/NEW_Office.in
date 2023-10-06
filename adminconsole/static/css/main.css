@@ -1,0 +1,212 @@
+@font-face {
+    font-family: abzee-italic;
+    src: url(../fonts/ABeeZee-Italic.ttf);
+}
+
+@font-face {
+    font-family: abzee-regular;
+    src: url(../fonts/ABeeZee-Regular.ttf);
+}
+
+:root {
+    --primary: #FFE6AF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: ECEFF6;
+    width: 100%;
+    height: 100vh;
+}
+
+p,span {
+    font-family: abzee-italic;
+    font-size: 12px;
+    color: #282828;
+}
+
+li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #282828;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: abzee-italic;
+    color: #282828;
+}
+
+.main-con {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    width: 100%;
+}
+
+.nav-con {
+    width: 5%;
+    background-color: #F6F7FB;
+    height: 100vh;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+.expand-nav {
+    width: 18%;
+    background-color: #F6F7FB;
+    height: 100vh;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+.right-con {
+    width: 95%;
+    height: 100vh;
+    background-color: #ECEFF6;
+}
+
+.expand-right {
+    width: 82%;
+    height: 100vh;
+    background-color: #ECEFF6;
+    ;
+}
+
+.navlistmenu {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0px;
+    margin: 4px 0px;
+}
+
+.navlistmenu:hover {
+    background-color: var(--primary);
+    border-radius: 10px;
+}
+.navlistmenu-active {
+    background-color: var(--primary);
+    border-radius: 10px;
+}
+
+.navlistlogo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left-nav-list {
+    width: 100%;
+    min-width: 30%;
+    max-width: 30%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 4px;
+}
+
+.right-nav-list {
+    width: 100%;
+    min-width: 70%;
+    max-width: 70%;
+    float: right;
+    display: none;
+}
+
+ul {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.small-logo {
+    width: 40px;
+}
+
+.main-logo {
+    width: 120px;
+}
+
+.menu-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 20px;
+}
+
+
+
+/* ===========main-con start============ */
+.refreshment-con,
+.checkin-con,
+.notification-con,
+.leavebalance-con {
+    background-color: #ffff;
+    border-radius: 15px;
+    width: 100%;
+    height: 25vh;
+    margin: 10px 0px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+}
+
+.workdone-entry-con {
+    background-color: #ffff;
+    border-radius: 15px;
+    width: 100%;
+    height: 9vh;
+    margin: 10px 0px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.workdone-con {
+    background-color: #ffff;
+    border-radius: 15px;
+    width: 100%;
+    height: 28vh;
+    margin: 10px 0px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+
+
+/* ===========checkin con=========== */
+.checkin-con{
+    padding: 10px;
+}
+.checkin-con h6{
+font-weight: 600;
+
+}
+.checkin-con span{
+    font-weight: 600;
+    font-size: 14px;
+}
+.progress{
+    height: 10px;
+}
+
+/* ===========main-con End============ */
