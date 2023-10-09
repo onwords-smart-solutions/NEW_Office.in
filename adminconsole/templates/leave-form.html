@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <!-- chart js start  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <!-- chart js end -->
+    <title>adminconsole</title>
+</head>
+
+<body>
+    <div class="main-con ">
+        <div class="nav-con " onclick="navcon()">
+            <nav class="px-2">
+                <div class="container-fluid p-0 m-0">
+                    <div class="navlistlogo">
+                        <div class="left-nav-list">
+                            <div class="menu-icon">
+                                <img src="{% static 'images/nav-icon/small-icon.png' %}" alt="small_Icon"
+                                    class="small-logo">
+                            </div>
+                        </div>
+                        <div class="right-nav-list">
+                            <img src="{% static 'images/nav-icon/main-log.svg' %}" alt="small_Icon" class="main-logo">
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <li class="user-visual">
+                            <div class="left-nav-list"></div>
+                            <div class="right-nav-list">
+                                <div class="user-profiles">
+                                    <div class="user-img">
+                                        <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                    </div>
+                                    <div class="emply-id">
+                                        <span>Vinith</span><br>
+                                        <span>ID:WD002</span><br>
+                                        <span>Web Developer</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </div>
+                    <ul id="nav-main-con">
+                        <li class="navlistmenu " onclick="location.href='/ithome'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>dashboard</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/leave_form'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5> Leave Form</h5>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="logout" onclick="location.href=''">
+                        <li class="navlistmenu">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/logout-icon.svg' %}" alt="dashboard_Icon"
+                                        class="logout-icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Logout</h5>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="right-con " id="rightCon" onclick="rightcon()">
+
+           <div class="container">
+            <div class="forms-con">
+                <p class="active-form">New Leave</p>
+                <p class="">History</p>
+            </div>
+
+            <div class="leave-form-con">
+                <div class="leave-list">
+                    <div class="leave-lists">
+                        <p class="active-form">Casual</p>
+                        <p>Sick</p>
+                        <p>Permission</p>
+                    </div>
+                    <form action="" class="casual-leave leave-frm">
+                        <input type="time" id="from" placeholder="From">
+                        <input type="time" placeholder="To">
+                        <input type="Text" placeholder="Reason"><br>
+                        <button class="primary-button">Submit</button>
+                    </form>
+                </div>
+                <div class="leave-img">
+                    <img src="{% static 'images/leave-frm-img.svg' %}" alt="leave-form" class="img-fluid">
+                </div>
+            </div>
+           </div>
+
+        </div>
+    </div>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- js script  start -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <!-- js script  end -->
+
+</body>
+
+</html>

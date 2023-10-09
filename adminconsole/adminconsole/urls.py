@@ -6,6 +6,7 @@ from it import views as itviews
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.login, name="login"),
+    path("leave_form", views.leave_form, name="leave_form"),
 
 
 
