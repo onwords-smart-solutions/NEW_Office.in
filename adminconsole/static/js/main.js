@@ -3,13 +3,17 @@ function navcon() {
     var rightCon = document.querySelector('.right-con')
     var rightnavlist = document.querySelectorAll('.right-nav-list')
     var smallLogo = document.querySelector('.small-logo')
+    var closeIcon = document.querySelector('.close-icons')
+    var menuIcon = document.querySelector('.menu-icons')
     if (navCon.style.width == '5%') {
         navCon.style.width = '18%'
         rightCon.style.width = '82%'
         for (const rightnav of rightnavlist) {
             rightnav.style.display = 'block'
         }
-        smallLogo.style.visibility = 'hidden'
+        smallLogo.style.display = 'none'
+        closeIcon.style.display='block'
+        menuIcon.style.display='none'
 
     }
     else {
@@ -18,7 +22,9 @@ function navcon() {
         for (const rightnav of rightnavlist) {
             rightnav.style.display = 'none'
         }
-        smallLogo.style.visibility = 'visible'
+        smallLogo.style.display = 'block'
+        closeIcon.style.display='none'
+        menuIcon.style.display='block'
     }
 }
 function rightcon() {
@@ -26,12 +32,16 @@ function rightcon() {
     var rightCon = document.querySelector('.right-con')
     var rightnavlist = document.querySelectorAll('.right-nav-list')
     var smallLogo = document.querySelector('.small-logo')
+    var closeIcon = document.querySelector('.close-icons')
+    var menuIcon = document.querySelector('.menu-icons')
     navCon.style.width = '5%'
     rightCon.style.width = '95%'
     for (const rightnav of rightnavlist) {
         rightnav.style.display = 'none'
     }
-    smallLogo.style.visibility = 'visible'
+    smallLogo.style.display = 'block'
+    closeIcon.style.display='none'
+    menuIcon.style.display='block'
 
 }
 

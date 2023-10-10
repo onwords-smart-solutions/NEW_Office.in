@@ -180,6 +180,14 @@ ul {
     justify-content: center;
     padding: 0px 10px;
 }
+.menu-icons,.close-icons{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.close-icons{
+    display: none;
+}
 
 .logout {
     position: fixed;
@@ -211,19 +219,7 @@ ul {
     font-size: 16px;
     font-weight: 600;
 }
-#carouselExampleControls{
-    height: 100% !important;
-}
-.caro-img{
-    width: 80% !important;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-.carousel-inner{
-    height: 100% !important;
-}
+
 
 /* ===========main-con start============ */
 .refreshment-con,

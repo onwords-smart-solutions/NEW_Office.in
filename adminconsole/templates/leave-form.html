@@ -109,13 +109,20 @@
                     <form action="" class="casual-leave leave-frm">
                         <label for="from">From</label>
                        <div class="form-inp-con">
-                        <input type="time" id="from" placeholder="From">
-                        <img src="{% static 'images/date-set.pnf' %}" alt="date-icpn">
+                        <input type="date" id="from" placeholder="From">
+                        <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
                        </div>
-                        <label for="to">To</label>
-                        <input type="time" placeholder="To">
+
+                       <label for="to">To</label>
+                       <div class="form-inp-con">
+                        <input type="date" id="from" placeholder="To">
+                        <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
+                       </div>
                         <label for="reason">Reason</label>
-                        <input type="Text" placeholder="Reason"><br>
+                        <div class="form-inp-con">
+                            <input type="text" id="from" placeholder="Reason">
+                           
+                           </div>
                         <button class="primary-button">Submit</button>
                     </form>
                 </div>
