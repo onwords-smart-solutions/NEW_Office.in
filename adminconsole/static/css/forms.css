@@ -8,36 +8,43 @@
     align-items: center;
     justify-content: space-around;
 }
-.forms-con p{
+
+.forms-con p {
     font-size: 20px;
     font-weight: 600;
     padding: 10px 5px;
     margin: 3px 0px;
     border-radius: 5px;
 }
-.forms-con p:hover{
-    background-color: #FBD87F ;
+
+.forms-con p:hover {
+    background-color: #FBD87F;
     cursor: pointer;
 }
-.active-form{
-    background-color: #FBD87F ;
+
+.active-form {
+    background-color: #FBD87F;
 }
-.leave-form-con{
+
+.leave-form-con {
     height: 85vh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.leave-list{
+
+.leave-list {
     width: 50%;
     height: 100%;
 }
-.leave-img{
+
+.leave-img {
     width: 50%;
     height: 100%;
 }
-.leave-lists{
+
+.leave-lists {
     width: 100%;
     background-color: #FFF;
     border-radius: 5px;
@@ -45,37 +52,50 @@
     align-items: center;
     justify-content: space-around;
 }
-.leave-lists p{
+
+.leave-lists p {
     font-size: 18px;
     font-weight: 600;
     padding: 10px;
     margin: 5px auto;
     border-radius: 5px;
 }
-.leave-lists p:hover{
+
+.leave-lists p:hover {
     background-color: #FBD87F;
     cursor: pointer;
 }
 
-.active-form{
-    background-color: #FBD87F; 
+.active-form {
+    background-color: #FBD87F;
 }
-.leave-frm{
+
+.leave-frm {
     text-align: center;
     margin-top: 70px;
 }
-.leave-frm label{
+
+.leave-frm label {
     text-align: left !important;
+    display: flex;
+    align-items: flex-start;
+    width: 70%;
+    margin: 0 auto;
+    font-family: abzee-regular;
+    font-size: 16px;
+    font-weight: 600;
 }
-.leave-frm input{
-width: 70%;
-padding: 10px;
-margin: 8px auto;
-border-radius: 15px;
-border: 3px solid #918f8f;
-background: none;
-outline: none;
+
+.form-inp-con {
+    width: 70%;
+    padding: 10px;
+    margin: 8px auto;
+    border-radius: 15px;
+    border: 3px solid #918f8f;
+    background: none;
+    outline: none;
 }
-.leave-frm button{
+
+.leave-frm button {
     text-align: center;
 }
