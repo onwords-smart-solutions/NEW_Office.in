@@ -188,8 +188,7 @@ function lateform(){
 }
 
 // =============late entry start===================
-function approval(){
-    
+function approvalpage(){
 const lateApprovalBtn = document.getElementById('lateApprovalBtn')
 const leaveApprovalBtn = document.getElementById('leaveApprovalBtn')
 const lateApprovalTable = document.getElementById('lateApprovalTable')
@@ -198,10 +197,14 @@ const leaveApprovalTable = document.getElementById('leaveApprovalTable')
 lateApprovalBtn.addEventListener('click', () => {
     lateApprovalTable.style.display = 'block'
     leaveApprovalTable.style.display = 'none'
+    lateApprovalBtn.classList.add('active-form-li')
+    leaveApprovalBtn.classList.remove('active-form-li')
 })
 
 leaveApprovalBtn.addEventListener('click', () => {
     lateApprovalTable.style.display = 'none'
     leaveApprovalTable.style.display = 'block'
+    lateApprovalBtn.classList.remove('active-form-li')
+    leaveApprovalBtn.classList.add('active-form-li')
 })
 }

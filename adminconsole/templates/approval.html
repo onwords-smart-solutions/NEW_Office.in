@@ -108,16 +108,101 @@
         </div>
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
-            <div class="container-fluid" onclick="approval()">
-                <div class="forms-con">
-                    <p class="active-form-li" id="leaveApprovalBtn">leave Approval</p>
-                    <p class="" id="LateApprovalBtn">Late Approval</p>
-                </div>
-                <div id="lateApprovalTable">
-                    <h2>late Table</h2>
-                </div>
-                <div id="leaveApprovalTable">
-                    <h2>Leave Table</h2>
+            <div class="container-fluid">
+                <div class="" onclick="approvalpage()">
+                    <div class="forms-con">
+                        <p class="active-form-li" id="leaveApprovalBtn">leave Approval</p>
+                        <p class="" id="lateApprovalBtn">Late Approval</p>
+                    </div>
+                    <div id="lateApprovalTable">
+                        <table class="table">
+                            <thead>
+                                <tr class="leave-table-head">
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <th>Workdone</th>
+                                    <th>Reason</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-body-li my-3">
+                                    <td>09/08/2023</td>
+                                    <td>Ram</td>
+                                    <td>Alexa Skill</td>
+                                    <td>Forgot</td>
+                                    <td>
+                                        <button class="btn btn-success">Approved <img
+                                                src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
+                                                class="img-fluid table-icon"></button>
+                                        <button class="btn btn-danger">Decline <img
+                                                src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
+                                                class="img-fluid table-icon"></button>
+                                    </td>
+                                </tr>
+                                <tr class="table-body-li my-3">
+                                    <td>09/08/2023</td>
+                                    <td>Ram</td>
+                                    <td>Alexa Skill</td>
+                                    <td>Forgot</td>
+                                    <td>
+                                        <button class="btn btn-success">Approved <img
+                                                src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
+                                                class="img-fluid table-icon"></button>
+                                        <button class="btn btn-danger">Decline <img
+                                                src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
+                                                class="img-fluid table-icon"></button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="leaveApprovalTable">
+                        <table class="table">
+                            <thead>
+                                <tr class="leave-table-head">
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <th>Reason</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-body-li my-3">
+                                    <td>09/08/2023</td>
+                                    <td>Ram</td>
+                                    <td>Personal Work</td>
+                                    <td>
+                                        <button class="btn btn-success">Approved <img
+                                                src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
+                                                class="img-fluid table-icon"></button>
+                                        <button class="btn btn-danger">Decline <img
+                                                src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
+                                                class="img-fluid table-icon"></button>
+                                    </td>
+                                </tr>
+                                <tr class="table-body-li my-3">
+                                    <td>09/08/2023</td>
+                                    <td>Ram</td>
+                                    <td>Personal Work</td>
+                                    <td>
+                                        <button class="btn btn-success">Approved <img
+                                                src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
+                                                class="img-fluid table-icon"></button>
+                                        <button class="btn btn-danger">Decline <img
+                                                src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
+                                                class="img-fluid table-icon"></button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -132,7 +217,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-  
+
 </body>
 
 </html>
