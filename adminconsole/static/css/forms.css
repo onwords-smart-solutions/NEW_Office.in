@@ -29,6 +29,9 @@
 .active-form-li {
     background-color: #FBD87F;
 }
+.active-form-late{
+    background-color: #FBD87F;
+}
 
 .leave-form-con {
     height: 85vh;
@@ -212,4 +215,7 @@
     width: 20px;
     height: 20px;
     margin: 0px 6px;
+}
+#lateHistorys{
+    display: none;
 }

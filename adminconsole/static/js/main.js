@@ -109,7 +109,7 @@ new Chart("myChart2", {
 const casualLeave = document.getElementById('casual-leaves')
 const sickleave = document.getElementById('sick-leave')
 const permission = document.getElementById('permission')
-const casualBtn = document.getElementById('casulaBtn')
+const casualBtn = document.getElementById('casualBtn')
 const permissionBtn = document.getElementById('permissionBtn')
 const sickBtn = document.getElementById('sickBtn')
 
@@ -140,6 +140,7 @@ permissionBtn.addEventListener('click', () => {
     permissionBtn.classList.add('active-forms')
     
 })
+
 //   =============leave form end========
 
 const newLeaveBtn = document.getElementById('newLeave')
@@ -160,3 +161,6 @@ leaveHistoryBtn.addEventListener('click',()=>{
     leaveHistoryBtn.classList.add('active-form-li')
     newLeaveBtn.classList.remove('active-form-li')
 })
+
+// =============late entry start===================
+

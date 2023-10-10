@@ -68,7 +68,7 @@
                                 <h5>dashboard</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/leave_form'">
+                        <li class="navlistmenu " onclick="location.href='/leave_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon"
@@ -79,7 +79,7 @@
                                 <h5>Leave Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu" onclick="location.href='/late_form'">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon"
@@ -91,6 +91,7 @@
                             </div>
                         </li>
 
+                       
                     </ul>
                     <div class="logout" onclick="location.href=''">
                         <li class="navlistmenu">
@@ -112,67 +113,23 @@
 
             <div class="container">
                 <div class="forms-con">
-                    <p class="active-form-li" id="newLeave">New Leave</p>
-                    <p class="" id="leaveHistory">History</p>
+                    <p class="active-form-late" id="lateBtn">Late Entry</p>
+                    <p class="" id="lateHistory">History</p>
                 </div>
 
-                <div id="leavem_con">
+                <div id="late_con">
                     <div class="leave-form-con">
                         <div class="leave-list">
-                            <div class="leave-lists" >
-                                <p class=" formhov  active-forms" id="casualBtn">Casual</p>
-                                <p id="sickBtn" class="formhov px-4">Sick</p>
-                                <p id="permissionBtn" class="formhov">Permission</p>
-                            </div>
-                            <form action="" class="casual-leave leave-frm" id="casual-leaves">
-                                <label for="from">From</label>
-                                <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="From">
-                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
-                                </div>
-
-                                <label for="to">To</label>
-                                <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="To">
-                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
-                                </div>
-                                <label for="reason">Reason</label>
-                                <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Reason">
-
-                                </div>
-                                <button class="primary-button">Submit</button>
-                            </form>
-                            <form action="" class="sick-leave leave-frm" id="sick-leave">
-                                <label for="from">From</label>
-                                <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="From">
-                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
-                                </div>
-
-                                <label for="to">To</label>
-                                <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="To">
-                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
-                                </div>
-
-                                <label for="reason">sick Reason</label>
-                                <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Reason">
-                                </div>
-
-                                <button class="primary-button">Submit</button>
-                            </form>
-                            <form action="" class=" leave-frm" id="permission">
+                            <form action="" class=" leave-frm" >
                                 <label for="from">Date</label>
                                 <div class="form-inp-con">
                                     <input type="date" id="from" placeholder="From">
                                     <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
                                 </div>
 
-                                <label for="to">Reason</label>
+                                <label for="to">Workdone</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Reason">
+                                    <input type="text" id="from" placeholder="Enter your Workdone">
                                 </div>
                                 <div class="main-leave-con">
                                     <div class="">
@@ -188,6 +145,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <label for="to">Reason</label>
+                                <div class="form-inp-con">
+                                    <input type="text" id="from" placeholder="Reason">
+                                </div>
+
+
                                 <button class="primary-button">Submit</button>
                             </form>
                         </div>
@@ -196,7 +159,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="leave-history" id="leaveHistorys">
+                <div class="leave-history" id="lateHistorys">
 
                     <table class="table">
                         <thead>
