@@ -188,7 +188,8 @@ function lateform(){
 }
 
 // =============late entry start===================
-
+function approval(){
+    
 const lateApprovalBtn = document.getElementById('lateApprovalBtn')
 const leaveApprovalBtn = document.getElementById('leaveApprovalBtn')
 const lateApprovalTable = document.getElementById('lateApprovalTable')
@@ -203,3 +204,4 @@ leaveApprovalBtn.addEventListener('click', () => {
     lateApprovalTable.style.display = 'none'
     leaveApprovalTable.style.display = 'block'
 })
+}
