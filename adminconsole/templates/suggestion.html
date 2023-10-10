@@ -77,7 +77,7 @@
                                 <h5>Leave Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/late_form'">
+                        <li class="navlistmenu" onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
@@ -87,7 +87,7 @@
                                 <h5>Late Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu" onclick="location.href='/suggestion'">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/suggestion'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/suggestion.png' %}" alt="dashboard_Icon">
@@ -97,7 +97,6 @@
                                 <h5>Suggestion</h5>
                             </div>
                         </li>
-
                     </ul>
                     <div class="logout" onclick="location.href=''">
                         <li class="navlistmenu">
@@ -117,104 +116,9 @@
         </div>
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
-            <div class="container-fluid">
-                <div class="" onclick="approvalpage()">
-                    <div class="forms-con">
-                        <p class="active-form-li" id="leaveApprovalBtn">leave Approval</p>
-                        <p class="" id="lateApprovalBtn">Late Approval</p>
-                    </div>
-                    <div id="lateApprovalTable">
-                        <table class="table">
-                            <thead>
-                                <tr class="leave-table-head">
-                                    <th>Date</th>
-                                    <th>Name</th>
-                                    <th>Workdone</th>
-                                    <th>Reason</th>
-                                    <th>Action</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="table-body-li my-3">
-                                    <td>09/08/2023</td>
-                                    <td>Ram</td>
-                                    <td>Alexa Skill</td>
-                                    <td>Forgot</td>
-                                    <td>
-                                        <button class="btn btn-success">Approved <img
-                                                src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                        <button class="btn btn-danger">Decline <img
-                                                src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                    </td>
-                                </tr>
-                                <tr class="table-body-li my-3">
-                                    <td>09/08/2023</td>
-                                    <td>Ram</td>
-                                    <td>Alexa Skill</td>
-                                    <td>Forgot</td>
-                                    <td>
-                                        <button class="btn btn-success">Approved <img
-                                                src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                        <button class="btn btn-danger">Decline <img
-                                                src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                            </thead>
-                        </table>
-                    </div>
-                    <div id="leaveApprovalTable">
-                        <table class="table">
-                            <thead>
-                                <tr class="leave-table-head">
-                                    <th>Date</th>
-                                    <th>Name</th>
-                                    <th>Reason</th>
-                                    <th>Action</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="table-body-li my-3">
-                                    <td>09/08/2023</td>
-                                    <td>Ram</td>
-                                    <td>Personal Work</td>
-                                    <td>
-                                        <button class="btn btn-success">Approved <img
-                                                src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                        <button class="btn btn-danger">Decline <img
-                                                src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                    </td>
-                                </tr>
-                                <tr class="table-body-li my-3">
-                                    <td>09/08/2023</td>
-                                    <td>Ram</td>
-                                    <td>Personal Work</td>
-                                    <td>
-                                        <button class="btn btn-success">Approved <img
-                                                src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                        <button class="btn btn-danger">Decline <img
-                                                src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
+          <div class="container">
+            <h2>Suggestion</h2>
+          </div>
         </div>
     </div>
     <!-- bootstrap js -->
