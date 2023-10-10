@@ -209,8 +209,8 @@ a {
     border-radius: 50%;
 }
 #main{
-    display: flex;
-    align-items: center ;
+    /* display: flex;
+    align-items: center ; */
 }
 
 /* ==============new */
