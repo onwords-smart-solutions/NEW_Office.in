@@ -12,8 +12,8 @@ function navcon() {
             rightnav.style.display = 'block'
         }
         smallLogo.style.display = 'none'
-        closeIcon.style.display='block'
-        menuIcon.style.display='none'
+        closeIcon.style.display = 'block'
+        menuIcon.style.display = 'none'
 
     }
     else {
@@ -23,8 +23,8 @@ function navcon() {
             rightnav.style.display = 'none'
         }
         smallLogo.style.display = 'block'
-        closeIcon.style.display='none'
-        menuIcon.style.display='block'
+        closeIcon.style.display = 'none'
+        menuIcon.style.display = 'block'
     }
 }
 function rightcon() {
@@ -40,8 +40,8 @@ function rightcon() {
         rightnav.style.display = 'none'
     }
     smallLogo.style.display = 'block'
-    closeIcon.style.display='none'
-    menuIcon.style.display='block'
+    closeIcon.style.display = 'none'
+    menuIcon.style.display = 'block'
 
 }
 
@@ -80,26 +80,83 @@ checkOrder.forEach(chekBtn => {
 
 // break
 var xValues = [];
-      var yValues = [ 30,70];
-      var barColors = [
-          "#7FA9FB",
-          "#266386",
-      ];
-      new Chart("myChart2", {
-          type: "doughnut",
-          data: {
-              labels: xValues,
-              datasets: [{
-                  backgroundColor: barColors,
-                  data: yValues,
-                  borderColor: 'transparent'
-              }]
-          },
-          options: {
-              cutoutPercentage: 80,
-              title: {
-                  display: true,
-                  text: ""
-              }
-          }
-      });
+var yValues = [30, 70];
+var barColors = [
+    "#7FA9FB",
+    "#266386",
+];
+new Chart("myChart2", {
+    type: "doughnut",
+    data: {
+        labels: xValues,
+        datasets: [{
+            backgroundColor: barColors,
+            data: yValues,
+            borderColor: 'transparent'
+        }]
+    },
+    options: {
+        cutoutPercentage: 80,
+        title: {
+            display: true,
+            text: ""
+        }
+    }
+});
+
+//   =============leave form start========
+
+const casualLeave = document.getElementById('casual-leaves')
+const sickleave = document.getElementById('sick-leave')
+const permission = document.getElementById('permission')
+const casualBtn = document.getElementById('casulaBtn')
+const permissionBtn = document.getElementById('permissionBtn')
+const sickBtn = document.getElementById('sickBtn')
+
+casualBtn.addEventListener('click', () => {
+    casualLeave.style.display = 'block'
+    sickleave.style.display = 'none'
+    permission.style.display = 'none'
+    casualBtn.classList.add('active-forms')
+    sickBtn.classList.remove('active-forms')
+    permissionBtn.classList.remove('active-forms')
+   
+})
+sickBtn.addEventListener('click', () => {
+    casualLeave.style.display = 'none'
+    sickleave.style.display = 'block'
+    permission.style.display = 'none'
+    casualBtn.classList.remove('active-forms')
+    sickBtn.classList.add('active-forms')
+    permissionBtn.classList.remove('active-forms')
+    
+})
+permissionBtn.addEventListener('click', () => {
+    casualLeave.style.display = 'none'
+    sickleave.style.display = 'none'
+    permission.style.display = 'block'
+    casualBtn.classList.remove('active-forms')
+    sickBtn.classList.remove('active-forms')
+    permissionBtn.classList.add('active-forms')
+    
+})
+//   =============leave form end========
+
+const newLeaveBtn = document.getElementById('newLeave')
+const leaveHistoryBtn = document.getElementById('leaveHistory')
+const leaveForm = document.getElementById('leavem_con')
+const leaveHistory = document.getElementById('leaveHistorys')
+
+newLeaveBtn.addEventListener('click',()=>{
+    leaveForm.style.display='block'
+    leaveHistory.style.display='none'
+    newLeaveBtn.classList.add('active-form-li')
+    leaveHistoryBtn.classList.remove('active-form-li')
+})
+
+leaveHistoryBtn.addEventListener('click',()=>{
+    leaveForm.style.display='none'
+    leaveHistory.style.display='block'
+    leaveHistoryBtn.classList.add('active-form-li')
+    newLeaveBtn.classList.remove('active-form-li')
+})

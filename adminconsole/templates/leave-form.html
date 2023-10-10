@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="{% static 'css/forms.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
     <!-- chart js start  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
@@ -27,6 +30,7 @@
                             <div class="menu-icon">
                                 <img src="{% static 'images/nav-icon/small-icon.png' %}" alt="small_Icon"
                                     class="small-logo">
+                                <img src="{% static 'images/close.png' %}" alt="menu_Icon" class="close-icons">
                             </div>
                         </div>
                         <div class="right-nav-list">
@@ -35,7 +39,8 @@
                     </div>
                     <div class="user-profile">
                         <li class="user-visual">
-                            <div class="left-nav-list"></div>
+                            <div class="left-nav-list"> <img src="{% static 'images/menu.png' %}" alt="menu_Icon"
+                                    class="menu-icons"></div>
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
@@ -52,7 +57,7 @@
 
                     </div>
                     <ul id="nav-main-con">
-                        <li class="navlistmenu " onclick="location.href='/ithome'">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/ithome'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon"
@@ -63,7 +68,7 @@
                                 <h5>dashboard</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/leave_form'">
+                        <li class="navlistmenu" onclick="location.href='/leave_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon"
@@ -71,9 +76,167 @@
                                 </div>
                             </div>
                             <div class="right-nav-list">
-                                <h5> Leave Form</h5>
+                                <h5>Leave Form</h5>
                             </div>
                         </li>
+
+                        <!-- dummy -->
+                        <!-- <li class="navlistmenu navlistmenu-active">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>dashboard</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Forms</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu-active">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>dashboard</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Forms</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu-active">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>dashboard</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Forms</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu-active">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>dashboard</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Forms</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu-active">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>dashboard</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Forms</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu-active">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>dashboard</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Forms</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu-active">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>dashboard</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon"
+                                        class="">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Forms</h5>
+                            </div>
+                        </li> -->
+
+                        <!-- dummy -->
                     </ul>
                     <div class="logout" onclick="location.href=''">
                         <li class="navlistmenu">
@@ -93,45 +256,123 @@
         </div>
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
-           <div class="container">
-            <div class="forms-con">
-                <p class="active-form">New Leave</p>
-                <p class="">History</p>
-            </div>
+            <div class="container">
+                <div class="forms-con">
+                    <p class="active-form-li" id="newLeave">New Leave</p>
+                    <p class="" id="leaveHistory">History</p>
+                </div>
 
-            <div class="leave-form-con">
-                <div class="leave-list">
-                    <div class="leave-lists">
-                        <p class="active-form">Casual</p>
-                        <p>Sick</p>
-                        <p>Permission</p>
+                <div id="leavem_con">
+                    <div class="leave-form-con">
+                        <div class="leave-list">
+                            <div class="leave-lists" id="leave-con">
+                                <p class=" formhov  active-forms" id="casulaBtn">Casual</p>
+                                <p id="sickBtn" class="formhov px-4">Sick</p>
+                                <p id="permissionBtn" class="formhov">Permission</p>
+                            </div>
+                            <form action="" class="casual-leave leave-frm" id="casual-leaves">
+                                <label for="from">From</label>
+                                <div class="form-inp-con">
+                                    <input type="date" id="from" placeholder="From">
+                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
+                                </div>
+
+                                <label for="to">To</label>
+                                <div class="form-inp-con">
+                                    <input type="date" id="from" placeholder="To">
+                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
+                                </div>
+                                <label for="reason">Reason</label>
+                                <div class="form-inp-con">
+                                    <input type="text" id="from" placeholder="Reason">
+
+                                </div>
+                                <button class="primary-button">Submit</button>
+                            </form>
+                            <form action="" class="sick-leave leave-frm" id="sick-leave">
+                                <label for="from">From</label>
+                                <div class="form-inp-con">
+                                    <input type="date" id="from" placeholder="From">
+                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
+                                </div>
+
+                                <label for="to">To</label>
+                                <div class="form-inp-con">
+                                    <input type="date" id="from" placeholder="To">
+                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
+                                </div>
+
+                                <label for="reason">sick Reason</label>
+                                <div class="form-inp-con">
+                                    <input type="text" id="from" placeholder="Reason">
+                                </div>
+
+                                <button class="primary-button">Submit</button>
+                            </form>
+                            <form action="" class=" leave-frm" id="permission">
+                                <label for="from">Date</label>
+                                <div class="form-inp-con">
+                                    <input type="date" id="from" placeholder="From">
+                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
+                                </div>
+
+                                <label for="to">Reason</label>
+                                <div class="form-inp-con">
+                                    <input type="text" id="from" placeholder="Reason">
+                                </div>
+                                <div class="main-leave-con">
+                                    <div class="">
+                                        <label for="starttime">From</label><br>
+                                        <div class="time-inp">
+                                            <input type="time" id="starttime">
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <label for="endtime">To</label><br>
+                                        <div class="time-inp">
+                                            <input type="time" id="endtime">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <button class="primary-button">Submit</button>
+                            </form>
+                        </div>
+                        <div class="leave-img">
+                            <img src="{% static 'images/leave-frm-img.svg' %}" alt="leave-form" class="img-fluid">
+                        </div>
                     </div>
-                    <form action="" class="casual-leave leave-frm">
-                        <label for="from">From</label>
-                       <div class="form-inp-con">
-                        <input type="date" id="from" placeholder="From">
-                        <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
-                       </div>
-
-                       <label for="to">To</label>
-                       <div class="form-inp-con">
-                        <input type="date" id="from" placeholder="To">
-                        <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
-                       </div>
-                        <label for="reason">Reason</label>
-                        <div class="form-inp-con">
-                            <input type="text" id="from" placeholder="Reason">
-                           
-                           </div>
-                        <button class="primary-button">Submit</button>
-                    </form>
                 </div>
-                <div class="leave-img">
-                    <img src="{% static 'images/leave-frm-img.svg' %}" alt="leave-form" class="img-fluid">
+                <div class="leave-history" id="leaveHistorys">
+
+                    <table class="table">
+                        <thead>
+                            <tr class="leave-table-head">
+                                <th>Date</th>
+                                <th>Reason</th>
+                                <th>Action</th>
+                                <th>Incharge</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-body-li my-3">
+                                <td>09/08/2023</td>
+                                <td>Personal Work</td>
+                                <td>Approved<img src="{% static 'images/approved-tick.png' %}" alt="approve-icon" class="img-fluid table-icon"></td>
+                                <td>Kavin</td>
+                            </tr>
+                            <tr class="table-body-li">
+                                <td>09/08/2023</td>
+                                <td>Personal Work</td>
+                                <td>Declined <img src="{% static 'images/decline-icon.png' %}" alt="decline-icon" class="img-fluid table-icon"></td>
+                                <td>Kavin</td>
+                            </tr>
+                        </tbody>
+                        </thead>
+                    </table>
                 </div>
             </div>
-           </div>
-
         </div>
     </div>
     <!-- bootstrap js -->
@@ -139,6 +380,9 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <!-- js script  start -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
     <!-- js script  end -->
 
 </body>

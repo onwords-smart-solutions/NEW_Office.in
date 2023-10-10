@@ -22,7 +22,11 @@
     cursor: pointer;
 }
 
-.active-form {
+.active-forms {
+    background-color: #FBD87F;
+}
+
+.active-form-li {
     background-color: #FBD87F;
 }
 
@@ -94,8 +98,9 @@
     background: none;
     outline: none;
 }
-.form-inp-con input{
-    padding: 10px;
+
+.form-inp-con input {
+    padding: 10px 2px;
     width: 80%;
     height: 100%;
     background: transparent;
@@ -107,7 +112,104 @@
 .leave-frm button {
     text-align: center;
 }
-.form-inp-con img{
+
+.form-inp-con img {
     width: 20px;
     height: 20px;
+}
+
+#permission {
+    display: none;
+}
+
+#sick-leave {
+    display: none;
+}
+
+.time-leave-con {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.time-leave-con input {
+    padding: 10px 2px;
+    width: 40%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+    font-size: 18px;
+}
+
+.time-leave-con label {
+    text-align: left !important;
+    display: flex;
+    align-items: flex-start;
+    width: 0%;
+    margin: 0 auto;
+    font-family: abzee-regular;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.time-inp {
+    width: 100%;
+    margin: 8px auto;
+    border-radius: 15px;
+    padding: 10px;
+    border: 3px solid #918f8f;
+    background: none;
+    outline: none;
+
+}
+
+.time-inp input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+}
+
+.main-leave-con {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+    margin: 0 auto;
+}
+
+#leaveHistorys {
+    display: none;
+}
+
+.leave-table-head {
+    background-color: #FBD87F;
+    border: none;
+    outline: none;
+    font-family: abzee-regular;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: none !important;
+}
+
+.table-body-li {
+    text-align: center;
+    font-family: abzee-regular;
+    font-size: 16px;
+    background-color: #FFF !important;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin: 4px 0px !important;
+    border-bottom: 1px solid #fff;
+    padding: 10px 0px !important;
+}
+.table-icon{
+    width: 20px;
+    height: 20px;
+    margin: 0px 6px;
 }
