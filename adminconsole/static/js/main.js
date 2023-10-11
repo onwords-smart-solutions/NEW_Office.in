@@ -166,12 +166,12 @@ leaveHistoryBtn.addEventListener('click', () => {
 
 //   =============leave form end========
 
-function lateform(){
+function lateform() {
     const LateCon = document.getElementById('late_con')
     const LateHistory = document.getElementById('lateHistory')
     const lateBtn = document.getElementById('lateBtn')
     const LateHistoryBtn = document.getElementById('lateHistoryBtn')
-    
+
     lateBtn.addEventListener('click', () => {
         LateCon.style.display = 'block'
         LateHistory.style.display = 'none'
@@ -188,23 +188,46 @@ function lateform(){
 }
 
 // =============late entry start===================
-function approvalpage(){
-const lateApprovalBtn = document.getElementById('lateApprovalBtn')
-const leaveApprovalBtn = document.getElementById('leaveApprovalBtn')
-const lateApprovalTable = document.getElementById('lateApprovalTable')
-const leaveApprovalTable = document.getElementById('leaveApprovalTable')
+function approvalpage() {
+    const lateApprovalBtn = document.getElementById('lateApprovalBtn')
+    const leaveApprovalBtn = document.getElementById('leaveApprovalBtn')
+    const lateApprovalTable = document.getElementById('lateApprovalTable')
+    const leaveApprovalTable = document.getElementById('leaveApprovalTable')
 
-lateApprovalBtn.addEventListener('click', () => {
-    lateApprovalTable.style.display = 'block'
-    leaveApprovalTable.style.display = 'none'
-    lateApprovalBtn.classList.add('active-form-li')
-    leaveApprovalBtn.classList.remove('active-form-li')
-})
+    lateApprovalBtn.addEventListener('click', () => {
+        lateApprovalTable.style.display = 'block'
+        leaveApprovalTable.style.display = 'none'
+        lateApprovalBtn.classList.add('active-form-li')
+        leaveApprovalBtn.classList.remove('active-form-li')
+    })
 
-leaveApprovalBtn.addEventListener('click', () => {
-    lateApprovalTable.style.display = 'none'
-    leaveApprovalTable.style.display = 'block'
-    lateApprovalBtn.classList.remove('active-form-li')
-    leaveApprovalBtn.classList.add('active-form-li')
-})
+    leaveApprovalBtn.addEventListener('click', () => {
+        lateApprovalTable.style.display = 'none'
+        leaveApprovalTable.style.display = 'block'
+        lateApprovalBtn.classList.remove('active-form-li')
+        leaveApprovalBtn.classList.add('active-form-li')
+    })
 }
+
+
+// =============pr lead form=============
+
+function createLead(){
+    const usingData = document.getElementById('usingData')
+    const usingFile = document.getElementById('usingFile')
+    const LeadForm = document.getElementById('create_lead_form')
+    const dataForm = document.getElementById('create_data_lead')
+
+    usingData.addEventListener('click',()=>{
+        LeadForm.style.display='block'
+        dataForm.style.display='none'
+        usingData.classList.add('active-form-late')
+        usingFile.classList.remove('active-form-late')
+    })
+    usingFile.addEventListener('click',()=>{
+        LeadForm.style.display='none'
+        dataForm.style.display='block'
+        usingData.classList.remove('active-form-late')
+        usingFile.classList.add('active-form-late')
+    })
+ }
