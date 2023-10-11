@@ -349,7 +349,7 @@
                                 <div class="col-md-6">
                                     <div class="pr-box-dashboard today_lead">
                                         <div class="first-dashbord-box-text">
-                                            <h3>Today Leads</h3>
+                                            <h4>Today Leads</h4>
                                             <h1>32</h1>
                                         </div>
                                         <div class="second-dashbord-box-text">
@@ -361,7 +361,7 @@
                                 <div class="col-md-6">
                                     <div class="pr-box-dashboard inprocess">
                                         <div class="first-dashbord-box-text">
-                                            <h3>In Process</h3>
+                                            <h4>In Process</h4>
                                             <h1>76</h1>
                                         </div>
                                         <div class="second-dashbord-box-text">
@@ -375,7 +375,7 @@
                                 <div class="col-md-6">
                                     <div class="pr-box-dashboard pending-dashboard">
                                         <div class="first-dashbord-box-text">
-                                            <h3>Pending</h3>
+                                            <h4>Pending</h4>
                                             <h1>46</h1>
                                         </div>
                                         <div class="second-dashbord-box-text">
@@ -387,7 +387,7 @@
                                 <div class="col-md-6">
                                     <div class="pr-box-dashboard completed-dashboard">
                                         <div class="first-dashbord-box-text">
-                                            <h3>Completed</h3>
+                                            <h4>Completed</h4>
                                             <h1>102</h1>
                                         </div>
                                         <div class="second-dashbord-box-text">
@@ -401,48 +401,37 @@
                         <div class="col-md-4">
                             <div class="quotation-box-dashboard">
                                 <h4>Last Week Quotation</h4>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="leave-chart">
-                                            <canvas id="myChart3" width="200" height="200"></canvas>
-                                            <!-- <div class="leave-precent">
-                                                <span class="top-num">17</span>
-                                                <span class="dived-sympl">/</span>
-                                                <span class="bottom-num">24</span>
-                                            </div> -->
-                                        </div>
+                                <div class="quot-chart">
+                                    <canvas id="myChart3"></canvas>
+                                </div>
+                                
+                                <div class="bottom-quot-list">
+                                    <div class="d-flex align-items-center justify-content-between mx-3">
+                                      <div class="d-flex align-items-center">
+                                        <p class="circl-quot quots-cir"></p>
+                                        <h5>Quotation</h5>
+                                      </div>
+                                      <div class="quot-count">
+                                        <h5>23</h5>
+                                      </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-9 d-flex align-items-center">
-                                                <p class="circl me-1 sick-circl"></p>
-                                                <p class="leave-text">Quotation</p>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <p class="leave-text leave-count">13</p>
-                                            </div>
-                                            <div class="col-md-1"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-9 d-flex align-items-center">
-                                                <p class="circl me-1 casual-circl"></p>
-                                                <p class="leave-text">Invoice</p>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <p class="leave-text leave-count">4</p>
-                                            </div>
-                                            <div class="col-md-1"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-9 d-flex align-items-center">
-                                                <p class="circl me-1 casual-circl"></p>
-                                                <p class="leave-text">Proforma Invoice</p>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <p class="leave-text leave-count">2</p>
-                                            </div>
-                                            <div class="col-md-1"></div>
-                                        </div>
+                                    <div class="d-flex align-items-center justify-content-between mx-3">
+                                      <div class="d-flex align-items-center">
+                                        <p class="circl-quot inv-circ"></p>
+                                        <h5>Invoice</h5>
+                                      </div>
+                                      <div class="quot-count">
+                                        <h5>2</h5>
+                                      </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mx-3 pb-2">
+                                      <div class="d-flex align-items-center">
+                                        <p class="circl-quot proforma-cir"></p>
+                                        <h5>Proforma Invoice</h5>
+                                      </div>
+                                      <div class="quot-count">
+                                        <h5>5</h5>
+                                      </div>
                                     </div>
                                 </div>
                             </div>
@@ -466,30 +455,31 @@
 
         <script>
             // break
-var xValues = [];
-var yValues = [45, 37];
-var barColors = [
-    "#7FA9FB",
-    "#266386",
-];
-new Chart("myChart3", {
-    type: "doughnut",
-    data: {
-        labels: xValues,
-        datasets: [{
-            backgroundColor: barColors,
-            data: yValues,
-            borderColor: 'transparent'
-        }]
-    },
-    options: {
-        cutoutPercentage: 80,
-        title: {
-            display: true,
-            text: ""
-        }
-    }
-});
+            var xValues = [];
+            var yValues = [45, 37, 18];
+            var barColors = [
+                "#7FA9FB",
+                "#266386",
+                "#a78f0d",
+            ];
+            new Chart("myChart3", {
+                type: "doughnut",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues,
+                        borderColor: 'transparent'
+                    }]
+                },
+                options: {
+                    cutoutPercentage: 80,
+                    title: {
+                        display: true,
+                        text: ""
+                    }
+                }
+            });
         </script>
 </body>
 
