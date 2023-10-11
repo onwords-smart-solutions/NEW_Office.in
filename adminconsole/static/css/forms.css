@@ -40,15 +40,46 @@
     align-items: center;
     justify-content: center;
 }
+.leave-form-cons{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .leave-list {
     width: 50%;
     height: 100%;
 }
+.leave-listsug{
+    height: 100vh;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.leave-listsug form{
+    width: 80%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
 
 .leave-img {
     width: 50%;
     height: 100%;
+}
+.leave-imgs{
+    width: 50%;
+    height: 100%;
+}
+.leave-imgs img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .leave-lists {
@@ -221,4 +252,9 @@
 }
 #lateApprovalTable{
     display: none;
+}
+
+.suggestionLable{
+    font-size: 20px;
+    font-weight: bold;
 }
