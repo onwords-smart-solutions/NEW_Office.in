@@ -1,0 +1,57 @@
+.pr-lead-dashboard{
+    height: 43vh;
+    width: 100%;
+}
+.pr-box-dashboard{
+    height: 19vh;
+    margin: 7px 0px;
+    width: 100%;
+    background-color: #ffff;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+}
+.today_lead{
+    background-color: #FFBA96;
+    background-image: url(../images/today-lead.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.inprocess{
+    background-color: #85D4E5;
+    background-image: url(../images/today-lead.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.pending-dashboard{
+    background-color: #8F9AF8;
+    background-image: url(../images/today-lead.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.completed-dashboard{
+    background-color: #9FE886;
+    background-image: url(../images/today-lead.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.second-dashbord-box-text img{
+    width: 70px;
+}
+
+.quotation-box-dashboard{
+    height: 40vh;
+    margin: 7px 0px;
+    width: 100%;
+    background-color: #ffff;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}

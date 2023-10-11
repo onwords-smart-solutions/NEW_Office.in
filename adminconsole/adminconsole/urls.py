@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from it import views as itviews
+from pr import views as prviews
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.login, name="login"),
@@ -15,4 +16,7 @@ urlpatterns = [
 
     # ============it team===============
      path("ithome/", itviews.ithome, name="ithome"),
+
+    # =================pr team============  
+    path("prhome/",prviews.prhome,name='prhome') 
 ]
