@@ -18,5 +18,6 @@ urlpatterns = [
      path("ithome/", itviews.ithome, name="ithome"),
 
     # =================pr team============  
-    path("prhome/",prviews.prhome,name='prhome') 
+    path("prhome/",prviews.prhome,name='prhome'), 
+    path("create_lead/",prviews.create_lead,name='create_lead') 
 ]

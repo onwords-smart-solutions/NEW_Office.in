@@ -4,3 +4,5 @@ from django.shortcuts import render
 
 def prhome(request):
     return render(request,'prhome.html')
+def create_lead(request):
+    return render(request,'createLead.html')

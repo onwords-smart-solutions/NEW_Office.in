@@ -210,4 +210,24 @@ function approvalpage() {
 }
 
 
-// =============pr quotaion form=============
+// =============pr lead form=============
+
+function createLead(){
+    const usingData = document.getElementById('usingData')
+    const usingFile = document.getElementById('usingFile')
+    const LeadForm = document.getElementById('create_lead_form')
+    const dataForm = document.getElementById('create_data_lead')
+
+    usingData.addEventListener('click',()=>{
+        LeadForm.style.display='block'
+        dataForm.style.display='none'
+        usingData.classList.add('active-form-late')
+        usingFile.classList.remove('active-form-late')
+    })
+    usingFile.addEventListener('click',()=>{
+        LeadForm.style.display='none'
+        dataForm.style.display='block'
+        usingData.classList.remove('active-form-late')
+        usingFile.classList.add('active-form-late')
+    })
+ }
