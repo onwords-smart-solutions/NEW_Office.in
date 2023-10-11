@@ -19,7 +19,7 @@
 }
 
 body {
-    background-color: ECEFF6;
+    background-color: #ECEFF6;
     width: 100%;
     height: 100vh;
 }
@@ -172,6 +172,10 @@ ul {
 .main-logo {
     width: 120px;
 }
+.menu-icon img{
+    width: 25px;
+    height: 25px;
+}
 
 .menu-icon {
     width: 100%;
@@ -180,6 +184,14 @@ ul {
     align-items: center;
     justify-content: center;
     padding: 0px 10px;
+}
+.menu-icons,.close-icons{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.close-icons{
+    display: none;
 }
 
 .logout {
@@ -215,6 +227,7 @@ ul {
     font-weight: 600;
 }
 
+<<<<<<< HEAD
 #carouselExampleControls {
     height: 100% !important;
 }
@@ -230,6 +243,8 @@ ul {
 .carousel-inner {
     height: 100% !important;
 }
+=======
+>>>>>>> 71a00e15d5ee02c07c80b3cb5865ecec19a1cbca
 
 /* ===========main-con start============ */
 .refreshment-con,
@@ -367,6 +382,7 @@ ul {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-family: abzee-regular;
 }
 
 .notify-left,
