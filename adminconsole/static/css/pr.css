@@ -206,7 +206,7 @@
 
 .searchBtn img {
     object-fit: contain;
-    padding: 8px;
+    padding: 12px;
     height: 100%;
     width: 100%;
 }
@@ -230,9 +230,11 @@
     height: 25vh;
     /* background-color: #266386; */
 }
-.second-custom-img{
+
+.second-custom-img {
     width: 40px;
 }
+
 .custom-btn {
     width: 100%;
     height: 12vh;
@@ -244,23 +246,56 @@
     justify-content: space-between;
     padding: 10px;
 }
+
 .following-up {
     background: #91F291;
 }
-.onwords-btn{
+
+.onwords-btn {
     background: rgba(245, 95, 95, 0.47)
 }
-.cust-lead{
+
+.cust-lead {
     background: rgba(245, 95, 95, 0.47);
 }
-.cust-delay{
+
+.cust-delay {
     background: #eea929;
 }
-.cust-adv{
+
+.cust-adv {
     background: #F1F7B5;
 }
-.cust-product{
+
+.cust-product {
     background: #63e0e9;
 }
 
+.cust-b2b {
+    background: #9EA1D4;
+}
 
+.under-construction {
+    background: #F099D2;
+}
+
+.cust-instal {
+    background: #16F0B6;
+}
+
+.cust-interst {
+    background: #9EA1D4;
+}
+
+.cust-other {
+    background: #9EA1D4;
+}
+
+.two-btn-cust {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
