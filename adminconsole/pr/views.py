@@ -6,3 +6,5 @@ def prhome(request):
     return render(request,'prhome.html')
 def create_lead(request):
     return render(request,'createLead.html')
+def customer_details(request):
+    return render(request,'customer_details.html')

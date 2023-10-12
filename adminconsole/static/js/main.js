@@ -7,6 +7,11 @@ function navcon() {
     var menuIcon = document.querySelector('.menu-icons')
     if (navCon.style.width == '5%') {
         navCon.style.width = '18%'
+    
+    
+    
+    
+    
         rightCon.style.width = '82%'
         for (const rightnav of rightnavlist) {
             rightnav.style.display = 'block'
