@@ -175,7 +175,7 @@
                     </div>
                 </div>
                 <div class="financial-nav">
-                    <h5 class=" active-financial" onclick="exp()" id="exp-main-nav">
+                    <h5 class="  active-financial" onclick="exp()" id="exp-main-nav">
                         Expense
                     </h5>
                     <h5 class="" onclick="inc()" id="inc-main-nav">
@@ -197,13 +197,74 @@
                         </form>
                     </div>
                     <div class="col-md-2">
-                        <div class="primary-button" id="expenseBtn" >Expense Add +</div>
-                        <div class="primary-button" id="IncomeBtn" >Income Add +</div>
+                        <div class="primary-button fin" id="expenseBtn" onclick="expInpBox()" >Expense Add +</div>
+                        <div class="primary-button fin" id="IncomeBtn"  onclick="incInpBox()">Income Add +</div>
                     </div>
                 </div>
               <div class="fin-con">
-                <div class="exp-inpbox"></div>
-                <div class="inc-inpbox"></div>
+                <div class="exp-inpbox" id="exp-box" >
+
+                    <div class="exp-enter-data">
+                        <div class="fin-enter-inp">
+                            <p>Product</p>
+                            <input type="text">
+                        </div>
+                        <div class="fin-enter-inp">
+                            <p>Purchased on</p>
+                            <input type="date">
+                        </div>
+                        <div class="fin-enter-inp">
+                            <p>Amount</p>
+                            <input type="text" placeholder="Amount">
+                        </div>
+                        <div class="fin-enter-inp">
+                            <p>Service(Vendor)</p>
+                            <input type="text">
+                        </div>
+                        <div class="fin-enter-inp">
+                            <p>For(Bought For)</p>
+                            <input type="text">
+                        </div>
+                        <div class="fin-enter-inp">
+                            
+                           <button class="primary-button">Submit</button>
+                        </div>
+    
+                    </div>
+                </div>
+                <div class="inc-inpbox" id="inc-box">
+                    <div class="exp-enter-data">
+                        <div class="fin-enter-inp">
+                            <p>Product</p>
+                            <input type="text">
+                        </div>
+                        <div class="fin-enter-inp">
+                            <p>Customer name</p>
+                            <input type="text">
+                        </div>
+                        <div class="fin-enter-inp">
+                            <p>Paid on</p>
+                            <input type="date" >
+                        </div>
+                        <div class="fin-enter-inp">
+                            <p>Amount</p>
+                            <input type="text" placeholder="Amount">
+                        </div>
+                        <div class="fin-enter-inp">
+                            <p>Invoice no</p>
+                            <input type="text" placeholder="invoice Number">
+                        </div>
+                        <div class="fin-enter-inp">
+                            <p>Payment Method</p>
+                            <input type="text" placeholder="payment Method">
+                        </div>
+                        <div class="fin-enter-inp">
+                            
+                           <button class="primary-button">Submit</button>
+                        </div>
+    
+                    </div>
+                </div>
               </div>  
                 <div class="expense-table" id="expense-table">
                     <table class="table my-3">
@@ -271,7 +332,7 @@
                     </table>
                 </div>
                 <div class="income-table" id="income-table">
-                    <h2>Income table</h2>
+                    
                     <table class="table my-3">
                         <thead>
                             <tr class="leave-table-head">
@@ -282,7 +343,6 @@
                                 <th>Invoice No</th>
                                 <th>Payment Method</th>
                                 <th>Entered By</th>
-
                             </tr>
                         </thead>
                         <tbody>

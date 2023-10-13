@@ -243,10 +243,14 @@ function exp() {
     const IncomeBtn = document.getElementById('IncomeBtn')
     const expenseTable = document.getElementById('expense-table')
     const incomeTable = document.getElementById('income-table')
+    const ExpMainNav = document.getElementById('exp-main-nav')
+    const IncMainNav = document.getElementById('inc-main-nav')
     expenseBtn.style.display = 'block'
     IncomeBtn.style.display = 'none'
     expenseTable.style.display = 'block'
     incomeTable.style.display = 'none'
+    ExpMainNav.classList.add('active-financial')
+    IncMainNav.classList.remove('active-financial')
 }
 
 function inc() {
@@ -254,12 +258,42 @@ function inc() {
     const IncomeBtn = document.getElementById('IncomeBtn')
     const expenseTable = document.getElementById('expense-table')
     const incomeTable = document.getElementById('income-table')
+    const ExpMainNav = document.getElementById('exp-main-nav')
+    const IncMainNav = document.getElementById('inc-main-nav')
     expenseBtn.style.display = 'none'
     IncomeBtn.style.display = 'block'
     expenseTable.style.display = 'none'
     incomeTable.style.display = 'block'
+    ExpMainNav.classList.remove('active-financial')
+    IncMainNav.classList.add('active-financial')
 }
 
+function expInpBox() {
+    const expBox = document.getElementById('exp-box')
+    const IncBox = document.getElementById('inc-box')
+    if (expBox.style.display == 'none') {
+        expBox.style.display = 'block'
+        IncBox.style.display = 'none'
+    }
+    else {
+        expBox.style.display = 'none'
+        IncBox.style.display = 'none'
+    }
+
+}
+function incInpBox() {
+    const expBox = document.getElementById('exp-box')
+    const IncBox = document.getElementById('inc-box')
+    if (IncBox.style.display == 'none') {
+        expBox.style.display = 'none'
+        IncBox.style.display = 'block'
+    }
+    else {
+        expBox.style.display = 'none'
+        IncBox.style.display = 'none'
+    }
+
+}
 
 
 // ======================
