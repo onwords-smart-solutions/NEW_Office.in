@@ -260,3 +260,6 @@ function inc() {
     incomeTable.style.display = 'block'
 }
 
+
+
+// ======================
