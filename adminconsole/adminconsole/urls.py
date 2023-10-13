@@ -13,7 +13,7 @@ urlpatterns = [
     path("suggestion", views.suggestion, name="suggestion"),
     path("refreshment/",views.refreshment, name="refreshment"),
 
-
+    path("logout/", views.logout, name="logout"),
 
     # ============it team===============
      path("ithome/", itviews.ithome, name="ithome"),
@@ -22,4 +22,10 @@ urlpatterns = [
     path("prhome/",prviews.prhome,name='prhome'), 
     path("create_lead/",prviews.create_lead,name='create_lead'), 
     path("customer_details/",prviews.customer_details,name='customer_details'), 
+    path("points_workdone/",prviews.points_workdone,name='points_workdone'), 
+
+
+    # ================accounts department ====================
+
+    path("financial/",views.financial,name='financial')
 ]

@@ -113,6 +113,8 @@ def leave_approval(request):
     return render(request,'approval.html')
 def suggestion(request):
     return render(request,'suggestion.html')
+def financial(request):
+    return render(request,'financial.html')
 
 
 
@@ -245,3 +247,9 @@ def checkUserName(uid):
         if uid == x:
             z = data[x]["name"]
             return z
+
+def logout(request):
+    response = redirect("login")
+    response.delete_cookie("uid")
+    response.delete_cookie("loginState")
+    return response            
