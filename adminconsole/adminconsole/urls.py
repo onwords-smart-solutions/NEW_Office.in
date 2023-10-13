@@ -11,6 +11,7 @@ urlpatterns = [
     path("late_form", views.late_form, name="late_form"),
     path("approval", views.leave_approval, name="leave_approval"),
     path("suggestion", views.suggestion, name="suggestion"),
+    path("refreshment/",views.refreshment, name="refreshment"),
 
 
 

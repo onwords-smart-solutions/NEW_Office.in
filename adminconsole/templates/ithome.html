@@ -47,9 +47,20 @@
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
                                     </div>
                                     <div class="emply-id">
-                                        <span>Vinith</span><br>
-                                        <span>ID:WD002</span><br>
-                                        <span>Web Developer</span>
+                                        <span>{{ name }}</span><br>
+                                        <span>{% if dep == "WEB" %}
+                                            <p>Web Developer</p>
+                                        {% elif dep == "APP" %}
+                                            <p>App developer</p>
+                                        {% elif dep == "MEDIA" %}
+                                            <p>Graphic designer</p>
+                                        {% elif dep == "PR" %}
+                                            <p>PR</p>
+                                        {% elif dep == "RND" %}
+                                            <p>R&D</p>
+                                        {% else %}
+                                            <p>Admin</p>
+                                        {% endif %}</span>
                                     </div>
                                 </div>
                             </div>
@@ -135,34 +146,39 @@
                             <div class="row d-flex align-items-center">
                                 <div class="col-md-4">
                                     <span>Check In</span><br>
-                                    <span>09:00</span>
+                                    <span>{{ todaycheckin }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 65%;"
-                                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: {{ todayprogress }}%"
+                                         aria-valuenow="{{ todayprogress }}" aria-valuemin="0" aria-valuemax="100"></div>
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <span>Check Out</span><br>
-                                    <span>No Entry</span>
+                                    <span>{{ todaycheckout }}</span>
                                 </div>
                             </div>
                             <h6>Yesterday</h6>
                             <div class="row d-flex align-items-center mt-1">
                                 <div class="col-md-4">
                                     <span>Check In</span><br>
-                                    <span>09:00</span>
+                                    <span>{{ yescheckin }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 100%;"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div id="progress-bar" role="progressbar" style="width: {{ yesprogress }}%;"
+                                         aria-valuenow="{{ yesprogress }}" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
+                                    
+                                    
+                                    
+                                    
                                 </div>
                                 <div class="col-md-4">
                                     <span>Check Out</span><br>
-                                    <span>06:23</span>
+                                    <span>{{ yescheckout }}</span>
                                 </div>
                             </div>
                         </div>
@@ -171,58 +187,63 @@
                         <div class="refreshment-con">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <form action="">
+                                    <form action="" method="post" id="refreshment-form">
+                                        {% csrf_token %}
                                         <div class="d-flex align-items-center">
                                             <div class="refresh-order">
                                                 <h4>Refreshment</h4>
-                                                <div class="refresh-list">
-                                                    <label for="tea" class="row">
-                                                        <div class="col-md-10">
-                                                            <p class="refresh-text"><img
-                                                                    src="{% static 'images/tea-icon.png' %}"
-                                                                    alt="tea-icon" class="refresh-icon">Tea</p>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <input type="checkbox" class="check-order" id="tea">
-                                                        </div>
-                                                    </label>
+                                                <div id="tea-coffee-milk">
+                                                    <div class="refresh-list">
+                                                        <label for="tea" class="row">
+                                                            <div class="col-md-10">
+                                                                <p class="refresh-text"><img
+                                                                        src="{% static 'images/tea-icon.png' %}"
+                                                                        alt="tea-icon" class="refresh-icon">Tea</p>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <input type="checkbox" class="check-order" id="tea" name="refreshment" value="tea">
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="refresh-list">
+                                                        <label for="coffee" class="row">
+                                                            <div class="col-md-10">
+                                                                <p class="refresh-text"> <img
+                                                                        src="{% static 'images/tea-icon.png' %}"
+                                                                        alt="tea-icon" class="refresh-icon">Coffee</p>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <input type="checkbox" class="check-order" id="coffee" name="refreshment" value="coffee">
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="refresh-list">
+                                                        <label for="milk" class="row">
+                                                            <div class="col-md-10">
+                                                                <p class="refresh-text"> <img
+                                                                        src="{% static 'images/tea-icon.png' %}"
+                                                                        alt="tea-icon" class="refresh-icon">Milk</p>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <input type="checkbox" class="check-order" id="milk" name="refreshment" value="milk">
+                                                            </div>
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                                <div class="refresh-list">
-                                                    <label for="coffee" class="row">
-                                                        <div class="col-md-10">
-                                                            <p class="refresh-text"> <img
-                                                                    src="{% static 'images/tea-icon.png' %}"
-                                                                    alt="tea-icon" class="refresh-icon">Coffee</p>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <input type="checkbox" class="check-order" id="coffee">
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div class="refresh-list">
-                                                    <label for="milk" class="row">
-                                                        <div class="col-md-10">
-                                                            <p class="refresh-text"> <img
-                                                                    src="{% static 'images/tea-icon.png' %}"
-                                                                    alt="tea-icon" class="refresh-icon">Milk</p>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <input type="checkbox" class="check-order" id="milk">
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div class="refresh-list">
-                                                    <label for="lunch" class="row">
-                                                        <div class="col-md-10">
-                                                            <p class="refresh-text"> <img
-                                                                    src="{% static 'images/tea-icon.png' %}"
-                                                                    alt="tea-icon" class="refresh-icon">Lunch</p>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <input type="checkbox" class="check-order" id="lunch">
-                                                        </div>
-                                                    </label>
-                                                </div>
+                                                <div id="tea-coffee">   
+                                                    <div class="refresh-list">
+                                                        <label for="lunch" class="row">
+                                                            <div class="col-md-10">
+                                                                <p class="refresh-text"> <img
+                                                                        src="{% static 'images/tea-icon.png' %}"
+                                                                        alt="tea-icon" class="refresh-icon">Lunch</p>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <input type="checkbox" class="check-order" id="lunch" name="refreshment" value="Lunch">
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div> 
                                             </div>
 
                                             <div class="order-button">
@@ -230,7 +251,7 @@
                                                     class="primary-button px-2">Order</button>
                                             </div>
                                         </div>
-                                    </form>
+                                    </form> 
                                 </div>
 
                                 <div class="col-md-4">
@@ -526,6 +547,69 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        $(document).ready(function() {
+            var progressBar = document.getElementById("progress-bar");
+            progressBar.style.width = "{{ yesprogress }}%";
+            if ({{ yesprogress }} < 100) {
+                progressBar.style.backgroundColor = "red";
+            } else {
+                progressBar.style.backgroundColor = "#e0ae09";
+            }
+        });
+        $(document).ready(function() {
+           
+            function updateOptions() {
+            var currentDate = new Date();
+            var currentHour = currentDate.getHours();
+            console.log("hour",currentHour)
+    
+         
+            var showTeaCoffeeMilk = currentHour >= 9 && currentHour < 11;
+            var showTeaCoffee = currentHour >= 14 && currentHour < 16;
+    
+           
+            if (showTeaCoffeeMilk) {
+                $("#tea-coffee-milk").show();
+                $("#tea-coffee").show();
+            } else if (showTeaCoffee) {
+                $("#tea-coffee-milk").show();
+                $("#tea-coffee").hide();
+            } else {
+                $("#tea-coffee-milk").hide();
+                $("#tea-coffee").hide();
+                //if no time for refreshment
+            }
+        }
+        updateOptions();
+    setInterval(updateOptions, 1000);
+
+        });
+    </script>
+  <script>
+    $(document).ready(function() {
+        $("#refreshment-form").on("submit", function(event) {
+            event.preventDefault();  
+
+            var formData = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "/refreshment/",
+                data: formData,
+                success: function(response) {
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+
+                    console.log("AJAX Error: " + error);
+                }
+            });
+        });
+    });    
+</script>
+
 
 </body>
 
