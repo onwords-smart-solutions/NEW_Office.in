@@ -58,7 +58,7 @@
 
                     </div>
                     <ul id="nav-main-con">
-                        <li class="navlistmenu" onclick="location.href='/ithome'">
+                        <li class="navlistmenu" onclick="location.href='/prhome'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon">
@@ -108,6 +108,18 @@
                                 <h5>Create Lead</h5>
                             </div>
                         </li>
+
+                        <li class="navlistmenu" onclick="location.href='/customer_details'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/customer-icon.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Customer Details</h5>
+                            </div>
+                        </li>
+
 
                     </ul>
                     <div class="logout" onclick="location.href=''">
@@ -190,8 +202,8 @@
                             <input type="checkbox" id="gate">
                            </div>
                            <div class="d-flex align-items-center checkbox-li">
-                            <label for="securitysysytem" class="lable-li">Security System</label>
-                            <input type="checkbox" id="securitysysytem">
+                            <label for="others" class="lable-li">Others</label>
+                            <input type="checkbox" id="others">
                            </div>
                           </div>
                           <div class="lead-inp-con">
@@ -200,7 +212,7 @@
                           </div>
                           <div class="lead-inp-con">
                             <img src="{% static 'images/user-icon.svg' %}" alt="user_icon" class="img-fluid">
-                           <select name="" id="">
+                           <select name="" id="" class="leadAssignPerson">
                             <option value="">Lead Assign</option>
                             <option value="gowtham">Gowtham</option>
                             <option value="arunkumar">Arunkumar</option>

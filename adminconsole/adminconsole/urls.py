@@ -19,5 +19,6 @@ urlpatterns = [
 
     # =================pr team============  
     path("prhome/",prviews.prhome,name='prhome'), 
-    path("create_lead/",prviews.create_lead,name='create_lead') 
+    path("create_lead/",prviews.create_lead,name='create_lead'), 
+    path("customer_details/",prviews.customer_details,name='customer_details'), 
 ]

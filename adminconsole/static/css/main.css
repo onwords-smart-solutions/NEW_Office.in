@@ -158,6 +158,9 @@ h6 {
     float: right;
     display: none;
 }
+.right-nav-list h5{
+    font-size: 18px;
+}
 
 ul {
     padding: 0 !important;
