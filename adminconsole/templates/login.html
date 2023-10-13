@@ -22,10 +22,12 @@
                     <div class="login-admin">
 
                         <div class="login-form" id="login">
-                            <form action="" class="login-form">
+                            
+                            <form action="/" class="login-form" method="post">
+                                {% csrf_token %}
                                 <div class="h2">Signin</div>
-                                <input type="email" name="" id="" placeholder="Email">
-                                <input type="password" name="" id="" placeholder="Password">
+                                <input type="email" name="email" id="" placeholder="Email">
+                                <input type="password" name="password" id="" placeholder="Password">
 
                                 <button class="primary-button sign-btn">Signin</button>
 

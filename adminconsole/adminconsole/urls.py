@@ -11,8 +11,9 @@ urlpatterns = [
     path("late_form", views.late_form, name="late_form"),
     path("approval", views.leave_approval, name="leave_approval"),
     path("suggestion", views.suggestion, name="suggestion"),
+    path("refreshment/",views.refreshment, name="refreshment"),
 
-
+    path("logout/", views.logout, name="logout"),
 
     # ============it team===============
      path("ithome/", itviews.ithome, name="ithome"),
@@ -26,15 +27,5 @@ urlpatterns = [
 
     # ================accounts department ====================
 
-    path("financial",views.financial,name='financial')
-
- 
-
-
-
-
-
-
-
-
+    path("financial/",views.financial,name='financial')
 ]
