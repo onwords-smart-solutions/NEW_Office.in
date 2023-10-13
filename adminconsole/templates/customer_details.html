@@ -315,7 +315,233 @@
 
                             <div class="two-btn-cust">
                                 <div class="pr-staff btn btn-outline-primary m-1 w-100">Pr staff</div>
-                                <div class="BlockDots btn btn-outline-info m-1 w-100">Block Dots</div>
+                                <div class="BlockDots btn btn-outline-info m-1 w-100 dropdown blockdot-drop">
+                                    <button class="btn  dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            Blackdots
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li> <span class="dropdown-item">
+                                                    <label for="anithaIdd">
+                                                        Anithaa
+                                                        <span id="b-anitha"></span>
+                                                    </label>
+                                                    <input type="checkbox" name="bd-staff-name" id="anithaIdd"
+                                                        value="Anitha" onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdown-items">
+                                                    <label for="jeevaIdd">
+                                                        Jeeva
+                                                        <span id="b-jeeva"></span>
+                                                    </label>
+                                                    <input type="checkbox" name="bd-staff-name" id="jeevaIdd"
+                                                        value="Jeeva" onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdown-items">
+                                                    <label for="gIdd">Gowtham <span
+                                                            id="b-gowtham"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name" id="gIdd"
+                                                        value="Gowtham" onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="abdulIdd">Abdul Abbas <span
+                                                            id="b-abdul"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name" id="abdulIdd"
+                                                        value="Abdul Abbas" onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="arunIdd">Arun Kumar <span
+                                                            id="b-arun"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name" id="arunIdd"
+                                                        value="Arun Kumar" onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="vasanthIdd">Vasanth Kumar <span
+                                                            id="b-vasanth"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name" id="vasanthIdd"
+                                                        value="Vasanth Kumar" onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="pradeepIdd">Pradeep Kanth <span
+                                                            id="b-pradeep"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name" id="pradeepIdd"
+                                                        value="Pradeep Kanth" onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="sakthiIdd">Sakthivel Nagaraj <span
+                                                            id="b-sakthi"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name" id="sakthiIdd"
+                                                        value="Sakthivel Nagaraj" onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="radhaIdd">Radhakrishnan <span
+                                                            id="b-radha"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name" id="radhaIdd"
+                                                        value="Radhakrishnan" onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="onwordsIddd">Onwords <span
+                                                            id="b-onwords"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name" id="onwordsIddd"
+                                                        value="Onwords" onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="iyyappanIddd">Iyyappan K<span
+                                                            id="b-iyyappan"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="iyyappanIddd" value="Iyyappan K"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="abdulkareemIddd">Abdul Kareem<span
+                                                            id="b-abdulkareem"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="abdulkareemIddd" value="Abdul Kareem"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="ashikaboobackerIddd">Ashik Aboobacker<span
+                                                            id="b-ashikaboobacker"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="ashikaboobackerIddd" value="Ashik Aboobacker"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="harshiniuIddd">Harshini U<span
+                                                            id="b-harshiniu"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="harshiniuIddd" value="Harshini U"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="aishwaryakIddd">Aishwarya K<span
+                                                            id="b-aishwaryak"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="aishwaryakIddd" value="Aishwarya K"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="karthikamIddd">Karthika M<span
+                                                            id="b-karthikam"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="karthikamIddd" value="Karthika M"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="sanjethtIddd">Sanjeth T<span
+                                                            id="b-sanjetht"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="sanjethtIddd" value="Sanjeth T"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="gokulnathnIddd">Gokulnath N<span
+                                                            id="b-gokulnathn"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="gokulnathnIddd" value="Gokulnath N"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="mohamedthouficIddd">Mohamed Thoufic<span
+                                                            id="b-mohamedthoufic"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="mohamedthouficIddd" value="Mohamed Thoufic"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="logeshpIddd">Logesh P<span
+                                                            id="b-logeshp"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="logeshpIddd" value="Logesh P"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="rajkannanbIddd">Rajkannan B<span
+                                                            id="b-rajkannanb"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="rajkannanbIddd" value="Rajkannan B"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="karthickrajaaIddd">Karthickraja A<span
+                                                            id="b-karthickrajaa"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="karthickrajaaIddd" value="Karthickraja A"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="pradeepkumarIddd">Pradeep kumar<span
+                                                            id="b-pradeepkumar"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="pradeepkumarIddd" value="Pradeep kumar"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="AnushaUnnikrishnanIddd">Anusha Unnikrishnan<span
+                                                            id="b-AnushaUnnikrishnan"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="AnushaUnnikrishnanIddd" value="Anusha Unnikrishnan"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdpwn-items">
+                                                    <label for="ArasiSIddd">Arasi S<span
+                                                            id="b-ArasiS"></span></label>
+                                                    <input type="checkbox" name="bd-staff-name"
+                                                        id="ArasiSIddd" value="Arasi S"
+                                                        onclick="getBDbyName()" />
+                                                </span>
+                                            </li>
+                                        </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
