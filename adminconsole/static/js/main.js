@@ -13,7 +13,7 @@ function navcon() {
     
     
         rightCon.style.width = '82%'
-        for (const rightnav of rightnavlist) {
+        for (const rightcon of rightnavlist) {
             rightnav.style.display = 'block'
         }
         smallLogo.style.display = 'none'
