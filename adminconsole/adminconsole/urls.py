@@ -27,4 +27,14 @@ urlpatterns = [
     # ================accounts department ====================
 
     path("financial",views.financial,name='financial')
+
+ 
+
+
+
+
+
+
+
+
 ]
