@@ -24,22 +24,24 @@
                     <img src="{% static 'images/leave-frm-img.svg' %}" alt="login-img" class="img-fluid">
                 </div>
                 <div class="col-md-6">
-                    <div class="" onclick="logins()">
+                    <div class="">
 
                         <div class="login-form" id="login">
                             <form action="" class="login-form">
                                 <div class="h2">Signin</div>
                                 <input type="text" name="" id="" placeholder="Name">
                                 <input type="password" name="" id="" placeholder="Password">
-                                <a href="">forgot</a>
+                              
                                 <button class="primary-button">Signin</button>
                             </form>
+                            <button onclick="forgot()">forgot</button>
                         </div>
                         <div class="signin-form" id="fwd">
                             <form action="">
                                 forgot
-                                <button class="btn btn-primary">reset</button>
+                               
                             </form>
+                            <button class="btn btn-primary" onclick="reset()">reset</button>
                         </div>
                     </div>
                 </div>
@@ -53,19 +55,21 @@
 
     <!-- js script  start -->
     <script>
-        function logins() {
+        function forgot() {
 
             const login = document.getElementById('login')
             const fwd = document.getElementById('fwd')
+            login.style.display='none'
+            fwd.style.display='block'
+          
+        }
+        function reset() {
 
-            login.addEventListener('click', () => {
-                login.style.display = 'block'
-                fwd.style.display = 'none'
-            })
-            fwd.addEventListener('click', () => {
-                login.style.display = 'none'
-                fwd.style.display = 'block'
-            })
+            const login = document.getElementById('login')
+            const fwd = document.getElementById('fwd')
+            login.style.display='block'
+            fwd.style.display='none'
+          
         }
     </script>
 
