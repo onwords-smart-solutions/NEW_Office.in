@@ -1,12 +1,58 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <title>Document</title>
 </head>
+
 <body>
-    
-    <h2>Login</h2>
+
+    <div class="container">
+        <div class="login-con">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="{% static 'images/leave-frm-img.svg' %}" alt="login-img" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <div class="login-admin">
+
+                        <div class="login-form" id="login">
+                            <form action="" class="login-form">
+                                <div class="h2">Signin</div>
+                                <input type="email" name="" id="" placeholder="Email">
+                                <input type="password" name="" id="" placeholder="Password">
+
+                                <button class="primary-button sign-btn">Signin</button>
+
+                            </form>
+                            <button class="forgot-btn" onclick="forgot()">Forgot Password?</button>
+                        </div>
+                        <div class="signin-form" id="fwd">
+                            <form action="">
+                                <h2>Forgot PAssword</h2>
+                                <input type="email" name="" id="" placeholder="Enter Your Email">
+
+                            </form>
+                            <button class="btn  reset" onclick="reset()">Reset Your Password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- bootstrap js -->
+
+    <script src="{% static 'js/login.js' %}"></script>
+    <!-- js script  start -->
+
+
 </body>
+
 </html>
