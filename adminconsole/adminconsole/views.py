@@ -11,3 +11,5 @@ def leave_approval(request):
     return render(request,'approval.html')
 def suggestion(request):
     return render(request,'suggestion.html')
+def financial(request):
+    return render(request,'financial.html')

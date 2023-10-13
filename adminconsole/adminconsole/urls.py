@@ -22,4 +22,9 @@ urlpatterns = [
     path("create_lead/",prviews.create_lead,name='create_lead'), 
     path("customer_details/",prviews.customer_details,name='customer_details'), 
     path("points_workdone/",prviews.points_workdone,name='points_workdone'), 
+
+
+    # ================accounts department ====================
+
+    path("financial",views.financial,name='financial')
 ]

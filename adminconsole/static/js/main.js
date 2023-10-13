@@ -1,10 +1,10 @@
+function navcon() {
     var navCon = document.querySelector('.nav-con')
     var rightCon = document.querySelector('.right-con')
     var rightnavlist = document.querySelectorAll('.right-nav-list')
     var smallLogo = document.querySelector('.small-logo')
     var closeIcon = document.querySelector('.close-icons')
     var menuIcon = document.querySelector('.menu-icons')
-function navcon() {
     if (navCon.style.width == '5%') {
         navCon.style.width = '18%'
         rightCon.style.width = '82%'
@@ -232,3 +232,31 @@ function createLead() {
         usingFile.classList.add('active-form-late')
     })
 }
+
+
+// ============financial====================
+
+
+
+function exp() {
+    const expenseBtn = document.getElementById('expenseBtn')
+    const IncomeBtn = document.getElementById('IncomeBtn')
+    const expenseTable = document.getElementById('expense-table')
+    const incomeTable = document.getElementById('income-table')
+    expenseBtn.style.display = 'block'
+    IncomeBtn.style.display = 'none'
+    expenseTable.style.display = 'block'
+    incomeTable.style.display = 'none'
+}
+
+function inc() {
+    const expenseBtn = document.getElementById('expenseBtn')
+    const IncomeBtn = document.getElementById('IncomeBtn')
+    const expenseTable = document.getElementById('expense-table')
+    const incomeTable = document.getElementById('income-table')
+    expenseBtn.style.display = 'none'
+    IncomeBtn.style.display = 'block'
+    expenseTable.style.display = 'none'
+    incomeTable.style.display = 'block'
+}
+
