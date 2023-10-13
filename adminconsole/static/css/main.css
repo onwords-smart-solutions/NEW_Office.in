@@ -230,24 +230,6 @@ ul {
     font-weight: 600;
 }
 
-<<<<<<< HEAD
-#carouselExampleControls {
-    height: 100% !important;
-}
-
-.caro-img {
-    width: 80% !important;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-
-.carousel-inner {
-    height: 100% !important;
-}
-=======
->>>>>>> 71a00e15d5ee02c07c80b3cb5865ecec19a1cbca
 
 /* ===========main-con start============ */
 .refreshment-con,

@@ -1,20 +1,15 @@
-function navcon() {
     var navCon = document.querySelector('.nav-con')
     var rightCon = document.querySelector('.right-con')
     var rightnavlist = document.querySelectorAll('.right-nav-list')
     var smallLogo = document.querySelector('.small-logo')
     var closeIcon = document.querySelector('.close-icons')
     var menuIcon = document.querySelector('.menu-icons')
+function navcon() {
     if (navCon.style.width == '5%') {
         navCon.style.width = '18%'
-    
-    
-    
-    
-    
         rightCon.style.width = '82%'
         for (const rightcon of rightnavlist) {
-            rightnav.style.display = 'block'
+            rightcon.style.display = 'block'
         }
         smallLogo.style.display = 'none'
         closeIcon.style.display = 'block'
