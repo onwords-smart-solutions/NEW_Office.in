@@ -253,7 +253,9 @@ ul {
 .refreshment-con {
     overflow: hidden;
 }
-
+.notification-con{
+    overflow: hidden;
+}
 .workdone-entry-con {
     background-color: #ffff;
     border-radius: 15px;
@@ -521,7 +523,7 @@ ul {
 }
 
 .notify-workdone-data {
-    display: none;
+    display: block
 }
 
 .notify-workdone-data h2 {
