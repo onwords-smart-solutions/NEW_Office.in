@@ -187,7 +187,7 @@
                         <div class="refreshment-con">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <form action="" method="post" id="refreshment-form">
+                                    <form action="/refreshment/" method="post" >
                                         {% csrf_token %}
                                         <div class="d-flex align-items-center">
                                             <div class="refresh-order">
@@ -366,38 +366,39 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="workdone-entry-con">
-                            <form action="">
+                            <form id="submitwork-form" action="/submitwork/" method="post" >
+                                {% csrf_token %}
                                 <div class="row d-flex align-items-center text-align-center px-2">
                                     <div class="col-md-1">
                                         <div class="work-done-li">
                                             <p>From</p>
                                             <div>
-                                                <input type="time" required>
+                                                <input type="time" name="from-time" id="ft" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="work-done-li">
                                             <p>To</p>
-                                            <div><input type="time" required></div>
+                                            <div><input type="time" name="to-time" id="tt" onchange="timediff()" required></div>
                                         </div>
                                     </div>
                                     <div class="col-md-7">
                                         <div class="work-done-li">
                                             <p>Add Work done</p>
-                                            <div><input type="text" required placeholder="Enter Your Workdone Here...">
+                                            <div><input type="text" required placeholder="Enter Your Workdone Here..." name="workdone">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="work-done-li">
-                                            <p>Precenatge </p>
-                                            <div><input type="number" required placeholder="|"></div>
+                                            <p>Percentage </p>
+                                            <div><input type="number" required placeholder="|" name="percent"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="d-flex justify-content-end">
-                                            <button type="submit" class="primary-button ">Submit</button>
+                                            <button type="submit" class="primary-button" >Submit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -409,34 +410,40 @@
                     <div class="col-md-12">
                         <div class="workdone-con p-2">
                             <div class="notify-workdone-data">
+                                {% if listOfTodaysWork %}
+                                {% for work_item in listOfTodaysWork %}
                                 <div class="notify-lists">
-                                    <form action="">
+                                    <form action="/editworkdone/" method="post">
+                                        {% csrf_token %}
                                         <div class="row d-flex align-items-center text-align-center px-2">
                                             <div class="col-md-1">
                                                 <div class="work-done-li">
-                                                    <p>09:00</p>
+                                                    <!-- <p>From</p> -->
                                                     <div>
-                                                        <input type="time" hidden required>
+                                                        <input type="hidden" name="default_fromtime" value="{{work_item.from}}">
+                                                        <input type="time" name="from-time" value="{{work_item.from}}" id="ft" required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-1">
                                                 <div class="work-done-li">
-                                                    <p>12:23</p>
-                                                    <div><input type="time" hidden required></div>
+                                                    <!-- <p>To</p> -->
+                                                    <div><input type="hidden" name="default_totime" value="{{work_item.to}}">
+                                                        <input type="time" name="to-time" id="tt" value="{{work_item.to}}" onchange="timediff()" required></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-7">
                                                 <div class="work-done-li">
-                                                    <p>alexa skill</p>
-                                                    <div><input type="text" hidden required
-                                                            placeholder="Enter Your Workdone Here..."></div>
+                                                    <!-- <p>Add Work done</p> -->
+                                                    <div><input type="text" value="{{work_item.workDone}}" name="workdone">
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-1">
                                                 <div class="work-done-li">
-                                                    <p>90% </p>
-                                                    <div><input hidden type="number" required placeholder="|"></div>
+                                                    <!-- <p>Percentage </p> -->
+                                                    <div><input type="number" value="{{ work_item.workPercentage|slice:":-1" }}"  required placeholder="|" name="percent"></div>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -448,89 +455,15 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="notify-lists">
-                                    <form action="">
-                                        <div class="row d-flex align-items-center text-align-center px-2">
-                                            <div class="col-md-1">
-                                                <div class="work-done-li">
-                                                    <p>12:24</p>
-                                                    <div>
-                                                        <input type="time" hidden required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <div class="work-done-li">
-                                                    <p>01:13</p>
-                                                    <div><input type="time" hidden required></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <div class="work-done-li">
-                                                    <p>EMQX dashboard Ui Implementaion</p>
-                                                    <div><input type="text" hidden required
-                                                            placeholder="Enter Your Workdone Here..."></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <div class="work-done-li">
-                                                    <p>65% </p>
-                                                    <div><input hidden type="number" required placeholder="|"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="d-flex justify-content-end">
-                                                    <button type="submit"
-                                                        class="primary-button px-3 my-2 ">Edit</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="notify-lists">
-                                    <form action="">
-                                        <div class="row d-flex align-items-center text-align-center px-2">
-                                            <div class="col-md-1">
-                                                <div class="work-done-li">
-                                                    <p>09:00</p>
-                                                    <div>
-                                                        <input type="time" hidden required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <div class="work-done-li">
-                                                    <p>12:23</p>
-                                                    <div><input type="time" hidden required></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <div class="work-done-li">
-                                                    <p>EMQX dashboard Ui Implementaion</p>
-                                                    <div><input type="text" hidden required
-                                                            placeholder="Enter Your Workdone Here..."></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <div class="work-done-li">
-                                                    <p>90% </p>
-                                                    <div><input hidden type="number" required placeholder="|"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="d-flex justify-content-end">
-                                                    <button type="submit"
-                                                        class="primary-button px-3 my-2 ">Edit</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                {% endfor %}
+                                
+                                
                             </div>
+                            {% else %}
                             <div class="notify-workdone-withoutdata">
                                 <h2>No Workdone</h2>
                             </div>
-                           
+                            {% endif %}
 
                         </div>
                     </div>
@@ -609,7 +542,116 @@
             });
         });
     });    
+    $(document).ready(function() {
+        $("#submitwork").on("submit", function(event) {
+            event.preventDefault();  
+
+            var formData = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "/submitwork/",
+                data: formData,
+                success: function(response) {
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+
+                    console.log("AJAX Error: " + error);
+                }
+            });
+        });
+    });
 </script>
+<script>
+    function timediff() {
+      ft = document.getElementById("ft").value
+      tt = document.getElementById("tt").value
+      var diff = (new Date("1970-1-1 " + tt) - new Date("1970-1-1 " + ft)) / 1000 / 60 / 60;
+      if (diff < 0) {
+        alert("The time you entered is negative that the to time is lesser than from time kindly change before you submit, Kindly re-enter your time correctly");
+        document.getElementById('ft').value = '';
+        document.getElementById('tt').value = '';
+      }
+      if (diff > 6) {
+        alert("Check your AM PM as it seems longer than 6 hours kindly split it and check once before you submit");
+        document.getElementById('ft').value = '';
+        document.getElementById('tt').value = '';
+      }
+    }
+    // reload testing starts----------------
+    // (function()
+    // {
+    //   if( window.localStorage )
+    //   {
+    //     if(!localStorage.getItem('firstLoad')){
+    //       localStorage['firstLoad'] = true;
+    //       window.location.reload();
+    //     }
+    //     else
+    //       localStorage.removeItem('firstLoad');
+    //   }
+    // })();
+
+    // ==================================================================
+    // window.onload = function() {
+    //   if(!window.location.hash) {
+    //     window.location = window.location + '#loaded';
+    //     window.location.reload();
+    //   }
+    // }
+    // ==========================================================
+    // reload testing ends================
+    // setTimeout('location.reload()', 60000)
+    var end = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+    try {
+      start = document.getElementById("_from").value;
+    } catch (err) {
+      console.log("ERROR IN GETTING NUMBER");
+    }
+    function diff(start, end) {
+      start = start.split(":");
+      end = end.split(":");
+      var startDate = new Date(0, 0, 0, start[0], start[1], 0);
+      var endDate = new Date(0, 0, 0, end[0], end[1], 0);
+      var diff = endDate.getTime() - startDate.getTime();
+      var hours = Math.floor(diff / 1000 / 60 / 60);
+      diff -= hours * 1000 * 60 * 60;
+      var minutes = Math.floor(diff / 1000 / 60);
+      return ((hours < 9 ? "0" : "") + hours + ":" + (minutes < 9 ? "0" : "") + minutes);
+    }
+    // b = diff(start, end)
+    b = 1;
+    document.addEventListener("DOMContentLoaded", function () {
+      if (!Notification) {
+        alert("Desktop notifications not available in your browser. Try Chromium.");
+        return;
+      }
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+      }
+    });
+    if (b > "01:30") {
+      if (Notification.permission == "denied") {
+        Notification.requestPermission();
+      } else {
+        var user = document.getElementById("user").innerHTML;
+        var notification = new Notification("Team Onwords", {
+          icon: "/static/images/mainLogo.png",
+          body: "Hey " + user + " you may be busy at your work to update workdone, Kindly Update your workdone and continue your work",
+        });
+        // notification.onclick = function () {
+        //   window.open('http://stackoverflow.com/a/13328397/1269037');
+        // };
+      }
+    }
+    // var fname = document.getElementById("workDone");
+    // fname.addEventListener("input", () => {
+    //   if (fname.validity.tooLong || fname.validity.tooShort || fname.validity.valueMissing) {
+    //     fname.setCustomValidity("Describe your workdone in detail!");
+    //     fname.reportValidity();
+    //   } else { fname.setCustomValidity(""); }
+    // });
+  </script>
 
 
 </body>

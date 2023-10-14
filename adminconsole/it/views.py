@@ -8,6 +8,7 @@ def ithome(request):
     dep = request.COOKIES["dep"]
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
+    workmanager = db.child("workmanager").get().val()
     name = checkUserName(uid)
     istl = False
     itaproval = False
@@ -15,6 +16,7 @@ def ithome(request):
     tl = db.child("tl").get().val()
 
     current_date = datetime.now()
+    formatted_date = current_date.strftime("%Y-%m-%d")
 
     # Get the current year, month, and day
     current_year = str(current_date.year)
@@ -77,8 +79,18 @@ def ithome(request):
         except:
             today_progress= "Absent"
         todaycheckout = convert_to_12_hour_format(todaycheckout)
-        todaycheckin = convert_to_12_hour_format(todaycheckin)    
+        todaycheckin = convert_to_12_hour_format(todaycheckin)   
 
+        listOfTodaysWork= []
+
+        try:
+           
+            for z in workmanager[current_year][current_month][formatted_date][uid]:
+                listOfTodaysWork.append(workmanager[current_year][current_month][formatted_date][uid][z])
+        except:        
+            listOfTodaysWork.append("No work") 
+
+        
         data[uid]["projects"]
         context = {
             "project": True,
@@ -93,6 +105,7 @@ def ithome(request):
             "yescheckout": yesscheckout,
             "yesprogress":yesterdayprogress,
             "todayprogress":today_progress,
+            "listOfTodaysWork" : listOfTodaysWork,
         }
         return render(request, "ithome.html", context)
     except:
@@ -109,8 +122,9 @@ def ithome(request):
             "yescheckout": yesscheckout,
             "yesprogress":yesterdayprogress,
             "todayprogress":today_progress,
+            "listOfTodaysWork":listOfTodaysWork
         }
-        return render(request, "ithome.html", context)
+    return render(request, "ithome.html", context)
 import pytz
 
 def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
@@ -155,6 +169,11 @@ def calculate_progress(working_hours, goal_hours=9):
         return "Absent"    
 
 def convert_to_12_hour_format(progress):
-    time_24h_obj = datetime.strptime(progress, "%H:%M:%S")
-    time_12h = time_24h_obj.strftime("%I:%M %p")
+    try:
+        time_24h_obj = datetime.strptime(progress, "%H:%M:%S")
+        time_12h = time_24h_obj.strftime("%I:%M %p")
+    except:
+        time_12h = "No Entry"    
     return time_12h
+
+

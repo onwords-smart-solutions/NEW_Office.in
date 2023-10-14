@@ -518,7 +518,7 @@ ul {
 }
 
 .notify-workdone-data {
-    display: none;
+    display: block
 }
 
 .notify-workdone-data h2 {
