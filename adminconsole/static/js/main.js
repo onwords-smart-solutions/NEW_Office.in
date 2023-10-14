@@ -298,3 +298,15 @@ function incInpBox() {
 
 
 // ======================
+function printTable() {
+    var table = document.getElementById("myTable");
+    var newWin = window.open('', '', 'width=800,height=600');
+    newWin.document.open();
+    newWin.document.write('<html><head><title>Installation Details</title></head><body>');
+    newWin.document.write('<h1>Installation Details</h1>');
+    newWin.document.write(table.outerHTML);
+    newWin.document.write('</body></html>');
+    newWin.document.close();
+    newWin.print();
+    newWin.close();
+}

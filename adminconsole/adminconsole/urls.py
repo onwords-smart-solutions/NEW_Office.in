@@ -21,7 +21,7 @@ urlpatterns = [
 
     path("logout/", views.logout, name="logout"),
 
-    # ============it team===============
+    # ============it team================
      path("ithome/", itviews.ithome, name="ithome"),
 
     # =================pr team============  
