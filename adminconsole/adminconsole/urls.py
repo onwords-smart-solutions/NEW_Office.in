@@ -15,9 +15,16 @@ urlpatterns = [
     path("refreshment/",views.refreshment, name="refreshment"),
     path("submitwork/", views.submitwork, name="submitwork"),
     path("editworkdone/", views.editworkdone, name="editworkdone"),
+
+    # ========================coo page =========================
+
+    path('coohome/', views.coohome,name='coohome'),
+    path('installation_details',views.installation_details,name='installation_details'),
+
+
     path("logout/", views.logout, name="logout"),
 
-    # ============it team===============
+    # ============it team================
      path("ithome/", itviews.ithome, name="ithome"),
 
     # =================pr team============  
@@ -30,4 +37,6 @@ urlpatterns = [
     # ================accounts department ====================
 
     path("financial/",views.financial,name='financial')
+
+   
 ]

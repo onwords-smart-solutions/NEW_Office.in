@@ -115,6 +115,10 @@ def suggestion(request):
     return render(request,'suggestion.html')
 def financial(request):
     return render(request,'financial.html')
+def coohome(request):
+    return render(request,'coohome.html')
+def installation_details(request):
+    return render(request,'installation_details.html')
 
 
 
