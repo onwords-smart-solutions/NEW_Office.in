@@ -12,7 +12,6 @@ urlpatterns = [
     path("approval", views.leave_approval, name="leave_approval"),
     path("suggestion", views.suggestion, name="suggestion"),
     path("refreshment/",views.refreshment, name="refreshment"),
-
     path("logout/", views.logout, name="logout"),
 
     # ============it team===============
@@ -27,5 +26,8 @@ urlpatterns = [
 
     # ================accounts department ====================
 
-    path("financial/",views.financial,name='financial')
+    path("financial/",views.financial,name='financial'),
+
+    # ======= CMO Product Page ==========
+      path("cmoproduct/",views.cmoproduct,name='cmoproduct'),
 ]

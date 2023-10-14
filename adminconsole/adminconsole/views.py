@@ -115,6 +115,8 @@ def suggestion(request):
     return render(request,'suggestion.html')
 def financial(request):
     return render(request,'financial.html')
+def cmoproduct(request):
+    return render(request,'cmoproduct.html')
 
 
 

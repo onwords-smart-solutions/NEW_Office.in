@@ -158,7 +158,8 @@ h6 {
     float: right;
     display: none;
 }
-.right-nav-list h5{
+
+.right-nav-list h5 {
     font-size: 18px;
 }
 
@@ -175,7 +176,8 @@ ul {
 .main-logo {
     width: 120px;
 }
-.menu-icon img{
+
+.menu-icon img {
     width: 25px;
     height: 25px;
 }
@@ -188,12 +190,15 @@ ul {
     justify-content: center;
     padding: 0px 10px;
 }
-.menu-icons,.close-icons{
+
+.menu-icons,
+.close-icons {
     width: 30px;
     height: 30px;
     cursor: pointer;
 }
-.close-icons{
+
+.close-icons {
     display: none;
 }
 
@@ -522,3 +527,140 @@ ul {
 .notify-workdone-data h2 {
     color: #ccc !important;
 }
+
+/* CMO PRODUCT PAGE */
+
+.product-nav {
+    background-color: #fff;
+    border-radius: 5px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.active-product {
+    background-color: #FBD87F;
+}
+
+.Calculate-cmo {
+    background-color: #FBD87F;
+    border-radius: 5px;
+    height: 40px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: abzee-regular;
+}
+
+.product-table {
+    background-color: #FBD87F;
+    border-radius: 5px;
+    /* height: 50px; */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.product-table-head {
+    background-color: #FBD87F;
+    border: none;
+    outline: none;
+    font-family: abzee-regular;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: none
+}
+
+.product-details {
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-bottom: none
+}
+
+.calculate-table {
+    background-color: #fff;
+    border: 1px solid #fff;
+    text-align: center;
+    justify-content: center;
+    width: 35%;
+    height: 100%;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 0px 20px;
+    transform: translate(57%, 64%);
+    position: relative;
+
+}
+
+.calculate-table form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    text-align: center;
+
+}
+
+.calculate-table input {
+    background: #eee;
+    padding: 12px 15px;
+    margin: 8px 15px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin: 15px;
+}
+
+.addpoint-table {
+    margin-top: 10px;
+    background-color: #fff;
+    border: 1px solid #fff;
+    text-align: center;
+    justify-content: center;
+    width: 35%;
+    height: 100%;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.addpoint-table form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    text-align: center;
+
+}
+
+.addpoint-table input {
+    background: #eee;
+    padding: 12px 15px;
+    margin: 8px 15px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin: 15px;
+}
+
+.calculate-table,
+.addpoint-table {
+    display: none;
+}
+
+/* transform: translate(0%, 50%); */
+
+/* CMO PRODUCT PAGE */
