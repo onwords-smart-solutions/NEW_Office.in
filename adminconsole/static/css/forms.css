@@ -267,3 +267,11 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+/* ==============modal body=========== */
+.modal-dialog{
+    width: 750px;
+}
+.view-btn{
+    cursor: pointer;
+}

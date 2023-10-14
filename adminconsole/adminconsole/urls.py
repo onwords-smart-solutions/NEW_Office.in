@@ -13,6 +13,12 @@ urlpatterns = [
     path("suggestion", views.suggestion, name="suggestion"),
     path("refreshment/",views.refreshment, name="refreshment"),
 
+    # ========================coo page =========================
+
+    path('coohome/', views.coohome,name='coohome'),
+    path('installation_details',views.installation_details,name='installation_details'),
+
+
     path("logout/", views.logout, name="logout"),
 
     # ============it team===============
@@ -28,4 +34,6 @@ urlpatterns = [
     # ================accounts department ====================
 
     path("financial/",views.financial,name='financial')
+
+   
 ]

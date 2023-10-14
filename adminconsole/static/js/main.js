@@ -93,6 +93,7 @@ new Chart("myChart2", {
             backgroundColor: barColors,
             data: yValues,
             borderColor: 'transparent'
+            
         }]
     },
     options: {
