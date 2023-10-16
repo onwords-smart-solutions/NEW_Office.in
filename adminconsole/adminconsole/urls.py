@@ -13,8 +13,6 @@ urlpatterns = [
     path("lateentry/", views.lateentry, name="lateentry"),
     path("suggestion", views.suggestion, name="suggestion"),
     path("refreshment/",views.refreshment, name="refreshment"),
-<<<<<<< HEAD
-=======
     path("submitwork/", views.submitwork, name="submitwork"),
     path("editworkdone/", views.editworkdone, name="editworkdone"),
 
@@ -24,7 +22,6 @@ urlpatterns = [
     path('installation_details',views.installation_details,name='installation_details'),
 
 
->>>>>>> 94157cc5f84f6180f0dc5ee00d429151339c319f
     path("logout/", views.logout, name="logout"),
 
     # ============it team================
@@ -39,14 +36,8 @@ urlpatterns = [
 
     # ================accounts department ====================
 
-<<<<<<< HEAD
     path("financial/",views.financial,name='financial'),
 
     # ======= CMO Product Page ==========
       path("cmoproduct/",views.cmoproduct,name='cmoproduct'),
-=======
-    path("financial/",views.financial,name='financial')
-
-   
->>>>>>> 94157cc5f84f6180f0dc5ee00d429151339c319f
 ]

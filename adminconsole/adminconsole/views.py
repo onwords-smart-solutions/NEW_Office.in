@@ -115,15 +115,12 @@ def suggestion(request):
     return render(request,'suggestion.html')
 def financial(request):
     return render(request,'financial.html')
-<<<<<<< HEAD
 def cmoproduct(request):
     return render(request,'cmoproduct.html')
-=======
 def coohome(request):
     return render(request,'coohome.html')
 def installation_details(request):
     return render(request,'installation_details.html')
->>>>>>> 94157cc5f84f6180f0dc5ee00d429151339c319f
 
 
 

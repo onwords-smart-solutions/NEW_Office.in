@@ -29,8 +29,13 @@ function addInpBox() {
 
 
 }
-function productBtn() {
-    const calculateBtn = document.getElementById('calculate-Btn')
-    const addBtn = document.getElementById('addBtn')
-    const productTable = document.getElementById('product-ta')
+
+// function productBtn() {
+//     const calculateBtn = document.getElementById('calculate-Btn')
+//     const addBtn = document.getElementById('addBtn')
+//     const productTable = document.getElementById('product-ta')
+// }
+
+function productBtn(){
+  
 }
