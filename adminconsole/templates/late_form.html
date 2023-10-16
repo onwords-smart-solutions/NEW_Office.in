@@ -117,43 +117,45 @@
         </div>
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
-            <div class="container" onclick="lateform()">
-                <div class="forms-con" >
-                    <p class="active-form-late" id="lateBtn">Late Entry</p>
-                    <p class="" id="lateHistoryBtn">History</p>
-                </div>
+            <div class="container">
+              
 
                 <div id="late_con">
                     <div class="leave-form-con">
                         <div class="leave-list">
-                            <form action="" class=" leave-frm">
+                            <form action="/late_form/" class=" leave-frm" method="post">
+                                {% csrf_token %}    
                                 <label for="from">Date</label>
                                 <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="From">
+                                    <input type="date" id="from" placeholder="From" name="selectdate">
                                     <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
                                 </div>
 
                                 <label for="to">Workdone</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Enter your Workdone">
+                                    <input type="text" id="from" placeholder="Enter your Workdone" name="workdone" >
                                 </div>
                                 <div class="main-leave-con">
                                     <div class="">
                                         <label for="starttime">From</label>
                                         <div class="time-inp">
-                                            <input type="time" id="starttime">
+                                            <input type="time" id="starttime" name="fromtime">
                                         </div>
                                     </div>
                                     <div class="">
                                         <label for="endtime">To</label>
                                         <div class="time-inp">
-                                            <input type="time" id="endtime">
+                                            <input type="time" id="endtime" name="totime" onchange="timediff()">
                                         </div>
                                     </div>
                                 </div>
+                                <label for="to">Work Percentage</label>
+                                <div class="form-inp-con">
+                                    <input type="text" id="from" placeholder="%" name="workpercent">
+                                </div>
                                 <label for="to">Reason</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Reason">
+                                    <input type="text" id="from" placeholder="Reason" name="reason">
                                 </div>
                                 <button class="primary-button">Submit</button>
                             </form>
@@ -163,36 +165,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="leave-history" id="lateHistory">
-
-                    <table class="table">
-                        <thead>
-                            <tr class="leave-table-head">
-                                <th>Date</th>
-                                <th>Workdone</th>
-                                <th>Reason</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table-body-li my-3">
-                                <td>09/08/2023</td>
-                                <td>Personal Work</td>
-                                <td>Approved<img src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
-                                        class="img-fluid table-icon"></td>
-                                <td>Kavin</td>
-                            </tr>
-                            <tr class="table-body-li">
-                                <td>09/08/2023</td>
-                                <td>Personal Work</td>
-                                <td>Declined <img src="{% static 'images/decline-icon.png' %}" alt="decline-icon"
-                                        class="img-fluid table-icon"></td>
-                                <td>Kavin</td>
-                            </tr>
-                        </tbody>
-                        </thead>
-                    </table>
-                </div>
+              
             </div>
         </div>
     </div>
@@ -205,6 +178,23 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
+    <script>
+        function timediff() {
+      ft = document.getElementById("starttime").value
+      tt = document.getElementById("endtime").value
+      var diff = (new Date("1970-1-1 " + tt) - new Date("1970-1-1 " + ft)) / 1000 / 60 / 60;
+      if (diff < 0) {
+        alert("The time you entered is negative that the to time is lesser than from time kindly change before you submit, Kindly re-enter your time correctly");
+        document.getElementById('starttime').value = '';
+        document.getElementById('endtime').value = '';
+      }
+      if (diff > 6) {
+        alert("Check your AM PM as it seems longer than 6 hours kindly split it and check once before you submit");
+        document.getElementById('starttime').value = '';
+        document.getElementById('endtime').value = '';
+      }
+    }
+    </script>
  
 </body>
 

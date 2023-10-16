@@ -165,30 +165,7 @@ leaveHistoryBtn.addEventListener('click', () => {
 
 // =============late entry start===================
 
-//   =============leave form end========
 
-function lateform() {
-    const LateCon = document.getElementById('late_con')
-    const LateHistory = document.getElementById('lateHistory')
-    const lateBtn = document.getElementById('lateBtn')
-    const LateHistoryBtn = document.getElementById('lateHistoryBtn')
-
-    lateBtn.addEventListener('click', () => {
-        LateCon.style.display = 'block'
-        LateHistory.style.display = 'none'
-        lateBtn.classList.add('active-form-late')
-        LateHistoryBtn.classList.remove('active-form-late')
-
-    })
-    LateHistoryBtn.addEventListener('click', () => {
-        LateCon.style.display = 'none'
-        LateHistory.style.display = 'block'
-        lateBtn.classList.remove('active-form-late')
-        LateHistoryBtn.classList.add('active-form-late')
-    })
-}
-
-// =============late entry start===================
 
 function approvalpage() {
     const lateApprovalBtn = document.getElementById('lateApprovalBtn')
