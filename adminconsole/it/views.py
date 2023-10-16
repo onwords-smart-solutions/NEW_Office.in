@@ -107,10 +107,14 @@ def ithome(request):
             for z in workmanager[current_year][current_month][formatted_date][uid]:
                 listOfTodaysWork.append(workmanager[current_year][current_month][formatted_date][uid][z])
         except:        
-            listOfTodaysWork.append("") 
-        for work_item in listOfTodaysWork:
-            if 'workPercentage' in work_item:
-                work_item['workPercentage'] = work_item['workPercentage'].replace('%', '').strip()
+            listOfTodaysWork.append("No Workdone") 
+        try:    
+            for work_item in listOfTodaysWork:
+                if 'workPercentage' in work_item:
+                    work_item['workPercentage'] = work_item['workPercentage'].replace('%', '').strip()
+        except:
+            pass            
+                
 
         
         data[uid]["projects"]
