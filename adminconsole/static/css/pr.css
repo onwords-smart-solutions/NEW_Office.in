@@ -535,3 +535,74 @@
 .downloadBtns {
     cursor: pointer;
 }
+
+
+/* ==================rnd pages start====== */
+.inprocess-con {
+    margin-top: 5%;
+}
+
+.form-check {
+    padding: 12px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+
+}
+
+.form-check input {
+    width: 20%;
+}
+
+.form-check lable {
+    font-size: 18px;
+    color: #686565;
+    /* font-weight: 500; */
+}
+
+.form-inp-con button {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+}
+
+.form-inp-con select {
+    width: 100%;
+    height: 40px;
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0px 20px;
+}
+
+.form-inp-con select option {
+    font-size: 18px !important;
+    color: #686565 !important;
+}
+
+.create-gate {
+    text-align: center;
+}
+
+#createWTA {
+    display: none;
+}
+
+.create-products {
+    margin-top: 20%;
+}
+
+#taskList{
+    width: 80%;
+    margin: 20px auto;
+}
+.task-li{
+    width: 100%;
+    padding: 10px;
+    background-color: #eea929;
+    height: 20px;
+}
+/* ==================rnd pages End====== */

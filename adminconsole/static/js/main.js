@@ -93,7 +93,7 @@ new Chart("myChart2", {
             backgroundColor: barColors,
             data: yValues,
             borderColor: 'transparent'
-            
+
         }]
     },
     options: {
@@ -310,3 +310,29 @@ function printTable() {
     newWin.print();
     newWin.close();
 }
+
+// ====================create WTA =========
+
+function createGate() {
+    const createGate = document.getElementById('createGate')
+    const createWTA = document.getElementById('createWTA')
+    const creategateBtn = document.getElementById('creategateBtn')
+    const createwtaBtn = document.getElementById('createwtaBtn')
+    createGate.style.display = 'block';
+    createWTA.style.display = 'none';
+    creategateBtn.classList.add('active-form-late')
+    createwtaBtn.classList.remove('active-form-late')
+}
+
+function createWTA() {
+    const createGate = document.getElementById('createGate')
+    const createWTA = document.getElementById('createWTA')
+    const creategateBtn = document.getElementById('creategateBtn')
+    const createwtaBtn = document.getElementById('createwtaBtn')
+
+    createGate.style.display = 'none';
+    createWTA.style.display = 'block';
+    creategateBtn.classList.remove('active-form-late')
+    createwtaBtn.classList.add('active-form-late')
+}
+

@@ -78,7 +78,7 @@
                                 <h5>Leave Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu " onclick="location.href='/late_form'">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
@@ -96,16 +96,6 @@
                             </div>
                             <div class="right-nav-list">
                                 <h5>Suggestion</h5>
-                            </div>
-                        </li>
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/suggestion'">
-                            <div class="left-nav-list">
-                                <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/inprocess.svg' %}" alt="inprocess_Icon">
-                                </div>
-                            </div>
-                            <div class="right-nav-list">
-                                <h5>In Process</h5>
                             </div>
                         </li>
 
@@ -128,23 +118,53 @@
         </div>
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
-            <div class="container-fluid">
-                <div class="inprocess-con">
-                    <table class="table">
-                        <thead>
-                            <tr class="leave-table-head ">
-                                <th>Customer Name</th>
-                                <th>Contatct Number</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table-body-li my-3">
-                                <td>Pranesh</td>
-                                <td>9159918535</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="container" onclick="lateform()">
+                <div class="forms-con">
+                    <p class="active-form-late" id="creategateBtn" onclick="createGate()">Create Gate</p>
+                    <p class="" onclick="createWTA()" id="createwtaBtn">Create WTA</p>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="">
+                            <img src="{% static 'images/leave-frm-img.svg' %}" alt="leave-form" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="create-products">
+                            <div id="createGate">
+                                <form action="" class="create-gate">
+                                    <!-- <label for="create-product-mail" class="create-product">Email</label> -->
+                                    <div class="form-inp-con">
+                                        <input type="email" name="" id="create-product-mail" placeholder="Email">
+                                    </div>
+                                    <div class="form-inp-con form-check">
+                                        <lable for="cycle">Cycle</lable>
+                                        <input type="checkbox" name="" id="cycle" placeholder="cycle">
+                                    </div>
+                                    <div class="form-inp-con">
+                                        <select name="" id="" class="leadAssignPerson">
+                                            <option value="">Gate Type</option>
+                                            <option value="gowtham">Sliding</option>
+                                            <option value="arunkumar">Swing</option>
+                                        </select>
+                                    </div>
+                                    <button class="primary-button">Create Gate</button>
+                                </form>
+                            </div>
+                            <div id="createWTA">
+                                <form action="" class="create-gate">
+                                    <!-- <label for="create-product-mail" class="create-product">Email</label> -->
+                                    <div class="form-inp-con">
+                                        <input type="email" name="" id="create-product-mail" placeholder="Email">
+                                    </div>
+                                    <button class="primary-button">Create WTA</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

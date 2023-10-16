@@ -5,6 +5,7 @@ from . import views
 from it import views as itviews
 from pr import views as prviews
 from rnd import views as rndviews
+from admin import views as adminviews
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.login, name="login"),
@@ -16,6 +17,7 @@ urlpatterns = [
     path("refreshment/",views.refreshment, name="refreshment"),
     path("submitwork/", views.submitwork, name="submitwork"),
     path("editworkdone/", views.editworkdone, name="editworkdone"),
+    path("todo/", views.todo, name="todo"),
 
     # ========================coo page =========================
 
@@ -43,8 +45,12 @@ urlpatterns = [
 
     path("rndhome",rndviews.rndhome,name='rndhome'),
     path("inprocess",rndviews.inprocess,name='inprocess'),
+    path("create",rndviews.create,name='create'),
 
     
+    # ==================admin department==================================
+
+    path("adminhome",adminviews.adminhome,name='adminhome'),
 
    
 ]
