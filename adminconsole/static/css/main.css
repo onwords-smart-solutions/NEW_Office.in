@@ -253,9 +253,11 @@ ul {
 .refreshment-con {
     overflow: hidden;
 }
-.notification-con{
+
+.notification-con {
     overflow: hidden;
 }
+
 .workdone-entry-con {
     background-color: #ffff;
     border-radius: 15px;
@@ -547,7 +549,7 @@ ul {
     background-color: #FBD87F;
 }
 
-.Calculate-cmo {
+/* .Calculate-cmo {
     background-color: #FBD87F;
     border-radius: 5px;
     height: 40px;
@@ -558,17 +560,17 @@ ul {
     font-size: 20px;
     font-weight: 600;
     font-family: abzee-regular;
-}
+} */
 
 .product-table {
-    background-color: #FBD87F;
+    /* background-color: #FBD87F; */
     border-radius: 5px;
     /* height: 50px; */
     display: flex;
     align-items: center;
     justify-content: space-around;
     padding: 5px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
 }
 
 .product-table-head {
@@ -610,7 +612,7 @@ ul {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 0 50px;
+    /* padding: 0 50px; */
     text-align: center;
 
 }
@@ -626,7 +628,7 @@ ul {
     margin: 15px;
 }
 
-.addpoint-table {
+/* .addpoint-table {
     margin-top: 10px;
     background-color: #fff;
     border: 1px solid #fff;
@@ -635,33 +637,51 @@ ul {
     width: 35%;
     height: 100%;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
+} */
 
 .addpoint-table form {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 0 50px;
+    /* padding: 0 50px; */
     text-align: center;
-
+    height: 375px;
 }
 
 .addpoint-table input {
-    background: #eee;
-    padding: 12px 15px;
-    margin: 8px 15px;
-    width: 100%;
+    background: #fff;
+    padding: 8px 11px;
+    border: 1px solid #000;
+    width: 60%;
     border-radius: 5px;
-    border: none;
+    border: 2px solid #000;
     outline: none;
-    margin: 15px;
+    margin: 8px;
 }
 
 .calculate-table,
 .addpoint-table {
-    display: none;
+    /* display: none; */
 }
+
+.modal-content {
+    height: 80vh;
+    width: 80% !important;
+}
+
+.primary-button-update {
+    background-color: #FBD87F !important;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    outline-offset: none;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: abzee-regular;
+}
+
+.product {}
 
 /* transform: translate(0%, 50%); */
 

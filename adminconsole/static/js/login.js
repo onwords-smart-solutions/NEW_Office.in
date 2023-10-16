@@ -36,6 +36,19 @@ function addInpBox() {
 //     const productTable = document.getElementById('product-ta')
 // }
 
-function productBtn(){
-  
+function productBtn() {
+    const productTable = document.getElementById('product-table')
+    const updateTAble = document.getElementById('update-table')
+    const proNav = document.getElementById('pro-nav')
+    const updateNav = document.getElementById('update-nav')
+
+    productTable.display.style = 'block'
+    updateTAble.display.style = 'none'
+    proNav.classList.add('active-financial')
+    updateNav.classList.remove('active-financial')
+
 }
+// const calculateBtn = document.getElementById('calculateBtn')
+// const addBtn = document.getElementById('addBtn')
+// const calpoint = document.getElementById('cal-point')
+// const addpoint = document.getElementById('add-point')

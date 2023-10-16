@@ -62,3 +62,7 @@ input {
     background-color: #FBD87F;
 }
 
+#update-table {
+    display: none !important;
+    background-color: red;
+}

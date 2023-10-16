@@ -186,15 +186,53 @@
                         <h4 class="primary-button Calculate-cmo" id="addBtn" onclick="addInpBox()">Add Product</h4>
                     </div>
                 </div>
-                <div class="calculate-table" id="cal-point">
+
+                <!-- <div class="calculate-table" id="cal-point">
                     <form action="">
                         <h4>Calculate Point</h4>
                         <input type="text" placeholder="Calculate Point">
                         <input type="text" placeholder="Count">
                         <button class="primary-button">Submit</button>
                     </form>
+                </div> -->
+
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop ">
+                    Add Product
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content product">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">
+                                    <h4>Add Product</h4>
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="addpoint-table">
+                                    <form action="">
+
+                                        <input type="text" placeholder="Product Name">
+                                        <input type="text" placeholder="Produt Id">
+                                        <input type="text" placeholder="OBC">
+                                        <input type="number" placeholder="Minimum Price">
+                                        <input type="number" placeholder="Maximum Price">
+                                        <input type="number" placeholder="Stock">
+                                        <button class="primary-button">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-                <div class="addpoint-table" id="add-point">
+
+                <!-- <div class="addpoint-table" id="add-point">
                     <form action="">
                         <h4>Add Product</h4>
                         <input type="text" placeholder="Product Name">
@@ -205,7 +243,7 @@
                         <input type="text" placeholder="Stock">
                         <button class="primary-button">Submit</button>
                     </form>
-                </div>
+                </div> -->
                 <div class="product-table" id="product-table">
                     <table class="table">
                         <thead class="product-table-head">
@@ -260,11 +298,82 @@
                         </tbody>
                     </table>
                 </div>
+                <div>
+                    <div>
+                        <!-- <div class="product-nav" id="">
+                        <h5 class="  " onclick="productBtn()" id="pro-nav">Product</h5>
+                        <h5 class="primary-button active-product" onclick="updateBtn()" id="update-nav">Updates</h5>
+                        <h5 onclick="adminBtn()" id="admin-nav">Adminpoints</h5>
+                        <h5 onclick="prpercBtn()" id="prper-nav">PR percentage Dashboard</h5>
 
-                <div class="row">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2"></div>
+                    </div> -->
+                    </div>
+                    
+                    <div class="update-table" id="update-table" style="display: none;">
+                        <table class="table">
+                            <thead class="product-table-head">
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Product Id</th>
+                                    <th>Max Price</th>
+                                    <th>Min Price</th>
+                                    <th>Name</th>
+                                    <th>OBC</th>
+                                    <th>Stock</th>
+                                    <th>Edit</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="table my-3">
+                                <tr class="product-details">
+                                    <td>1</td>
+                                    <td>ONAJBP10</td>
+                                    <td>5940</td>
+                                    <td>408</td>
+                                    <td>BATCH Of Pass(10 Pcs)</td>
+                                    <td>408</td>
+                                    <td>4</td>
+                                    <td><button class="primary-button-update">Update</button></td>
+                                </tr>
+                            </tbody>
+                            <tbody class="table my-3">
+                                <tr class="product-details">
+                                    <td>2</td>
+                                    <td>ONAJBP10</td>
+                                    <td>5940</td>
+                                    <td>408</td>
+                                    <td>BATCH Of Pass(10 Pcs)</td>
+                                    <td>408</td>
+                                    <td>4</td>
+                                    <td><button class="primary-button-update">Update</button></td>
+                                </tr>
+                            </tbody>
+                            <tbody class="table my-3">
+                                <tr class="product-details">
+                                    <td>3</td>
+                                    <td>ONAJBP10</td>
+                                    <td>5940</td>
+                                    <td>408</td>
+                                    <td>BATCH Of Pass(10 Pcs)</td>
+                                    <td>408</td>
+                                    <td>4</td>
+                                    <td><button class="primary-button-update">Update</button></td>
+                                </tr>
+                            </tbody>
+                            <tbody class="table my-3">
+                                <tr class="product-details">
+                                    <td>4</td>
+                                    <td>ONAJBP10</td>
+                                    <td>5940</td>
+                                    <td>408</td>
+                                    <td>BATCH Of Pass(10 Pcs)</td>
+                                    <td>408</td>
+                                    <td>4</td>
+                                    <td><button class="primary-button-update">Update</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
