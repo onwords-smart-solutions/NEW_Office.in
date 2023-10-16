@@ -187,6 +187,49 @@ function approvalpage() {
         leaveApprovalBtn.classList.add('active-form-li')
     })
 }
+// ==================leave full day halfday=====
+function fullday(){
+    const fullday = document.getElementById('fullday')
+    const halfday = document.getElementById('halfday')
+    const halfdayBtn = document.getElementById('halfdayBtn')
+    const fulldayBtn = document.getElementById('fulldayBtn')
+    fullday.style.display='block'
+    halfday.style.display='none'
+    fulldayBtn.classList.add('active-forms')
+    halfdayBtn.classList.remove('active-forms')
+}
+function halfday(){
+    const fullday = document.getElementById('fullday')
+    const halfday = document.getElementById('halfday')
+    const halfdayBtn = document.getElementById('halfdayBtn')
+    const fulldayBtn = document.getElementById('fulldayBtn')
+    fullday.style.display='none'
+    halfday.style.display='block'
+    fulldayBtn.classList.remove('active-forms')
+    halfdayBtn.classList.add('active-forms')
+}
+// ==================sick=================
+function fulldaysick(){
+    const fulldaysick = document.getElementById('fulldaysick')
+    const halfdaysick = document.getElementById('halfdaysick')
+    const halfdayBtn = document.getElementById('halfdaysickBtn')
+    const fulldayBtn = document.getElementById('fulldaysickBtn')
+    fulldaysick.style.display='block'
+    halfdaysick.style.display='none'
+    fulldayBtn.classList.add('active-forms')
+    halfdayBtn.classList.remove('active-forms')
+}
+function halfdaysick(){
+    const fulldaysick = document.getElementById('fulldaysick')
+    const halfdaysick = document.getElementById('halfdaysick')
+    const halfdayBtn = document.getElementById('halfdaysickBtn')
+    const fulldayBtn = document.getElementById('fulldaysickBtn')
+    fulldaysick.style.display='none'
+    halfdaysick.style.display='block'
+    fulldayBtn.classList.remove('active-forms')
+    halfdayBtn.classList.add('active-forms')
+}
+
 
 
 // =============pr lead form=============
