@@ -55,22 +55,50 @@ def ithome(request):
             todaycheckout = "No Entry"
 
         try:
-            yescheckin = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_in"]
-            yesscheckin = convert_to_12_hour_format(yescheckin)
+            if yesterday.weekday() == 6:
+                # If yesterday was a Sunday, retrieve Saturday data
+                saturday_date = yesterday - timedelta(days=1)
+                saturday_year = str(saturday_date.year)
+                saturday_month = str(saturday_date.month).zfill(2)
+                saturday_day = str(saturday_date.day).zfill(2)
 
+                yescheckin = attendence[saturday_year][saturday_month][saturday_day][uid]["check_in"]
+                yesscheckin = convert_to_12_hour_format(yescheckin)
+            else:
+                # If yesterday was not a Sunday, use the existing code for Sunday data
+                yescheckin = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_in"]
+                yesscheckin = convert_to_12_hour_format(yescheckin)
         except:
-            yescheckin = "No Entry"
+            yesscheckin = "No Entry"
 
         try:
-            yescheckout = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_out"]
-            yesscheckout = convert_to_12_hour_format(yescheckout)
+            if yesterday.weekday() == 6:
+                # If yesterday was a Sunday, retrieve Saturday data
+                saturday_date = yesterday - timedelta(days=1)
+                saturday_year = str(saturday_date.year)
+                saturday_month = str(saturday_date.month).zfill(2)
+                saturday_day = str(saturday_date.day).zfill(2)
+                yescheckout = attendence[saturday_year][saturday_month][saturday_day][uid]["check_out"]
+                yesscheckout = convert_to_12_hour_format(yescheckin)
+            else:    
+                yescheckout = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_out"]
+                yesscheckout = convert_to_12_hour_format(yescheckout)
         except:
-            yescheckout = "No Entry"
+            yesscheckout = "No Entry"
 
         try:
-            yesprogress = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["working_hours"]
-            yesterdayprogress = calculate_progress(yesprogress)
-            print("progress", yesterdayprogress)
+            if yesterday.weekday() == 6:
+                # If yesterday was a Sunday, retrieve Saturday data
+                saturday_date = yesterday - timedelta(days=1)
+                saturday_year = str(saturday_date.year)
+                saturday_month = str(saturday_date.month).zfill(2)
+                saturday_day = str(saturday_date.day).zfill(2)
+                yesprogress = attendence[saturday_year][saturday_month][saturday_day][uid]["working_hours"]
+                yesterdayprogress = calculate_progress(yesprogress)
+            else:    
+                yesprogress = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["working_hours"]
+                yesterdayprogress = calculate_progress(yesprogress)
+                print("progress", yesterdayprogress)
         except:
             yesterdayprogress = "Absent"    
         try:
