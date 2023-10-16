@@ -1,0 +1,669 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <!-- chart js start  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <!-- chart js end -->
+    <title>adminconsole</title>
+</head>
+
+<body>
+    <div class="main-con ">
+        <div class="nav-con " onclick="navcon()">
+            <nav class="px-2">
+                <div class="container-fluid p-0 m-0">
+                    <div class="navlistlogo">
+                        <div class="left-nav-list">
+                            <div class="menu-icon">
+                                <img src="{% static 'images/nav-icon/small-icon.png' %}" alt="small_Icon"
+                                    class="small-logo">
+                                    <img src="{% static 'images/close.png' %}" alt="menu_Icon"
+                                    class="close-icons">
+                            </div>
+                        </div>
+                        <div class="right-nav-list">
+                            <img src="{% static 'images/nav-icon/main-log.svg' %}" alt="small_Icon" class="main-logo">
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <li class="user-visual">
+                            <div class="left-nav-list" > <img src="{% static 'images/menu.png' %}" alt="menu_Icon"
+                                class="menu-icons"></div>
+                            <div class="right-nav-list">
+                                <div class="user-profiles">
+                                    <div class="user-img">
+                                        <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                    </div>
+                                    <div class="emply-id">
+                                        <span>{{ name }}</span><br>
+                                        <span>{% if dep == "WEB" %}
+                                            <p>Web Developer</p>
+                                        {% elif dep == "APP" %}
+                                            <p>App developer</p>
+                                        {% elif dep == "MEDIA" %}
+                                            <p>Graphic designer</p>
+                                        {% elif dep == "PR" %}
+                                            <p>PR</p>
+                                        {% elif dep == "RND" %}
+                                            <p>R&D</p>
+                                        {% else %}
+                                            <p>Admin</p>
+                                        {% endif %}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </div>
+                    <ul id="nav-main-con">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/ithome'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>dashboard</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/leave_form'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Leave Form</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/late_form'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Late Form</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/approval'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/approval.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Approval</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/suggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/suggestion.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Suggestion</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/suggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/inprocess.svg' %}" alt="inprocess_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>In Process</h5>
+                            </div>
+                        </li>
+                      
+                    </ul>
+                    <div class="logout"  onclick="location.href='/logout/'">
+                        <li class="navlistmenu">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/logout-icon.svg' %}" alt="dashboard_Icon"
+                                        class="logout-icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Logout</h5>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="right-con " id="rightCon" onclick="rightcon()">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="checkin-con">
+                            <h6>Today</h6>
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-4">
+                                    <span>Check In</span><br>
+                                    <span>{{ todaycheckin }}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: {{ todayprogress }}%"
+                                         aria-valuenow="{{ todayprogress }}" aria-valuemin="0" aria-valuemax="100"></div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>Check Out</span><br>
+                                    <span>{{ todaycheckout }}</span>
+                                </div>
+                            </div>
+                            <h6>Yesterday</h6>
+                            <div class="row d-flex align-items-center mt-1">
+                                <div class="col-md-4">
+                                    <span>Check In</span><br>
+                                    <span>{{ yescheckin }}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="progress">
+                                        <div id="progress-bar" role="progressbar" style="width: {{ yesprogress }}%;"
+                                         aria-valuenow="{{ yesprogress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                </div>
+                                <div class="col-md-4">
+                                    <span>Check Out</span><br>
+                                    <span>{{ yescheckout }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="refreshment-con">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <form action="/refreshment/" method="post" >
+                                        {% csrf_token %}
+                                        <div class="d-flex align-items-center">
+                                            <div class="refresh-order">
+                                                <h4>Refreshment</h4>
+                                                <div id="tea-coffee-milk">
+                                                    <div class="refresh-list">
+                                                        <label for="tea" class="row">
+                                                            <div class="col-md-10">
+                                                                <p class="refresh-text"><img
+                                                                        src="{% static 'images/tea-icon.png' %}"
+                                                                        alt="tea-icon" class="refresh-icon">Tea</p>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <input type="checkbox" class="check-order" id="tea" name="refreshment" value="tea">
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="refresh-list">
+                                                        <label for="coffee" class="row">
+                                                            <div class="col-md-10">
+                                                                <p class="refresh-text"> <img
+                                                                        src="{% static 'images/tea-icon.png' %}"
+                                                                        alt="tea-icon" class="refresh-icon">Coffee</p>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <input type="checkbox" class="check-order" id="coffee" name="refreshment" value="coffee">
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="refresh-list">
+                                                        <label for="milk" class="row">
+                                                            <div class="col-md-10">
+                                                                <p class="refresh-text"> <img
+                                                                        src="{% static 'images/tea-icon.png' %}"
+                                                                        alt="tea-icon" class="refresh-icon">Milk</p>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <input type="checkbox" class="check-order" id="milk" name="refreshment" value="milk">
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div id="tea-coffee">   
+                                                    <div class="refresh-list">
+                                                        <label for="lunch" class="row">
+                                                            <div class="col-md-10">
+                                                                <p class="refresh-text"> <img
+                                                                        src="{% static 'images/tea-icon.png' %}"
+                                                                        alt="tea-icon" class="refresh-icon">Lunch</p>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <input type="checkbox" class="check-order" id="lunch" name="refreshment" value="Lunch">
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div> 
+                                            </div>
+
+                                            <div class="order-button">
+                                                <button type="submit" id="ordBtn"
+                                                    class="primary-button px-2">Order</button>
+                                            </div>
+                                        </div>
+                                    </form> 
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="slide-carouse">
+                                        <div id="carouselExampleControls" class="carousel slide"
+                                            data-bs-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img src="{% static 'images/tea-slider-img.png' %}" alt="lunch-img"
+                                                        class="caro-img ">
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="{% static 'images/coffee-slider-img.png' %}" alt="lunch-img"
+                                                        class="caro-img">
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="{% static 'images/slide-img.png' %}" alt="lunch-img"
+                                                        class="caro-img">
+                                                </div>
+                                            </div>
+                                            <button class="carousel-control-prev d-none" type="button"
+                                                data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            </button>
+                                            <button class="carousel-control-next d-none" type="button"
+                                                data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="notification-con p-2">
+                            <h4>Notification</h4>
+                            <div class="notify-parent">
+                                <div class="notify-list">
+                                    <div class="notify-left pending">
+                                        <span><img src="{% static 'images/wall-clock.svg' %}" alt="remind-icon"
+                                                class="clock-icon"></span> Pending
+                                    </div>
+                                    <div class="notify-center">
+                                        Admin Dashboard UI Implementaion
+                                    </div>
+                                    <div class="notify-right remaind">
+                                        <span><img src="{% static 'images/remind-bell.svg' %}" alt="remind-icon"
+                                                class="remind-icon"></span> Remind
+                                    </div>
+                                </div>
+                                <div class="notify-list">
+                                    <div class="notify-left pending">
+                                        <span><img src="{% static 'images/wall-clock.svg' %}" alt="remind-icon"
+                                                class="clock-icon"></span> Pending
+                                    </div>
+                                    <div class="notify-center">
+                                        Admin Dashboard UI Implementaion
+                                    </div>
+                                    <div class="notify-right remaind">
+                                        <span><img src="{% static 'images/remind-bell.svg' %}" alt="remind-icon"
+                                                class="remind-icon"></span> Remind
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="leavebalance-con p-2">
+                            <h4>Leave Balance</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="leave-chart">
+                                        <canvas id="myChart2" width="100" height="100"></canvas>
+                                        <div class="leave-precent">
+                                            <span class="top-num">17</span>
+                                            <span class="dived-sympl">/</span>
+                                            <span class="bottom-num">24</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-9 d-flex align-items-center">
+                                            <p class="circl me-1 sick-circl"></p>
+                                            <p class="leave-text">Sick Leave</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="leave-text leave-count">13</p>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9 d-flex align-items-center">
+                                            <p class="circl me-1 casual-circl"></p>
+                                            <p class="leave-text">Casual Leave</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="leave-text leave-count">24</p>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="workdone-entry-con">
+                            <form id="submitwork-form" action="/submitwork/" method="post" >
+                                {% csrf_token %}
+                                <div class="row d-flex align-items-center text-align-center px-2">
+                                    <div class="col-md-1">
+                                        <div class="work-done-li">
+                                            <p>From</p>
+                                            <div>
+                                                <input type="time" name="from-time" id="ft" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="work-done-li">
+                                            <p>To</p>
+                                            <div><input type="time" name="to-time" id="tt" onchange="timediff()" required></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="work-done-li">
+                                            <p>Add Work done</p>
+                                            <div><input type="text" required placeholder="Enter Your Workdone Here..." name="workdone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="work-done-li">
+                                            <p>Percentage </p>
+                                            <div><input type="number" required placeholder="|" name="percent"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="d-flex justify-content-end">
+                                            <button type="submit" class="primary-button" >Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="workdone-con p-2">
+                            <div class="notify-workdone-data">
+                                {% if listOfTodaysWork %}
+                                {% for work_item in listOfTodaysWork %}
+                                <div class="notify-lists">
+                                    <form action="/editworkdone/" method="post">
+                                        {% csrf_token %}
+                                        <div class="row d-flex align-items-center text-align-center px-2">
+                                            <div class="col-md-1">
+                                                <div class="work-done-li">
+                                                    <!-- <p>From</p> -->
+                                                    <div>
+                                                        <input type="hidden" name="default_fromtime" value="{{work_item.from}}">
+                                                        <input type="time" name="from-time" value="{{work_item.from}}" id="ft" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="work-done-li">
+                                                    <!-- <p>To</p> -->
+                                                    <div><input type="hidden" name="default_totime" value="{{work_item.to}}">
+                                                        <input type="time" name="to-time" id="tt" value="{{work_item.to}}" onchange="timediff()" required></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="work-done-li">
+                                                    <!-- <p>Add Work done</p> -->
+                                                    <div><input type="text" value="{{work_item.workDone}}" name="workdone">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="work-done-li">
+                                                    <!-- <p>Percentage </p> -->
+                                                    <div><input type="number" value="{{ work_item.workPercentage|slice:":-1" }}"  required placeholder="|" name="percent"></div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="submit"
+                                                        class="primary-button px-3 my-1 ">Edit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                {% endfor %}
+                                
+                                
+                            </div>
+                            {% else %}
+                            <div class="notify-workdone-withoutdata">
+                                <h2>No Workdone</h2>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- js script  start -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <!-- js script  end -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        $(document).ready(function() {
+            var progressBar = document.getElementById("progress-bar");
+            progressBar.style.width = "{{ yesprogress }}%";
+            if ({{ yesprogress }} < 100) {
+                progressBar.style.backgroundColor = "red";
+            } else {
+                progressBar.style.backgroundColor = "#e0ae09";
+            }
+        });
+        $(document).ready(function() {
+           
+            function updateOptions() {
+            var currentDate = new Date();
+            var currentHour = currentDate.getHours();
+            console.log("hour",currentHour)
+    
+         
+            var showTeaCoffeeMilk = currentHour >= 9 && currentHour < 11;
+            var showTeaCoffee = currentHour >= 14 && currentHour < 16;
+    
+           
+            if (showTeaCoffeeMilk) {
+                $("#tea-coffee-milk").show();
+                $("#tea-coffee").show();
+            } else if (showTeaCoffee) {
+                $("#tea-coffee-milk").show();
+                $("#tea-coffee").hide();
+            } else {
+                $("#tea-coffee-milk").hide();
+                $("#tea-coffee").hide();
+                //if no time for refreshment
+            }
+        }
+        updateOptions();
+    setInterval(updateOptions, 1000);
+
+        });
+    </script>
+  <script>
+    $(document).ready(function() {
+        $("#refreshment-form").on("submit", function(event) {
+            event.preventDefault();  
+
+            var formData = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "/refreshment/",
+                data: formData,
+                success: function(response) {
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+
+                    console.log("AJAX Error: " + error);
+                }
+            });
+        });
+    });    
+    $(document).ready(function() {
+        $("#submitwork").on("submit", function(event) {
+            event.preventDefault();  
+
+            var formData = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "/submitwork/",
+                data: formData,
+                success: function(response) {
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+
+                    console.log("AJAX Error: " + error);
+                }
+            });
+        });
+    });
+</script>
+<script>
+    function timediff() {
+      ft = document.getElementById("ft").value
+      tt = document.getElementById("tt").value
+      var diff = (new Date("1970-1-1 " + tt) - new Date("1970-1-1 " + ft)) / 1000 / 60 / 60;
+      if (diff < 0) {
+        alert("The time you entered is negative that the to time is lesser than from time kindly change before you submit, Kindly re-enter your time correctly");
+        document.getElementById('ft').value = '';
+        document.getElementById('tt').value = '';
+      }
+      if (diff > 6) {
+        alert("Check your AM PM as it seems longer than 6 hours kindly split it and check once before you submit");
+        document.getElementById('ft').value = '';
+        document.getElementById('tt').value = '';
+      }
+    }
+    // reload testing starts----------------
+    // (function()
+    // {
+    //   if( window.localStorage )
+    //   {
+    //     if(!localStorage.getItem('firstLoad')){
+    //       localStorage['firstLoad'] = true;
+    //       window.location.reload();
+    //     }
+    //     else
+    //       localStorage.removeItem('firstLoad');
+    //   }
+    // })();
+
+    // ==================================================================
+    // window.onload = function() {
+    //   if(!window.location.hash) {
+    //     window.location = window.location + '#loaded';
+    //     window.location.reload();
+    //   }
+    // }
+    // ==========================================================
+    // reload testing ends================
+    // setTimeout('location.reload()', 60000)
+    var end = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+    try {
+      start = document.getElementById("_from").value;
+    } catch (err) {
+      console.log("ERROR IN GETTING NUMBER");
+    }
+    function diff(start, end) {
+      start = start.split(":");
+      end = end.split(":");
+      var startDate = new Date(0, 0, 0, start[0], start[1], 0);
+      var endDate = new Date(0, 0, 0, end[0], end[1], 0);
+      var diff = endDate.getTime() - startDate.getTime();
+      var hours = Math.floor(diff / 1000 / 60 / 60);
+      diff -= hours * 1000 * 60 * 60;
+      var minutes = Math.floor(diff / 1000 / 60);
+      return ((hours < 9 ? "0" : "") + hours + ":" + (minutes < 9 ? "0" : "") + minutes);
+    }
+    // b = diff(start, end)
+    b = 1;
+    document.addEventListener("DOMContentLoaded", function () {
+      if (!Notification) {
+        alert("Desktop notifications not available in your browser. Try Chromium.");
+        return;
+      }
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+      }
+    });
+    if (b > "01:30") {
+      if (Notification.permission == "denied") {
+        Notification.requestPermission();
+      } else {
+        var user = document.getElementById("user").innerHTML;
+        var notification = new Notification("Team Onwords", {
+          icon: "/static/images/mainLogo.png",
+          body: "Hey " + user + " you may be busy at your work to update workdone, Kindly Update your workdone and continue your work",
+        });
+        // notification.onclick = function () {
+        //   window.open('http://stackoverflow.com/a/13328397/1269037');
+        // };
+      }
+    }
+    // var fname = document.getElementById("workDone");
+    // fname.addEventListener("input", () => {
+    //   if (fname.validity.tooLong || fname.validity.tooShort || fname.validity.valueMissing) {
+    //     fname.setCustomValidity("Describe your workdone in detail!");
+    //     fname.reportValidity();
+    //   } else { fname.setCustomValidity(""); }
+    // });
+  </script>
+
+
+</body>
+
+</html>
