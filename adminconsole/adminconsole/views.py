@@ -40,9 +40,9 @@ def login(request):
             if dep == "WEB":
                 response = redirect("ithome")
                 return response
-            # if dep == "MEDIA":
-            #     response = redirect("mediahome")
-            #     return response
+            if dep == "MEDIA":
+                response = redirect("ithome")
+                return response
             # if dep == "PR":
             #     response = redirect("prhome")
             #     return response
@@ -76,7 +76,7 @@ def login(request):
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "MEDIA":
-                response = redirect("mediahome")
+                response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
