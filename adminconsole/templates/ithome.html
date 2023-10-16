@@ -160,7 +160,7 @@
                                     <span>{{ todaycheckout }}</span>
                                 </div>
                             </div>
-                            <h6>Yesterday</h6>
+                            <h6>{% if day %}{{ day }}{% else %}Yesterday{% endif %}</h6>
                             <div class="row d-flex align-items-center mt-1">
                                 <div class="col-md-4">
                                     <span>Check In</span><br>
@@ -441,8 +441,7 @@
                                             </div>
                                             <div class="col-md-1">
                                                 <div class="work-done-li">
-                                                    <!-- <p>Percentage </p> -->
-                                                    <div><input type="number" value="{{ work_item.workPercentage|slice:":-1" }}"  required placeholder="|" name="percent"></div>
+                                                    <div><input type="number" value="{{ work_item.workPercentage }}" name="percent"></div>
 
                                                 </div>
                                             </div>
@@ -455,10 +454,11 @@
                                         </div>
                                     </form>
                                 </div>
-                                {% endfor %}
+                                
                                 
                                 
                             </div>
+                            {% endfor %}
                             {% else %}
                             <div class="notify-workdone-withoutdata">
                                 <h2>No Workdone</h2>
