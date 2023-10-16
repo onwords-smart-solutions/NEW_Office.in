@@ -4,6 +4,7 @@ from django.urls import path
 from . import views
 from it import views as itviews
 from pr import views as prviews
+from rnd import views as rndviews
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.login, name="login"),
@@ -36,7 +37,14 @@ urlpatterns = [
 
     # ================accounts department ====================
 
-    path("financial/",views.financial,name='financial')
+    path("financial/",views.financial,name='financial'),
+
+    # ==========rnd department =================================
+
+    path("rndhome",rndviews.rndhome,name='rndhome'),
+    path("inprocess",rndviews.inprocess,name='inprocess'),
+
+    
 
    
 ]
