@@ -288,6 +288,9 @@
 .view-btn {
     cursor: pointer;
 }
+#halfday,#halfdaysick{
+    display: none;
+}
 
 /* ===================== */
 @media print {
