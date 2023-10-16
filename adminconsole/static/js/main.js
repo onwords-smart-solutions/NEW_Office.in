@@ -93,7 +93,7 @@ new Chart("myChart2", {
             backgroundColor: barColors,
             data: yValues,
             borderColor: 'transparent'
-            
+
         }]
     },
     options: {
@@ -165,30 +165,7 @@ leaveHistoryBtn.addEventListener('click', () => {
 
 // =============late entry start===================
 
-//   =============leave form end========
 
-function lateform() {
-    const LateCon = document.getElementById('late_con')
-    const LateHistory = document.getElementById('lateHistory')
-    const lateBtn = document.getElementById('lateBtn')
-    const LateHistoryBtn = document.getElementById('lateHistoryBtn')
-
-    lateBtn.addEventListener('click', () => {
-        LateCon.style.display = 'block'
-        LateHistory.style.display = 'none'
-        lateBtn.classList.add('active-form-late')
-        LateHistoryBtn.classList.remove('active-form-late')
-
-    })
-    LateHistoryBtn.addEventListener('click', () => {
-        LateCon.style.display = 'none'
-        LateHistory.style.display = 'block'
-        lateBtn.classList.remove('active-form-late')
-        LateHistoryBtn.classList.add('active-form-late')
-    })
-}
-
-// =============late entry start===================
 
 function approvalpage() {
     const lateApprovalBtn = document.getElementById('lateApprovalBtn')
@@ -210,6 +187,53 @@ function approvalpage() {
         leaveApprovalBtn.classList.add('active-form-li')
     })
 }
+
+// ==================leave full day halfday=====
+
+function fullday() {
+    const fullday = document.getElementById('fullday')
+    const halfday = document.getElementById('halfday')
+    const halfdayBtn = document.getElementById('halfdayBtn')
+    const fulldayBtn = document.getElementById('fulldayBtn')
+    fullday.style.display = 'block'
+    halfday.style.display = 'none'
+    fulldayBtn.classList.add('active-forms')
+    halfdayBtn.classList.remove('active-forms')
+}
+function halfday() {
+    const fullday = document.getElementById('fullday')
+    const halfday = document.getElementById('halfday')
+    const halfdayBtn = document.getElementById('halfdayBtn')
+    const fulldayBtn = document.getElementById('fulldayBtn')
+    fullday.style.display = 'none'
+    halfday.style.display = 'block'
+    fulldayBtn.classList.remove('active-forms')
+    halfdayBtn.classList.add('active-forms')
+}
+
+// ==================sick=================
+
+function fulldaysick() {
+    const fulldaysick = document.getElementById('fulldaysick')
+    const halfdaysick = document.getElementById('halfdaysick')
+    const halfdayBtn = document.getElementById('halfdaysickBtn')
+    const fulldayBtn = document.getElementById('fulldaysickBtn')
+    fulldaysick.style.display = 'block'
+    halfdaysick.style.display = 'none'
+    fulldayBtn.classList.add('active-forms')
+    halfdayBtn.classList.remove('active-forms')
+}
+function halfdaysick() {
+    const fulldaysick = document.getElementById('fulldaysick')
+    const halfdaysick = document.getElementById('halfdaysick')
+    const halfdayBtn = document.getElementById('halfdaysickBtn')
+    const fulldayBtn = document.getElementById('fulldaysickBtn')
+    fulldaysick.style.display = 'none'
+    halfdaysick.style.display = 'block'
+    fulldayBtn.classList.remove('active-forms')
+    halfdayBtn.classList.add('active-forms')
+}
+
 
 
 // =============pr lead form=============
@@ -310,3 +334,29 @@ function printTable() {
     newWin.print();
     newWin.close();
 }
+
+// ====================create WTA =========
+
+function createGate() {
+    const createGate = document.getElementById('createGate')
+    const createWTA = document.getElementById('createWTA')
+    const creategateBtn = document.getElementById('creategateBtn')
+    const createwtaBtn = document.getElementById('createwtaBtn')
+    createGate.style.display = 'block';
+    createWTA.style.display = 'none';
+    creategateBtn.classList.add('active-form-late')
+    createwtaBtn.classList.remove('active-form-late')
+}
+
+function createWTA() {
+    const createGate = document.getElementById('createGate')
+    const createWTA = document.getElementById('createWTA')
+    const creategateBtn = document.getElementById('creategateBtn')
+    const createwtaBtn = document.getElementById('createwtaBtn')
+
+    createGate.style.display = 'none';
+    createWTA.style.display = 'block';
+    creategateBtn.classList.remove('active-form-late')
+    createwtaBtn.classList.add('active-form-late')
+}
+

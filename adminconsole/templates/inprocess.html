@@ -78,7 +78,7 @@
                                 <h5>Leave Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/late_form'">
+                        <li class="navlistmenu " onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
@@ -96,6 +96,16 @@
                             </div>
                             <div class="right-nav-list">
                                 <h5>Suggestion</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/suggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/inprocess.svg' %}" alt="inprocess_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>In Process</h5>
                             </div>
                         </li>
 
@@ -117,77 +127,27 @@
             </nav>
         </div>
         <div class="right-con " id="rightCon" onclick="rightcon()">
+
             <div class="container-fluid">
-                <div class="main-installation-details">
-                    <p onclick="printTable()" class=" primary-button downloadBtns">Print</p>
-                    <div class="row my-4">
-                        <div class="col-md-3">
-                            <h3>Installation details</h3>
-                        </div>
-                        <div class="col-md-5">
-                            <form action="">
-                                <div class="customer-searchbar">
-                                    <div class="cust-inp">
-                                        <input type="text" placeholder="Search">
-                                    </div>
-                                    <div class="searchBtn" type="submit">
-                                        <img src="{% static 'images/search-icon.svg' %}" alt="search-icon"
-                                            class="img-fluid">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="sort-month">
-                                <form action="/financial-tracking/" method="post" id="datetime">
-                                    {% csrf_token %}
-                                    <label for="sort-month"><img src="{% static 'images/sort-icon.svg' %}"
-                                            alt="sort-icon">
-                                        SortMonth</label>
-                                    <input type="month" name="get-total" id="sort-month" onchange="dateTimeSubmit()">
-                                    {{date}}
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="">
-                        <table class="table" id="myTable" style="border: 1px solid #282828; padding: 5px;">
-                            <thead>
-                                <tr class="leave-table-head ">
-                                    <th>S.No</th>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Place</th>
-                                    <th>Work</th>
-                                    <th>Client Name</th>
-                                    <th>Client Number</th>
-                                    <th>Client Details</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="table-body-li my-3">
-                                    <td>1</td>
-                                    <td>Aravinth,Naveen,Anwar</td>
-                                    <td style="text-wrap: nowrap;">27-09-23 </td>
-                                    <td>Madurai</td>
-                                    <td>SmartHome</td>
-                                    <td>Shreyas Iyer</td>
-                                    <td>8784637882</td>
-                                    <td>103,Alagappa Layout, Valasaravakkam, Chennai-600028</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-
+                <div class="inprocess-con">
+                    <table class="table">
+                        <thead>
+                            <tr class="leave-table-head ">
+                                <th>Customer Name</th>
+                                <th>Contatct Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-body-li my-3">
+                                <td>Pranesh</td>
+                                <td>9159918535</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
         </div>
     </div>
-    <script>
-
-    </script>
     <!-- bootstrap js -->
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>

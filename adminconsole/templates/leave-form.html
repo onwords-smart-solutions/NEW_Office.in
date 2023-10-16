@@ -130,51 +130,84 @@
                                 <p id="sickBtn" class="formhov px-4">Sick</p>
                                 <p id="permissionBtn" class="formhov">Permission</p>
                             </div>
-                            <form action="" class="casual-leave leave-frm" id="casual-leaves">
-                                <label for="from">From</label>
+                            <div class="" id="casual-leaves">
+
+                                <div class="leave-lists mt-3" >
+                                    <p class=" formhov  active-forms" id="fulldayBtn" onclick="fullday()">Full Day</p>
+                                    <p  class="formhov px-4" id="halfdayBtn" onclick="halfday()">Half Day</p>
+                                    
+                                </div>
+
+                                <form action="/leaveform/" method="post" class="casual-leave leave-frm" >
+                                  <div class="" id="halfday">
+                                    <label for="from">Date</label>
+                                    <div class="form-inp-con">
+                                        <input type="date" id="Date" placeholder="Date" name="fromdate">
+                                        <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
+                                    </div>
+                                  </div>
+    
+                                  <div id="fullday">
+                                    <label for="from">From</label>
+                                    <div class="form-inp-con">
+                                        <input type="date" id="from" placeholder="From" name="fromdate">
+                                        <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
+                                    </div>
+    
+                                    <label for="to">To</label>
+                                    <div class="form-inp-con">
+                                        <input type="date" id="from" placeholder="To" name="todate">
+                                        <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
+                                    </div>
+                                  </div>
+                                    <label for="reason">Reason</label>
+                                    <div class="form-inp-con">
+                                        <input type="text" id="from" placeholder="Reason" name="reason">
+    
+                                    </div>
+                                    <input type="hidden" name="general">
+                                    <button class="primary-button">Submit</button>
+                                </form>
+                            </div>
+                           <div class=""  id="sick-leave">
+                            <div class="leave-lists mt-3" >
+                                <p class=" formhov  active-forms" id="fulldaysickBtn" onclick="fulldaysick()">Full Day</p>
+                                <p  class="formhov px-4" id="halfdaysickBtn" onclick="halfdaysick()">Half Day</p>
+                                
+                            </div>
+
+                            <form action="/leaveform/" method="post" class="sick-leave leave-frm">
+                               <div id="halfdaysick">
+                                <label for="sick-half">Date</label>
                                 <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="From">
-                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
+                                    <input type="date" id="sick-half" placeholder="Date" name="fromdate">
+                                    <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
+                                </div>
+                               </div>
+                                <div id="fulldaysick">
+                                    <label for="from">From</label>
+                                <div class="form-inp-con">
+                                    <input type="date" id="from" placeholder="From" name="fromdate">
+                                    <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
                                 </div>
 
                                 <label for="to">To</label>
                                 <div class="form-inp-con">
                                     <input type="date" id="from" placeholder="To">
-                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
+                                    <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
                                 </div>
-                                <label for="reason">Reason</label>
-                                <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Reason">
-
-                                </div>
-                                <button class="primary-button">Submit</button>
-                            </form>
-                            <form action="" class="sick-leave leave-frm" id="sick-leave">
-                                <label for="from">From</label>
-                                <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="From">
-                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
-                                </div>
-
-                                <label for="to">To</label>
-                                <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="To">
-                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
                                 </div>
 
                                 <label for="reason">sick Reason</label>
                                 <div class="form-inp-con">
                                     <input type="text" id="from" placeholder="Reason">
                                 </div>
-
                                 <button class="primary-button">Submit</button>
                             </form>
-                            <form action="" class=" leave-frm" id="permission">
-                                <label for="from">Date</label>
-                                <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="From">
-                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
-                                </div>
+                           </div>
+                         
+                            <form action="/leaveform/" method="post" class=" leave-frm" id="permission">
+                                
 
                                 <label for="to">Reason</label>
                                 <div class="form-inp-con">

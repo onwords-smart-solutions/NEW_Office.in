@@ -118,6 +118,16 @@
                                 <h5>Suggestion</h5>
                             </div>
                         </li>
+                        <li class="navlistmenu" onclick="location.href='/suggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/inprocess.svg' %}" alt="inprocess_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>In Process</h5>
+                            </div>
+                        </li>
                       
                     </ul>
                     <div class="logout"  onclick="location.href='/logout/'">
@@ -160,7 +170,7 @@
                                     <span>{{ todaycheckout }}</span>
                                 </div>
                             </div>
-                            <h6>{% if day %}{{ day }}{% else %}Yesterday{% endif %}</h6>
+                            <h6>Yesterday</h6>
                             <div class="row d-flex align-items-center mt-1">
                                 <div class="col-md-4">
                                     <span>Check In</span><br>
@@ -410,13 +420,8 @@
                     <div class="col-md-12">
                         <div class="workdone-con p-2">
                             <div class="notify-workdone-data">
-                                
+                                {% if listOfTodaysWork %}
                                 {% for work_item in listOfTodaysWork %}
-                                {% if work_item == "No Workdone" %}
-                                <div class="notify-workdone-withoutdata">
-                                    <h2>No Workdone</h2>
-                                </div>
-                                {% else %}
                                 <div class="notify-lists">
                                     <form action="/editworkdone/" method="post">
                                         {% csrf_token %}
@@ -446,7 +451,8 @@
                                             </div>
                                             <div class="col-md-1">
                                                 <div class="work-done-li">
-                                                    <div><input type="number" value="{{ work_item.workPercentage }}" name="percent"></div>
+                                                    <!-- <p>Percentage </p> -->
+                                                    <div><input type="number" value="{{ work_item.workPercentage|slice:":-1" }}"  required placeholder="|" name="percent"></div>
 
                                                 </div>
                                             </div>
@@ -459,15 +465,15 @@
                                         </div>
                                     </form>
                                 </div>
-                                {% endif %}
                                 {% endfor %}
                                 
                                 
-                                
-                                
-                                
                             </div>
-                            
+                            {% else %}
+                            <div class="notify-workdone-withoutdata">
+                                <h2>No Workdone</h2>
+                            </div>
+                            {% endif %}
 
                         </div>
                     </div>

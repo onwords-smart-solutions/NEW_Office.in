@@ -1,0 +1,548 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pr.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- chart js start  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <!-- chart js end -->
+    <title>adminconsole</title>
+</head>
+
+<body>
+    <div class="main-con ">
+        <div class="nav-con " onclick="navcon()">
+            <nav class="px-2">
+                <div class="container-fluid p-0 m-0">
+                    <div class="navlistlogo">
+                        <div class="left-nav-list">
+                            <div class="menu-icon">
+                                <img src="{% static 'images/nav-icon/small-icon.png' %}" alt="small_Icon"
+                                    class="small-logo">
+                                <img src="{% static 'images/close.png' %}" alt="menu_Icon" class="close-icons">
+                            </div>
+                        </div>
+                        <div class="right-nav-list">
+                            <img src="{% static 'images/nav-icon/main-log.svg' %}" alt="small_Icon" class="main-logo">
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <li class="user-visual">
+                            <div class="left-nav-list"> <img src="{% static 'images/menu.png' %}" alt="menu_Icon"
+                                    class="menu-icons"></div>
+                            <div class="right-nav-list">
+                                <div class="user-profiles">
+                                    <div class="user-img">
+                                        <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                    </div>
+                                    <div class="emply-id">
+                                        <span>Vinith</span><br>
+                                        <span>ID:WD002</span><br>
+                                        <span>Web Developer</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </div>
+                    <ul id="nav-main-con">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/ithome'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>dashboard</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/leave_form'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Leave Form</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/late_form'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Late Form</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/approval'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/approval.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Approval</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/suggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/suggestion.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Suggestion</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu " onclick="location.href='/create_lead'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/create_lead.svg' %}" alt="create_lead">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Create Lead</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/customer_details'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/customer-icon.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Customer Details</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/points_workdone'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/point-workdone.svg' %}" alt="point-work_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Workdone</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu  " onclick="location.href='/financial'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/customer-icon.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Financial</h5>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <div class="logout" onclick="location.href=''">
+                        <li class="navlistmenu">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/logout-icon.svg' %}" alt="dashboard_Icon"
+                                        class="logout-icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Logout</h5>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="right-con " id="rightCon" onclick="rightcon()">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="checkin-con">
+                            <h6>Today</h6>
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-4">
+                                    <span>Check In</span><br>
+                                    <span>09:00</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 65%;"
+                                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>Check Out</span><br>
+                                    <span>No Entry</span>
+                                </div>
+                            </div>
+                            <h6>Yesterday</h6>
+                            <div class="row d-flex align-items-center mt-1">
+                                <div class="col-md-4">
+                                    <span>Check In</span><br>
+                                    <span>09:00</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 100%;"
+                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>Check Out</span><br>
+                                    <span>06:23</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="refreshment-con">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <form action="">
+                                        <div class="d-flex align-items-center">
+                                            <div class="refresh-order">
+                                                <h4>Refreshment</h4>
+                                                <div class="refresh-list">
+                                                    <label for="tea" class="row">
+                                                        <div class="col-md-10">
+                                                            <p class="refresh-text"><img
+                                                                    src="{% static 'images/tea-icon.png' %}"
+                                                                    alt="tea-icon" class="refresh-icon">Tea</p>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="checkbox" class="check-order" id="tea">
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="refresh-list">
+                                                    <label for="coffee" class="row">
+                                                        <div class="col-md-10">
+                                                            <p class="refresh-text"> <img
+                                                                    src="{% static 'images/coffee-icon.svg' %}"
+                                                                    alt="tea-icon" class="refresh-icon">Coffee</p>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="checkbox" class="check-order" id="coffee">
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="refresh-list">
+                                                    <label for="milk" class="row">
+                                                        <div class="col-md-10">
+                                                            <p class="refresh-text"> <img
+                                                                    src="{% static 'images/milk-icon.svg' %}"
+                                                                    alt="tea-icon" class="refresh-icon">Milk</p>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="checkbox" class="check-order" id="milk">
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="refresh-list">
+                                                    <label for="lunch" class="row">
+                                                        <div class="col-md-10">
+                                                            <p class="refresh-text"> <img
+                                                                    src="{% static 'images/lunch-icon.svg' %}"
+                                                                    alt="tea-icon" class="refresh-icon">Lunch</p>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="checkbox" class="check-order" id="lunch">
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="order-button">
+                                                <button type="submit" id="ordBtn"
+                                                    class="primary-button px-2">Order</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="slide-carouse">
+                                        <div id="carouselExampleControls" class="carousel slide"
+                                            data-bs-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img src="{% static 'images/tea-slider-img.png' %}" alt="lunch-img"
+                                                        class="caro-img ">
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="{% static 'images/coffee-slider-img.png' %}"
+                                                        alt="lunch-img" class="caro-img">
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="{% static 'images/slide-img.png' %}" alt="lunch-img"
+                                                        class="caro-img">
+                                                </div>
+                                            </div>
+                                            <button class="carousel-control-prev d-none" type="button"
+                                                data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            </button>
+                                            <button class="carousel-control-next d-none" type="button"
+                                                data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="notification-con p-2">
+                            <h4>Notification</h4>
+                            <div class="notify-parent">
+                                <div class="notify-list">
+                                    <div class="notify-left pending">
+                                        <span><img src="{% static 'images/wall-clock.svg' %}" alt="remind-icon"
+                                                class="clock-icon"></span> Pending
+                                    </div>
+                                    <div class="notify-center">
+                                        Admin Dashboard UI Implementaion
+                                    </div>
+                                    <div class="notify-right remaind">
+                                        <span><img src="{% static 'images/remind-bell.svg' %}" alt="remind-icon"
+                                                class="remind-icon"></span> Remind
+                                    </div>
+                                </div>
+                                <div class="notify-list">
+                                    <div class="notify-left pending">
+                                        <span><img src="{% static 'images/wall-clock.svg' %}" alt="remind-icon"
+                                                class="clock-icon"></span> Pending
+                                    </div>
+                                    <div class="notify-center">
+                                        Admin Dashboard UI Implementaion
+                                    </div>
+                                    <div class="notify-right remaind">
+                                        <span><img src="{% static 'images/remind-bell.svg' %}" alt="remind-icon"
+                                                class="remind-icon"></span> Remind
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="leavebalance-con p-2">
+                            <h4>Leave Balance</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="leave-chart">
+                                        <canvas id="myChart2" width="100" height="100"></canvas>
+                                        <div class="leave-precent">
+                                            <span class="top-num">17</span>
+                                            <span class="dived-sympl">/</span>
+                                            <span class="bottom-num">24</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-9 d-flex align-items-center">
+                                            <p class="circl me-1 sick-circl"></p>
+                                            <p class="leave-text">Sick Leave</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="leave-text leave-count">13</p>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9 d-flex align-items-center">
+                                            <p class="circl me-1 casual-circl"></p>
+                                            <p class="leave-text">Casual Leave</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="leave-text leave-count">24</p>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="stock-details p-2">
+                            <h4>Daily Attendance</h4>
+                            <div class="" id="main"></div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="quotation-box-dashboard">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h4> Attendance</h4>
+                                <h2 class="install-attendance"><span><input type="date"></span><span>12-Sep</span></h2>
+                            </div>
+                            <div class="quot-chart">
+                                <canvas id="myChart4"></canvas>
+                            </div>
+
+                            <div class="bottom-quot-list">
+                                <div class="d-flex align-items-center justify-content-between mx-3">
+                                    <div class="d-flex align-items-center">
+                                        <p class="circl-quot quots-cir"></p>
+                                        <h5>Present</h5>
+                                    </div>
+                                    <div class="quot-count">
+                                        <h5>54</h5>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mx-3">
+                                    <div class="d-flex align-items-center">
+                                        <p class="circl-quot inv-circ"></p>
+                                        <h5>Absent</h5>
+                                    </div>
+                                    <div class="quot-count">
+                                        <h5>6</h5>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- bootstrap js -->
+        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <!-- js script  start -->
+        <script src="{% static 'js/main.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+        <!-- js script  end -->
+
+        <script>
+            // break
+            var xValues = [];
+            var yValues = [45, 37, 18];
+            var barColors = [
+                "#7FA9FB",
+                "#266386",
+                "#a78f0d",
+            ];
+            new Chart("myChart4", {
+                type: "doughnut",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues,
+                        borderColor: 'transparent'
+                    }]
+                },
+                options: {
+                    cutoutPercentage: 80,
+                    title: {
+                        display: true,
+                        text: ""
+                    }
+                }
+            });
+        </script>
+        <script>
+            // based ready dom, initialize echarts instance 
+            var myChart = echarts.init(document.getElementById('main'), 'royal');
+
+            var option = {
+                title: {
+                    text: 'Regional Evaporation and Precipitation',
+                    subtext: 'Fictitious'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['Evaporation', 'Precipitation']
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: { show: true },
+                        dataView: { show: true, readOnly: false },
+                        magicType: { show: true, type: ['line', 'bar'] },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: ['1 Month', '2 Months', '3 Months', '4 Months', '5 Months', '6 Months', '7 Months', '8 Months', '9 Months', '10 Months', '11 Months', '12 Months']
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: 'Evaporation',
+                        type: 'bar',
+                        data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+                        markPoint: {
+                            data: [
+                                { type: 'max', name: 'Max' },
+                                { type: 'min', name: 'Min' }
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                { type: 'average', name: 'Average Value' }
+                            ]
+                        }
+                    },
+                    {
+                        name: 'Precipitation',
+                        type: 'bar',
+                        data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+                        markPoint: {
+                            data: [
+                                { name: 'Annual Maximum', value: 182.2, xAxis: 7, yAxis: 183 },
+                                { name: 'Minimum', value: 2.3, xAxis: 11, yAxis: 3 }
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                { type: 'average', name: 'Average Value' }
+                            ]
+                        }
+                    }
+                ]
+            };
+
+            // Use just the specified configurations and data charts. 
+            myChart.setOption(option);
+        </script>
+</body>
+
+</html>

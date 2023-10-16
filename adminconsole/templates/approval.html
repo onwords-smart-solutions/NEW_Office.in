@@ -128,43 +128,52 @@
                             <thead>
                                 <tr class="leave-table-head">
                                     <th>Date</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Time</th>
                                     <th>Name</th>
                                     <th>Workdone</th>
+                                    <th>Work Percentage</th>
                                     <th>Reason</th>
+
                                     <th>Action</th>
 
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for year, month, date, all in allList %}
                                 <tr class="table-body-li my-3">
-                                    <td>09/08/2023</td>
-                                    <td>Ram</td>
-                                    <td>Alexa Skill</td>
-                                    <td>Forgot</td>
-                                    <td>
-                                        <button class="btn btn-success">Approved <img
-                                                src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                        <button class="btn btn-danger">Decline <img
-                                                src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                    </td>
-                                </tr>
-                                <tr class="table-body-li my-3">
-                                    <td>09/08/2023</td>
-                                    <td>Ram</td>
-                                    <td>Alexa Skill</td>
-                                    <td>Forgot</td>
-                                    <td>
-                                        <button class="btn btn-success">Approved <img
-                                                src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                        <button class="btn btn-danger">Decline <img
-                                                src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
-                                                class="img-fluid table-icon"></button>
-                                    </td>
-                                </tr>
+                                    <form action="/submitaction/" method="post">{% csrf_token %}
+                                    <td>{{date}}</td><input type="hidden" name="_date" value="{{date}}">
+                                    <input type="hidden" name="_month" value="{{month}}">
+                                    <input type="hidden" name="_year" value="{{year}}">
+                                    <td>{{all.from}}</td><input type="hidden" name="_from"
+                                                    value="{{all.from}}">
+                                    <td>{{all.to}}</td><input type="hidden" name="_to" value="{{all.to}}"> 
+                                    <td>{{all.time_in_hours}}</td><input type="hidden" name="_time_in_hours"
+                                                    value="{{all.time_in_hours}}">               
+                                    <td>{{all.name}}</td><input type="hidden" name="_name"
+                                                    value="{{all.name}}">
 
+                                    <td>{{all.workDone}}</td><input type="hidden" name="_workDone"
+                                                    value="{{all.workDone}}">
+                                    <td>{{all.workPercentage}}</td><input type="hidden"
+                                                    name="_workPercentage" value="{{all.workPercentage}}">                
+                                    <td>{{all.reason}}</td><input type="hidden" name="_reason"
+                                                    value="{{all.reason}}">
+                                    <td>
+                                        <button class="btn btn-success" name="approved">Approved <img
+                                                src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
+                                                class="img-fluid table-icon"></button>
+                                        <button class="btn btn-danger" name="declined">Decline <img
+                                                src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
+                                                class="img-fluid table-icon"></button>
+                                    </td>
+                                </form>
+                                </tr>
+                                {% endfor %}
+                            
+                              
                             </tbody>
                             </thead>
                         </table>

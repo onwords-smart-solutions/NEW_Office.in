@@ -120,10 +120,11 @@
             <div>
                 <div class="leave-form-cons">
                     <div class="leave-listsug">
-                        <form action="" class="casual-leave" id="casual-leaves">
+                        <form action="/suggestion/" class="casual-leave" id="casual-leaves" method="post">
+                            {% csrf_token %}
                             <label for="from" class="suggestionLable">Suggestion</label>
                             <div class="form-inp-con">
-                                <input type="text" id="from" placeholder="Suggestion">
+                                <input type="text" id="from" name="msg" placeholder="Suggestion">
                             </div>
                             <button class="primary-button">Submit</button>
                         </form>

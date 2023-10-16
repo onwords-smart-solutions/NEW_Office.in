@@ -4,17 +4,20 @@ from django.urls import path
 from . import views
 from it import views as itviews
 from pr import views as prviews
+from rnd import views as rndviews
+from admin import views as adminviews
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.login, name="login"),
     path("leave_form", views.leave_form, name="leave_form"),
-    path("late_form", views.late_form, name="late_form"),
-    path("approval", views.leave_approval, name="leave_approval"),
-    path("lateentry/", views.lateentry, name="lateentry"),
-    path("suggestion", views.suggestion, name="suggestion"),
+    path("late_form/", views.late_form, name="late_form"),
+    path("approval/", views.leave_approval, name="leave_approval"),
+    path("suggestion/", views.suggestion, name="suggestion"),
     path("refreshment/",views.refreshment, name="refreshment"),
     path("submitwork/", views.submitwork, name="submitwork"),
     path("editworkdone/", views.editworkdone, name="editworkdone"),
+    path("submitaction/", views.submitaction, name="submitaction"),
+    path("todo/", views.todo, name="todo"),
 
     # ========================coo page =========================
 
@@ -37,6 +40,20 @@ urlpatterns = [
     # ================accounts department ====================
 
     path("financial/",views.financial,name='financial'),
+<<<<<<< HEAD
+=======
+
+    # ==========rnd department =================================
+
+    path("rndhome",rndviews.rndhome,name='rndhome'),
+    path("inprocess",rndviews.inprocess,name='inprocess'),
+    path("create",rndviews.create,name='create'),
+
+    
+    # ==================admin department==================================
+
+    path("adminhome",adminviews.adminhome,name='adminhome'),
+>>>>>>> b63fc636aaeed7f7d6e760d9cf4f502420f244cf
 
     # ======= CMO Product Page ==========
       path("cmoproduct/",views.cmoproduct,name='cmoproduct'),

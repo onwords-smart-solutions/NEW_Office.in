@@ -107,12 +107,244 @@ def login(request):
         return render(request, "login.html")
 def leave_form(request):
     return render(request,'leave-form.html')
+
 def late_form(request):
-    return render(request,'late_form.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    loginState = request.COOKIES["loginState"]
+    form_submitted = False
+    name = checkUserName(uid)
+    todayDate = str(date.today())
+    thisYear = datetime.now().strftime("%Y")
+    thisMonth = datetime.now().strftime("%m")
+    # istl = False
+    # accounts = False
+    # itaproval = False
+    # rndaproval = False
+    # praproval = False
+    # aiaccess = False
+    # tl = db.child("tl").get().val()
+    # for t in tl:
+    #     if name == tl[t]:
+    #         istl = True
+    #         break
+    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid == 'Vhbt8jIAfiaV1HxuWERLqJh7dbj2':
+    #     accounts = True
+
+    # if  uid == 'jDYzpwcpv3akKaoDL9N4mllsGCs2':
+    #     itaproval = True
+
+    # if  uid == 'pztngdZPCPQrEvmI37b3gf3w33d2':
+    #     rndaproval = True
+    # if  uid == 'tQYuqy2ma6ecGURWSMpmNeVCHiD2' or uid == 'yleZdWDZgFYTBxwzC5NtHVeb3733':
+    #     praproval = True 
+    # if  uid == "cQ4gFReQghZruTCDMP9NZgwMCzM2" or uid == "NH8ePNnoCtbmTvBbFdV2koxBIhR2":
+    #     aiaccess = True            
+
+    if bool(loginState) == True:
+        todayDate = str(date.today())
+        thisYear = datetime.now().strftime("%Y")
+        thisMonth = datetime.now().strftime("%m")
+        if request.method == "POST":
+            sd = request.POST["selectdate"]
+            ft = request.POST["fromtime"]
+            tt = request.POST["totime"]
+            wd = request.POST["workdone"]
+            wp = request.POST["workpercent"]
+            reason = request.POST["reason"]
+            if ft > tt:
+                tdelta = datetime.strptime(tt, "%H:%M") - datetime.strptime(ft, "%H:%M")
+                t = tdelta - timedelta(days=-1)
+            else:
+                tdelta = datetime.strptime(tt, "%H:%M") - datetime.strptime(ft, "%H:%M")
+                t = tdelta - timedelta(days=0)
+            timeinhrs = str(t)
+            selectedYear = sd[0:4]
+            selectedMonth = sd[5:7]
+            selectedDate = sd[8:10]
+            form_submitted = True
+
+            context = {
+                "from": ft,
+                "to": tt,
+                "name": checkUserName(uid),
+                "time_in_hours": timeinhrs,
+                "workDone": wd,
+                "workPercentage": wp,
+                "reason": reason,
+                # "aiaccess":aiaccess
+            }
+            childName = ft + " to " + tt
+            db.child("workmanager").child(selectedYear).child(selectedMonth).child(sd).child(uid).child("LateEntry").child(childName).set(context)
+            
+    return render(request, 'late_form.html', {"form_submitted": form_submitted, "dep":dep})
+
 def leave_approval(request):
-    return render(request,'approval.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
+    # istl = False
+    # accounts = False
+    # suggestionNotification = 0
+    # suggestionData = db.child("suggestion").get().val()
+    # for suggestion in suggestionData:
+    #         if not suggestionData[suggestion]["isread"]:
+    #             suggestionNotification += 1
+    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" :
+    #     accounts = True
+    # management = False
+    # if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2" or uid == '7lunH9jV0sV5EE2YzjjBrQWyVk72' or uid=="6WHjHuUai5ZimnLz4URUDssaMWj1":
+    #          management = True   
+
+    # tl = db.child("tl").get().val()
+    # for t in tl:
+    #     if name == tl[t]:
+    #         istl = True
+    #         break
+    # data = db.child("staff").get().val()
+    yearList, monthList, dateList, lateList = [], [], [], []
+    # todayDate = str(date.today())
+    # thisYear = datetime.now().strftime("%Y")
+    # thisMonth = datetime.now().strftime("%m")
+    data = db.child("workmanager").get().val()
+    staff_data = db.child("staff").get().val()
+    for staff in staff_data:
+        for allYears in data:
+            years = data[allYears]
+            for allMonths in years:
+                months = data[allYears][allMonths]
+                for allDates in months:
+                    try:
+                        le = data[allYears][allMonths][allDates][staff]["LateEntry"]
+                        for l in le:
+                            lateDetails = le[l]
+                            yearList.append(allYears)
+                            monthList.append(allMonths)
+                            dateList.append(allDates)
+                            lateList.append(lateDetails)
+                    except:
+                        pass
+    allList = zip(yearList, monthList, dateList, lateList)
+    allListMobile = zip(yearList, monthList, dateList, lateList)
+    context = {
+        "allList": allList,
+        "allListMobile": allListMobile,
+        # "tl": istl,
+        "dep":dep,
+        # "accounts":accounts,
+        # "management":management,
+        # "suggestionNotification":suggestionNotification
+    }
+    return render(request,'approval.html', context)
+
+def submitaction(request):
+    _year = request.POST["_year"]
+    _month = request.POST["_month"]
+    _date = request.POST["_date"]
+    _from = request.POST["_from"]
+    _to = request.POST["_to"]
+    _name = request.POST["_name"]
+    _reason = request.POST["_reason"]
+    _time_in_hours = request.POST["_time_in_hours"]
+    _workDone = request.POST["_workDone"]
+    _workPercentage = request.POST["_workPercentage"] + " %"
+    uid = getUidByName(_name)
+
+    childName = _from + " to " + _to
+    context = {
+        "from": _from,
+        "to": _to,
+        "workDone": _workDone,
+        "workPercentage": _workPercentage,
+        "time_in_hours": _time_in_hours,
+        "name": _name,
+    }
+    if "approved" in request.POST:
+        db.child("workmanager").child(_year).child(_month).child(_date).child(uid).child(childName).set(context)
+        db.child("workmanager").child(_year).child(_month).child(_date).child(uid).child("LateEntry").child(childName).remove()
+
+    if "declined" in request.POST:
+        db.child("workmanager").child(_year).child(_month).child(_date).child(uid).child("LateEntry").child(childName).remove()
+
+    return redirect('approval/')
+
+
+ 
 def suggestion(request):
-    return render(request,'suggestion.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
+    current_date = datetime.now()
+    formatted_date = current_date.strftime("%Y-%m-%d")
+
+    # Get the current year, month, and day
+    current_year = str(current_date.year)
+    current_month = str(current_date.month).zfill(2)
+    current_day = str(current_date.day).zfill(2)
+    # istl = False
+    # itaproval = False
+    # rndaproval = False
+    # praproval = False
+    # tl = db.child("tl").get().val()
+    # for t in tl:
+    #     if name == tl[t]:
+    #         istl = True
+    #         break
+    # accounts = False
+    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
+    #     accounts = True
+    # management = False
+    # if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2":
+    #     management = True
+
+    # if  uid == 'jDYzpwcpv3akKaoDL9N4mllsGCs2':
+    #     itaproval = True
+
+    # if  uid == 'pztngdZPCPQrEvmI37b3gf3w33d2' or uid =='Vhbt8jIAfiaV1HxuWERLqJh7dbj2':
+    #     rndaproval = True
+    # if  uid == 'tQYuqy2ma6ecGURWSMpmNeVCHiD2' or uid == 'yleZdWDZgFYTBxwzC5NtHVeb3733':
+    #     praproval = True 
+    # if  uid == "cQ4gFReQghZruTCDMP9NZgwMCzM2" or uid == "NH8ePNnoCtbmTvBbFdV2koxBIhR2":
+    #     aiaccess = True    
+
+    context = {
+        # "tl": istl,
+        "dep":dep,
+        # "accounts": accounts,
+        # "management": management,
+        # "itaproval":itaproval,
+        # "rndaproval":rndaproval,
+        # "praproval":praproval,
+        # "aiaccess":aiaccess
+    }
+    if request.method == "POST":
+        msg = request.POST['msg']
+        tm = datetime.now()
+        date_time = tm.strftime("%Y-%m-%d_%H:%M:%S")
+        date = tm.strftime("%Y-%m-%d")
+        time = tm.strftime("%I:%M:%S %p")
+        val = {
+            "message":msg,
+            "date": date,
+            "time":time,
+            "isread":False
+        }
+        db.child('suggestion').child(current_year).child(current_month).child(formatted_date).push(val)
+        context = {
+            "msg":"Message sent successfully",
+            # "accounts": accounts,
+            # "management":management,
+            # "tl": istl,
+            # "dep":dep,
+            # "rndaproval":rndaproval,
+            # "itaproval":itaproval,
+            # "praproval":praproval,
+            # "aiaccess":aiaccess
+        }
+        return render(request, 'suggestion.html', context)
+    return render(request,'suggestion.html', context)
+
+
 def financial(request):
     return render(request,'financial.html')
 def cmoproduct(request):
@@ -121,6 +353,8 @@ def coohome(request):
     return render(request,'coohome.html')
 def installation_details(request):
     return render(request,'installation_details.html')
+def todo(request):
+    return render(request,'todo.html')
 
 
 
@@ -326,75 +560,6 @@ def editworkdone(request):
                 db.child("workmanager").child(thisYear).child(thisMonth).child(todayDate).child(uid).child(childName).set(context)
     return redirect('ithome')
 
-def lateentry(request):
-    uid = request.COOKIES["uid"]
-    dep = request.COOKIES["dep"]
-    loginState = request.COOKIES["loginState"]
-    form_submitted = False
-    name = checkUserName(uid)
-    istl = False
-    accounts = False
-    itaproval = False
-    rndaproval = False
-    praproval = False
-    aiaccess = False
-    tl = db.child("tl").get().val()
-    for t in tl:
-        if name == tl[t]:
-            istl = True
-            break
-    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid == 'Vhbt8jIAfiaV1HxuWERLqJh7dbj2':
-        accounts = True
-
-    if  uid == 'jDYzpwcpv3akKaoDL9N4mllsGCs2':
-        itaproval = True
-
-    if  uid == 'pztngdZPCPQrEvmI37b3gf3w33d2':
-        rndaproval = True
-    if  uid == 'tQYuqy2ma6ecGURWSMpmNeVCHiD2' or uid == 'yleZdWDZgFYTBxwzC5NtHVeb3733':
-        praproval = True 
-    if  uid == "cQ4gFReQghZruTCDMP9NZgwMCzM2" or uid == "NH8ePNnoCtbmTvBbFdV2koxBIhR2":
-        aiaccess = True            
-
-    if bool(loginState) == True:
-        todayDate = str(date.today())
-        thisYear = datetime.now().strftime("%Y")
-        thisMonth = datetime.now().strftime("%m")
-        if request.method == "POST":
-            sd = request.POST["selectdate"]
-            ft = request.POST["fromtime"]
-            tt = request.POST["totime"]
-            wd = request.POST["workdone"]
-            wp = request.POST["workpercent"]
-            reason = request.POST["reason"]
-            if ft > tt:
-                tdelta = datetime.strptime(tt, "%H:%M") - datetime.strptime(ft, "%H:%M")
-                t = tdelta - timedelta(days=-1)
-            else:
-                tdelta = datetime.strptime(tt, "%H:%M") - datetime.strptime(ft, "%H:%M")
-                t = tdelta - timedelta(days=0)
-            timeinhrs = str(t)
-            selectedYear = sd[0:4]
-            selectedMonth = sd[5:7]
-            selectedDate = sd[8:10]
-            form_submitted = True
-
-            context = {
-                "from": ft,
-                "to": tt,
-                "name": checkUserName(uid),
-                "time_in_hours": timeinhrs,
-                "workDone": wd,
-                "workPercentage": wp,
-                "reason": reason,
-                "aiaccess":aiaccess
-            }
-            childName = ft + " to " + tt
-            db.child("staff").child(uid).child("workManager").child("timeSheet").child(selectedYear).child(selectedMonth).child(sd).child(
-                "LateEntry"
-            ).child(childName).set(context)
-            
-    return render(request, "lateentry.html", {"form_submitted": form_submitted, "dep":dep, "tl": istl, "accounts":accounts,  "itaproval":itaproval, "rndaproval":rndaproval,"praproval":praproval,"aiaccess":aiaccess})
 
 
 def checkUserDepartment(uid):
@@ -417,6 +582,12 @@ def checkUserName(uid):
     except Exception as e:
         print("An error occurred:", str(e))
     return None 
+
+def getUidByName(name):
+    data = db.child("staff").get().val()
+    for x in data:
+        if data[x]["name"] == name:
+            return x
 
 def logout(request):
     response = redirect("login")

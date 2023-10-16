@@ -30,6 +30,11 @@ def ithome(request):
     yesterday_year = str(yesterday.year)
     yesterday_month = str(yesterday.month).zfill(2)
     yesterday_day = str(yesterday.day).zfill(2)
+
+    saturday_date = yesterday - timedelta(days=1)
+    saturday_year = str(saturday_date.year)
+    saturday_month = str(saturday_date.month).zfill(2)
+    saturday_day = str(saturday_date.day).zfill(2)
     for t in tl:
         if name == tl[t]:
             istl = True
@@ -56,13 +61,8 @@ def ithome(request):
 
         try:
             if yesterday.weekday() == 6:
-                # If yesterday was a Sunday, retrieve Saturday data
-                saturday_date = yesterday - timedelta(days=1)
-                saturday_year = str(saturday_date.year)
-                saturday_month = str(saturday_date.month).zfill(2)
-                saturday_day = str(saturday_date.day).zfill(2)
-
                 yescheckin = attendence[saturday_year][saturday_month][saturday_day][uid]["check_in"]
+                day = "Saturday"
                 yesscheckin = convert_to_12_hour_format(yescheckin)
             else:
                 # If yesterday was not a Sunday, use the existing code for Sunday data
@@ -74,10 +74,7 @@ def ithome(request):
         try:
             if yesterday.weekday() == 6:
                 # If yesterday was a Sunday, retrieve Saturday data
-                saturday_date = yesterday - timedelta(days=1)
-                saturday_year = str(saturday_date.year)
-                saturday_month = str(saturday_date.month).zfill(2)
-                saturday_day = str(saturday_date.day).zfill(2)
+                
                 yescheckout = attendence[saturday_year][saturday_month][saturday_day][uid]["check_out"]
                 yesscheckout = convert_to_12_hour_format(yescheckin)
             else:    
@@ -88,11 +85,6 @@ def ithome(request):
 
         try:
             if yesterday.weekday() == 6:
-                # If yesterday was a Sunday, retrieve Saturday data
-                saturday_date = yesterday - timedelta(days=1)
-                saturday_year = str(saturday_date.year)
-                saturday_month = str(saturday_date.month).zfill(2)
-                saturday_day = str(saturday_date.day).zfill(2)
                 yesprogress = attendence[saturday_year][saturday_month][saturday_day][uid]["working_hours"]
                 yesterdayprogress = calculate_progress(yesprogress)
             else:    
@@ -112,11 +104,17 @@ def ithome(request):
         listOfTodaysWork= []
 
         try:
-           
             for z in workmanager[current_year][current_month][formatted_date][uid]:
                 listOfTodaysWork.append(workmanager[current_year][current_month][formatted_date][uid][z])
         except:        
-            listOfTodaysWork.append("No work") 
+            listOfTodaysWork.append("No Workdone") 
+        try:    
+            for work_item in listOfTodaysWork:
+                if 'workPercentage' in work_item:
+                    work_item['workPercentage'] = work_item['workPercentage'].replace('%', '').strip()
+        except:
+            pass            
+                
 
         
         data[uid]["projects"]
@@ -134,6 +132,7 @@ def ithome(request):
             "yesprogress":yesterdayprogress,
             "todayprogress":today_progress,
             "listOfTodaysWork" : listOfTodaysWork,
+            "day":day,
         }
         return render(request, "ithome.html", context)
     except:
@@ -150,9 +149,12 @@ def ithome(request):
             "yescheckout": yesscheckout,
             "yesprogress":yesterdayprogress,
             "todayprogress":today_progress,
-            "listOfTodaysWork":listOfTodaysWork
+            "listOfTodaysWork":listOfTodaysWork,
+            "day":day,
         }
     return render(request, "ithome.html", context)
+   
+
 import pytz
 
 def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
