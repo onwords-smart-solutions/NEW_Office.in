@@ -11,6 +11,7 @@ function reset() {
     fwd.style.display = 'none'
 }
 
+// ----CMO add and calulate ------//
 
 function calInpBox() {
     const calpoint = document.getElementById('cal-point')
@@ -29,8 +30,7 @@ function addInpBox() {
 
 
 }
-
-
+// ----CMO add and calulate ------//
 
 function productBtn() {
     const productTable = document.getElementById('product-table')

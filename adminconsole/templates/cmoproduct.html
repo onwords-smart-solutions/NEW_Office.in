@@ -185,9 +185,11 @@
                         </h4>
                     </div>
                     <div class="col-md-2 my-3">
-                        <h4 class="primary-button Calculate-cmo" id="addBtn" onclick="addInpBox()">Add Product</h4>
+                        <h4 class="primary-button Calculate-cmo" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop " id="addBtn" onclick="addInpBox()">Add Product</h4>
                     </div>
                 </div>
+
 
                 <!-- <div class="calculate-table" id="cal-point">
                     <form action="">
@@ -199,9 +201,6 @@
                 </div> -->
 
 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop ">
-                    Add Product
-                </button>
 
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -401,7 +400,7 @@
                     </div>
 
                 </div>
-                <div class="pr-percentage-dashboard ">
+                <div class="pr-percentage-dashboard " id="prdashboard">
                     <div class="product-nav" id="">
                         <h5 class=" active-inv  li-inventry" id="notipanl-Btn" onclick="notipanel()">Notification
                             Pannel</h5>
@@ -425,6 +424,7 @@
                     <center>
                         <div class="installation-pending" id="pending-Btn">
                             <h5>pending instalation</h5>
+                            <input type="number" name="" id="">
                             <input type="number" name="" id="">
                             <button class="primary-button">submit</button>
                         </div>
