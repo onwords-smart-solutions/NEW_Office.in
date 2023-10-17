@@ -10,3 +10,5 @@ def customer_details(request):
     return render(request,'customer_details.html')
 def points_workdone(request):
     return render(request,'points_workdone.html')
+def quotation(request):
+    return render(request,'quotation.html')

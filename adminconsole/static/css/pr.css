@@ -516,12 +516,17 @@
 /* =============coo home page========= */
 .stock-details {
     width: 100%;
-    height: 40vh;
+    height: 41vh;
     background-color: #fff;
     border-radius: 15px;
     margin-top: 7px;
+    cursor: pointer;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
+}
+
+.eyeview {
+    cursor: pointer;
 }
 
 .install-attendance input {
@@ -595,18 +600,121 @@
     margin-top: 20%;
 }
 
-#taskList{
+#taskList {
     width: 80%;
     margin: 20px auto;
 }
-.task-li{
+
+.task-li {
     width: 100%;
     padding: 10px;
     background-color: #eea929;
     height: 20px;
 }
-#main	{
-	width: 300px;
-	height: 200px;
+
+.cust-inps {
+    width: 90%;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto;
+    border: 1px solid #282828;
+    padding: 0px 5px;
+    border-radius: 7px;
 }
+
+.cust-inps input {
+    width: 100%;
+    background: none;
+    outline: none;
+    border: none;
+}
+
+.check-table-con {
+    width: 100%;
+    height: 87vh;
+    /* background-color: #266386; */
+    position: relative;
+}
+
+.check-bottom-con {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8vh;
+    background-color: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+
+}
+
+#presentBtn {
+    display: none;
+}
+
+#absentList-table {
+    display: none;
+}
+
+#printabsentBtn {
+    display: none;
+}
+
+#attendanceDetials {
+    display: none;
+}
+
+.back-button {
+    display: none;
+}
+
+.bottom-fix {
+    position: fixed;
+    bottom: 10%;
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+.sort-date {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+
+.date-sort {
+    background-color: #FBD87F;
+    border-radius: 10px;
+    width: 30%;
+    height: 50px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.date-sort form input {
+    width: 200px;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    border: none;
+    padding: 0px 20px;
+}
+
+#datetime1 label {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#proforma {
+    display: none !important;
+}
+
 /* ==================rnd pages End====== */
