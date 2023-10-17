@@ -117,14 +117,48 @@ def ithome(request):
         except:
             pass
 
-        # try:
-        #     year = leavedetails[current_year]
-        #     for month in year:
-        #         monthall= year[month]
-        #         for date in monthall:
-        #             dateall = 
-                
+        try:
+            generalcount = 0
+            sickcount = 0
+            leavedata = db.child("leaveDetails").get().val()
+            yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
+            for allMonths in leavedata[current_year]:
 
+                months = leavedata[current_year][allMonths]
+                for allDates in months:
+                    try:
+                        le = leavedata[current_year][allMonths][allDates][uid]
+                        for leave_type, leave_info in le.items():
+                            if leave_type == "general":
+                                generalcount+=1
+                            if leave_type == "sick":
+                                sickcount+=1    
+                            types = leave_type
+                            data = leave_info
+                            yearList.append(current_year)
+                            monthList.append(allMonths)
+                            dateList.append(allDates)
+                            typelist.append(types)
+                            datalist.append(data)
+                    except:
+                        pass
+            
+            leavehistory = zip(yearList, monthList, dateList, typelist, datalist)
+            context = {
+                "leavehistory": leavehistory,
+                # "tl": istl,
+                # "dep":dep,
+                # "accounts":accounts,
+                # "management":management,
+                # "suggestionNotification":suggestionNotification
+            }
+        except:
+            pass 
+                    
+        generalleave = 24 - generalcount
+        sickleave = 12 - sickcount  
+        overallleave = generalleave + sickleave 
+     
         
         data[uid]["projects"]
         context = {
@@ -142,6 +176,9 @@ def ithome(request):
             "todayprogress":today_progress,
             "listOfTodaysWork" : listOfTodaysWork,
             "day":day,
+            "generalleave":generalleave,
+            "sickleave":sickleave,
+            "overallleave":overallleave,
         }
         return render(request, "ithome.html", context)
     except:
@@ -160,7 +197,11 @@ def ithome(request):
             "todayprogress":today_progress,
             "listOfTodaysWork":listOfTodaysWork,
             "day":day,
+            "generalleave":generalleave,
+            "sickleave":sickleave,
+            "overallleave":overallleave,
         }
+
     return render(request, "ithome.html", context)
    
 
