@@ -68,6 +68,7 @@ def ithome(request):
                 # If yesterday was not a Sunday, use the existing code for Sunday data
                 yescheckin = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_in"]
                 yesscheckin = convert_to_12_hour_format(yescheckin)
+                day=""
         except:
             yesscheckin = "No Entry"
 
