@@ -51,6 +51,7 @@ urlpatterns = [
     # ==================admin department==================================
 
     path("adminhome",adminviews.adminhome,name='adminhome'),
+    path("checkin",adminviews.checkin,name='checkin'),
 
    
 ]

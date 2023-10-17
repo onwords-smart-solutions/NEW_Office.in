@@ -360,3 +360,86 @@ function createWTA() {
     createwtaBtn.classList.add('active-form-late')
 }
 
+// ============checkin list print script==========
+
+function printCheckinTable() {
+    var table = document.getElementById("checkinTable");
+    var newWin = window.open('', '', 'width=800,height=600');
+    newWin.document.open();
+    newWin.document.write('<style type="text/css">');
+    newWin.document.write('@media print {');
+    newWin.document.write('  body { width: 90%; }'); // Make sure the body is full width
+    newWin.document.write('  body { margin: 0 auto; }'); // Make sure the body is full width
+    newWin.document.write('  table { width: 100%; }'); // Make sure the table is full width
+    newWin.document.write('  table { text-align: center; }'); // Make sure the table is full width
+    newWin.document.write('  table { border: 1px solid #282828; }'); // Make sure the table is full width
+    newWin.document.write('  table th { border-bottom: 1px solid #282828; }'); // Make sure the table is full width
+    newWin.document.write('  table td { border-bottom: 1px solid #282828; }'); // Make sure the table is full width
+    newWin.document.write('  table td { padding: 4px; }'); // Make sure the table is full width
+    newWin.document.write('}');
+    newWin.document.write('</style>');
+    newWin.document.write('<html><head><title>Installation Details</title></head><body>');
+    newWin.document.write('<h1>Check In List</h1>');
+    newWin.document.write(table.outerHTML);
+    newWin.document.write('</body></html>');
+    newWin.document.close();
+    newWin.print();
+    newWin.close();
+}
+function printAbsentTable() {
+    var table = document.getElementById("absentTable");
+    var newWin = window.open('', '', 'width=800,height=600');
+    newWin.document.open();
+    newWin.document.write('<style type="text/css">');
+    newWin.document.write('@media print {');
+    newWin.document.write('  body { width: 90%; }'); // Make sure the body is full width
+    newWin.document.write('  body { margin: 0 auto; }'); // Make sure the body is full width
+    newWin.document.write('  table { width: 100%; }'); // Make sure the table is full width
+    newWin.document.write('  table { text-align: center; }'); // Make sure the table is full width
+    newWin.document.write('  table { border: 1px solid #282828; }'); // Make sure the table is full width
+    newWin.document.write('  table th { border-bottom: 1px solid #282828; }'); // Make sure the table is full width
+    newWin.document.write('  table td { border-bottom: 1px solid #282828; }'); // Make sure the table is full width
+    newWin.document.write('  table td { padding: 4px; }'); // Make sure the table is full width
+    newWin.document.write('}');
+    newWin.document.write('</style>');
+    newWin.document.write('<html><head><title>Installation Details</title></head><body>');
+    newWin.document.write('<h1>Absent List</h1>');
+    newWin.document.write(table.outerHTML);
+    newWin.document.write('</body></html>');
+    newWin.document.close();
+    newWin.print();
+    newWin.close();
+}
+
+function absentBtn(){
+    const checkinTable = document.getElementById('checkin-table')
+    const absentTable = document.getElementById('absentList-table')
+    const absentBtns = document.getElementById('absentBtn')
+    const presentBtns = document.getElementById('presentBtn')
+    const printcheckBtn = document.getElementById('printcheckBtn')
+    const printabsentBtn = document.getElementById('printabsentBtn')
+
+    absentTable.style.display='block'
+    checkinTable.style.display='none'
+    absentBtns.style.display='none'
+    presentBtns.style.display='block'
+    printcheckBtn.style.display='none'
+    printabsentBtn.style.display='block'
+}
+
+function presentBtn(){
+    const checkinTable = document.getElementById('checkin-table')
+    const absentTable = document.getElementById('absentList-table')
+    const presentBtns = document.getElementById('presentBtn')
+    const absentBtns = document.getElementById('absentBtn')
+    const printcheckBtn = document.getElementById('printcheckBtn')
+    const printabsentBtn = document.getElementById('printabsentBtn')
+
+    absentTable.style.display='none'
+    checkinTable.style.display='block'
+    presentBtns.style.display='none'
+    absentBtns.style.display='block'
+    printcheckBtn.style.display='block'
+    printabsentBtn.style.display='none'
+}
+// =============
