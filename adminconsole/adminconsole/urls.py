@@ -9,15 +9,17 @@ from admin import views as adminviews
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.login, name="login"),
-    path("leave_form", views.leave_form, name="leave_form"),
+    path("leave_form/", views.leave_form, name="leave_form"),
     path("late_form/", views.late_form, name="late_form"),
-    path("approval/", views.leave_approval, name="leave_approval"),
+    path("leaveapproval/", views.leave_approval, name="leave_approval"),
+    path("lateapproval/", views.late_approval, name="late_approval"),
     path("suggestion/", views.suggestion, name="suggestion"),
     path("refreshment/",views.refreshment, name="refreshment"),
     path("submitwork/", views.submitwork, name="submitwork"),
     path("editworkdone/", views.editworkdone, name="editworkdone"),
     path("submitaction/", views.submitaction, name="submitaction"),
     path("todo/", views.todo, name="todo"),
+    path("approvalprocess/", views.approvalprocess, name="approvalprocess"),
 
     # ========================coo page =========================
 

@@ -120,11 +120,11 @@
             <div class="container-fluid">
                 <div class="" onclick="approvalpage()">
                     <div class="forms-con">
-                        <p class="active-form-li" id="leaveApprovalBtn" onclick="location.href='/leaveapproval/'">leave
+                        <p class="" id="leaveApprovalBtn" onclick="location.href='/leaveapproval/'">leave
                             Approval</p>
-                        <p class="" id="lateApprovalBtn" onclick="location.href='/lateapproval/'">Late Approval</p>
+                        <p class="active-form-li" id="lateApprovalBtn" onclick="location.href='/lateapproval/'">Late Approval</p>
                     </div>
-                    <div class="" id="lateApprovalTable">
+                    <div class="" >
                         <div>
                             <table class="table">
                                 <thead>
@@ -179,56 +179,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="" id="leaveApprovalTable">
-                        <div>
-                            <table class="table">
-                                <thead>
-                                    <tr class="leave-table-head">
-                                        <th>Date</th>
-                                        <th>Name</th>
-                                        <th>Department</th>
-                                        <th>Type</th>
-                                        <th>Reason</th>
-                                        <th>Action</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for year, month, date, type, data in leaveList %}
-                                    {% if data.status == "Pending" %}
-                                    <form action="/approvalprocess/" method="post">
-                                        <tr class="table-body-li my-3">
-                                            <td>{{ data.date }}</td>
-                                            <td>{{ data.name }}</td>
-                                            <td>{{ data.dep }}</td>
-                                            <td>{{ type }}</td>
-                                            <td>{{ data.reason }}</td>
-
-                                            {% csrf_token %}
-                                            <input type="hidden" name="type" value="{{type}}">
-                                            <input type="hidden" name="namee1" value="{{data.name}}" />
-                                            <input type="hidden" name="_datee" value="{{data.date}}" />
-                                            <td>
-                                                <button class="btn btn-success" name="approve" value="approved">Approved <img
-                                                        src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
-                                                        class="img-fluid table-icon" 
-                                                        ></button>
-                                                <button class="btn btn-danger" name="deny" value="Declined">Decline <img
-                                                        src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
-                                                        class="img-fluid table-icon" 
-                                                        ></button>
-                                            </td>
-
-                                        </tr>
-                                    </form>
-                                    {% endif %}
-                                    {% endfor %}
-
-                                </tbody>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
+                 
 
                 </div>
             </div>

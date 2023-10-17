@@ -105,8 +105,213 @@ def login(request):
             return render(request, "login.html", context)
     else:
         return render(request, "login.html")
+    
+
 def leave_form(request):
-    return render(request,'leave-form.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
+    department = checkUserDepartment(uid)
+    leave_data = db.child("leaveDetails").get().val()
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    current_year = datetime.now().strftime("%Y")
+    current_month = datetime.now().strftime("%m")
+
+    if request.method == 'POST':
+        leave_type = request.POST['leave_type'] 
+     
+        if leave_type == "general":
+            try:
+                try:
+                    from_date = datetime.strptime(request.POST['fromdate'], '%Y-%m-%d')
+                    to_date = datetime.strptime(request.POST['todate'], '%Y-%m-%d')
+                   
+                    reason = request.POST['reason']
+                    c = {
+                        "dep": department,
+                        "name": name,
+                        "reason": reason,
+                        "status": "Pending",
+                        "node":"Full Day",
+                    }
+
+                    date_list = []
+
+                    while from_date <= to_date:
+                        date_list.append(from_date.strftime('%Y-%m-%d'))
+                        from_date += timedelta(days=1)
+
+                    for date in date_list:
+                        year, month, day = map(int, date.split('-'))
+                        c["date"] = date
+
+                        if from_date == to_date:
+                            db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
+                        else:
+                            db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
+                except:
+                    from_date = datetime.strptime(request.POST['fromdate'], '%Y-%m-%d') 
+                    year, month, day = map(int, from_date.split('-'))
+                    reason = request.POST['reason']
+                    c = {
+                        "dep": department,
+                        "name": name,
+                        "reason": reason,
+                        "status": "Pending",
+                        "node":"Full Day",
+                        "date":from_date,
+                    }
+
+                  
+                    db.child("leaveDetails").child(year).child(month).child(from_date).child(uid).child(leave_type).set(c)    
+            except:
+                half_date = (request.POST.get('halfdate'))    
+                reason = request.POST.get('reason')
+                year, month, day = map(int, half_date.split('-'))
+
+                c = {
+                    "dep": department,
+                    "name": name,
+                    "reason": reason,
+                    "status": "Pending",
+                    "node":"Half Day",
+                    "date":half_date,
+                }
+                db.child("leaveDetails").child(year).child(month).child(half_date).child(uid).child(leave_type).child(c) 
+
+        if leave_type == "sick":
+            try:
+                try:
+                    from_date = datetime.strptime(request.POST['fromdate'], '%Y-%m-%d')
+                    to_date = datetime.strptime(request.POST['todate'], '%Y-%m-%d')
+                   
+                    reason = request.POST['reason']
+                    c = {
+                        "dep": department,
+                        "name": name,
+                        "reason": reason,
+                        "status": "Pending",
+                        "node":"Full Day",
+                    }
+
+                    date_list = []
+
+                    while from_date <= to_date:
+                        date_list.append(from_date.strftime('%Y-%m-%d'))
+                        from_date += timedelta(days=1)
+
+                    for date in date_list:
+                        year, month, day = map(int, date.split('-'))
+                        c["date"] = date
+
+                        if from_date == to_date:
+                            db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
+                        else:
+                            db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
+                except:
+                    from_date = datetime.strptime(request.POST['fromdate'], '%Y-%m-%d') 
+                    year, month, day = map(int, from_date.split('-'))
+                    reason = request.POST['reason']
+                    c = {
+                        "dep": department,
+                        "name": name,
+                        "reason": reason,
+                        "status": "Pending",
+                        "node":"Full Day",
+                        "date":from_date,
+                    }
+
+                    
+                    db.child("leaveDetails").child(year).child(month).child(from_date).child(uid).child(leave_type).set(c)    
+            except:
+                half_date = (request.POST.get('halfdate'))       
+                reason = request.POST.get('reason')
+                year, month, day = map(int, half_date.split('-'))
+
+                c = {
+                    "dep": department,
+                    "name": name,
+                    "reason": reason,
+                    "status": "Pending",
+                    "node":"Half Day",
+                    "date":half_date,
+                }
+                db.child("leaveDetails").child(year).child(month).child(half_date).child(uid).child(leave_type).set(c) 
+
+
+        if leave_type == "permission":   
+            duration = request.POST.get('duration')   
+            reason = request.POST.get('reason')
+            time = datetime.strptime(duration, "%H:%M")
+            time_str = time.strftime("%H:%M")
+            
+            c = {
+                    "dep": department,
+                    "name": name,
+                    "reason": reason,
+                    "status": "Pending",
+                    "date":current_date,
+                    "duration": time_str,
+                }
+            db.child("leaveDetails").child(current_year).child(current_month).child(current_date).child(uid).child(leave_type).set(c) 
+
+    try:
+        leavedata = db.child("leaveDetails").get().val()
+        yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
+        for allYears in leavedata:
+            years = leavedata[allYears]
+            for allMonths in years:
+                months = leavedata[allYears][allMonths]
+                for allDates in months:
+                    try:
+                        le = leavedata[allYears][allMonths][allDates][uid]
+                        for leave_type, leave_info in le.items():
+                            types = leave_type
+                            data = leave_info
+                            yearList.append(allYears)
+                            monthList.append(allMonths)
+                            dateList.append(allDates)
+                            typelist.append(types)
+                            datalist.append(data)
+                    except:
+                        pass
+        
+        leavehistory = zip(yearList, monthList, dateList, typelist, datalist)
+        context = {
+            "leavehistory": leavehistory,
+            # "tl": istl,
+            # "dep":dep,
+            # "accounts":accounts,
+            # "management":management,
+            # "suggestionNotification":suggestionNotification
+        }
+    except:
+        pass    
+
+    return render(request,'leave-form.html',context)
+
+def approvalprocess(request):
+    uid1 = request.COOKIES["uid"]
+    data = db.child("leaveDetails").get().val()
+    name1 = checkUserName(uid1)
+    print("name",name1)
+    print("method",request.POST)
+    if "approve" in request.POST:
+        print("approved")
+        name = request.POST["namee1"]
+        date = request.POST["_datee"]
+        type = request.POST["type"]
+        uid = getUidByName(name)
+        db.child("leaveDetails").child(date[0:4]).child(date[5:7]).child(date).child(uid).child(type).update({"status": "Approved","updated_by":name1})
+
+    if "deny" in request.POST:
+        name = request.POST["namee1"]
+        date = request.POST["_datee"]
+        type = request.POST["type"]
+        uid = getUidByName(name)
+        db.child("leaveDetails").child(date[0:4]).child(date[5:7]).child(date).child(uid).child(type).update({"status": "Declined","updated_by":name1})
+    return redirect('/leaveapproval/')
+
 
 def late_form(request):
     uid = request.COOKIES["uid"]
@@ -179,7 +384,7 @@ def late_form(request):
             
     return render(request, 'late_form.html', {"form_submitted": form_submitted, "dep":dep})
 
-def leave_approval(request):
+def late_approval(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     name = checkUserName(uid)
@@ -235,6 +440,42 @@ def leave_approval(request):
         # "management":management,
         # "suggestionNotification":suggestionNotification
     }
+    return render(request,'lateapproval.html', context)
+
+def leave_approval(request):
+    leavedata = db.child("leaveDetails").get().val()
+    staff_data = db.child("staff").get().val()
+    yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
+    for staff in staff_data:
+        for allYears in leavedata:
+            years = leavedata[allYears]
+            for allMonths in years:
+                months = leavedata[allYears][allMonths]
+                for allDates in months:
+                    try:
+                        le = leavedata[allYears][allMonths][allDates][staff]
+                        
+                        for leave_type, leave_info in le.items():
+                            types = leave_type
+                            data = leave_info
+                            yearList.append(allYears)
+                            monthList.append(allMonths)
+                            dateList.append(allDates)
+                            typelist.append(types)
+                            datalist.append(data)
+                    except:
+                        pass
+        
+    allList = zip(yearList, monthList, dateList, typelist, datalist)
+    allListMobile = zip(yearList, monthList, dateList, typelist, datalist)
+    context = {
+        "leaveList": allList,
+        # "tl": istl,
+        # "dep":dep,
+        # "accounts":accounts,
+        # "management":management,
+        # "suggestionNotification":suggestionNotification
+    }
     return render(request,'approval.html', context)
 
 def submitaction(request):
@@ -266,7 +507,7 @@ def submitaction(request):
     if "declined" in request.POST:
         db.child("workmanager").child(_year).child(_month).child(_date).child(uid).child("LateEntry").child(childName).remove()
 
-    return redirect('approval/')
+    return redirect('/lateapproval/')
 
 
  
@@ -360,16 +601,12 @@ def refreshment(request):
     if request.method == "POST":
         todayDate = str(date.today())
         currTime = datetime.now().strftime("%H:%M")
-        print("time",currTime)
         selected_refreshments = request.POST.getlist("refreshment")
-        print("ref",selected_refreshments)
         d = db.child("refreshments").get().val()
         uid = request.COOKIES["uid"]
         _name = checkUserName(uid)
         for choosen in selected_refreshments:
-            print("for",choosen)
             if choosen == "tea":
-                print("choose",choosen)
                 if currTime < "14:00":
                     try:
                         d[todayDate]["FN"][choosen]
@@ -451,14 +688,11 @@ def refreshment(request):
                         newLen = len(d[todayDate]["AN"][choosen])
                         db.child("refreshments").child(todayDate).child("AN").update({choosen + "_count": newLen})
             
-            print("choosen",choosen)
+    
             if choosen == "Lunch":
                 if currTime < "14:00":
-                    print("entering")
                     try:
-                        print("==")
                         d[todayDate][choosen]["lunch_list"]
-                        print("start")
                         a = len(d[todayDate][choosen]["lunch_list"])
                         db.child("refreshments").child(todayDate).child("Lunch").child("lunch_list").update({"name" + str(a + 1): _name})
                         d = db.child("refreshments").get().val()
@@ -476,7 +710,6 @@ def submitwork(request):
     uid = request.COOKIES["uid"]
     loginState = request.COOKIES["loginState"]
     if bool(loginState) == True:
-        print("===")
         todayDate = str(date.today())
         thisYear = datetime.now().strftime("%Y")
         thisMonth = datetime.now().strftime("%m")

@@ -9,6 +9,7 @@ def ithome(request):
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
+    leavedetails = db.child("leaveDetails").get().val()
     name = checkUserName(uid)
     istl = False
     itaproval = False
@@ -68,6 +69,7 @@ def ithome(request):
                 # If yesterday was not a Sunday, use the existing code for Sunday data
                 yescheckin = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_in"]
                 yesscheckin = convert_to_12_hour_format(yescheckin)
+                day = ""
         except:
             yesscheckin = "No Entry"
 
@@ -113,7 +115,14 @@ def ithome(request):
                 if 'workPercentage' in work_item:
                     work_item['workPercentage'] = work_item['workPercentage'].replace('%', '').strip()
         except:
-            pass            
+            pass
+
+        # try:
+        #     year = leavedetails[current_year]
+        #     for month in year:
+        #         monthall= year[month]
+        #         for date in monthall:
+        #             dateall = 
                 
 
         
