@@ -130,6 +130,7 @@
                                 <p id="sickBtn" class="formhov px-4">Sick</p>
                                 <p id="permissionBtn" class="formhov">Permission</p>
                             </div>
+                            <!-- casual leave -->
                             <div class="" id="casual-leaves">
 
                                 <div class="leave-lists mt-3" >
@@ -138,37 +139,43 @@
                                     
                                 </div>
 
-                                <form action="/leaveform/" method="post" class="casual-leave leave-frm" >
+                                <form action="/leave_form/" method="post" class="casual-leave leave-frm">
+                                    {% csrf_token %}
                                   <div class="" id="halfday">
                                     <label for="from">Date</label>
                                     <div class="form-inp-con">
-                                        <input type="date" id="Date" placeholder="Date" name="fromdate">
+                                        <input type="date" id="Date" placeholder="Date" name="halfdate">
                                         <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
                                     </div>
                                   </div>
     
                                   <div id="fullday">
-                                    <label for="from">From</label>
+                                    <label for="leavefrom">From</label>
                                     <div class="form-inp-con">
-                                        <input type="date" id="from" placeholder="From" name="fromdate">
+                                        <input type="date" class="leavefrom" placeholder="From" name="fromdate">
                                         <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
                                     </div>
     
-                                    <label for="to">To</label>
+                                    <label for="leaveto">To</label>
                                     <div class="form-inp-con">
-                                        <input type="date" id="from" placeholder="To" name="todate">
+                                        <input type="date" class="leaveto" placeholder="To" name="todate">
                                         <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
                                     </div>
                                   </div>
                                     <label for="reason">Reason</label>
                                     <div class="form-inp-con">
-                                        <input type="text" id="from" placeholder="Reason" name="reason">
+                                        <input type="text" id="reason" placeholder="Reason" name="reason">
     
                                     </div>
-                                    <input type="hidden" name="general">
+                                    <input type="hidden" name="leave_type" value="general">
                                     <button class="primary-button">Submit</button>
                                 </form>
                             </div>
+
+                            <!-- casual leave end -->
+
+
+                            <!-- casual sick start -->
                            <div class=""  id="sick-leave">
                             <div class="leave-lists mt-3" >
                                 <p class=" formhov  active-forms" id="fulldaysickBtn" onclick="fulldaysick()">Full Day</p>
@@ -176,57 +183,64 @@
                                 
                             </div>
 
-                            <form action="/leaveform/" method="post" class="sick-leave leave-frm">
-                               <div id="halfdaysick">
-                                <label for="sick-half">Date</label>
-                                <div class="form-inp-con">
-                                    <input type="date" id="sick-half" placeholder="Date" name="fromdate">
-                                    <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
-                                </div>
-                               </div>
+                            <form action="/leave_form/" method="post" class="sick-leave leave-frm">
+                                {% csrf_token %}
+
+                                <div class="" id="halfdaysick">
+                                    <label for="sick-half">Date</label>
+                                    <div class="form-inp-con">
+                                        <input type="date" class="" id="" placeholder="Date" name="halfdate">
+                                        <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
+                                    </div>
+                                  </div>
+
+                              
                                 <div id="fulldaysick">
-                                    <label for="from">From</label>
+                                    <label for="leavefrom">From</label>
                                 <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="From" name="fromdate">
+                                    <input type="date" class="leavefrom" placeholder="From" name="fromdate">
                                     <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
                                 </div>
 
-                                <label for="to">To</label>
+                                <label for="leaveto">To</label>
                                 <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="To">
+                                    <input type="date" class="leaveto" placeholder="To" name="todate">
                                     <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
                                 </div>
                                 </div>
 
                                 <label for="reason">sick Reason</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Reason">
+                                    <input type="text" id="reason" placeholder="Reason" name="reason">
                                 </div>
+                                <input type="hidden" name="leave_type" value="sick">
                                 <button class="primary-button">Submit</button>
                             </form>
                            </div>
+                           <!-- sick end -->
                          
-                            <form action="/leaveform/" method="post" class=" leave-frm" id="permission">
-                                
+                            <form action="/leave_form/" method="post" class="leave-frm" id="permission">
+                                {% csrf_token %}
 
-                                <label for="to">Reason</label>
+                                <label for="reason">Reason</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Reason">
+                                    <input type="text" id="reason" placeholder="Reason" name="reason">
                                 </div>
                                 <div class="main-leave-con">
-                                    <div class="">
-                                        <label for="starttime">From</label><br>
+                                    <!-- <div class="">
+                                        <label for="starttime">Duration<label><br>
                                         <div class="time-inp">
-                                            <input type="time" id="starttime">
+                                            <input type="time" id="starttime" name="duration">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="">
-                                        <label for="endtime">To</label><br>
+                                        <label for="endtime">Duration</label><br>
                                         <div class="time-inp">
-                                            <input type="time" id="endtime">
+                                            <input type="time" id="pertime" name="duration" required>
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="leave_type" value="permission">
                                 <button class="primary-button">Submit</button>
                             </form>
                         </div>
@@ -247,18 +261,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for year, month, date, type, data in leavehistory %}
                             <tr class="table-body-li my-3">
-                                <td>09/08/2023</td>
-                                <td>Personal Work</td>
-                                <td>Approved<img src="{% static 'images/approved-tick.png' %}" alt="approve-icon" class="img-fluid table-icon"></td>
-                                <td>Kavin</td>
+                                <td>{{ data.date }}</td>
+                                <td>{{ data.reason }}</td>
+                                {% if data.status == "Approved" %}
+                                <td>{{ data.status }}<img src="{% static 'images/approved-tick.png' %}" alt="approve-icon" class="img-fluid table-icon"></td>
+                                {% elif data.status == "Declined" %}
+                                <td>{{ data.status }}<img src="{% static 'images/decline-icon.png' %}" alt="decline-icon" class="img-fluid table-icon"></td>
+                                {% else %}
+                                <td>{{ data.status }}<img src="{% static 'images/pending-icon.png' %}" alt="decline-icon" class="img-fluid table-icon"></td>
+                                {% endif %}
+                                <td>{% if data.updated_by %}{{ data.updated_by }}{% else %}Pending{% endif %}</td>
                             </tr>
-                            <tr class="table-body-li">
-                                <td>09/08/2023</td>
-                                <td>Personal Work</td>
-                                <td>Declined <img src="{% static 'images/decline-icon.png' %}" alt="decline-icon" class="img-fluid table-icon"></td>
-                                <td>Kavin</td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                         </thead>
                     </table>
@@ -275,6 +291,51 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
+    <script>
+        function validateDateRange(inputElement) {
+            var fromElement = inputElement.form.querySelector('.leavefrom');
+            var toElement = inputElement.form.querySelector('.leaveto');
+    
+            var fromDate = new Date(fromElement.value);
+            var toDate = new Date(toElement.value);
+    
+            if (fromDate > toDate) {
+                alert("From date cannot be greater than To date.");
+                toElement.value = ''; 
+            }
+    
+            var timeDiff = toDate - fromDate;
+            var dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    
+            if (dayDiff > 2) {
+                alert("Date range cannot exceed three days.");
+                toElement.value = ''; 
+            }
+        }
+    
+        var toInputs = document.querySelectorAll('.leaveto');
+        toInputs.forEach(function (toInput) {
+            toInput.addEventListener('change', function () {
+                validateDateRange(toInput);
+            });
+        });
+    </script>
+    <script>
+        document.getElementById("pertime").addEventListener('change', function () {
+            var selectedTime = this.value;
+        
+            var [hours, minutes] = selectedTime.split(':');
+            var totalMinutes = parseInt(hours, 10) * 60 + parseInt(minutes, 10);
+
+            if (totalMinutes > 240) {
+                alert("Selected time exceeds 4 hours. Please select a time within 4 hours.");
+                this.value = ''; 
+            }
+        });
+    </script>
+    
+    
+    
 
 </body>
 
