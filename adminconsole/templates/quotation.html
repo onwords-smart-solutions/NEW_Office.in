@@ -78,7 +78,7 @@
                                 <h5>Leave Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu" onclick="location.href='/late_form'">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
@@ -98,16 +98,7 @@
                                 <h5>Suggestion</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu" onclick="location.href='/suggestion'">
-                            <div class="left-nav-list">
-                                <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/todo.svg' %}" alt="todo_Icon">
-                                </div>
-                            </div>
-                            <div class="right-nav-list">
-                                <h5>Todo</h5>
-                            </div>
-                        </li>
+
                     </ul>
                     <div class="logout" onclick="location.href=''">
                         <li class="navlistmenu">
@@ -128,130 +119,65 @@
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
             <div class="container-fluid">
-                <div class="row my-3 align-items-center ">
-                    <div class="col-md-4">
-                        <h3>Attendance list</h3>
+                <div class="">
+                    <div class="forms-con">
+                        <p class="active-form-li">Quotation</p>
+                        <p class="">Proforma Invoice</p>
+                        <p>Invoice</p>
                     </div>
-                    <div class="col-md-6">
-                        <form action="">
-                            <div class="customer-searchbar">
-                                <div class="cust-inp">
-                                    <input type="text" placeholder="Search">
-                                </div>
-                                <div class="searchBtn" type="submit">
-                                    <img src="{% static 'images/search-icon.svg' %}" alt="search-icon"
-                                        class="img-fluid">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="cust-inps">
-                            <input type="month">
-                        </div>
 
+                    <div class="sort-date">
+                        <div></div>
+                        <div class="date-sort">
+
+                            <p>
+                            <form action="/quotation/" method="post" id="datetime1">
+                                {% csrf_token %}
+                                <label for="sortDate"><img src="{% static 'images/sort-date.svg' %}"
+                                        alt="sort-date">Sort date</label>
+                                <input type="date" name="get-total1" id="sortDate" onchange="dateTimeSubmit()">
+                                {{date}}
+                            </form>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="check-table-con">
-                    <div id="attendance-table">
-                        <table class="table w-100" >
+
+                    <div id="quotationTable">
+                        <table class="table">
                             <thead>
-                                <tr class="leave-table-head text-center">
-                                    <th>S.No</th>
-                                    <th>Employe Name</th>
-                                    <th>Department</th>
-                                    <th>Present</th>
-                                    <th>Absent</th>
-                                    <th>View</th>
+                                <tr class="leave-table-head">
+                                    <th>Customer name </th>
+                                    <th>Notes</th>
+                                    <th>Number</th>
+                                    <th>Created By</th>
+                                    <th>Invoice name</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Link</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="table-body-li my-3 text-center">
-                                    <td>1</td>
-                                    <td>Balaji</td>
-                                    <td>AIML</td>
-                                    <td>28</td>
-                                    <td>2</td>
-                                    <td onclick="viewattendanced()" class="eyeview"><img
-                                            src="{% static 'images/eye-view.svg'  %}" alt="eyeView" class="img-fluid">
-                                    </td>
+                                    <td>Joshua Daniel</td>
+                                    <td>Call afternoon for confirm the visit on 2023-09-21</td>
+                                    <td>9952619655</td>
+                                    <td>Rajkannan1127</td>
+                                    <td>INV_GA-23109</td>
+                                    <td>2023-10-13 </td>
+                                    <td>12:50:06</td>
+                                    <td><a href="">View Invoice</a></td>
                                 </tr>
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>2</td>
-                                    <td>Vinith</td>
-                                    <td>WEB</td>
-                                    <td>29</td>
-                                    <td>1</td>
-                                    <td onclick="viewattendanced()" class="eyeview"><img
-                                            src="{% static 'images/eye-view.svg'  %}" alt="eyeView" class="img-fluid">
-                                    </td>
-                                </tr>
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>3</td>
-                                    <td>Ram</td>
-                                    <td>Media</td>
-                                    <td>27</td>
-                                    <td>3</td>
-                                    <td onclick="viewattendanced()" class="eyeview"><img
-                                            src="{% static 'images/eye-view.svg'  %}" alt="eyeView" class="img-fluid">
-                                    </td>
-                                </tr>
-                              
+
                             </tbody>
+                            </thead>
                         </table>
                     </div>
-                <div id="attendanceDetials">
-                    <div class="forms-con">
-                        <h3>Emply Name : Balaji</h3>
-                        <h3>DEP : AIML</h3>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr class="leave-table-head">
-                                <th>Date</th>
-                                <th>Permission</th>
-                                <th>Sick Leave</th>
-                                <th>Casual Leave</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table-body-li my-3">
-                                <td>20-09-2023</td>
-                                <td>1 1/2Hrs</td>
-                                <td>3</td>
-                                <td>-</td>
-                            </tr>
-                            <tr class="table-body-li my-3">
-                                <td>23-09-2023</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr class=" leave-table-head text-center">
-                                <td>Total</td>
-                                <td>1 1/2</td>
-                                <td>-</td>
-                                <td>3</td>
-                            
-                            </tr>
-                        </tbody>
-                    </table>
-                  
-                </div>
-                    <div class="check-bottom-con">
-                        <div class="">
-                            <button class="primary-button back-button" onclick="location.href='/attendanced'">Back</button>
-                        </div>
-                        <button class="primary-button print-unwant" id="printcheckBtn" onclick="printAttendanceTable()">Print
-                            Attendance</button>
-                    </div>
-                </div>
 
+                </div>
             </div>
 
         </div>
     </div>
-
     <!-- bootstrap js -->
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
