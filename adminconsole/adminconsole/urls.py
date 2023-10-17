@@ -40,8 +40,6 @@ urlpatterns = [
     # ================accounts department ====================
 
     path("financial/",views.financial,name='financial'),
-<<<<<<< HEAD
-=======
 
     # ==========rnd department =================================
 
@@ -53,7 +51,6 @@ urlpatterns = [
     # ==================admin department==================================
 
     path("adminhome",adminviews.adminhome,name='adminhome'),
->>>>>>> b63fc636aaeed7f7d6e760d9cf4f502420f244cf
 
     # ======= CMO Product Page ==========
       path("cmoproduct/",views.cmoproduct,name='cmoproduct'),

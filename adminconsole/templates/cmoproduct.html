@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/pr.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/login.css' %}"> -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -162,6 +163,7 @@
                             </div>
                         </li>
                     </div>
+
                 </div>
             </nav>
         </div>
@@ -214,7 +216,7 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="addpoint-table">
+                                <div class="addpoint-table" id="add-point">
                                     <form action="">
 
                                         <input type="text" placeholder="Product Name">
@@ -232,18 +234,7 @@
                     </div>
                 </div>
 
-                <!-- <div class="addpoint-table" id="add-point">
-                    <form action="">
-                        <h4>Add Product</h4>
-                        <input type="text" placeholder="Product Name">
-                        <input type="text" placeholder="Produt Id">
-                        <input type="text" placeholder="OBC">
-                        <input type="text" placeholder="Minimum Price">
-                        <input type="text" placeholder="Maximum Price">
-                        <input type="text" placeholder="Stock">
-                        <button class="primary-button">Submit</button>
-                    </form>
-                </div> -->
+
                 <div class="product-table" id="product-table">
                     <table class="table">
                         <thead class="product-table-head">
@@ -298,82 +289,146 @@
                         </tbody>
                     </table>
                 </div>
-                <div>
-                    <div>
-                        <!-- <div class="product-nav" id="">
-                        <h5 class="  " onclick="productBtn()" id="pro-nav">Product</h5>
-                        <h5 class="primary-button active-product" onclick="updateBtn()" id="update-nav">Updates</h5>
-                        <h5 onclick="adminBtn()" id="admin-nav">Adminpoints</h5>
-                        <h5 onclick="prpercBtn()" id="prper-nav">PR percentage Dashboard</h5>
 
-                    </div> -->
+                <div class="update-table" id="update-table">
+                    <table class=" table">
+                        <thead class="product-table-head">
+                            <tr>
+                                <th>S.No</th>
+                                <th>Product Id</th>
+                                <th>Max Price</th>
+                                <th>Min Price</th>
+                                <th>Name</th>
+                                <th>OBC</th>
+                                <th>Stock</th>
+                                <th>Edit</th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="table my-3">
+                            <tr class="product-details">
+                                <td>1</td>
+                                <td>ONAJBP10</td>
+                                <td>5940</td>
+                                <td>408</td>
+                                <td>BATCH Of Pass(10 Pcs)</td>
+                                <td>408</td>
+                                <td>4</td>
+                                <td><button class="primary-button-update">Update</button></td>
+                            </tr>
+                        </tbody>
+                        <tbody class="table my-3">
+                            <tr class="product-details">
+                                <td>2</td>
+                                <td>ONAJBP10</td>
+                                <td>5940</td>
+                                <td>408</td>
+                                <td>BATCH Of Pass(10 Pcs)</td>
+                                <td>408</td>
+                                <td>4</td>
+                                <td><button class="primary-button-update">Update</button></td>
+                            </tr>
+                        </tbody>
+                        <tbody class="table my-3">
+                            <tr class="product-details">
+                                <td>3</td>
+                                <td>ONAJBP10</td>
+                                <td>5940</td>
+                                <td>408</td>
+                                <td>BATCH Of Pass(10 Pcs)</td>
+                                <td>408</td>
+                                <td>4</td>
+                                <td><button class="primary-button-update">Update</button></td>
+                            </tr>
+                        </tbody>
+                        <tbody class="table my-3">
+                            <tr class="product-details">
+                                <td>4</td>
+                                <td>ONAJBP10</td>
+                                <td>5940</td>
+                                <td>408</td>
+                                <td>BATCH Of Pass(10 Pcs)</td>
+                                <td>408</td>
+                                <td>4</td>
+                                <td><button class="primary-button-update">Update</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="admin-points " id="admin-points">
+                    <div class="adminpoints-nav ">
+                        <span>
+                            <h5>Name <span><input class="cmo-input" type="text"></span> </h5>
+                        </span>
+                        <span>
+                            <h5>Points <span><input class="cmo-input" type="text"></span> </h5>
+                        </span>
+                        <span>
+                            <h5>Total Points <span><input class="cmo-input" type="text"></span> </h5>
+                        </span>
+                        <span>
+                            <h5>Pr Total <span><input class="cmo-input" type="text"></span> </h5>
+                        </span>
+                        <span>
+                            <h5>Target Total <span><input class="cmo-input" type="text"></span> </h5>
+                        </span>
+                        <h5><button class="primary-button">Submit</button></h5>
                     </div>
-                    
-                    <div class="update-table" id="update-table" style="display: none;">
+                    <div class="adminpoints-nav-con my-3">
                         <table class="table">
                             <thead class="product-table-head">
                                 <tr>
                                     <th>S.No</th>
-                                    <th>Product Id</th>
-                                    <th>Max Price</th>
-                                    <th>Min Price</th>
                                     <th>Name</th>
-                                    <th>OBC</th>
-                                    <th>Stock</th>
-                                    <th>Edit</th>
-
+                                    <th>Points</th>
+                                    <th>Total Points</th>
+                                    <th>Pr Total</th>
+                                    <th>Target Total</th>
                                 </tr>
                             </thead>
                             <tbody class="table my-3">
                                 <tr class="product-details">
                                     <td>1</td>
-                                    <td>ONAJBP10</td>
-                                    <td>5940</td>
-                                    <td>408</td>
-                                    <td>BATCH Of Pass(10 Pcs)</td>
-                                    <td>408</td>
+                                    <td>Arun Kumar</td>
+                                    <td>1</td>
                                     <td>4</td>
-                                    <td><button class="primary-button-update">Update</button></td>
-                                </tr>
-                            </tbody>
-                            <tbody class="table my-3">
-                                <tr class="product-details">
-                                    <td>2</td>
-                                    <td>ONAJBP10</td>
-                                    <td>5940</td>
+                                    <td>100</td>
                                     <td>408</td>
-                                    <td>BATCH Of Pass(10 Pcs)</td>
-                                    <td>408</td>
-                                    <td>4</td>
-                                    <td><button class="primary-button-update">Update</button></td>
-                                </tr>
-                            </tbody>
-                            <tbody class="table my-3">
-                                <tr class="product-details">
-                                    <td>3</td>
-                                    <td>ONAJBP10</td>
-                                    <td>5940</td>
-                                    <td>408</td>
-                                    <td>BATCH Of Pass(10 Pcs)</td>
-                                    <td>408</td>
-                                    <td>4</td>
-                                    <td><button class="primary-button-update">Update</button></td>
-                                </tr>
-                            </tbody>
-                            <tbody class="table my-3">
-                                <tr class="product-details">
-                                    <td>4</td>
-                                    <td>ONAJBP10</td>
-                                    <td>5940</td>
-                                    <td>408</td>
-                                    <td>BATCH Of Pass(10 Pcs)</td>
-                                    <td>408</td>
-                                    <td>4</td>
-                                    <td><button class="primary-button-update">Update</button></td>
+
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    
+                </div>
+                <div class="pr-percentage-dashboard ">
+                    <div class="product-nav" id="">
+                        <h5 class=" active-inv  li-inventry" id="notipanl-Btn" onclick="notipanel()">Notification
+                            Pannel</h5>
+                        <h5 class=" li-inventry" id="install-Btn" onclick="installation()">Instalation</h5>
+                        <h5 class=" li-inventry" id="weekly-Btn" onclick="target()">Weekly Target</h5>
+                    </div>
+                    <center>
+                        <div class="installation-pending" id="firstline-Btn">
+                            <h5>Firstline</h5>
+                            <input type="number" name="" id="">
+                            <button class="primary-button">submit</button>
+                        </div>
+                    </center>
+                    <center>
+                        <div class="installation-pending" id="target-Btn">
+                            <h5>Target Point</h5>
+                            <input type="number" name="" id="">
+                            <button class="primary-button">submit</button>
+                        </div>
+                    </center>
+                    <center>
+                        <div class="installation-pending" id="pending-Btn">
+                            <h5>pending instalation</h5>
+                            <input type="number" name="" id="">
+                            <button class="primary-button">submit</button>
+                        </div>
+                    </center>
                 </div>
             </div>
         </div>
