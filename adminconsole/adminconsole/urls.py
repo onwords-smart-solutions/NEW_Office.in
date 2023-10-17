@@ -52,6 +52,7 @@ urlpatterns = [
 
     path("adminhome",adminviews.adminhome,name='adminhome'),
     path("checkin",adminviews.checkin,name='checkin'),
+    path("attendanced",adminviews.attendanced,name='attendanced'),
 
    
 ]

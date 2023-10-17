@@ -411,7 +411,7 @@ function printAbsentTable() {
     newWin.close();
 }
 
-function absentBtn(){
+function absentBtn() {
     const checkinTable = document.getElementById('checkin-table')
     const absentTable = document.getElementById('absentList-table')
     const absentBtns = document.getElementById('absentBtn')
@@ -419,15 +419,15 @@ function absentBtn(){
     const printcheckBtn = document.getElementById('printcheckBtn')
     const printabsentBtn = document.getElementById('printabsentBtn')
 
-    absentTable.style.display='block'
-    checkinTable.style.display='none'
-    absentBtns.style.display='none'
-    presentBtns.style.display='block'
-    printcheckBtn.style.display='none'
-    printabsentBtn.style.display='block'
+    absentTable.style.display = 'block'
+    checkinTable.style.display = 'none'
+    absentBtns.style.display = 'none'
+    presentBtns.style.display = 'block'
+    printcheckBtn.style.display = 'none'
+    printabsentBtn.style.display = 'block'
 }
 
-function presentBtn(){
+function presentBtn() {
     const checkinTable = document.getElementById('checkin-table')
     const absentTable = document.getElementById('absentList-table')
     const presentBtns = document.getElementById('presentBtn')
@@ -435,11 +435,11 @@ function presentBtn(){
     const printcheckBtn = document.getElementById('printcheckBtn')
     const printabsentBtn = document.getElementById('printabsentBtn')
 
-    absentTable.style.display='none'
-    checkinTable.style.display='block'
-    presentBtns.style.display='none'
-    absentBtns.style.display='block'
-    printcheckBtn.style.display='block'
-    printabsentBtn.style.display='none'
+    absentTable.style.display = 'none'
+    checkinTable.style.display = 'block'
+    presentBtns.style.display = 'none'
+    absentBtns.style.display = 'block'
+    printcheckBtn.style.display = 'block'
+    printabsentBtn.style.display = 'none'
 }
 // =============
