@@ -137,7 +137,6 @@
                                         <th>Workdone</th>
                                         <th>Work Percentage</th>
                                         <th>Reason</th>
-
                                         <th>Action</th>
 
                                     </tr>
@@ -209,14 +208,12 @@
                                             <input type="hidden" name="namee1" value="{{data.name}}" />
                                             <input type="hidden" name="_datee" value="{{data.date}}" />
                                             <td>
-                                                <button class="btn btn-success" name="approve" value="approved">Approved <img
-                                                        src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
-                                                        class="img-fluid table-icon" 
-                                                        ></button>
+                                                <button class="btn btn-success" name="approve" value="approved">Approved
+                                                    <img src="{% static 'images/approved-tick.png' %}"
+                                                        alt="approve-icon" class="img-fluid table-icon"></button>
                                                 <button class="btn btn-danger" name="deny" value="Declined">Decline <img
                                                         src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
-                                                        class="img-fluid table-icon" 
-                                                        ></button>
+                                                        class="img-fluid table-icon"></button>
                                             </td>
 
                                         </tr>

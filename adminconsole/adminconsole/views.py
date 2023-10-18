@@ -21,12 +21,12 @@ firebaseConfig = {
 }
 
 firebase = pyrebase.initialize_app(config)
-db1 = firebase.database()
+db = firebase.database()
 auth = firebase.auth()
 storage = firebase.storage()
 
 firebase1 = pyrebase.initialize_app(firebaseConfig)
-db = firebase1.database()
+db1 = firebase1.database()
 
 def login(request):
     try:
