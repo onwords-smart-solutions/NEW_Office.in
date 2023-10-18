@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/pr.css' %}">
     <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/customerdetails.css' %}?{% now 'U' %}" />
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -164,7 +165,7 @@
                         <form action="">
                             <div class="customer-searchbar">
                                 <div class="cust-inp">
-                                    <input type="text" placeholder="Search Customer">
+                                    <input type="text" placeholder="Search Customer" id="myInput3" onkeyup="searchFunction()" autofocus="autofocus">
                                 </div>
                                 <div class="searchBtn" type="submit">
                                     <img src="{% static 'images/search-icon.svg' %}" alt="search-icon"
@@ -174,7 +175,7 @@
                         </form>
                     </div>
                     <div class="col-md-3">
-                        <h6 class="total-customer">Total Customer: <span>3789</span></h6>
+                        <h6 class="total-customer">Total Customer: <span>{{totalCount}}</span></h6>
                     </div>
                     <div class="col-md-2">
                         <div class="dropdown">
@@ -182,15 +183,16 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Sort <img src="{% static 'images/sort-icon.svg' %}" alt="sort-icon">
                             </button>
-                            <!-- <input type="button" value="sort" onclick="srt1()" class="sortbtn" /> -->
+                            
+                            <input type="button" value="sort" onclick="srt()" class="sortbtn" />
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="dropdown-item from-date">
                                     <label for="from-date">From</label><br>
-                                    <input type="date" name="date" id="from-date" />
+                                    <input type="date" name="date" id="from-date1" />
                                 </li>
                                 <li class="dropdown-item to-date">
                                     <label for="to-date">To</label><br>
-                                    <input type="date" name="date" id="to-date" />
+                                    <input type="date" name="date" id="to-date1" />
                                 </li>
                             </ul>
                         </div>
@@ -198,138 +200,184 @@
                 </div>
                 <div class="top-customer-btns">
                     <div class="row">
+                        
                         <div class="col-md-2">
-                            <div class="custom-btn following-up">
+                            <label for="fupId" class="custom-btn following-up">
+                             <div class="custom-btn following-up">
                                 <div class="first-custm-text">
                                     <h6>Following Up</h6>
-                                    <h4>507</h4>
+                                    <h4>{{followUpCount}}</h4>
+                                    <input name="state" id="fupId" value="Following Up" type="checkbox" style="display: none"
+                                    onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
                                     <img src="{% static 'images/following-icon.svg' %}" alt="following-icon"
                                         class="img-fluid">
                                 </div>
                             </div>
+                        </label> 
                         </div>
+                    
                         <div class="col-md-2">
+                            <label for="onwordsId" class="custom-btn onwords-btn">
                             <div class="custom-btn onwords-btn">
                                 <div class="first-custm-text">
                                     <h6>onwords</h6>
-                                    <h4>876</h4>
+                                    <h4>{{onwordsCount}}</h4>
+                                    <input type="checkbox" name="state" id="onwordsId" value="ONWORDS" style="display: none"
+                                                        onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
                                     <img src="{% static 'images/onwords-custom-icon.svg' %}" alt="onwords-icon"
                                         class="img-fluid">
                                 </div>
                             </div>
+                        </label>
                         </div>
                         <div class="col-md-2">
+                            <label for="newleadsId" class="custom-btn cust-lead">
                             <div class="custom-btn cust-lead">
                                 <div class="first-custm-text">
                                     <h6>New Leads</h6>
-                                    <h4>244</h4>
+                                    <h4>{{newleadscount}}</h4>
+                                    <input type="checkbox" name="state" id="newleadsId" value="New leads" style="display: none"
+                                                        onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
                                     <img src="{% static 'images/cust-new-lead.svg' %}" alt="onwords-icon"
                                         class="img-fluid">
                                 </div>
                             </div>
+                        </label>
                         </div>
                         <div class="col-md-2">
+                            <label for="dId" class="custom-btn cust-delay">
                             <div class="custom-btn cust-delay">
                                 <div class="first-custm-text">
                                     <h6>Delayed</h6>
-                                    <h4>812</h4>
+                                    <h4>{{delayedCount}}</h4> 
+                                    <input type="checkbox" name="state" id="dId" value="Delayed" style="display: none"
+                                                        onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
                                     <img src="{% static 'images/cust-delay-icon.svg' %}" alt="onwords-icon"
                                         class="img-fluid">
                                 </div>
                             </div>
+                        </label>
                         </div>
                         <div class="col-md-2">
+                            <label for="aId" class="custom-btn cust-adv">
                             <div class="custom-btn cust-adv">
                                 <div class="first-custm-text">
                                     <h6>Advanced</h6>
-                                    <h4>64</h4>
+                                    <h4>{{advancedCount}}</h4>
+                                    <input type="checkbox" name="state" id="aId" value="Advanced" style="display: none"
+                                                        onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
                                     <img src="{% static 'images/cust-advance.svg' %}" alt="Advanced-icon"
                                         class="img-fluid">
                                 </div>
                             </div>
+                        </label>
                         </div>
                         <div class="col-md-2">
+                            <label for="prId" class="custom-btn cust-product">
                             <div class="custom-btn cust-product">
                                 <div class="first-custm-text">
                                     <h6>Product</h6>
-                                    <h4>28</h4>
+                                    <h4>{{productCount}}</h4>
+                                    <input type="checkbox" name="state" id="prId" value="Product" style="display: none"
+                                                        onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
-                                    <img src="{% static 'images/product-icon.svg' %}" alt="Product-icon"
+                                    <img src="{% static 'images/product-icon.svg' %}" alt="Product-icon" 
                                         class="img-fluid">
                                 </div>
                             </div>
+                        </label>
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-2">
+                            <label for="b2bId" class="custom-btn cust-b2b">
                             <div class="custom-btn cust-b2b">
                                 <div class="first-custm-text">
                                     <h6>B2B</h6>
-                                    <h4>343</h4>
+                                    <h4>{{b2bCount}}</h4>
+                                    <input type="checkbox" name="state" id="b2bId" value="B2B" style="display: none"
+                                                        onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
                                     <img src="{% static 'images/cust-b2b.svg' %}" alt="b2b-icon" class="img-fluid">
                                 </div>
                             </div>
+                        </label>
                         </div>
                         <div class="col-md-2">
+                            <label for="ucId" class="custom-btn under-construction">
                             <div class="custom-btn under-construction">
                                 <div class="first-custm-text">
                                     <h6>Under Construc</h6>
-                                    <h4>343</h4>
+                                    <h4>{{ucCount}}</h4>
+                                    <input type="checkbox" name="state" id="ucId" style="display: none"
+                                                        value="Under Construction" onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
                                     <img src="{% static 'images/cust-under-construction.svg' %}" alt="b2b-icon"
                                         class="img-fluid">
                                 </div>
                             </div>
+                        </label>
                         </div>
                         <div class="col-md-2">
+                            <label for="icId" class="custom-btn cust-instal">
                             <div class="custom-btn cust-instal">
                                 <div class="first-custm-text">
                                     <h6>Installation Done</h6>
-                                    <h4>34</h4>
+                                    <h4>{{installationCompletedCount}}</h4>
+                                    <input type="checkbox" name="state" id="icId" style="display: none"
+                                                        value="Installation Completed" onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
                                     <img src="{% static 'images/instalation-compl.svg' %}" alt="b2b-icon"
                                         class="img-fluid">
                                 </div>
                             </div>
+                        </label>
                         </div>
                         <div class="col-md-2">
+                            <label for="htleadId" class="custom-btn cust-interst">
                             <div class="custom-btn cust-interst">
                                 <div class="first-custm-text">
                                     <h6>Interested</h6>
-                                    <h4>138</h4>
+                                    <h4>{{interestedCount}}</h4>
+                                    <input type="checkbox" name="state" id="htleadId" style="display: none"
+                                                    value="Hot lead" onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
                                     <img src="{% static 'images/cust-intrested.svg' %}" alt="b2b-icon"
                                         class="img-fluid">
                                 </div>
                             </div>
+                        </label>
                         </div>
                         <div class="col-md-2">
+                            <label for="othersId" class="custom-btn cust-other">
                             <div class="custom-btn cust-other">
                                 <div class="first-custm-text">
                                     <h6>Others</h6>
-                                    <h4>605</h4>
+                                    <h4>{{othersCount}}</h4>
+                                    <input type="checkbox" name="others" id="othersId" style="display: none"
+                                                        onclick="othersFunction()" />
                                 </div>
                                 <div class="second-custom-img">
                                     <img src="{% static 'images/cust-others.svg' %}" alt="others-icon"
                                         class="img-fluid">
                                 </div>
                             </div>
+                        </label>
                         </div>
                         <div class="col-md-2">
 
@@ -794,9 +842,9 @@
                     </div>
                 </div>
                 <div class="">
-                    <table class="table mt-4">
+                    <table class="table mt-4" id="myTable">
                         <thead>
-                            <tr class="leave-table-head">
+                            <tr class="leave-table-head" >
                                 <th>S.No</th>
                                 <th>Name</th>
                                 <th>Number</th>
@@ -809,27 +857,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="table-body-li mt-3">
-                                <td>01</td>
-                                <td>"Raja Raja"</td>
-                                <td>173737907051</td>
-                                <td>Advanced</td>
-                                <td>Advance 35k</td>
-                                <td>2023-08-01</td>
-                                <td>Kiruba Nandhini</td>
-                                <td>2023-07-21</td>
+                            {% for name, phone, state, note, date, inc, created in allData %}
+                            <tr class="mt-3">
+                                <td hidden>{{date}}</td>
+                                <td></td>
+                                <td>
+                                    <button value="{{name}}" class="cust-name" style=" background: none;
+                                    outline: none;
+                                    border: none;">{{name}}</button>
+                                        <span id="fs" style="display: inline; margin-right: 0;width: 10%; "></span>
+                                </td>
+                                <td>{{phone}}</td>
+                                <input type="hidden" name="numb" id="numb" value="{{phone}}" />
+                                <td class="stt">{{state}}</td>
+                                <td>{{note}}</td>
+                                <td>{{date}}</td>
+                                <td class="inchrge">{{inc}}</td>
+                                <td>{{created}}</td>
                             </tr>
-                            <tr class="table-body-li mt-3">
-                                <td>01</td>
-                                <td>"Raja Raja"</td>
-                                <td>173737907051</td>
-                                <td>Advanced</td>
-                                <td>Advance 35k</td>
-                                <td>2023-08-01</td>
-                                <td>Kiruba Nandhini</td>
-                                <td>2023-07-21</td>
-                            </tr>
-
+                            {% endfor %}
+                           
 
                         </tbody>
                         </thead>
@@ -844,6 +891,7 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <!-- js script  start -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/customerdetails.js' %}?{% now 'U' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>

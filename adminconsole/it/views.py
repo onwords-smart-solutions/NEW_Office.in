@@ -104,7 +104,7 @@ def ithome(request):
         todaycheckin = convert_to_12_hour_format(todaycheckin)   
 
         listOfTodaysWork= []
-
+        print("date",formatted_date)
         try:
             for z in workmanager[current_year][current_month][formatted_date][uid]:
                 listOfTodaysWork.append(workmanager[current_year][current_month][formatted_date][uid][z])

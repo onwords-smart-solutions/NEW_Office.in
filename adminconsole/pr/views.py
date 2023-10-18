@@ -1,13 +1,337 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from adminconsole.views import db, checkUserName
+from adminconsole.views import checkUserDepartment
+from adminconsole.views import db, storage
+from datetime import date, datetime
+import csv, codecs
 # Create your views here.
 
 def prhome(request):
     return render(request,'prhome.html')
+
 def create_lead(request):
-    return render(request,'createLead.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    logedInUser = request.COOKIES["uid"]
+    loginState = request.COOKIES["loginState"]
+    alreadyExistList = []
+    custData = db.child("customer").get().val()
+    name = checkUserName(uid)
+
+    staff_data = db.child("staff").get().val()
+    uid_list=[] 
+    nameList = []    
+    for uid in staff_data:
+        if staff_data[uid]['department'] == "PR":
+            uid_list.append(uid)
+            nameList.append(staff_data[uid]['name'])
+    # istl = False
+    # praproval = False
+    # tl = db.child("tl").get().val()
+    # for t in tl:
+    #     if name == tl[t]:
+    #         istl = True
+    #         break
+    # accounts = False
+    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
+    #     accounts = True
+    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid == 'yleZdWDZgFYTBxwzC5NtHVeb3733' or uid == 'jDYzpwcpv3akKaoDL9N4mllsGCs2':
+    #     praproval = True    
+    # management = False
+    # if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2":
+    #     management = True    
+    if loginState == "loggedIn":
+        try:
+            if request.method == "POST":
+                if "create-using-data" in request.POST:
+                    data = db.get().val()
+                    phno = request.POST["phn"]
+                    for cust in data["customer"]:
+                        if phno == cust:
+                            return render(request,"createLead.html", {"error": "Phone number already exist in customer list","nameList":nameList})
+                    for dcust in data["deletedcustomers"]:
+                        if phno == dcust:
+                            return render(request,"createLead.html", {"error": "Phone number already exist in deleted customers list","nameList":nameList})
+                    name = request.POST["name"]
+                    if len(phno) < 10:
+                        return render(request,"createLead.html",{"error": "phone number should not be less the 10 digit","nameList":nameList})
+                    city = request.POST["city"]
+                    try:
+                        Email = request.POST["email"]
+                    except:
+                        Email = "Not Found"
+                    dfb = request.POST["dfb"]
+                    curent_date = date.today()
+                    now = datetime.now()
+                    current_time = now.strftime("%H:%M:%S")
+                    ef = request.POST["ef"]
+                    data = {
+                        "name": name,
+                        "phone_number": phno,
+                        "city": city,
+                        "email_id": Email,
+                        "data_fetched_by": dfb,
+                        "LeadIncharge": "Not Assigned",
+                        "rating": 0,
+                        "created_time": current_time,
+                        "created_date": str(curent_date),
+                        "inquired_for": ef,
+                        "created_by": checkUserName(uid),
+                        "customer_state": "New leads",
+                    }
+                
+                    db.child("customer").child(phno).set(data)
+                    return render(
+                        request,
+                        "createLead.html",
+                        {"akn": "user created success fully", "colour": True,"nameList":nameList},
+                    )
+                print("method",request.POST)
+                if "create-using-file" in request.POST:
+                    print("==")
+                    curent_date = date.today()
+                    now = datetime.now()
+                    current_time = now.strftime("%H:%M:%S")
+                    enqFor = request.POST["eqfor"]
+                    print("for",enqFor)
+                    name = request.POST["selectedName"]
+                    print("name",name)
+                    # selected_staffs = request.POST.getlist('selectedStaffs')
+                    reader=request.FILES['myfile']
+                    
+                    a=0
+                    read = csv.reader(codecs.iterdecode(reader, 'utf-8'))
+                    for row in read:
+                        if any(field.strip() for field in row):
+                            name = row[0]
+                            original_phone_number = row[1]
+                            email = row[2]
+                            city = row[3]
+                            altered_phone_number = original_phone_number.replace(" ", "")
+                            if len(altered_phone_number)>10:
+                                if "p:" in altered_phone_number:
+                                    altered_phone_number = altered_phone_number.replace("p:","")
+                                if len(altered_phone_number) >= 13 and "+91" in altered_phone_number:
+                                    altered_phone_number = altered_phone_number.replace("+91","")
+                                if len(altered_phone_number) >= 12 and "+1" in altered_phone_number:
+                                    altered_phone_number = altered_phone_number.replace("+1","")
+                                if len(altered_phone_number) >= 12 and "+78" in altered_phone_number:
+                                    altered_phone_number = altered_phone_number.replace("+78","")
+                                if altered_phone_number[0] == "0":
+                                    altered_phone_number = altered_phone_number.replace("0", "", 1)
+
+                            if len(altered_phone_number) == 10:
+                                number = altered_phone_number
+                            else:
+                                number = original_phone_number
+                            cust_data = {
+                                "name": name,
+                                "phone_number": number,
+                                "city": city,
+                                "email_id": email,
+                                "data_fetched_by": "Facebook Ads",
+                                "LeadIncharge": "Not Assigned",
+                                "created_by": checkUserName(logedInUser),
+                                "created_by": name,
+                                "created_date": str(curent_date),
+                                "created_time": current_time,
+                                "customer_state": "New leads",
+                                "inquired_for": enqFor,
+                                "rating": 0
+                            }
+                            # custData = db.child("customer").get().val()
+                            # if number not in custData:
+                            #     db.child("customer").child(number).update(cust_data)
+                            # else:
+                            #     alreadyExistList.append(number)
+                            try:
+                                custData[number]
+                                alreadyExistList.append(number)
+                            except Exception as err:
+                                db.child("customer").child(number).update(cust_data)
+                            # return render(request,"pr/createlead.html",{"akn": "user created success fully", "colour": True, "tl":istl, "accounts": accounts,"management": management,"alreadyExistList": alreadyExistList})
+                            # db.child("customer").child(number).update(cust_data)
+                        else:
+                            pass    
+                    return render(request, "createLead.html", {"akn": "user created success fully", "colour": True, "alreadyExistList": alreadyExistList,"nameList":nameList})
+            else:
+                return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList})
+        except:
+            return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList})
+
+    else:
+        return redirect("login")
+
+
 def customer_details(request):
-    return render(request,'customer_details.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
+    # istl = False
+    # praproval = False
+    
+    # tl = db.child("tl").get().val()
+    # for t in tl:
+    #     if name == tl[t]:
+    #         istl = True
+    #         break
+    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid== "jDYzpwcpv3akKaoDL9N4mllsGCs2":
+    #     praproval = True    
+   
+    # accounts = False
+    # suggestionNotification = 0
+    # suggestionData = db.child("suggestion").get().val()
+    # for suggestion in suggestionData:
+    #         if not suggestionData[suggestion]["isread"]:
+    #             suggestionNotification += 1
+    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
+    #     accounts = True
+    # management = False
+    # if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2":
+    #     management = True    
+    data = db.child("customer").get().val()
+    customerNameList, customerPhoneList, customerStateList, customerCreatedList, lastNoteList, lastNoteDateList, leadInchargeList = (
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+    )
+    (
+        followUpCount,
+        delayedCount,
+        onwordsCount,
+        advancedCount,
+        b2bCount,
+        productCount,
+        ucCount,
+        installationCompletedCount,
+        totalCount,
+        othersCount,
+        interestedCount,
+        newleadscount
+    ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    for cust in data:
+        try:
+            customerNameList.append(data[cust]["name"])
+            customerPhoneList.append(data[cust]["phone_number"])
+            customerStateList.append(data[cust]["customer_state"])
+            customerCreatedList.append(data[cust]["created_date"])
+            totalCount += 1
+        except:
+            print(cust)
+            pass
+        try:
+            data[cust]["notes"]
+            for note in data[cust]["notes"]:
+                lastNote = data[cust]["notes"][note]["note"]
+                lastNoteDate = data[cust]["notes"][note]["date"]
+            lastNoteList.append(lastNote)
+            lastNoteDateList.append(lastNoteDate)
+        except:
+            lastNoteList.append("No Notes were found")
+            lastNoteDateList.append("-")
+        try:
+            data[cust]["LeadIncharge"]
+            leadInchargeList.append(data[cust]["LeadIncharge"])
+        except:
+            leadInchargeList.append("Lead Incharge Not Assigned")
+        cusState = data[cust]["customer_state"]
+        if cusState == "Following Up":
+            followUpCount += 1
+        if cusState == "Delayed":
+            delayedCount += 1
+        if cusState == "Rejected from Customer end":
+            onwordsCount += 1
+        if cusState == "Rejected from Customer":
+            onwordsCount += 1
+        if cusState == "Rejected from MGMT":
+            onwordsCount += 1
+        if cusState == "Rejected from management side":
+            onwordsCount += 1
+        if cusState == "Onwords":
+            onwordsCount += 1
+        if cusState == "Advanced":
+            advancedCount += 1
+        if cusState == "Installation Completed":
+            installationCompletedCount += 1
+        if cusState == "B2B":
+            b2bCount += 1
+        if cusState == "Product":
+            productCount += 1
+        if cusState == "Under Construction":
+            ucCount += 1
+        if cusState == "Hot lead" or cusState == "Interested":
+            interestedCount += 1
+        if cusState == "New leads":
+            newleadscount +=1
+        
+
+        allList = [
+            "Following Up",
+            "Delayed",
+            "Rejected from Customer end",
+            "Rejected from management side",
+            "Advanced",
+            "Product",
+            "Installation Completed",
+            "Rejected from Customer",
+            "Rejected from MGMT",
+            "Hot lead",
+            "B2B",
+            "Under Construction",
+            "Onwords",
+            "Interested",
+            "newleadscount"
+        ]
+        if cusState not in allList:
+            othersCount += 1
+    allData = zip(
+        customerNameList,
+        customerPhoneList,
+        customerStateList,
+        lastNoteList,
+        lastNoteDateList,
+        leadInchargeList,
+        customerCreatedList,
+    )
+    allDataMob = zip(
+        customerNameList,
+        customerPhoneList,
+        customerStateList,
+        lastNoteList,
+        lastNoteDateList,
+        leadInchargeList,
+        customerCreatedList,
+    )
+
+    context = {
+        "name": name,
+        "allData": allData,
+        "allDataMob": allDataMob,
+        "followUpCount": followUpCount,
+        "delayedCount": delayedCount,
+        "onwordsCount": onwordsCount,
+        "advancedCount": advancedCount,
+        "b2bCount": b2bCount,
+        "productCount": productCount,
+        "ucCount": ucCount,
+        "installationCompletedCount": installationCompletedCount,
+        "totalCount": totalCount,
+        "othersCount": othersCount,
+        "interestedCount":interestedCount,
+        "newleadscount":newleadscount,
+        "dep": dep,
+        # "tl": istl,
+        # "accounts": accounts,
+        # "management": management,
+        # "suggestionNotification":suggestionNotification,
+        # "praproval":praproval,
+        
+    }
+    return render(request, "customer_details.html", context)
 def points_workdone(request):
     return render(request,'points_workdone.html')
 def quotation(request):
