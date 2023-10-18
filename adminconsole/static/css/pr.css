@@ -713,8 +713,8 @@
     font-weight: 600;
 }
 
-#proforma {
-    display: none !important;
+#proformaTable,#invoiceTable {
+    display: none;
 }
 
 /* ==================rnd pages End====== */
