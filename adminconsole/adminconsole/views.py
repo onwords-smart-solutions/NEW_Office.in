@@ -588,8 +588,8 @@ def suggestion(request):
 
 def financial(request):
     return render(request,'financial.html')
-def cmoproduct(request):
-    return render(request,'cmoproduct.html')
+def inventorymanagement(request):
+    return render(request,'inventorymanagement.html')
 def coohome(request):
     return render(request,'coohome.html')
 def installation_details(request):

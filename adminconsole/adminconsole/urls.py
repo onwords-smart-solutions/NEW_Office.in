@@ -57,5 +57,5 @@ urlpatterns = [
     path("attendanced",adminviews.attendanced,name='attendanced'),
 
     # ======= CMO Product Page ==========
-      path("cmoproduct/",views.cmoproduct,name='cmoproduct'),
+      path("inventorymanagement/",prviews.inventorymanagement,name='inventorymanagement'),
 ]
