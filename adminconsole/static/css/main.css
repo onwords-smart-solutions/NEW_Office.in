@@ -158,7 +158,8 @@ h6 {
     float: right;
     display: none;
 }
-.right-nav-list h5{
+
+.right-nav-list h5 {
     font-size: 18px;
 }
 
@@ -175,7 +176,8 @@ ul {
 .main-logo {
     width: 120px;
 }
-.menu-icon img{
+
+.menu-icon img {
     width: 25px;
     height: 25px;
 }
@@ -188,12 +190,15 @@ ul {
     justify-content: center;
     padding: 0px 10px;
 }
-.menu-icons,.close-icons{
+
+.menu-icons,
+.close-icons {
     width: 30px;
     height: 30px;
     cursor: pointer;
 }
-.close-icons{
+
+.close-icons {
     display: none;
 }
 
@@ -247,10 +252,29 @@ ul {
 
 .refreshment-con {
     overflow: hidden;
+
 }
-.notification-con{
+
+.refreshment-over-con {
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    display: none;
+    padding: 10px;
+
+}
+.emoj{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.notification-con {
     overflow: hidden;
 }
+
 .workdone-entry-con {
     background-color: #ffff;
     border-radius: 15px;

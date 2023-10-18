@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    
+
     <!-- chart js start  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
@@ -29,8 +29,7 @@
                             <div class="menu-icon">
                                 <img src="{% static 'images/nav-icon/small-icon.png' %}" alt="small_Icon"
                                     class="small-logo">
-                                    <img src="{% static 'images/close.png' %}" alt="menu_Icon"
-                                    class="close-icons">
+                                <img src="{% static 'images/close.png' %}" alt="menu_Icon" class="close-icons">
                             </div>
                         </div>
                         <div class="right-nav-list">
@@ -39,8 +38,8 @@
                     </div>
                     <div class="user-profile">
                         <li class="user-visual">
-                            <div class="left-nav-list" > <img src="{% static 'images/menu.png' %}" alt="menu_Icon"
-                                class="menu-icons"></div>
+                            <div class="left-nav-list"> <img src="{% static 'images/menu.png' %}" alt="menu_Icon"
+                                    class="menu-icons"></div>
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
@@ -50,17 +49,18 @@
                                         <span>{{ name }}</span><br>
                                         <span>{% if dep == "WEB" %}
                                             <p>Web Developer</p>
-                                        {% elif dep == "APP" %}
+                                            {% elif dep == "APP" %}
                                             <p>App developer</p>
-                                        {% elif dep == "MEDIA" %}
+                                            {% elif dep == "MEDIA" %}
                                             <p>Graphic designer</p>
-                                        {% elif dep == "PR" %}
+                                            {% elif dep == "PR" %}
                                             <p>PR</p>
-                                        {% elif dep == "RND" %}
+                                            {% elif dep == "RND" %}
                                             <p>R&D</p>
-                                        {% else %}
+                                            {% else %}
                                             <p>Admin</p>
-                                        {% endif %}</span>
+                                            {% endif %}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -118,9 +118,9 @@
                                 <h5>Suggestion</h5>
                             </div>
                         </li>
-                      
+
                     </ul>
-                    <div class="logout"  onclick="location.href='/logout/'">
+                    <div class="logout" onclick="location.href='/logout/'">
                         <li class="navlistmenu">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -151,8 +151,8 @@
                                 <div class="col-md-4">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: {{ todayprogress }}%"
-                                         aria-valuenow="{{ todayprogress }}" aria-valuemin="0" aria-valuemax="100"></div>
-
+                                            aria-valuenow="{{ todayprogress }}" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -169,12 +169,13 @@
                                 <div class="col-md-4">
                                     <div class="progress">
                                         <div id="progress-bar" role="progressbar" style="width: {{ yesprogress }}%;"
-                                         aria-valuenow="{{ yesprogress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                            aria-valuenow="{{ yesprogress }}" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
                                     </div>
-                                    
-                                    
-                                    
-                                    
+
+
+
+
                                 </div>
                                 <div class="col-md-4">
                                     <span>Check Out</span><br>
@@ -184,10 +185,28 @@
                         </div>
                     </div>
                     <div class="col-md-8">
+
                         <div class="refreshment-con">
-                            <div class="row">
+                            <div class="refreshment-over-con" id="refresh-over">
+
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h4>Wait until Refreshment portal opens</h4>
+                                        <p>
+                                            Morning Refreshment and Food time -(09:00 Am - 10:45 Am)
+                                        </p>
+                                        <p>Evening Refreshment Time -(2:00 PM -3:30 PM)</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="emoj">
+                                            <img src="{% static 'images/coffee-animated-emoji.gif' %}" alt="coffee-emoj" class="img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="main-refresh">
                                 <div class="col-md-8">
-                                    <form action="/refreshment/" method="post" >
+                                    <form action="/refreshment/" method="post">
                                         {% csrf_token %}
                                         <div class="d-flex align-items-center">
                                             <div class="refresh-order">
@@ -201,7 +220,8 @@
                                                                         alt="tea-icon" class="refresh-icon">Tea</p>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <input type="checkbox" class="check-order" id="tea" name="refreshment" value="tea">
+                                                                <input type="checkbox" class="check-order" id="tea"
+                                                                    name="refreshment" value="tea">
                                                             </div>
                                                         </label>
                                                     </div>
@@ -213,7 +233,8 @@
                                                                         alt="tea-icon" class="refresh-icon">Coffee</p>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <input type="checkbox" class="check-order" id="coffee" name="refreshment" value="coffee">
+                                                                <input type="checkbox" class="check-order" id="coffee"
+                                                                    name="refreshment" value="coffee">
                                                             </div>
                                                         </label>
                                                     </div>
@@ -225,12 +246,13 @@
                                                                         alt="tea-icon" class="refresh-icon">Milk</p>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <input type="checkbox" class="check-order" id="milk" name="refreshment" value="milk">
+                                                                <input type="checkbox" class="check-order" id="milk"
+                                                                    name="refreshment" value="milk">
                                                             </div>
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <div id="tea-coffee">   
+                                                <div id="tea-coffee">
                                                     <div class="refresh-list">
                                                         <label for="lunch" class="row">
                                                             <div class="col-md-10">
@@ -239,11 +261,13 @@
                                                                         alt="tea-icon" class="refresh-icon">Lunch</p>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <input type="checkbox" class="check-order" id="lunch" name="refreshment" value="Lunch">
+                                                                <input type="checkbox" class="check-order" id="lunch"
+                                                                    name="refreshment" value="Lunch">
                                                             </div>
                                                         </label>
                                                     </div>
-                                                </div> 
+                                                </div>
+
                                             </div>
 
                                             <div class="order-button">
@@ -251,7 +275,9 @@
                                                     class="primary-button px-2">Order</button>
                                             </div>
                                         </div>
-                                    </form> 
+
+                                    </form>
+
                                 </div>
 
                                 <div class="col-md-4">
@@ -260,15 +286,15 @@
                                             data-bs-ride="carousel">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                    <img src="{% static 'images/tea-slider-img.png' %}" alt="lunch-img"
+                                                    <img src="{% static 'images/tea-slider-img.png' %}" alt="tea-img"
                                                         class="caro-img ">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img src="{% static 'images/coffee-slider-img.png' %}" alt="lunch-img"
-                                                        class="caro-img">
+                                                    <img src="{% static 'images/coffee-slider-img.png' %}"
+                                                        alt="coffee-img" class="caro-img">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img src="{% static 'images/slide-img.png' %}" alt="lunch-img"
+                                                    <img src="{% static 'images/tea-slider-img.png' %}" alt="tea-img"
                                                         class="caro-img">
                                                 </div>
                                             </div>
@@ -366,7 +392,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="workdone-entry-con">
-                            <form id="submitwork-form" action="/submitwork/" method="post" >
+                            <form id="submitwork-form" action="/submitwork/" method="post">
                                 {% csrf_token %}
                                 <div class="row d-flex align-items-center text-align-center px-2">
                                     <div class="col-md-1">
@@ -380,13 +406,15 @@
                                     <div class="col-md-1">
                                         <div class="work-done-li">
                                             <p>To</p>
-                                            <div><input type="time" name="to-time" id="tt" onchange="timediff()" required></div>
+                                            <div><input type="time" name="to-time" id="tt" onchange="timediff()"
+                                                    required></div>
                                         </div>
                                     </div>
                                     <div class="col-md-7">
                                         <div class="work-done-li">
                                             <p>Add Work done</p>
-                                            <div><input type="text" required placeholder="Enter Your Workdone Here..." name="workdone">
+                                            <div><input type="text" required placeholder="Enter Your Workdone Here..."
+                                                    name="workdone">
                                             </div>
                                         </div>
                                     </div>
@@ -398,7 +426,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="d-flex justify-content-end">
-                                            <button type="submit" class="primary-button" >Submit</button>
+                                            <button type="submit" class="primary-button">Submit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -410,7 +438,7 @@
                     <div class="col-md-12">
                         <div class="workdone-con p-2">
                             <div class="notify-workdone-data">
-                                
+
                                 {% for work_item in listOfTodaysWork %}
                                 {% if work_item == "No Workdone" %}
                                 <div class="notify-workdone-withoutdata">
@@ -425,28 +453,35 @@
                                                 <div class="work-done-li">
                                                     <!-- <p>From</p> -->
                                                     <div>
-                                                        <input type="hidden" name="default_fromtime" value="{{work_item.from}}">
-                                                        <input type="time" name="from-time" value="{{work_item.from}}" id="ft" required>
+                                                        <input type="hidden" name="default_fromtime"
+                                                            value="{{work_item.from}}">
+                                                        <input type="time" name="from-time" value="{{work_item.from}}"
+                                                            id="ft" required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-1">
                                                 <div class="work-done-li">
                                                     <!-- <p>To</p> -->
-                                                    <div><input type="hidden" name="default_totime" value="{{work_item.to}}">
-                                                        <input type="time" name="to-time" id="tt" value="{{work_item.to}}" onchange="timediff()" required></div>
+                                                    <div><input type="hidden" name="default_totime"
+                                                            value="{{work_item.to}}">
+                                                        <input type="time" name="to-time" id="tt"
+                                                            value="{{work_item.to}}" onchange="timediff()" required>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-7">
                                                 <div class="work-done-li">
                                                     <!-- <p>Add Work done</p> -->
-                                                    <div><input type="text" value="{{work_item.workDone}}" name="workdone">
+                                                    <div><input type="text" value="{{work_item.workDone}}"
+                                                            name="workdone">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-1">
                                                 <div class="work-done-li">
-                                                    <div><input type="number" value="{{ work_item.workPercentage }}" name="percent"></div>
+                                                    <div><input type="number" value="{{ work_item.workPercentage }}"
+                                                            name="percent"></div>
 
                                                 </div>
                                             </div>
@@ -461,13 +496,13 @@
                                 </div>
                                 {% endif %}
                                 {% endfor %}
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
                             </div>
-                            
+
 
                         </div>
                     </div>
@@ -488,174 +523,178 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             var progressBar = document.getElementById("progress-bar");
             progressBar.style.width = "{{ yesprogress }}%";
-            if ({{ yesprogress }} < 100) {
-                progressBar.style.backgroundColor = "red";
-            } else {
-                progressBar.style.backgroundColor = "#e0ae09";
-            }
-        });
-        $(document).ready(function() {
-           
-            function updateOptions() {
-            var currentDate = new Date();
-            var currentHour = currentDate.getHours();
-            console.log("hour",currentHour)
-    
-         
-            var showTeaCoffeeMilk = currentHour >= 9 && currentHour < 11;
-            var showTeaCoffee = currentHour >= 14 && currentHour < 16;
-    
-           
-            if (showTeaCoffeeMilk) {
-                $("#tea-coffee-milk").show();
-                $("#tea-coffee").show();
-            } else if (showTeaCoffee) {
-                $("#tea-coffee-milk").show();
-                $("#tea-coffee").hide();
-            } else {
-                $("#tea-coffee-milk").hide();
-                $("#tea-coffee").hide();
-                //if no time for refreshment
-            }
+            if ({{ yesprogress }
+        } < 100) {
+            progressBar.style.backgroundColor = "red";
+        } else {
+            progressBar.style.backgroundColor = "#e0ae09";
         }
-        updateOptions();
-    setInterval(updateOptions, 1000);
+        });
+        $(document).ready(function () {
+
+            function updateOptions() {
+                var currentDate = new Date();
+                var currentHour = currentDate.getHours();
+                console.log("hour", currentHour)
+
+
+                var showTeaCoffeeMilk = currentHour >= 9 && currentHour < 11;
+                var showTeaCoffee = currentHour >= 14 && currentHour < 16;
+
+
+                if (showTeaCoffeeMilk) {
+                    $("#tea-coffee-milk").show();
+                    $("#tea-coffee").show();
+                } else if (showTeaCoffee) {
+                    $("#tea-coffee-milk").show();
+                    $("#tea-coffee").hide();
+                } else {
+
+                    $("#tea-coffee-milk").hide();
+                    $("#tea-coffee").hide();
+                    $("#main-refresh").hide();
+                    $('#refresh-over').show();
+                    //if no time for refreshment
+                }
+            }
+            updateOptions();
+            setInterval(updateOptions, 1000);
 
         });
     </script>
-  <script>
-    $(document).ready(function() {
-        $("#refreshment-form").on("submit", function(event) {
-            event.preventDefault();  
+    <script>
+        $(document).ready(function () {
+            $("#refreshment-form").on("submit", function (event) {
+                event.preventDefault();
 
-            var formData = $(this).serialize();
-            $.ajax({
-                type: "POST",
-                url: "/refreshment/",
-                data: formData,
-                success: function(response) {
-                    window.location.reload();
-                },
-                error: function(xhr, status, error) {
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/refreshment/",
+                    data: formData,
+                    success: function (response) {
+                        window.location.reload();
+                    },
+                    error: function (xhr, status, error) {
 
-                    console.log("AJAX Error: " + error);
-                }
+                        console.log("AJAX Error: " + error);
+                    }
+                });
             });
         });
-    });    
-    $(document).ready(function() {
-        $("#submitwork").on("submit", function(event) {
-            event.preventDefault();  
+        $(document).ready(function () {
+            $("#submitwork").on("submit", function (event) {
+                event.preventDefault();
 
-            var formData = $(this).serialize();
-            $.ajax({
-                type: "POST",
-                url: "/submitwork/",
-                data: formData,
-                success: function(response) {
-                    window.location.reload();
-                },
-                error: function(xhr, status, error) {
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/submitwork/",
+                    data: formData,
+                    success: function (response) {
+                        window.location.reload();
+                    },
+                    error: function (xhr, status, error) {
 
-                    console.log("AJAX Error: " + error);
-                }
+                        console.log("AJAX Error: " + error);
+                    }
+                });
             });
         });
-    });
-</script>
-<script>
-    function timediff() {
-      ft = document.getElementById("ft").value
-      tt = document.getElementById("tt").value
-      var diff = (new Date("1970-1-1 " + tt) - new Date("1970-1-1 " + ft)) / 1000 / 60 / 60;
-      if (diff < 0) {
-        alert("The time you entered is negative that the to time is lesser than from time kindly change before you submit, Kindly re-enter your time correctly");
-        document.getElementById('ft').value = '';
-        document.getElementById('tt').value = '';
-      }
-      if (diff > 6) {
-        alert("Check your AM PM as it seems longer than 6 hours kindly split it and check once before you submit");
-        document.getElementById('ft').value = '';
-        document.getElementById('tt').value = '';
-      }
-    }
-    // reload testing starts----------------
-    // (function()
-    // {
-    //   if( window.localStorage )
-    //   {
-    //     if(!localStorage.getItem('firstLoad')){
-    //       localStorage['firstLoad'] = true;
-    //       window.location.reload();
-    //     }
-    //     else
-    //       localStorage.removeItem('firstLoad');
-    //   }
-    // })();
+    </script>
+    <script>
+        function timediff() {
+            ft = document.getElementById("ft").value
+            tt = document.getElementById("tt").value
+            var diff = (new Date("1970-1-1 " + tt) - new Date("1970-1-1 " + ft)) / 1000 / 60 / 60;
+            if (diff < 0) {
+                alert("The time you entered is negative that the to time is lesser than from time kindly change before you submit, Kindly re-enter your time correctly");
+                document.getElementById('ft').value = '';
+                document.getElementById('tt').value = '';
+            }
+            if (diff > 6) {
+                alert("Check your AM PM as it seems longer than 6 hours kindly split it and check once before you submit");
+                document.getElementById('ft').value = '';
+                document.getElementById('tt').value = '';
+            }
+        }
+        // reload testing starts----------------
+        // (function()
+        // {
+        //   if( window.localStorage )
+        //   {
+        //     if(!localStorage.getItem('firstLoad')){
+        //       localStorage['firstLoad'] = true;
+        //       window.location.reload();
+        //     }
+        //     else
+        //       localStorage.removeItem('firstLoad');
+        //   }
+        // })();
 
-    // ==================================================================
-    // window.onload = function() {
-    //   if(!window.location.hash) {
-    //     window.location = window.location + '#loaded';
-    //     window.location.reload();
-    //   }
-    // }
-    // ==========================================================
-    // reload testing ends================
-    // setTimeout('location.reload()', 60000)
-    var end = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
-    try {
-      start = document.getElementById("_from").value;
-    } catch (err) {
-      console.log("ERROR IN GETTING NUMBER");
-    }
-    function diff(start, end) {
-      start = start.split(":");
-      end = end.split(":");
-      var startDate = new Date(0, 0, 0, start[0], start[1], 0);
-      var endDate = new Date(0, 0, 0, end[0], end[1], 0);
-      var diff = endDate.getTime() - startDate.getTime();
-      var hours = Math.floor(diff / 1000 / 60 / 60);
-      diff -= hours * 1000 * 60 * 60;
-      var minutes = Math.floor(diff / 1000 / 60);
-      return ((hours < 9 ? "0" : "") + hours + ":" + (minutes < 9 ? "0" : "") + minutes);
-    }
-    // b = diff(start, end)
-    b = 1;
-    document.addEventListener("DOMContentLoaded", function () {
-      if (!Notification) {
-        alert("Desktop notifications not available in your browser. Try Chromium.");
-        return;
-      }
-      if (Notification.permission !== "granted") {
-        Notification.requestPermission();
-      }
-    });
-    if (b > "01:30") {
-      if (Notification.permission == "denied") {
-        Notification.requestPermission();
-      } else {
-        var user = document.getElementById("user").innerHTML;
-        var notification = new Notification("Team Onwords", {
-          icon: "/static/images/mainLogo.png",
-          body: "Hey " + user + " you may be busy at your work to update workdone, Kindly Update your workdone and continue your work",
+        // ==================================================================
+        // window.onload = function() {
+        //   if(!window.location.hash) {
+        //     window.location = window.location + '#loaded';
+        //     window.location.reload();
+        //   }
+        // }
+        // ==========================================================
+        // reload testing ends================
+        // setTimeout('location.reload()', 60000)
+        var end = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+        try {
+            start = document.getElementById("_from").value;
+        } catch (err) {
+            console.log("ERROR IN GETTING NUMBER");
+        }
+        function diff(start, end) {
+            start = start.split(":");
+            end = end.split(":");
+            var startDate = new Date(0, 0, 0, start[0], start[1], 0);
+            var endDate = new Date(0, 0, 0, end[0], end[1], 0);
+            var diff = endDate.getTime() - startDate.getTime();
+            var hours = Math.floor(diff / 1000 / 60 / 60);
+            diff -= hours * 1000 * 60 * 60;
+            var minutes = Math.floor(diff / 1000 / 60);
+            return ((hours < 9 ? "0" : "") + hours + ":" + (minutes < 9 ? "0" : "") + minutes);
+        }
+        // b = diff(start, end)
+        b = 1;
+        document.addEventListener("DOMContentLoaded", function () {
+            if (!Notification) {
+                alert("Desktop notifications not available in your browser. Try Chromium.");
+                return;
+            }
+            if (Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
         });
-        // notification.onclick = function () {
-        //   window.open('http://stackoverflow.com/a/13328397/1269037');
-        // };
-      }
-    }
-    // var fname = document.getElementById("workDone");
-    // fname.addEventListener("input", () => {
-    //   if (fname.validity.tooLong || fname.validity.tooShort || fname.validity.valueMissing) {
-    //     fname.setCustomValidity("Describe your workdone in detail!");
-    //     fname.reportValidity();
-    //   } else { fname.setCustomValidity(""); }
-    // });
-  </script>
+        if (b > "01:30") {
+            if (Notification.permission == "denied") {
+                Notification.requestPermission();
+            } else {
+                var user = document.getElementById("user").innerHTML;
+                var notification = new Notification("Team Onwords", {
+                    icon: "/static/images/mainLogo.png",
+                    body: "Hey " + user + " you may be busy at your work to update workdone, Kindly Update your workdone and continue your work",
+                });
+                // notification.onclick = function () {
+                //   window.open('http://stackoverflow.com/a/13328397/1269037');
+                // };
+            }
+        }
+        // var fname = document.getElementById("workDone");
+        // fname.addEventListener("input", () => {
+        //   if (fname.validity.tooLong || fname.validity.tooShort || fname.validity.valueMissing) {
+        //     fname.setCustomValidity("Describe your workdone in detail!");
+        //     fname.reportValidity();
+        //   } else { fname.setCustomValidity(""); }
+        // });
+    </script>
 
 
 </body>

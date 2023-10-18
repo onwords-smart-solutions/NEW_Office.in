@@ -6,6 +6,7 @@ from it import views as itviews
 from pr import views as prviews
 from rnd import views as rndviews
 from admin import views as adminviews
+from superadmin import views as superadminviews
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.login, name="login"),
@@ -38,6 +39,7 @@ urlpatterns = [
     path("customer_details/",prviews.customer_details,name='customer_details'), 
     path("points_workdone/",prviews.points_workdone,name='points_workdone'), 
     path("quotation/",prviews.quotation,name='quotation'), 
+    path("leadinfo/",prviews.leadinfo,name='leadinfo'), 
 
     # ================ accounts department ====================
 
@@ -55,6 +57,13 @@ urlpatterns = [
     path("adminhome",adminviews.adminhome,name='adminhome'),
     path("checkin",adminviews.checkin,name='checkin'),
     path("attendanced",adminviews.attendanced,name='attendanced'),
+
+
+    # =====================super admin====================================
+
+    path("superadmin",superadminviews.superadmin,name='superadmin'),
+    path("createstaff",superadminviews.createstaff,name='createstaff'),
+    path("staffaccess",superadminviews.staffaccess,name='staffaccess'),
 
    
 ]
