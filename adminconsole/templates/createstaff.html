@@ -77,7 +77,7 @@
                                 <h5>Leave Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/late_form'">
+                        <li class="navlistmenu " onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
@@ -95,6 +95,16 @@
                             </div>
                             <div class="right-nav-list">
                                 <h5>Suggestion</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/createstaff'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/create-staff.svg' %}" alt="createstaff_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Create Staff</h5>
                             </div>
                         </li>
 
@@ -118,7 +128,7 @@
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
             <div class="container">
-              
+
 
                 <div id="late_con">
                     <div class="leave-form-con">
@@ -126,31 +136,31 @@
                             <img src="{% static 'images/leave-frm-img.svg' %}" alt="leave-form" class="img-fluid">
                         </div>
                         <div class="leave-list">
-                            <form action="" class=" leave-frm" >
-                                {% csrf_token %}    
+                            <form action="" class=" leave-frm">
+                                {% csrf_token %}
                                 <label for="staffName">staff Name</label>
                                 <div class="form-inp-con">
                                     <img src="{% static 'images/user-icon.svg' %}" alt="user-iocn">
-                                    <input type="text" id="staffName" placeholder="Staff Name" >
+                                    <input type="text" id="staffName" placeholder="Staff Name">
                                 </div>
                                 <label for="email">staff Email</label>
                                 <div class="form-inp-con">
                                     <img src="{% static 'images/email-icon.svg' %}" alt="email-icon">
-                                    <input type="text" id="email" placeholder="Staff Email" >
+                                    <input type="text" id="email" placeholder="Staff Email">
                                 </div>
                                 <label for="department">Staff Department</label>
                                 <div class="form-inp-con">
                                     <img src="{% static 'images/department-staff.svg' %}" alt="staff-icpn">
-                                    <input type="text" id="department" placeholder="Staff Department" >
+                                    <input type="text" id="department" placeholder="Staff Department">
                                 </div><br>
 
                                 <button class="primary-button">Create Staff</button>
                             </form>
                         </div>
-                       
+
                     </div>
                 </div>
-              
+
             </div>
         </div>
     </div>
@@ -163,8 +173,8 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-  
- 
+
+
 </body>
 
 </html>
