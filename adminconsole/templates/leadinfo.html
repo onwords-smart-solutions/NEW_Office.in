@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pr.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- chart js start  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <!-- chart js end -->
+    <title>adminconsole</title>
+</head>
+
+<body>
+    <div class="main-con ">
+        <div class="nav-con " onclick="navcon()">
+            <nav class="px-2">
+                <div class="container-fluid p-0 m-0">
+                    <div class="navlistlogo">
+                        <div class="left-nav-list">
+                            <div class="menu-icon">
+                                <img src="{% static 'images/nav-icon/small-icon.png' %}" alt="small_Icon"
+                                    class="small-logo">
+                                <img src="{% static 'images/close.png' %}" alt="menu_Icon" class="close-icons">
+                            </div>
+                        </div>
+                        <div class="right-nav-list">
+                            <img src="{% static 'images/nav-icon/main-log.svg' %}" alt="small_Icon" class="main-logo">
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <li class="user-visual">
+                            <div class="left-nav-list"> <img src="{% static 'images/menu.png' %}" alt="menu_Icon"
+                                    class="menu-icons"></div>
+                            <div class="right-nav-list">
+                                <div class="user-profiles">
+                                    <div class="user-img">
+                                        <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                    </div>
+                                    <div class="emply-id">
+                                        <span>Vinith</span><br>
+                                        <span>ID:WD002</span><br>
+                                        <span>Web Developer</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </div>
+                    <ul id="nav-main-con">
+                        <li class="navlistmenu" onclick="location.href='/ithome'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>dashboard</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu " onclick="location.href='/leave_form'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Leave Form</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/late_form'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Late Form</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/suggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/suggestion.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Suggestion</h5>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="logout" onclick="location.href=''">
+                        <li class="navlistmenu">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/logout-icon.svg' %}" alt="dashboard_Icon"
+                                        class="logout-icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Logout</h5>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="right-con " id="rightCon" onclick="rightcon()">
+
+          <div class="container-fluid">
+            <div>
+                <div class="personal-info my-4 p-3">
+                    <fieldset>
+                        <legend><strong>Personal Information</strong></legend>
+                       <div class="dfh">
+                        <div class="in">
+                          <span class="left">Name </span>
+                          <span class="right">: {{userData.name}}</span>
+                        </div>
+                        <div class="in">
+                          <span class="left">Inquired for </span>
+                          <span class="right">: {{userData.inquired_for}}</span>
+                        </div>
+                        <div class="in">
+                          <span class="left">City </span>
+                          <span class="right">: {{userData.city}}</span>
+                        </div>
+                        <div class="in">
+                          <span class="left">Data Fetched by </span>
+                          <span class="right">: {{userData.data_fetched_by}}</span>
+                        </div>
+                        <div class="in">
+                          <span class="left">Email ID </span>
+                          <span class="right">: {% if userData.email_id %} {{userData.email_id}} {% else %} EmailID Not Entered {% endif %}</span>
+                        </div>
+                        <div class="in">
+                          <span class="left">Phone Number </span>
+                          <span class="right">: {{userData.phone_number}}</span>
+                        </div>
+                        <div class="in">
+                          <span class="left">Created on </span>
+                          <span class="right">: {{userData.created_date}}</span>
+                        </div>
+                        <div class="in">
+                          <span class="left">Lead assigned to </span>
+                          <span class="right">: {{incharge}}</span>
+                        </div>
+                        <div class="in">
+                          <form action="/customerstate/" method="post" id="cust-form">
+                            {% csrf_token %}
+                            <label for="cust-state">Customer State : </label>
+                            <select name="cust-state" id="cust-state" onchange="custState()">
+                              <option hidden>{{userData.customer_state}}</option>
+                              <option>Following Up</option>
+                              <option>Delayed</option>
+                              <option>Rejected from Customer end</option>
+                              <option>Rejected from management side</option>
+                              <option>Advanced</option>
+                              <option>B2B</option>
+                              <option>Under Construction</option>
+                              <option>Installation Completed</option>
+                              <option>Product</option>
+                            </select>
+                          </form>
+                        </div>
+                        <div class="in">
+                          {% if management or tl %}
+                          <form action="/leadincharge/" method="post" id="lead-incharge">
+                            {% csrf_token %}
+                            <label for="lead-in">Select/Change Lead Incharge</label>
+                            <select name="lead-in" id="lead-in" onchange="leadIn()">
+                              <option value="" disabled selected>
+                                Select / Change Lead Incharge
+                              </option>
+                              <option value="Anitha">Anitha</option>
+                              <option value="Jeeva">Jeeva</option>
+                              <option value="Gowtham">Gowtham</option>
+                              <option value="Abdul Abbas">Abdul Abbas</option>
+                              <option value="Arun Kumar">Arun Kumar</option>
+                              <option value="Vasanth Kumar">Vasanth Kumar</option>
+                              <option value="Pradeep Kanth">Pradeep Kanth</option>
+                              <option value="Sakthivel Nagaraj">Sakthivel Nagaraj</option>
+                              <option value="Radhakrishnan">Radhakrishnan</option>
+                              <option value="Onwords">Onwords</option>
+                              <option value="Iyyappan K">Iyyappan K</option>
+                              <option value="Abdul Kareem">Abdul Kareem</option>
+                              <option value="Ashik Aboobacker">Ashik Aboobacker</option>
+                              <option value="Harshini U">Harshini U</option>
+                              <option value="Aishwarya K">Aishwarya K</option>
+                              <option value="Karthika M">Karthika M</option>
+                              <option value="Sanjeth T">Sanjeth T</option>
+                              <option value="Gokulnath N">Gokulnath N</option>
+                              <option value="Mohamed Thoufic">Mohamed Thoufic</option>
+                              <option value="Logesh P">Logesh P</option>
+                              <option value="Rajkannan B">Rajkannan B</option>
+                              <option value="Karthickraja A">Karthickraja A</option>
+                              <option value="Pradeep kumar">Pradeep kumar</option>
+                              <option value="Anusha Unnikrishnan">Anusha Unnikrishnan</option>
+                              <option value="Arasi S">Arasi S</option>
+                            </select>
+                          </form>
+                          {% endif %}
+                        </div>
+                       </div>
+                      </fieldset>
+
+               
+                </div>
+                <div class="box-2">
+                    <div class="note-wrapper">
+                      <div class="n1">
+                        <div class="note-form">
+                          <form class="notepad" method="post" action="/addnotes/">
+                            {% csrf_token %}
+                            <br />
+                            <input type="text" name="nts" placeholder="Enter Notes Here"  class="not-texr"/>
+                            <br />
+                            <input type="hidden" name="phone" value="{{userData.phone_number}}" />
+                            <input type="submit" class="primary-button" value="Submit" />
+                          </form>
+                        </div>
+                      </div>
+                      <div class="note-data">
+                        {% for a in notesData reversed %}
+                        <div class="note">
+                          <span class="top">
+                            <span>{{a.date}}</span>
+                            <span>{{a.entered_by}}</span>
+                            <span>{{a.time}}</span>
+                          </span>
+                          <hr />
+                          <span>{{a.note}}</span>
+                        </div>
+                        {% endfor %}
+                      </div>
+                  </div>
+                </div>
+                {% if management %}
+                  <div class="box-3" id="box-3">
+                    <form action="/deletelead/" method="post" id="delete-form">
+                      {% csrf_token %}
+                      <input type="hidden" name="phno" value="{{userData.phone_number}}" />
+                      <input type="hidden" name="nam" value="{{userData.name}}" />
+                      <input type="text" name="rsn" id="rsn" placeholder="Reason to delete the customer" required />
+                      <br><br>
+                    </form>
+                    <button onclick="deletePost()" class="dr">Delete customer</button>
+                  </div>
+                {% endif %}
+              </div>
+          </div>
+      </div>
+  </div>
+</center>
+          
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- js script  start -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <!-- js script  end -->
+
+</body>
+
+</html>

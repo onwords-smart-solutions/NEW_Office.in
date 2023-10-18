@@ -12,3 +12,5 @@ def points_workdone(request):
     return render(request,'points_workdone.html')
 def quotation(request):
     return render(request,'quotation.html')
+def leadinfo(request):
+    return render(request,'leadinfo.html')

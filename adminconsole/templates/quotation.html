@@ -78,7 +78,7 @@
                                 <h5>Leave Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/late_form'">
+                        <li class="navlistmenu " onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
@@ -96,6 +96,16 @@
                             </div>
                             <div class="right-nav-list">
                                 <h5>Suggestion</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/quotation'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/invoice.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Quotation</h5>
                             </div>
                         </li>
 
@@ -121,9 +131,9 @@
             <div class="container-fluid">
                 <div class="">
                     <div class="forms-con">
-                        <p class="active-form-li">Quotation</p>
-                        <p class="">Proforma Invoice</p>
-                        <p>Invoice</p>
+                        <p class="active-form-li" id="quotationBtn" onclick="quotation()" >Quotation</p>
+                        <p class="" id="proformaBtn" onclick="proforma()">Proforma Invoice</p>
+                        <p id="invoiceBtn" onclick="invoice()">Invoice</p>
                     </div>
 
                     <div class="sort-date">
@@ -168,6 +178,70 @@
                                     <td><a href="">View Invoice</a></td>
                                 </tr>
 
+                            </tbody>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div id="proformaTable">
+                        <table class="table">
+                            <thead>
+                                <tr class="leave-table-head">
+                                    <th>Customer name </th>
+                                    <th>Notes</th>
+                                    <th>Number</th>
+                                    <th>Created By</th>
+                                    <th>Invoice name</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Invoice Link</th>
+                                    <th>Installation Invoice Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-body-li my-3 text-center">
+                                    <td>Joshua Daniel</td>
+                                    <td>Call afternoon for confirm the visit on 2023-09-21</td>
+                                    <td>9952619655</td>
+                                    <td>Rajkannan1127</td>
+                                    <td>INV_GA-23109</td>
+                                    <td>2023-10-13 </td>
+                                    <td>12:50:06</td>
+                                    <td><a href="{{pidocument_link}}" target="_blank">View Invoice</a></td>
+                                    <input type="hidden" name="invoice-link" value="{{pidocument_link}}">
+                                    <td><a href="{{pi_installtion_document_link}}" target="_blank">View Installtion Invoice</a></td>
+                                    <input type="hidden" name="invoice-link" value="{{pi_installtion_document_link}}">
+                                </tr>
+                            </tbody>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div id="invoiceTable">
+                        <table class="table">
+                            <thead>
+                                <tr class="leave-table-head">
+                                    <th>Customer name </th>
+                                    <th>Notes</th>
+                                    <th>Number</th>
+                                    <th>Created By</th>
+                                    <th>Invoice name</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-body-li my-3 text-center">
+                                    <td>Joshua Daniel</td>
+                                    <td>Call afternoon for confirm the visit on 2023-09-21</td>
+                                    <td>9952619655</td>
+                                    <td>Rajkannan1127</td>
+                                    <td>INV_GA-23109</td>
+                                    <td>2023-10-13 </td>
+                                    <td>12:50:06</td>
+                                    <td><a href="">View Invoice</a></td>
+                                </tr>
                             </tbody>
                             </thead>
                         </table>

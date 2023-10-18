@@ -470,14 +470,60 @@ function presentBtn() {
 
 // ===============attendance List===============
 
-function viewattendanced(){
+function viewattendanced() {
     const attendanceTable = document.getElementById('attendance-table')
     const attendanceDetials = document.getElementById('attendanceDetials')
     const printUnwant = document.querySelector('.print-unwant')
     const backBtn = document.querySelector('.back-button')
 
-    attendanceTable.style.display='none'
-    attendanceDetials.style.display='block'
-    printUnwant.style.display='none'
-    backBtn.style.display='block'
+    attendanceTable.style.display = 'none'
+    attendanceDetials.style.display = 'block'
+    printUnwant.style.display = 'none'
+    backBtn.style.display = 'block'
+}
+
+// ================quotation form================
+
+
+function quotation() {
+    const quotationTable = document.getElementById('quotationTable')
+    const proformaTable = document.getElementById('proformaTable')
+    const invoiceTable = document.getElementById('invoiceTable')
+    const quotationBtn = document.getElementById('quotationBtn')
+    const proformaBtn = document.getElementById('proformaBtn')
+    const invoiceBtn = document.getElementById('invoiceBtn')
+    quotationTable.style.display = 'block'
+    proformaTable.style.display = 'none'
+    invoiceTable.style.display = 'none'
+    quotationBtn.classList.add('active-form-li')
+    proformaBtn.classList.remove('active-form-li')
+    invoiceBtn.classList.remove('active-form-li')
+}
+function proforma() {
+    const quotationTable = document.getElementById('quotationTable')
+    const proformaTable = document.getElementById('proformaTable')
+    const invoiceTable = document.getElementById('invoiceTable')
+    const quotationBtn = document.getElementById('quotationBtn')
+    const proformaBtn = document.getElementById('proformaBtn')
+    const invoiceBtn = document.getElementById('invoiceBtn')
+    quotationTable.style.display = 'none'
+    proformaTable.style.display = 'block'
+    invoiceTable.style.display = 'none'
+    quotationBtn.classList.remove('active-form-li')
+    proformaBtn.classList.add('active-form-li')
+    invoiceBtn.classList.remove('active-form-li')
+}
+function invoice() {
+    const quotationTable = document.getElementById('quotationTable')
+    const proformaTable = document.getElementById('proformaTable')
+    const invoiceTable = document.getElementById('invoiceTable')
+    const quotationBtn = document.getElementById('quotationBtn')
+    const proformaBtn = document.getElementById('proformaBtn')
+    const invoiceBtn = document.getElementById('invoiceBtn')
+    quotationTable.style.display = 'none'
+    proformaTable.style.display = 'none'
+    invoiceTable.style.display = 'block'
+    quotationBtn.classList.remove('active-form-li')
+    proformaBtn.classList.remove('active-form-li')
+    invoiceBtn.classList.add('active-form-li')
 }
