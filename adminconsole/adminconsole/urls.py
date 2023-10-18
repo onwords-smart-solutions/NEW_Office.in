@@ -59,7 +59,7 @@ urlpatterns = [
     path("attendanced",adminviews.attendanced,name='attendanced'),
 
     # ======= CMO Product Page ==========
-      path("inventorymanagement/",prviews.inventorymanagement,name='inventorymanagement'),
+      path("inventorymanagement",views.inventorymanagement,name='inventorymanagement'),
 
     # =====================super admin====================================
 

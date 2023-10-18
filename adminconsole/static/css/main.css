@@ -51,6 +51,7 @@ a {
     font-size: 20px;
     font-weight: 600;
     font-family: abzee-regular;
+    text-align: center;
 }
 
 h1,
@@ -255,9 +256,7 @@ ul {
 
 }
 
-<<<<<<< HEAD
-=======
-.refreshment-over-con {
+<<<<<<< HEAD=======.refreshment-over-con {
     width: 100%;
     height: 50%;
     text-align: center;
@@ -267,8 +266,7 @@ ul {
 
 }
 
->>>>>>> 2701899391c4014fcc70a60a5e3e2d7f6f018eea
-.notification-con {
+>>>>>>>2701899391c4014fcc70a60a5e3e2d7f6f018eea .notification-con {
     overflow: hidden;
 }
 
@@ -545,5 +543,3 @@ ul {
 .notify-workdone-data h2 {
     color: #ccc !important;
 }
-
-
