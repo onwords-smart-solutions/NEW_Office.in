@@ -179,9 +179,16 @@
 
                 </div>
                 <div class="row ">
-                    <div class="col-md-8"></div>
+                    <div class="col-md-3">
+                        <!-- <span id="choose-the name">
+                            <h5>Choose the name <span><input class="cmo-input" type="text"></span> </h5>
+                        </span> -->
+
+                    </div>
+                    <div class="col-md-5"></div>
                     <div class="col-md-2 my-3">
-                        <h4 class=" primary-button Calculate-cmo" id="calculate-Btn" onclick="calInpBox()">Calculate
+                        <h4 class=" primary-button Calculate-cmo" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            id="calculate-Btn" onclick="calInpBox()">Calculate
                             Point
                         </h4>
                     </div>
@@ -191,25 +198,24 @@
                     </div>
                 </div>
 
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Launch demo modal
-                </button>
+
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content calculate">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">
+                                    <h4 class="cmo-h">Calculate Point</h4>
+                                </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="" id="cal-point">
+                                <div class="cal-point" id="cal-point">
                                     <form action="">
-                                        <h4>Calculate Point</h4>
+
                                         <input type="text" placeholder="Calculate Point">
                                         <input type="text" placeholder="Count">
                                         <button class="primary-button">Submit</button>
@@ -221,25 +227,13 @@
                     </div>
                 </div>
 
-                <!-- <div class="calculate-table" id="cal-point">
-                    <form action="">
-                        <h4>Calculate Point</h4>
-                        <input type="text" placeholder="Calculate Point">
-                        <input type="text" placeholder="Count">
-                        <button class="primary-button">Submit</button>
-                    </form>
-                </div> -->
-
-
-
-
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content product">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">
-                                    <h4>Add Product</h4>
+                                <h5 class="modal-title">
+                                    <h4 class="cmo-h">Add Product</h4>
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
