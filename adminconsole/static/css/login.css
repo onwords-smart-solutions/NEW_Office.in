@@ -98,7 +98,7 @@ input {
 } */
 
 .product-table {
-    /* background-color: #FBD87F; */
+
     border-radius: 5px;
     /* height: 50px; */
     display: flex;
@@ -128,20 +128,6 @@ input {
     border-bottom: none
 }
 
-.calculate-table {
-    background-color: #fff;
-    border: 1px solid #fff;
-    text-align: center;
-    justify-content: center;
-    width: 35%;
-    height: 100%;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    padding: 0px 20px;
-    transform: translate(57%, 64%);
-    position: relative;
-
-}
-
 .calculate-table form {
     display: flex;
     align-items: center;
@@ -163,16 +149,6 @@ input {
     margin: 15px;
 }
 
-/* .addpoint-table {
-    margin-top: 10px;
-    background-color: #fff;
-    border: 1px solid #fff;
-    text-align: center;
-    justify-content: center;
-    width: 35%;
-    height: 100%;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-} */
 
 .addpoint-table form {
     display: flex;
@@ -181,28 +157,59 @@ input {
     flex-direction: column;
     /* padding: 0 50px; */
     text-align: center;
-    height: 180px;
+    height: 194px;
 }
 
 .addpoint-table input {
     background: #fff;
     padding: 8px 11px;
     border: 1px solid #000;
-    width: 60%;
-    border-radius: 5px;
-    border: 2px solid #000;
+    width: 90%;
+
+    border: 2px solid #918f8f;
     outline: none;
     margin: 8px;
+    border-radius: 15px;
+    background: none;
 }
 
-.calculate-table,
-.addpoint-table {
-    /* display: none; */
+
+.cal-point form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 20vh;
 }
 
-.modal-content {
+.cal-point input {
+    background: #fff;
+    padding: 8px 11px;
+    border: 1px solid #000;
+    width: 90%;
+    border: 2px solid #918f8f;
+    outline: none;
+    margin: 8px auto;
+    border-radius: 15px;
+    background: none;
+
+}
+
+
+.product {
     height: 80vh;
     width: 80% !important;
+}
+
+.cmo-h {
+    text-align: center !important;
+    transform: translate(53%, 12px);
+}
+
+.calculate {
+    height: 60vh;
+    width: 80%;
 }
 
 .primary-button-update {
@@ -343,6 +350,22 @@ input {
     padding: 8px 5px;
     margin: 3px 0px;
     border-radius: 5px;
+}
+
+.add-name input {
+    width: 40%;
+    height: 30px;
+    /* border: 1px solid black; */
+    outline: none;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 6px;
+    font-weight: 13px;
+
+}
+
+#choose-the-name {
+    display: none;
 }
 
 /* CMO PRODUCT PAGE */
