@@ -47,7 +47,9 @@
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
                                     </div>
                                     <div class="emply-id">
-                                        <span>Vinith</span><br>
+                                        {%for name in nameList%}
+                                        <span>{{name}}</span><br>
+                                        {%endfor%}
                                         <span>ID:WD002</span><br>
                                         <span>Web Developer</span>
                                     </div>
@@ -149,7 +151,7 @@
                         </li>
 
                     </ul>
-                    <div class="logout" onclick="location.href=''">
+                    <div class="logout" onclick="location.href='/logout'">
                         <li class="navlistmenu">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -188,11 +190,11 @@
                                     <span>No Entry</span>
                                 </div>
                             </div>
-                            <h6>Yesterday</h6>
+                            <h6>{% if day %}{{ day }}{% else %}Yesterday{% endif %}</h6>
                             <div class="row d-flex align-items-center mt-1">
                                 <div class="col-md-4">
                                     <span>Check In</span><br>
-                                    <span>09:00</span>
+                                    <span>{{ yescheckin }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="progress">

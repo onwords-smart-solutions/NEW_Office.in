@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from adminconsole.views import db, checkUserName
 from datetime import datetime, timedelta
-
+import pytz
 # Create your views here.
 def ithome(request):
     uid = request.COOKIES["uid"]
@@ -59,7 +59,7 @@ def ithome(request):
             
         except:
             todaycheckout = "No Entry"
-
+        day = False
         try:
             if yesterday.weekday() == 6:
                 yescheckin = attendence[saturday_year][saturday_month][saturday_day][uid]["check_in"]
@@ -69,7 +69,7 @@ def ithome(request):
                 # If yesterday was not a Sunday, use the existing code for Sunday data
                 yescheckin = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_in"]
                 yesscheckin = convert_to_12_hour_format(yescheckin)
-                day = ""
+                day = False
         except:
             yesscheckin = "No Entry"
 
@@ -158,8 +158,6 @@ def ithome(request):
         generalleave = 24 - generalcount
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
-     
-        
         data[uid]["projects"]
         context = {
             "project": True,
@@ -203,10 +201,7 @@ def ithome(request):
         }
 
     return render(request, "ithome.html", context)
-   
-
-import pytz
-
+    
 def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
     try:
         print("starting")

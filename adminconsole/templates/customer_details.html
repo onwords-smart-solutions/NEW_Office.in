@@ -858,6 +858,7 @@
                         </thead>
                         <tbody>
                             {% for name, phone, state, note, date, inc, created in allData %}
+                            <form action=""></form>
                             <tr class="mt-3">
                                 <td hidden>{{date}}</td>
                                 <td></td>
@@ -865,7 +866,7 @@
                                     <button value="{{name}}" class="cust-name" style=" background: none;
                                     outline: none;
                                     border: none;">{{name}}</button>
-                                        <span id="fs" style="display: inline; margin-right: 0;width: 10%; "></span>
+                                    <span id="fs" style="display: inline; margin-right: 0;width: 10%; "></span>
                                 </td>
                                 <td>{{phone}}</td>
                                 <input type="hidden" name="numb" id="numb" value="{{phone}}" />

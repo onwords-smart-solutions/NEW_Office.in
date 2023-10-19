@@ -44,15 +44,15 @@ def login(request):
             if dep == "MEDIA":
                 response = redirect("ithome")
                 return response
-            # if dep == "PR":
-            #     response = redirect("prhome")
-            #     return response
-            # if dep == "RND":
-            #     response = redirect("rndhome")
-            #     return response
-            # if dep == "ADMIN":
-            #     response = redirect("adminhome")
-            #     return response
+            if dep == "PR":
+                response = redirect("prhome")
+                return response
+            if dep == "RND":
+                response = redirect("rndhome")
+                return response
+            if dep == "ADMIN":
+                response = redirect("adminhome")
+                return response
     except:
         pass
 
