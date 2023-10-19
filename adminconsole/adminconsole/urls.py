@@ -59,6 +59,8 @@ urlpatterns = [
     path("checkin",adminviews.checkin,name='checkin'),
     path("attendanced",adminviews.attendanced,name='attendanced'),
 
+    # ======= CMO Product Page ==========
+      path("inventorymanagement",views.inventorymanagement,name='inventorymanagement'),
 
     # =====================super admin====================================
 
