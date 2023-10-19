@@ -68,14 +68,14 @@
 
                     </div>
                     <ul id="nav-main-con">
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/ithome'">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
-                                <h5>dashboard</h5>
+                                <h5>Home</h5>
                             </div>
                         </li>
                         <li class="navlistmenu" onclick="location.href='/leave_form'">
@@ -98,16 +98,6 @@
                                 <h5>Late Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu" onclick="location.href='/approval'">
-                            <div class="left-nav-list">
-                                <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/approval.png' %}" alt="dashboard_Icon">
-                                </div>
-                            </div>
-                            <div class="right-nav-list">
-                                <h5>Approval</h5>
-                            </div>
-                        </li>
                         <li class="navlistmenu" onclick="location.href='/suggestion'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -118,6 +108,22 @@
                                 <h5>Suggestion</h5>
                             </div>
                         </li>
+
+                        <!-- ===========tl's============================ -->
+                        {% if approvalpage %}
+                        <li class="navlistmenu" onclick="location.href='/approval'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/approval.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Approval</h5>
+                            </div>
+                        </li>
+
+                        {% endif %}
+                        <!-- =========================== -->
 
                     </ul>
                     <div class="logout" onclick="location.href='/logout/'">

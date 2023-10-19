@@ -80,7 +80,8 @@
                             </div>
                         </li>
                         {% if general %}
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/leave_form'">
+
+                        <li class="navlistmenu " onclick="location.href='/leave_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon">
@@ -90,7 +91,7 @@
                                 <h5>Leave Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu" onclick="location.href='/late_form'">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
@@ -110,6 +111,7 @@
                                 <h5>Suggestion</h5>
                             </div>
                         </li>
+
                         {% endif %}
 
                         <!-- ===========tl's============================ -->
@@ -151,7 +153,7 @@
                         </li>
 
                         {% endif %}
-                      
+
                         {% if account %}
                         <li class="navlistmenu " onclick="location.href='/financial'">
                             <div class="left-nav-list">
@@ -177,7 +179,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if customerdetails %}
                         <li class="navlistmenu " onclick="location.href='/customer_details'">
                             <div class="left-nav-list">
@@ -190,7 +192,7 @@
                             </div>
                         </li>
                         {% endif %}
-                       
+
                         {% if quotation %}
                         <li class="navlistmenu" onclick="location.href='/quotation'">
                             <div class="left-nav-list">
@@ -216,7 +218,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if createstaff %}
                         <li class="navlistmenu" onclick="location.href='/createstaff'">
                             <div class="left-nav-list">
@@ -229,7 +231,20 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
+                        {% if viewsuggestion %}
+                        <li class="navlistmenu" onclick="location.href='/viewsuggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/viewsuggestion.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>View Suggestion</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
                         {% if viewworkmanager %}
                         <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
                             <div class="left-nav-list">
@@ -255,9 +270,10 @@
                             </div>
                         </li>
                         {% endif %}
+                        
 
                         {% if userdata %}
-                        <li class="navlistmenu" onclick="location.href='/userdata'">
+                        <li class="navlistmenu  navlistmenu-active" onclick="location.href='/userdata'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
@@ -290,170 +306,71 @@
         </div>
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
-            <div class="container">
-                <div class="forms-con">
-                    <p class="active-form-li" id="newLeave">New Leave</p>
-                    <p class="" id="leaveHistory">History</p>
-                </div>
+            <div class="container-fluid">
+             
+                            <center class="my-4">
+                                <h2>The User Queries</h2>
+                            </center>
+                            <div class="userdata-ai">
 
-                <div id="leavem_con">
-                    <div class="leave-form-con">
-                        <div class="leave-list">
-                            <div class="leave-lists" >
-                                <p class=" formhov  active-forms" id="casualBtn">Casual</p>
-                                <p id="sickBtn" class="formhov px-4">Sick</p>
-                                <p id="permissionBtn" class="formhov">Permission</p>
+                                <!-- <input type="text" id="searchInput" placeholder="Search by Command" class="form-control mb-3"> -->
+
+                                <div class="main-top-search mb-2">
+                                    <div class="searchbar">
+                                        <input type="text" id="searchInput" placeholder="Search by Command">
+                                        <label for="searchInput"><img src="{% static 'images/search-icon.svg' %}"
+                                                alt="searchicon" class="img-fluid search-aiuser-icon"></label>
+                                    </div>
+                                    <div class="searchbar">
+                                    <form method="post" onsubmit="return false;" class="datesort" >
+                                        {% csrf_token %}
+                                        <input type="date" id="datePicker" >
+                                        <input type="hidden" id="selectedDate" name="selected_date">
+                                        <button id="submitButton" class="primary-button">Submit</button>
+                                    </form>
+                                </div>
+                                </div>
+
                             </div>
-                            <!-- casual leave -->
-                            <div class="" id="casual-leaves">
-
-                                <div class="leave-lists mt-3" >
-                                    <p class=" formhov  active-forms" id="fulldayBtn" onclick="fullday()">Full Day</p>
-                                    <p  class="formhov px-4" id="halfdayBtn" onclick="halfday()">Half Day</p>
-                                    
-                                </div>
-
-                                <form action="/leave_form/" method="post" class="casual-leave leave-frm">
-                                    {% csrf_token %}
-                                  <div class="" id="halfday">
-                                    <label for="from">Date</label>
-                                    <div class="form-inp-con">
-                                        <input type="date" id="Date" placeholder="Date" name="halfdate">
-                                        <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
-                                    </div>
-                                  </div>
-    
-                                  <div id="fullday">
-                                    <label for="leavefrom">From</label>
-                                    <div class="form-inp-con">
-                                        <input type="date" class="leavefrom" placeholder="From" name="fromdate">
-                                        <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
-                                    </div>
-                                    <label for=""><small>(optional)</small></label>
-                                    <label for="leaveto">To</label>
-                                    
-                                    <div class="form-inp-con">
-                                        <input type="date" class="leaveto" placeholder="To" name="todate">
-                                        <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
-                                    </div>
-                                  </div>
-                                    <label for="reason">Reason</label>
-                                    <div class="form-inp-con">
-                                        <input type="text" id="reason" placeholder="Reason" name="reason">
-    
-                                    </div>
-                                    <input type="hidden" name="leave_type" value="general">
-                                    <button class="primary-button">Submit</button>
-                                </form>
-                            </div>
-
-                            <!-- casual leave end -->
-
-
-                            <!-- casual sick start -->
-                           <div class=""  id="sick-leave">
-                            <div class="leave-lists mt-3" >
-                                <p class=" formhov  active-forms" id="fulldaysickBtn" onclick="fulldaysick()">Full Day</p>
-                                <p  class="formhov px-4" id="halfdaysickBtn" onclick="halfdaysick()">Half Day</p>
-                                
-                            </div>
-
-                            <form action="/leave_form/" method="post" class="sick-leave leave-frm">
-                                {% csrf_token %}
-
-                                <div class="" id="halfdaysick">
-                                    <label for="sick-half">Date</label>
-                                    <div class="form-inp-con">
-                                        <input type="date" class="" id="" placeholder="Date" name="halfdate">
-                                        <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
-                                    </div>
-                                  </div>
-
-                              
-                                <div id="fulldaysick">
-                                    <label for="leavefrom">From</label>
-                                <div class="form-inp-con">
-                                    <input type="date" class="leavefrom" placeholder="From" name="fromdate">
-                                    <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
-                                </div>
-
-                                <label for="leaveto">To</label>
-                                <div class="form-inp-con">
-                                    <input type="date" class="leaveto" placeholder="To" name="todate">
-                                    <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
-                                </div>
-                                </div>
-
-                                <label for="reason">sick Reason</label>
-                                <div class="form-inp-con">
-                                    <input type="text" id="reason" placeholder="Reason" name="reason">
-                                </div>
-                                <input type="hidden" name="leave_type" value="sick">
-                                <button class="primary-button">Submit</button>
-                            </form>
-                           </div>
-                           <!-- sick end -->
-                         
-                            <form action="/leave_form/" method="post" class="leave-frm" id="permission">
-                                {% csrf_token %}
-
-                                <label for="reason">Reason</label>
-                                <div class="form-inp-con">
-                                    <input type="text" id="reason" placeholder="Reason" name="reason">
-                                </div>
-                                <div class="main-leave-con">
-                                    <!-- <div class="">
-                                        <label for="starttime">Duration<label><br>
-                                        <div class="time-inp">
-                                            <input type="time" id="starttime" name="duration">
-                                        </div>
-                                    </div> -->
-                                    <div class="">
-                                        <label for="endtime">Duration</label><br>
-                                        <div class="time-inp">
-                                            <input type="time" id="pertime" name="duration" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="leave_type" value="permission">
-                                <button class="primary-button">Submit</button>
-                            </form>
-                        </div>
-                        <div class="leave-img">
-                            <img src="{% static 'images/leave-frm-img.svg' %}" alt="leave-form" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
-                <div class="leave-history" id="leaveHistorys">
-
-                    <table class="table">
-                        <thead>
-                            <tr class="leave-table-head">
-                                <th>Date</th>
-                                <th>Reason</th>
-                                <th>Action</th>
-                                <th>Incharge</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for year, month, date, type, data in leavehistory %}
-                            <tr class="table-body-li my-3">
-                                <td>{{ data.date }}</td>
-                                <td>{{ data.reason }}</td>
-                                {% if data.status == "Approved" %}
-                                <td>{{ data.status }}<img src="{% static 'images/approved-tick.png' %}" alt="approve-icon" class="img-fluid table-icon"></td>
-                                {% elif data.status == "Declined" %}
-                                <td>{{ data.status }}<img src="{% static 'images/decline-icon.png' %}" alt="decline-icon" class="img-fluid table-icon"></td>
+                            <table class="table">
+                                <tr class="  leave-table-head">
+                                    <th style="width: 20%;">Command</th>
+                                    <th>Reply</th>
+                                    <th>Like</th>
+                                    <th>Dislike</th>
+                                </tr>
+                                {% if no_data_message %}
+                                <p>{{ no_data_message }}</p>
                                 {% else %}
-                                <td>{{ data.status }}<img src="{% static 'images/pending-icon.png' %}" alt="decline-icon" class="img-fluid table-icon"></td>
+                                {% for did, data in default_data.items %}
+                                <tr class="table-body-li my-3">
+                                    <td class="" style="background-color: lightblue;">{{ data.command }}</td>
+                                    <td>{{ data.reply }}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                {% endfor %}
+                                {% for did, data in like_data.items %}
+                                <tr class="text-center">
+                                    <td class="" style="background-color: lightblue;">{{ data.command }}</td>
+                                    <td>{{ data.reply }}</td>
+                                    <td><img src="{%static 'images/like.png'%} " style="width: 25px;" class="likeBtn">
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                {% endfor %}
+                                {% for did, data in dislike_data.items %}
+                                <tr class="text-center">
+                                    <td class="" style="background-color: lightblue;">{{ data.command }}</td>
+                                    <td>{{ data.reply }}</td>
+                                    <td></td>
+                                    <td><img src="{%static 'images/dislike 1.png'%}" style="width: 25px;"
+                                            class="likeBtn"></td>
+                                </tr>
+                                {% endfor %}
                                 {% endif %}
-                                <td>{% if data.updated_by %}{{ data.updated_by }}{% else %}Pending{% endif %}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                        </thead>
-                    </table>
-                </div>
+                            </table>
+                        
             </div>
         </div>
     </div>
@@ -466,53 +383,8 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-    <script>
-        function validateDateRange(inputElement) {
-            var fromElement = inputElement.form.querySelector('.leavefrom');
-            var toElement = inputElement.form.querySelector('.leaveto');
-    
-            var fromDate = new Date(fromElement.value);
-            var toDate = new Date(toElement.value);
-    
-            if (fromDate > toDate) {
-                alert("From date cannot be greater than To date.");
-                toElement.value = ''; 
-            }
-    
-            var timeDiff = toDate - fromDate;
-            var dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    
-            if (dayDiff > 2) {
-                alert("Date range cannot exceed three days.");
-                toElement.value = ''; 
-            }
-        }
-    
-        var toInputs = document.querySelectorAll('.leaveto');
-        toInputs.forEach(function (toInput) {
-            toInput.addEventListener('change', function () {
-                validateDateRange(toInput);
-            });
-        });
-    </script>
-    <script>
-        document.getElementById("pertime").addEventListener('change', function () {
-            var selectedTime = this.value;
-        
-            var [hours, minutes] = selectedTime.split(':');
-            var totalMinutes = parseInt(hours, 10) * 60 + parseInt(minutes, 10);
-
-            if (totalMinutes > 240) {
-                alert("Selected time exceeds 4 hours. Please select a time within 4 hours.");
-                this.value = ''; 
-            }
-        });
-    </script>
-    
-    
-    
+   
 
 </body>
 
 </html>
-
