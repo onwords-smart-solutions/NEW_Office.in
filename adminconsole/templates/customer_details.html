@@ -858,7 +858,8 @@
                         </thead>
                         <tbody>
                             {% for name, phone, state, note, date, inc, created in allData %}
-                            <form action=""></form>
+                            <form method="post" action="/leadinfo/" id="leadDetails">
+                            {% csrf_token %}
                             <tr class="mt-3">
                                 <td hidden>{{date}}</td>
                                 <td></td>
@@ -876,6 +877,7 @@
                                 <td class="inchrge">{{inc}}</td>
                                 <td>{{created}}</td>
                             </tr>
+                            </form>
                             {% endfor %}
                            
 

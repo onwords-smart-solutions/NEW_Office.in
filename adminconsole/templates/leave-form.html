@@ -254,27 +254,27 @@
                     <table class="table">
                         <thead>
                             <tr class="leave-table-head">
-                                <th>Date</th>
-                                <th>Reason</th>
-                                <th>Action</th>
-                                <th>Incharge</th>
+                                <th>date</th>
+                                <th>reason</th>
+                                <th>status</th>
+                                <th>incharge</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for year, month, date, type, data in leavehistory %}
+                            {%for date,reason,status,incharge in leavehistory%}
                             <tr class="table-body-li my-3">
-                                <td>{{ data.date }}</td>
-                                <td>{{ data.reason }}</td>
-                                {% if data.status == "Approved" %}
-                                <td>{{ data.status }}<img src="{% static 'images/approved-tick.png' %}" alt="approve-icon" class="img-fluid table-icon"></td>
-                                {% elif data.status == "Declined" %}
-                                <td>{{ data.status }}<img src="{% static 'images/decline-icon.png' %}" alt="decline-icon" class="img-fluid table-icon"></td>
+                                <td>{{ date}}</td>
+                                <td>{{ reason }}</td>
+                                {% if status == "Approved" %}
+                                <td>{{ status }}<img src="{% static 'images/approved-tick.png' %}" alt="approve-icon" class="img-fluid table-icon"></td>
+                                {% elif status == "Declined" %}
+                                <td>{{ status }}<img src="{% static 'images/decline-icon.png' %}" alt="decline-icon" class="img-fluid table-icon"></td>
                                 {% else %}
-                                <td>{{ data.status }}<img src="{% static 'images/pending-icon.png' %}" alt="decline-icon" class="img-fluid table-icon"></td>
+                                <td>{{ status }}<img src="{% static 'images/pending-icon.png' %}" alt="decline-icon" class="img-fluid table-icon"></td>
                                 {% endif %}
-                                <td>{% if data.updated_by %}{{ data.updated_by }}{% else %}Pending{% endif %}</td>
+                                <td>{% if incharge %}{{incharge}}{% else %}Pending{% endif %}</td>
                             </tr>
-                            {% endfor %}
+                            {%endfor%}
                         </tbody>
                         </thead>
                     </table>

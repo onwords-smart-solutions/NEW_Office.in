@@ -41,7 +41,8 @@ urlpatterns = [
     path("quotation/",prviews.quotation,name='quotation'), 
     path("leadinfo/",prviews.leadinfo,name='leadinfo'),
     path("approval/",prviews.approval,name='approval'),
-
+    path("leadinfo/",prviews.leadinfo,name="leadinfo"),
+    path("addnotes/",prviews.addnotes,name="addnotes"),
     # ================ accounts department ====================
 
     path("financial/",views.financial,name='financial'),

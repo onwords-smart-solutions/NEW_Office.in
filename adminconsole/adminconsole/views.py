@@ -122,6 +122,7 @@ def leave_form(request):
         leave_type = request.POST['leave_type'] 
      
         if leave_type == "general":
+            print("=========================")
             try:
                 try:
                     from_date = datetime.strptime(request.POST['fromdate'], '%Y-%m-%d')
@@ -135,22 +136,24 @@ def leave_form(request):
                         "status": "Pending",
                         "node":"Full Day",
                     }
-
+                    print("insice c")
                     date_list = []
 
                     while from_date <= to_date:
                         date_list.append(from_date.strftime('%Y-%m-%d'))
                         from_date += timedelta(days=1)
-
+                    print("insice d")
                     for date in date_list:
                         year, month, day = map(int, date.split('-'))
                         c["date"] = date
-
+                        print("for")
                         if from_date == to_date:
-                            db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
+                            print("success")
+                            # db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
                         else:
                             db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
                 except:
+                    print("insice except")
                     from_date = datetime.strptime(request.POST['fromdate'], '%Y-%m-%d') 
                     year, month, day = map(int, from_date.split('-'))
                     reason = request.POST['reason']
@@ -257,27 +260,20 @@ def leave_form(request):
             db.child("leaveDetails").child(current_year).child(current_month).child(current_date).child(uid).child(leave_type).set(c) 
 
     try:
-        leavedata = db.child("leaveDetails").get().val()
-        yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
-        for allYears in leavedata:
-            years = leavedata[allYears]
-            for allMonths in years:
-                months = leavedata[allYears][allMonths]
-                for allDates in months:
+        leavedata = db.child("leaveDetails").child(current_year).get().val()
+        datelist,reasonlist,statelist,inchargelist=[],[],[],[]
+        for monthdata in leavedata:
+            for datedata in leavedata[monthdata]:
+                for leavetype in leavedata[monthdata][datedata][uid]:
+                    datelist.append(leavedata[monthdata][datedata][uid][leavetype]["date"])
+                    reasonlist.append(leavedata[monthdata][datedata][uid][leavetype]["reason"])
+                    statelist.append(leavedata[monthdata][datedata][uid][leavetype]["status"])
                     try:
-                        le = leavedata[allYears][allMonths][allDates][uid]
-                        for leave_type, leave_info in le.items():
-                            types = leave_type
-                            data = leave_info
-                            yearList.append(allYears)
-                            monthList.append(allMonths)
-                            dateList.append(allDates)
-                            typelist.append(types)
-                            datalist.append(data)
+                        inchargelist.append(leavedata[monthdata][datedata][uid][leavetype]["updated_by"])
                     except:
-                        pass
-        
-        leavehistory = zip(yearList, monthList, dateList, typelist, datalist)
+                        inchargelist.append(False)
+
+        leavehistory = zip(datelist,reasonlist,statelist,inchargelist)
         context = {
             "leavehistory": leavehistory,
             # "tl": istl,
@@ -286,10 +282,10 @@ def leave_form(request):
             # "management":management,
             # "suggestionNotification":suggestionNotification
         }
+        return render(request,'leave-form.html',context)
     except:
-        pass    
-
-    return render(request,'leave-form.html',context)
+        pass
+    return render(request,'leave-form.html')
 
 def approvalprocess(request):
     uid1 = request.COOKIES["uid"]

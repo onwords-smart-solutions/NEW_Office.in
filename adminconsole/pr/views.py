@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from adminconsole.views import db, checkUserName
 from adminconsole.views import checkUserDepartment
 from adminconsole.views import db, storage
-from datetime import datetime, timedelta
+from datetime import date,datetime, timedelta
 import csv, codecs
 from it.views import convert_to_12_hour_format,calculate_progress,calculate_progress_
+from django.http import HttpResponse
 # Create your views here.
 
 def prhome(request):
@@ -529,6 +530,157 @@ def points_workdone(request):
 def quotation(request):
     return render(request,'quotation.html')
 def leadinfo(request):
-    return render(request,'leadinfo.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
+    istl = False
+    tl = db.child("tl").get().val()
+    for t in tl:
+        if name == tl[t]:
+            istl = True
+            break
+    accounts = False
+    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid == "jDYzpwcpv3akKaoDL9N4mllsGCs2":
+        accounts = True
+    management = False
+    if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2" or uid == "ZIuUpLfSIRgRN5EqP7feKA9SbbS2"or uid=="jDYzpwcpv3akKaoDL9N4mllsGCs2":
+        management = True    
+
+    try:
+        a = request.POST["numb"]
+    except:
+        a = request.COOKIES["userPhno"]
+    userData = db.child("customer").get().val()
+    try:
+        allData = userData[a]
+    except:
+        return HttpResponse("<h1>User not found</h1>")
+    notesList = []
+    schedulesList = []
+    try:
+        notes = userData[a]["notes"]
+        for n in notes:
+            notesList.append(notes[n])
+    except:
+        pass
+    try:
+        incharge = userData[a]["LeadIncharge"]
+    except:
+        incharge = "Assign an incharge to this customer"
+    try:
+        clientData = userData[a]
+        star = int(clientData["rating"])
+        if star == 0:
+            starData = {
+                "one": False,
+                "two": False,
+                "three": False,
+                "four": False,
+                "five": False,
+            }
+        elif star == 1:
+            starData = {
+                "one": True,
+                "two": False,
+                "three": False,
+                "four": False,
+                "five": False,
+            }
+        elif star == 2:
+            starData = {
+                "one": False,
+                "two": True,
+                "three": False,
+                "four": False,
+                "five": False,
+            }
+        elif star == 3:
+            starData = {
+                "one": False,
+                "two": False,
+                "three": True,
+                "four": False,
+                "five": False,
+            }
+        elif star == 4:
+            starData = {
+                "one": False,
+                "two": False,
+                "three": False,
+                "four": True,
+                "five": False,
+            }
+        elif star == 5:
+            starData = {
+                "one": False,
+                "two": False,
+                "three": False,
+                "four": False,
+                "five": True,
+            }
+        else:
+            pass
+    except:
+        pass
+    try:
+        schedules = userData[a]["schedules"]
+        for s in schedules:
+            schedulesList.append(schedules[s])
+    except:
+        pass
+    uid = request.COOKIES["uid"]
+    if uid == "ZIuUpLfSIRgRN5EqP7feKA9SbbS2" or uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2" or uid=="jDYzpwcpv3akKaoDL9N4mllsGCs2":
+        context = {
+            "userData": allData,
+            "notesData": notesList,
+            "star": starData,
+            "schedulesData": schedulesList,
+            "incharge": incharge,
+            "management": True,
+            "tl":istl,
+            "dep":dep,
+            "accounts":accounts,
+            "management":management
+        }
+    else:
+        context = {
+            "userData": allData,
+            "notesData": notesList,
+            "star": starData,
+            "schedulesData": schedulesList,
+            "incharge": incharge,
+            "tl":istl,
+            "dep":dep,
+            "accounts":accounts,
+            "management":management
+        }
+    response = render(request, "leadinfo.html", context)
+    response.set_cookie("userPhno", a)
+    return response
+
+def addnotes(request):
+    uid = request.COOKIES["uid"]
+    name = checkUserName(uid)
+    nts = request.POST["nts"]
+    phn = request.COOKIES["userPhno"]
+    currDate = str(date.today())
+    currTime = datetime.now().strftime("%H:%M")
+    notes = {
+        "date": currDate,
+        "time": currTime,
+        "note": nts,
+        "entered_by": name,
+    }
+    curr_time = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+    db.child("customer").child(phn).child("notes").child(curr_time).set(notes)
+    return redirect(leadinfo)
+
 def approval(request):
     return render(request,'approval.html')
+
+def checkUserName(uid):
+    data = db.child("staff").get().val()
+    for x in data:
+        if uid == x:
+            z = data[x]["name"]
+            return z
