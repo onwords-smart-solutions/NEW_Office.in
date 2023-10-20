@@ -422,11 +422,11 @@ function printAttendanceTable() {
     newWin.document.write('  table { text-align: center; }'); // Make sure the table is full width
     newWin.document.write('  table { border: 1px solid #282828; }'); // Make sure the table is full width
     newWin.document.write('  table th { border-bottom: 1px solid #282828; }'); // Make sure the table is full width
+    newWin.document.write('  table th:last-child() { display:none; }'); // Make sure the table is full width
     newWin.document.write('  table td { border-bottom: 1px solid #282828; }'); // Make sure the table is full width
     newWin.document.write('  table td { padding: 4px; }'); // Make sure the table is full width
     newWin.document.write('}');
     newWin.document.write('</style>');
-    newWin.document.write('<html><head><title>Installation Details</title></head><body>');
     newWin.document.write('<h1>Attendance List</h1>');
     newWin.document.write(table.outerHTML);
     newWin.document.write('</body></html>');
