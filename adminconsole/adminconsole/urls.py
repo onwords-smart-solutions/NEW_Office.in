@@ -64,7 +64,6 @@ urlpatterns = [
 
     # ======= CMO Product Page ==========
       path("inventorymanagement",views.inventorymanagement,name='inventorymanagement'),
-
     # =====================super admin====================================
 
     path("superadmin",superadminviews.superadmin,name='superadmin'),
