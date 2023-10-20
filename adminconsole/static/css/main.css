@@ -97,13 +97,13 @@ h6 {
     width: 95%;
     height: 100vh;
     background-color: #ECEFF6;
+    overflow-y: scroll;
 }
 
 .expand-right {
     width: 82%;
     height: 100vh;
     background-color: #ECEFF6;
-    ;
 }
 
 .navlistmenu {
