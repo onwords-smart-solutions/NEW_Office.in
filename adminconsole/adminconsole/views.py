@@ -45,6 +45,7 @@ def login(request):
                 response = redirect("ithome")
                 return response
             if dep == "PR":
+                print("pr dep")
                 response = redirect("prhome")
                 return response
             if dep == "RND":
@@ -83,6 +84,7 @@ def login(request):
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "PR":
+                print("log pr")
                 response = redirect("prhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)

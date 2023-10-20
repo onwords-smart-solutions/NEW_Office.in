@@ -152,7 +152,7 @@
                         </li>
 
                         {% endif %}
-
+                      
                         {% if account %}
                         <li class="navlistmenu" onclick="location.href='/financial'">
                             <div class="left-nav-list">
@@ -178,7 +178,7 @@
                             </div>
                         </li>
                         {% endif %}
-
+                        
                         {% if customerdetails %}
                         <li class="navlistmenu " onclick="location.href='/customer_details'">
                             <div class="left-nav-list">
@@ -191,7 +191,7 @@
                             </div>
                         </li>
                         {% endif %}
-
+                       
                         {% if quotation %}
                         <li class="navlistmenu" onclick="location.href='/quotation'">
                             <div class="left-nav-list">
@@ -217,7 +217,7 @@
                             </div>
                         </li>
                         {% endif %}
-
+                        
                         {% if createstaff %}
                         <li class="navlistmenu " onclick="location.href='/createstaff'">
                             <div class="left-nav-list">
@@ -230,13 +230,12 @@
                             </div>
                         </li>
                         {% endif %}
-
+                        
                         {% if viewworkmanager %}
                         <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}"
-                                        alt="createstaff_Icon">
+                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}" alt="createstaff_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
@@ -295,7 +294,7 @@
             <div class="container-fluid">
                 <div class="row my-3 align-items-center ">
                     <div class="col-md-4">
-                        <h3>Check in- Check Out</h3>
+                        <h3>Attendance list</h3>
                     </div>
                     <div class="col-md-6">
                         <form action="">
@@ -312,65 +311,51 @@
                     </div>
                     <div class="col-md-2">
                         <div class="cust-inps">
-                            <input type="date">
+                            <input type="month">
                         </div>
 
                     </div>
                 </div>
                 <div class="check-table-con">
-                    <div id="table-conatainer">
-                        <table class="table w-100" id="checkinTable">
-                            <thead>
-                                <tr class="leave-table-head text-center">
-                                    <th>S.No</th>
-                                    <th>Name</th>
-                                    <th>Check in</th>
-                                    <th>Check Out</th>
-                                    <th>Working Hrs</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>1</td>
-                                    <td>Balaji</td>
-                                    <td>09:10 AM</td>
-                                    <td>06:20 PM</td>
-                                    <td>09:10 hrs</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div>
+                    <div class="forms-con">
+                        <h3>Emply Name : Balaji</h3>
+                        <h3>DEP : AIML</h3>
                     </div>
-                    <div id="absentList-table">
-                        <table class="table w-100" id="absentTable">
-                            <thead>
-                                <tr class="leave-table-head">
-                                    <th>S.No</th>
-                                    <th>Name</th>
-                                    <th>type</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="table-body-li my-3">
-                                    <td>1</td>
-                                    <td>Balaji</td>
-                                    <td>Sick </td>
-                                    <td>Approved</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="check-bottom-con">
-                        <div class="">
-                            <button class="btn btn-danger fw-bold" id="absentBtn" onclick="absentBtn()">Absent
-                                List</button>
-                            <button class="btn btn-info fw-bold" id="presentBtn" onclick="presentBtn()">Present
-                                List</button>
-                        </div>
-                        <button class="primary-button" id="printcheckBtn" onclick="exportToExcel()">download </button>
-                        <button class="primary-button" id="printabsentBtn" onclick="printAbsentTable()">Print Absent
-                        </button>
-                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr class="leave-table-head">
+                                <th>Date</th>
+                                <th>Permission</th>
+                                <th>Sick Leave</th>
+                                <th>Casual Leave</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-body-li my-3">
+                                <td>20-09-2023</td>
+                                <td>1 1/2Hrs</td>
+                                <td>3</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="table-body-li my-3">
+                                <td>23-09-2023</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class=" leave-table-head text-center">
+                                <td>Total</td>
+                                <td>1 1/2</td>
+                                <td>-</td>
+                                <td>3</td>
+                            
+                            </tr>
+                        </tbody>
+                    </table>
+                  
+                </div>
+                 
                 </div>
 
             </div>
@@ -387,21 +372,6 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-
-    <script>
-        function exportToExcel() {
-            var location = 'data:application/vnd.ms-excel;base64,';
-            var excelTemplate = '<html> ' +
-                '<head> ' +
-                '<meta http-equiv="content-type" content="text/plain; charset=UTF-8"/> ' +
-                '</head> ' +
-                '<body> ' +
-                document.getElementById("table-conatainer").innerHTML +
-                '</body> ' +
-                '</html>'
-            window.location.href = location + window.btoa(excelTemplate);
-        }
-    </script>
 
 </body>
 

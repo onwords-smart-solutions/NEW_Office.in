@@ -48,9 +48,21 @@
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
                                     </div>
                                     <div class="emply-id">
-                                        <span>Vinith</span><br>
-                                        <span>ID:WD002</span><br>
-                                        <span>Web Developer</span>
+                                        <span>{{ name }}</span><br>
+                                        <span>{% if dep == "WEB" %}
+                                            <p>Web Developer</p>
+                                            {% elif dep == "APP" %}
+                                            <p>App developer</p>
+                                            {% elif dep == "MEDIA" %}
+                                            <p>Graphic designer</p>
+                                            {% elif dep == "PR" %}
+                                            <p>PR</p>
+                                            {% elif dep == "RND" %}
+                                            <p>R&D</p>
+                                            {% else %}
+                                            <p>Admin</p>
+                                            {% endif %}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -58,16 +70,17 @@
 
                     </div>
                     <ul id="nav-main-con">
-                        <li class="navlistmenu" onclick="location.href='/ithome'">
+                        <li class="navlistmenu " onclick="location.href='/'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
-                                <h5>dashboard</h5>
+                                <h5>Home</h5>
                             </div>
                         </li>
+                        {% if general %}
                         <li class="navlistmenu " onclick="location.href='/leave_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -78,7 +91,7 @@
                                 <h5>Leave Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu " onclick="location.href='/late_form'">
+                        <li class="navlistmenu" onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
@@ -98,19 +111,169 @@
                                 <h5>Suggestion</h5>
                             </div>
                         </li>
+                        {% endif %}
+
+                        <!-- ===========tl's============================ -->
+                        {% if approvalpage %}
+                        <li class="navlistmenu" onclick="location.href='/approval'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/approval.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Approval</h5>
+                            </div>
+                        </li>
+
+                        {% endif %}
+
+                        {% if rnd %}
+
+                        <li class="navlistmenu " onclick="location.href='/inprocess'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/inprocess.svg' %}" alt="inprocess_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>In Process</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu " onclick="location.href='/create'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/create-product.svg' %}" alt="inprocess_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Create Product</h5>
+                            </div>
+                        </li>
+
+                        {% endif %}
+                      
+                        {% if account %}
+                        <li class="navlistmenu" onclick="location.href='/financial'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/financial-icon.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Financial</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        {% if createlead %}
+                        <li class="navlistmenu " onclick="location.href='/create_lead'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/create_lead.svg' %}" alt="create_lead">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Create Lead</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+                        
+                        {% if customerdetails %}
+                        <li class="navlistmenu " onclick="location.href='/customer_details'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/customer-icon.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Customer Details</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+                       
+                        {% if quotation %}
                         <li class="navlistmenu navlistmenu-active" onclick="location.href='/quotation'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
-                                    <img src="{% static 'images/invoice.png' %}" alt="dashboard_Icon">
+                                    <img src="{% static 'images/invoice.png' %}" alt="quottaion_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
                                 <h5>Quotation</h5>
                             </div>
                         </li>
+                        {% endif %}
+
+                        {% if inventory %}
+                        <li class="navlistmenu" onclick="location.href='/inventorymanagement'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/invoice.png' %}" alt="inventory_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Inventory</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+                        
+                        {% if createstaff %}
+                        <li class="navlistmenu " onclick="location.href='/createstaff'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/create-staff.svg' %}" alt="createstaff_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Create Staff</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+                        
+                        {% if viewworkmanager %}
+                        <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}" alt="createstaff_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>View Workmanager</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        {% if viewsuggestion %}
+                        <li class="navlistmenu" onclick="location.href='/viewsuggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/viewsuggestion.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>View Suggestion</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        {% if userdata %}
+                        <li class="navlistmenu" onclick="location.href='/userdata'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>User Data</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        <!-- =========================== -->
 
                     </ul>
-                    <div class="logout" onclick="location.href=''">
+                    <div class="logout" onclick="location.href='/logout/'">
                         <li class="navlistmenu">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -167,17 +330,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for qName, qmobile_number, qCreatedBy, qNum, qTimeStampDate, qTimeStampTime, qdocument_link, note,notedate in quotationList reversed %}
+                                <form action="/quoteForm/" method="post">{% csrf_token %}
                                 <tr class="table-body-li my-3 text-center">
-                                    <td>Joshua Daniel</td>
-                                    <td>Call afternoon for confirm the visit on 2023-09-21</td>
-                                    <td>9952619655</td>
-                                    <td>Rajkannan1127</td>
-                                    <td>INV_GA-23109</td>
-                                    <td>2023-10-13 </td>
-                                    <td>12:50:06</td>
-                                    <td><a href="">View Invoice</a></td>
+                                    <td>{{qName}}</td>
+                                    <td>{{note}} {{notedate}}</td>
+                                    <td><input type="submit" class="quotmobilenumber" name="numb" value="{{qmobile_number}}"></td>
+                                    <td>{{qCreatedBy}}</td>
+                                    <td>{{qNum}}</td>
+                                    <input type="hidden" name="qnum" value="{{qNum}}">
+                                    <td>{{qTimeStampDate}}</td>
+                                    <td>{{qTimeStampTime}}</td>
+                                    <td><a href="{{qdocument_link}}" target="_blank">View Quotation</a></td>
+                                    <input type="hidden" name="quote-link" value="{{qdocument_link}}">
                                 </tr>
-
+                                </form>
+                                {%endfor%}
                             </tbody>
                             </thead>
                         </table>
@@ -199,19 +367,24 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for piName, pimobile_number, piCreatedBy, piNum, piTimeStampDate, piTimeStampTime, pidocument_link,pi_installtion_document_link,pnote,pnotedate in pinvoiceList reversed %}
+                                <form action="/pinvoiceForm/" method="post">{% csrf_token %}
                                 <tr class="table-body-li my-3 text-center">
-                                    <td>Joshua Daniel</td>
-                                    <td>Call afternoon for confirm the visit on 2023-09-21</td>
-                                    <td>9952619655</td>
-                                    <td>Rajkannan1127</td>
-                                    <td>INV_GA-23109</td>
-                                    <td>2023-10-13 </td>
-                                    <td>12:50:06</td>
+                                    <td>{{piName}}</td>
+                                    <td>{{pnote}} {{pnotedate}}</td>
+                                    <td><input type="submit" name="numb" value="{{pimobile_number}}"></td>
+                                    <td>{{piCreatedBy}}</td>
+                                    <td>{{piNum}}</td>
+                                    <input type="hidden" name="newinum" value="{{piNum}}">
+                                    <td>{{piTimeStampDate}}</td>
+                                    <td>{{piTimeStampTime}}</td>
                                     <td><a href="{{pidocument_link}}" target="_blank">View Invoice</a></td>
                                     <input type="hidden" name="invoice-link" value="{{pidocument_link}}">
                                     <td><a href="{{pi_installtion_document_link}}" target="_blank">View Installtion Invoice</a></td>
                                     <input type="hidden" name="invoice-link" value="{{pi_installtion_document_link}}">
                                 </tr>
+                                </form>
+                                {%endfor%}
                             </tbody>
                             </thead>
                         </table>
@@ -232,16 +405,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for iName, imobile_number, iCreatedBy, iNum, iTimeStampDate, iTimeStampTime, idocument_link,note,notedate in invoiceList reversed %}
+                                <form action="/invoiceForm/" method="post">{% csrf_token %}
                                 <tr class="table-body-li my-3 text-center">
-                                    <td>Joshua Daniel</td>
-                                    <td>Call afternoon for confirm the visit on 2023-09-21</td>
-                                    <td>9952619655</td>
-                                    <td>Rajkannan1127</td>
-                                    <td>INV_GA-23109</td>
-                                    <td>2023-10-13 </td>
-                                    <td>12:50:06</td>
-                                    <td><a href="">View Invoice</a></td>
+                                    <td>{{iName}}</td>
+                                    <td>{{note}} {{notedate}}</td>
+                                    <td class="inp-qoi"><input type="submit" name="numb" value="{{imobile_number}}"></td>
+                                    <td>{{iCreatedBy}}</td>
+                                    <td>{{iNum}}</td>
+                                    <input type="hidden" name="newinum" value="{{iNum}}">
+                                    <td>{{iTimeStampDate}}</td>
+                                    <td>{{iTimeStampTime}}</td>
+                                    <td><a href="{{idocument_link}}" target="_blank">View Invoice</a></td>
+                                    <input type="hidden" name="invoice-link" value="{{idocument_link}}">
                                 </tr>
+                                </form>
+                                {%endfor%}
                             </tbody>
                             </thead>
                         </table>

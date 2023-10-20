@@ -49,9 +49,21 @@
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
                                     </div>
                                     <div class="emply-id">
-                                        <span>Vinith</span><br>
-                                        <span>ID:WD002</span><br>
-                                        <span>Web Developer</span>
+                                        <span>{{ name }}</span><br>
+                                        <span>{% if dep == "WEB" %}
+                                            <p>Web Developer</p>
+                                            {% elif dep == "APP" %}
+                                            <p>App developer</p>
+                                            {% elif dep == "MEDIA" %}
+                                            <p>Graphic designer</p>
+                                            {% elif dep == "PR" %}
+                                            <p>PR</p>
+                                            {% elif dep == "RND" %}
+                                            <p>R&D</p>
+                                            {% else %}
+                                            <p>Admin</p>
+                                            {% endif %}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -59,16 +71,17 @@
 
                     </div>
                     <ul id="nav-main-con">
-                        <li class="navlistmenu" onclick="location.href='/prhome'">
+                        <li class="navlistmenu " onclick="location.href='/'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
-                                <h5>dashboard</h5>
+                                <h5>Home</h5>
                             </div>
                         </li>
+                        {% if general %}
                         <li class="navlistmenu " onclick="location.href='/leave_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -99,6 +112,10 @@
                                 <h5>Suggestion</h5>
                             </div>
                         </li>
+                        {% endif %}
+
+                        <!-- ===========tl's============================ -->
+                        {% if approvalpage %}
                         <li class="navlistmenu" onclick="location.href='/approval'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -109,26 +126,35 @@
                                 <h5>Approval</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/customer_details'">
+
+                        {% endif %}
+
+                        {% if rnd %}
+
+                        <li class="navlistmenu " onclick="location.href='/inprocess'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/customer-icon.svg' %}" alt="dashboard_Icon">
+                                    <img src="{% static 'images/nav-icon/inprocess.svg' %}" alt="inprocess_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
-                                <h5>Customer Details</h5>
+                                <h5>In Process</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu" onclick="location.href='/points_workdone'">
+                        <li class="navlistmenu " onclick="location.href='/create'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/point-workdone.svg' %}" alt="point-work_Icon">
+                                    <img src="{% static 'images/nav-icon/create-product.svg' %}" alt="inprocess_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
-                                <h5>Workdone</h5>
+                                <h5>Create Product</h5>
                             </div>
                         </li>
+
+                        {% endif %}
+                      
+                        {% if account %}
                         <li class="navlistmenu " onclick="location.href='/financial'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -139,9 +165,116 @@
                                 <h5>Financial</h5>
                             </div>
                         </li>
+                        {% endif %}
+
+                        {% if createlead %}
+                        <li class="navlistmenu " onclick="location.href='/create_lead'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/create_lead.svg' %}" alt="create_lead">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Create Lead</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+                        
+                        {% if customerdetails %}
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/customer_details'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/customer-icon.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Customer Details</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+                       
+                        {% if quotation %}
+                        <li class="navlistmenu" onclick="location.href='/quotation'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/invoice.png' %}" alt="quottaion_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Quotation</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        {% if inventory %}
+                        <li class="navlistmenu" onclick="location.href='/inventorymanagement'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/invoice.png' %}" alt="inventory_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Inventory</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+                        
+                        {% if createstaff %}
+                        <li class="navlistmenu " onclick="location.href='/createstaff'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/create-staff.svg' %}" alt="createstaff_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Create Staff</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+                        
+                        {% if viewworkmanager %}
+                        <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}" alt="createstaff_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>View Workmanager</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        {% if viewsuggestion %}
+                        <li class="navlistmenu" onclick="location.href='/viewsuggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/viewsuggestion.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>View Suggestion</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        {% if userdata %}
+                        <li class="navlistmenu" onclick="location.href='/userdata'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>User Data</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        <!-- =========================== -->
 
                     </ul>
-                    <div class="logout" onclick="location.href=''">
+                    <div class="logout" onclick="location.href='/logout/'">
                         <li class="navlistmenu">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -203,7 +336,6 @@
                         
                         <div class="col-md-2">
                             <label for="fupId" class="custom-btn following-up">
-                             <div class="custom-btn following-up">
                                 <div class="first-custm-text">
                                     <h6>Following Up</h6>
                                     <h4>{{followUpCount}}</h4>
@@ -214,13 +346,11 @@
                                     <img src="{% static 'images/following-icon.svg' %}" alt="following-icon"
                                         class="img-fluid">
                                 </div>
-                            </div>
                         </label> 
                         </div>
                     
                         <div class="col-md-2">
                             <label for="onwordsId" class="custom-btn onwords-btn">
-                            <div class="custom-btn onwords-btn">
                                 <div class="first-custm-text">
                                     <h6>onwords</h6>
                                     <h4>{{onwordsCount}}</h4>
@@ -231,12 +361,10 @@
                                     <img src="{% static 'images/onwords-custom-icon.svg' %}" alt="onwords-icon"
                                         class="img-fluid">
                                 </div>
-                            </div>
                         </label>
                         </div>
                         <div class="col-md-2">
                             <label for="newleadsId" class="custom-btn cust-lead">
-                            <div class="custom-btn cust-lead">
                                 <div class="first-custm-text">
                                     <h6>New Leads</h6>
                                     <h4>{{newleadscount}}</h4>
@@ -247,12 +375,10 @@
                                     <img src="{% static 'images/cust-new-lead.svg' %}" alt="onwords-icon"
                                         class="img-fluid">
                                 </div>
-                            </div>
                         </label>
                         </div>
                         <div class="col-md-2">
                             <label for="dId" class="custom-btn cust-delay">
-                            <div class="custom-btn cust-delay">
                                 <div class="first-custm-text">
                                     <h6>Delayed</h6>
                                     <h4>{{delayedCount}}</h4> 
@@ -263,12 +389,10 @@
                                     <img src="{% static 'images/cust-delay-icon.svg' %}" alt="onwords-icon"
                                         class="img-fluid">
                                 </div>
-                            </div>
                         </label>
                         </div>
                         <div class="col-md-2">
                             <label for="aId" class="custom-btn cust-adv">
-                            <div class="custom-btn cust-adv">
                                 <div class="first-custm-text">
                                     <h6>Advanced</h6>
                                     <h4>{{advancedCount}}</h4>
@@ -279,12 +403,10 @@
                                     <img src="{% static 'images/cust-advance.svg' %}" alt="Advanced-icon"
                                         class="img-fluid">
                                 </div>
-                            </div>
                         </label>
                         </div>
                         <div class="col-md-2">
                             <label for="prId" class="custom-btn cust-product">
-                            <div class="custom-btn cust-product">
                                 <div class="first-custm-text">
                                     <h6>Product</h6>
                                     <h4>{{productCount}}</h4>
@@ -295,14 +417,12 @@
                                     <img src="{% static 'images/product-icon.svg' %}" alt="Product-icon" 
                                         class="img-fluid">
                                 </div>
-                            </div>
                         </label>
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-2">
                             <label for="b2bId" class="custom-btn cust-b2b">
-                            <div class="custom-btn cust-b2b">
                                 <div class="first-custm-text">
                                     <h6>B2B</h6>
                                     <h4>{{b2bCount}}</h4>
@@ -312,12 +432,10 @@
                                 <div class="second-custom-img">
                                     <img src="{% static 'images/cust-b2b.svg' %}" alt="b2b-icon" class="img-fluid">
                                 </div>
-                            </div>
                         </label>
                         </div>
                         <div class="col-md-2">
                             <label for="ucId" class="custom-btn under-construction">
-                            <div class="custom-btn under-construction">
                                 <div class="first-custm-text">
                                     <h6>Under Construc</h6>
                                     <h4>{{ucCount}}</h4>
@@ -328,12 +446,10 @@
                                     <img src="{% static 'images/cust-under-construction.svg' %}" alt="b2b-icon"
                                         class="img-fluid">
                                 </div>
-                            </div>
                         </label>
                         </div>
                         <div class="col-md-2">
                             <label for="icId" class="custom-btn cust-instal">
-                            <div class="custom-btn cust-instal">
                                 <div class="first-custm-text">
                                     <h6>Installation Done</h6>
                                     <h4>{{installationCompletedCount}}</h4>
@@ -344,12 +460,10 @@
                                     <img src="{% static 'images/instalation-compl.svg' %}" alt="b2b-icon"
                                         class="img-fluid">
                                 </div>
-                            </div>
                         </label>
                         </div>
                         <div class="col-md-2">
                             <label for="htleadId" class="custom-btn cust-interst">
-                            <div class="custom-btn cust-interst">
                                 <div class="first-custm-text">
                                     <h6>Interested</h6>
                                     <h4>{{interestedCount}}</h4>
@@ -360,12 +474,10 @@
                                     <img src="{% static 'images/cust-intrested.svg' %}" alt="b2b-icon"
                                         class="img-fluid">
                                 </div>
-                            </div>
                         </label>
                         </div>
                         <div class="col-md-2">
                             <label for="othersId" class="custom-btn cust-other">
-                            <div class="custom-btn cust-other">
                                 <div class="first-custm-text">
                                     <h6>Others</h6>
                                     <h4>{{othersCount}}</h4>
@@ -376,7 +488,6 @@
                                     <img src="{% static 'images/cust-others.svg' %}" alt="others-icon"
                                         class="img-fluid">
                                 </div>
-                            </div>
                         </label>
                         </div>
                         <div class="col-md-2">
