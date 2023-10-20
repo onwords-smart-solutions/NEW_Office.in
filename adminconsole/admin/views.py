@@ -74,3 +74,60 @@ def attendanced(request):
             "attendancelistall":attendancelistall
         }
     return render(request,'attendanced.html',context)
+
+def attendancesort(request):
+    if request.method =="POST":
+        date1=request.POST["get-total1"]
+        print(date1)
+        uid = request.COOKIES["uid"]
+        dep = request.COOKIES["dep"]
+        name = checkUserName(uid)
+        todaysDate=str(date1)
+        current_year = todaysDate[:4]
+        current_month = todaysDate[5:7]
+        staff=db.child("staff").get().val()
+        leaveapplied=db.child("leaveDetails").child(current_year).child(current_month).get().val()
+        attendance=db.child("attendance").child(current_year).child(current_month).get().val()
+        leavecountlist=[]
+        staffpresentlist=[]
+        staffnamelist=[]
+        staffuidlist=[]
+        snolist=[]
+        staffdeplist=[]
+        sno=0
+        for staffuid in staff:
+            if staff[staffuid]["department"]!="ADMIN":
+                staffleavecount=0
+                for date in leaveapplied:
+                    try:
+                        for leavetype in leaveapplied[date][staffuid]:
+                            staffleavecount=staffleavecount+1 
+                    except:
+                        pass
+                staffattendancecount=0
+                for date in attendance:
+                    try:
+                        attendance[date][staffuid]
+                        staffattendancecount=staffattendancecount+1
+                    except:
+                        pass
+                sno=sno+1    
+                snolist.append(sno)  
+                staffuidlist.append(staffuid)   
+                staffnamelist.append(staff[staffuid]["name"])
+                staffdeplist.append(staff[staffuid]["department"])
+                staffpresentlist.append(staffattendancecount)
+                leavecountlist.append(staffleavecount)
+
+            attendancelistall=zip(snolist,staffuidlist,staffnamelist,staffdeplist,staffpresentlist,leavecountlist)
+            context={
+                "attendancelistall":attendancelistall
+            }
+    return render(request,'attendanced.html',context)
+
+def checkUserName(uid):
+    data = db.child("staff").get().val()
+    for x in data:
+        if uid == x:
+            z = data[x]["name"]
+            return z
