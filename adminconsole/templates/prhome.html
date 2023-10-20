@@ -47,11 +47,9 @@
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
                                     </div>
                                     <div class="emply-id">
-                                        {%for name in nameList%}
                                         <span>{{name}}</span><br>
-                                        {%endfor%}
                                         <span>ID:WD002</span><br>
-                                        <span>Web Developer</span>
+                                        <span>{{dep}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +175,7 @@
                             <div class="row d-flex align-items-center">
                                 <div class="col-md-4">
                                     <span>Check In</span><br>
-                                    <span>09:00</span>
+                                    <span>{{todaycheckin}}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="progress">
@@ -187,7 +185,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <span>Check Out</span><br>
-                                    <span>No Entry</span>
+                                    <span>{{todaycheckout}}</span>
                                 </div>
                             </div>
                             <h6>{% if day %}{{ day }}{% else %}Yesterday{% endif %}</h6>

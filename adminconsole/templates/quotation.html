@@ -167,17 +167,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for qName, qmobile_number, qCreatedBy, qNum, qTimeStampDate, qTimeStampTime, qdocument_link, note,notedate in quotationList reversed %}
+                                <form action="/quoteForm/" method="post">{% csrf_token %}
                                 <tr class="table-body-li my-3 text-center">
-                                    <td>Joshua Daniel</td>
-                                    <td>Call afternoon for confirm the visit on 2023-09-21</td>
-                                    <td>9952619655</td>
-                                    <td>Rajkannan1127</td>
-                                    <td>INV_GA-23109</td>
-                                    <td>2023-10-13 </td>
-                                    <td>12:50:06</td>
-                                    <td><a href="">View Invoice</a></td>
+                                    <td>{{qName}}</td>
+                                    <td>{{note}} {{notedate}}</td>
+                                    <td><input type="submit" name="numb" value="{{qmobile_number}}"></td>
+                                    <td>{{qCreatedBy}}</td>
+                                    <td>{{qNum}}</td>
+                                    <input type="hidden" name="qnum" value="{{qNum}}">
+                                    <td>{{qTimeStampDate}}</td>
+                                    <td>{{qTimeStampTime}}</td>
+                                    <td><a href="{{qdocument_link}}" target="_blank">View Quotation</a></td>
+                                    <input type="hidden" name="quote-link" value="{{qdocument_link}}">
                                 </tr>
-
+                                </form>
+                                {%endfor%}
                             </tbody>
                             </thead>
                         </table>
@@ -199,19 +204,24 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for piName, pimobile_number, piCreatedBy, piNum, piTimeStampDate, piTimeStampTime, pidocument_link,pi_installtion_document_link,pnote,pnotedate in pinvoiceList reversed %}
+                                <form action="/pinvoiceForm/" method="post">{% csrf_token %}
                                 <tr class="table-body-li my-3 text-center">
-                                    <td>Joshua Daniel</td>
-                                    <td>Call afternoon for confirm the visit on 2023-09-21</td>
-                                    <td>9952619655</td>
-                                    <td>Rajkannan1127</td>
-                                    <td>INV_GA-23109</td>
-                                    <td>2023-10-13 </td>
-                                    <td>12:50:06</td>
+                                    <td>{{piName}}</td>
+                                    <td>{{pnote}} {{pnotedate}}</td>
+                                    <td><input type="submit" name="numb" value="{{pimobile_number}}"></td>
+                                    <td>{{piCreatedBy}}</td>
+                                    <td>{{piNum}}</td>
+                                    <input type="hidden" name="newinum" value="{{piNum}}">
+                                    <td>{{piTimeStampDate}}</td>
+                                    <td>{{piTimeStampTime}}</td>
                                     <td><a href="{{pidocument_link}}" target="_blank">View Invoice</a></td>
                                     <input type="hidden" name="invoice-link" value="{{pidocument_link}}">
                                     <td><a href="{{pi_installtion_document_link}}" target="_blank">View Installtion Invoice</a></td>
                                     <input type="hidden" name="invoice-link" value="{{pi_installtion_document_link}}">
                                 </tr>
+                                </form>
+                                {%endfor%}
                             </tbody>
                             </thead>
                         </table>
@@ -232,16 +242,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for iName, imobile_number, iCreatedBy, iNum, iTimeStampDate, iTimeStampTime, idocument_link,note,notedate in invoiceList reversed %}
+                                <form action="/invoiceForm/" method="post">{% csrf_token %}
                                 <tr class="table-body-li my-3 text-center">
-                                    <td>Joshua Daniel</td>
-                                    <td>Call afternoon for confirm the visit on 2023-09-21</td>
-                                    <td>9952619655</td>
-                                    <td>Rajkannan1127</td>
-                                    <td>INV_GA-23109</td>
-                                    <td>2023-10-13 </td>
-                                    <td>12:50:06</td>
-                                    <td><a href="">View Invoice</a></td>
+                                    <td>{{iName}}</td>
+                                    <td>{{note}} {{notedate}}</td>
+                                    <td class="inp-qoi"><input type="submit" name="numb" value="{{imobile_number}}"></td>
+                                    <td>{{iCreatedBy}}</td>
+                                    <td>{{iNum}}</td>
+                                    <input type="hidden" name="newinum" value="{{iNum}}">
+                                    <td>{{iTimeStampDate}}</td>
+                                    <td>{{iTimeStampTime}}</td>
+                                    <td><a href="{{idocument_link}}" target="_blank">View Invoice</a></td>
+                                    <input type="hidden" name="invoice-link" value="{{idocument_link}}">
                                 </tr>
+                                </form>
+                                {%endfor%}
                             </tbody>
                             </thead>
                         </table>

@@ -166,37 +166,21 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {%for sno,staffuid,staffname,staffdep,staffpresentlist,staffleavecount in attendancelistall %}
                                 <tr class="table-body-li my-3 text-center">
-                                    <td>1</td>
-                                    <td>Balaji</td>
-                                    <td>AIML</td>
-                                    <td>28</td>
-                                    <td>2</td>
-                                    <td onclick="viewattendanced()" class="eyeview"><img
-                                            src="{% static 'images/eye-view.svg'  %}" alt="eyeView" class="img-fluid">
-                                    </td>
+                                    <td>{{sno}}</td>
+                                    <td>{{staffname}}</td>
+                                    <td>{{staffdep}}</td>
+                                    <td>{{staffpresentlist}}</td>
+                                    <td>{{staffleavecount}}</td>
+                                    <form action="/fullleave" action="post">
+                                        <input type="hidden" name="uid" value="{{staffuid}}">
+                                        <td onclick="viewattendanced()" class="eyeview"><img
+                                                src="{% static 'images/eye-view.svg'  %}" alt="eyeView" class="img-fluid">
+                                        </td>
+                                    </form>
                                 </tr>
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>2</td>
-                                    <td>Vinith</td>
-                                    <td>WEB</td>
-                                    <td>29</td>
-                                    <td>1</td>
-                                    <td onclick="viewattendanced()" class="eyeview"><img
-                                            src="{% static 'images/eye-view.svg'  %}" alt="eyeView" class="img-fluid">
-                                    </td>
-                                </tr>
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>3</td>
-                                    <td>Ram</td>
-                                    <td>Media</td>
-                                    <td>27</td>
-                                    <td>3</td>
-                                    <td onclick="viewattendanced()" class="eyeview"><img
-                                            src="{% static 'images/eye-view.svg'  %}" alt="eyeView" class="img-fluid">
-                                    </td>
-                                </tr>
-                              
+                                {%endfor%}
                             </tbody>
                         </table>
                     </div>

@@ -9,6 +9,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def prhome(request):
+    print("insode pr home")
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     data = db.child("staff").get().val()
@@ -158,6 +159,7 @@ def prhome(request):
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
         data[uid]["projects"]
+        print(todaycheckin,todaycheckout,yesscheckin,yesscheckout,yesterdayprogress)
         context = {
             "project": True,
             "name": name,
@@ -177,6 +179,7 @@ def prhome(request):
         }
         return render(request, "prhome.html", context)
     except:
+        print("=============",todaycheckin,todaycheckout,yesscheckin,yesscheckout,yesterdayprogress,name)
         context = {
             "project": False,
             "name": name,
@@ -517,8 +520,10 @@ def customer_details(request):
         
     }
     return render(request, "customer_details.html", context)
+
 def points_workdone(request):
     return render(request,'points_workdone.html')
+
 def quotation(request):
     if request.method =="POST":
         date1=request.POST["get-total1"]
@@ -688,7 +693,7 @@ def quotation(request):
         }
         # iTimeStamp.sort()
         # qTimeStamp.sort()
-        return render(request, "superadmin/quotation.html", context)
+        return render(request, "quotation.html", context)
 
 
     uid = request.COOKIES["uid"]
@@ -841,9 +846,105 @@ def quotation(request):
     }
     # iTimeStamp.sort()
     # qTimeStamp.sort()
-    return render(request, "superadmin/quotation.html", context)
+    return render(request, "quotation.html", context)
 
-    return render(request,'quotation.html')
+def quoteForm(request):
+    todaysDate = str(date.today())
+    thisYear = todaysDate[:4]
+    thisMonth = todaysDate[5:7]
+    if request.method == "POST":
+        # if 'accepted' in request.POST:
+        #   b = request.POST['qnum']
+        #   db.child('QuotationAndInvoice').child('QUOTATION').child(thisYear).child(thisMonth).child(b).update({"Status":"Approved"})
+
+        # if 'denied' in request.POST:
+        #   b = request.POST['qnum']
+        #   db.child('QuotationAndInvoice').child('QUOTATION').child(thisYear).child(thisMonth).child(b).update({"Status":"Denied"})
+        # if 'delete' in request.POST:
+        #   a = request.POST['quote-link']
+        #   b = request.POST['qnum']
+        # if "numb" in request.POST:
+        a = request.POST["numb"]
+        response = redirect(leadinfo)
+        response.set_cookie("userPhno", a)
+        return response
+
+    return redirect(quotation)
+
+def pinvoiceForm(request):
+    todaysDate = str(date.today())
+    thisYear = todaysDate[:4]
+    thisMonth = todaysDate[5:7]
+    if request.method == "POST":
+        # if 'accepted' in request.POST:
+        #   b = request.POST['inum']
+        #   db.child('QuotationAndInvoice').child('INVOICE').child(thisYear).child(thisMonth).child(b).update({"Status":"Approved"})
+
+        # if 'denied' in request.POST:
+        #   b = request.POST['inum']
+        #   db.child('QuotationAndInvoice').child('INVOICE').child(thisYear).child(thisMonth).child(b).update({"Status":"Denied"})
+
+        # if 'delete' in request.POST:
+        #   a = request.POST['invoice-link']
+        #   b = request.POST['inum']
+        if "numb" in request.POST:
+            a = request.POST["numb"]
+            response = redirect(leadinfo)
+            response.set_cookie("userPhno", a)
+            return response
+    # to delete
+    # import firebase_admin
+    # from firebase_admin import storage as admin_storage, credentials, firestore
+
+    # cred = credentials.Certificate("serviceAccountKey.json")
+    # firebase_admin.initialize_app(cred,{
+    #     "databaseURL": "https://new-adminconsole-test-default-rtdb.firebaseio.com",
+    #     "storageBucket": "new-adminconsole-test.appspot.com"
+    # })
+    # try:
+    #     bucket = admin_storage.bucket()
+    #     _blob = bucket.blob('keyboard.webp')
+    #     _blob.delete()
+    # except Exception as e:
+    return redirect(quotation)
+
+def invoiceForm(request):
+    todaysDate = str(date.today())
+    thisYear = todaysDate[:4]
+    thisMonth = todaysDate[5:7]
+    if request.method == "POST":
+        # if 'accepted' in request.POST:
+        #   b = request.POST['inum']
+        #   db.child('QuotationAndInvoice').child('INVOICE').child(thisYear).child(thisMonth).child(b).update({"Status":"Approved"})
+
+        # if 'denied' in request.POST:
+        #   b = request.POST['inum']
+        #   db.child('QuotationAndInvoice').child('INVOICE').child(thisYear).child(thisMonth).child(b).update({"Status":"Denied"})
+
+        # if 'delete' in request.POST:
+        #   a = request.POST['invoice-link']
+        #   b = request.POST['inum']
+        # if "numb1" in request.POST:
+        a = request.POST["numb"]
+        response = redirect(leadinfo)
+        response.set_cookie("userPhno", a)
+        return response
+    # to delete
+    # import firebase_admin
+    # from firebase_admin import storage as admin_storage, credentials, firestore
+
+    # cred = credentials.Certificate("serviceAccountKey.json")
+    # firebase_admin.initialize_app(cred,{
+    #     "databaseURL": "https://new-adminconsole-test-default-rtdb.firebaseio.com",
+    #     "storageBucket": "new-adminconsole-test.appspot.com"
+    # })
+    # try:
+    #     bucket = admin_storage.bucket()
+    #     _blob = bucket.blob('keyboard.webp')
+    #     _blob.delete()
+    # except Exception as e:
+    return redirect(quotation)
+
 def leadinfo(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]

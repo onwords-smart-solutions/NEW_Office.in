@@ -28,9 +28,6 @@ urlpatterns = [
     path('coohome/', views.coohome,name='coohome'),
     path('installation_details',views.installation_details,name='installation_details'),
 
-
-    path("logout/", views.logout, name="logout"),
-
     # ============it team================
      path("ithome/", itviews.ithome, name="ithome"),
 
@@ -39,7 +36,10 @@ urlpatterns = [
     path("create_lead/",prviews.create_lead,name='create_lead'), 
     path("customer_details/",prviews.customer_details,name='customer_details'), 
     path("points_workdone/",prviews.points_workdone,name='points_workdone'), 
-    path("quotation/",prviews.quotation,name='quotation'), 
+    path("quotation/",prviews.quotation,name='quotation'),
+    path("invoiceForm/", prviews.invoiceForm, name="invoiceForm"),
+    path("pinvoiceForm/", prviews.pinvoiceForm, name="pinvoiceForm"),
+    path("quoteForm/", prviews.quoteForm, name="quoteForm"),
     path("leadinfo/",prviews.leadinfo,name='leadinfo'),
     path("approval/",prviews.approval,name='approval'),
     path("leadinfo/",prviews.leadinfo,name="leadinfo"),
@@ -51,28 +51,28 @@ urlpatterns = [
 
     # ========== rnd department =================================
 
-    path("rndhome",rndviews.rndhome,name='rndhome'),
-    path("inprocess",rndviews.inprocess,name='inprocess'),
-    path("create",rndviews.create,name='create'),
+    path("rndhome/",rndviews.rndhome,name='rndhome'),
+    path("inprocess/",rndviews.inprocess,name='inprocess'),
+    path("create/",rndviews.create,name='create'),
 
     
     # ==================admin department==================================
 
-    path("adminhome",adminviews.adminhome,name='adminhome'),
-    path("checkin",adminviews.checkin,name='checkin'),
-    path("attendanced",adminviews.attendanced,name='attendanced'),
+    path("adminhome/",adminviews.adminhome,name='adminhome'),
+    path("checkin/",adminviews.checkin,name='checkin'),
+    path("attendanced/",adminviews.attendanced,name='attendanced'),
 
     # ======= CMO Product Page ==========
-      path("inventorymanagement",views.inventorymanagement,name='inventorymanagement'),
+      path("inventorymanagement/",views.inventorymanagement,name='inventorymanagement'),
 
     # =====================super admin====================================
 
-    path("superadmin",superadminviews.superadmin,name='superadmin'),
-    path("createstaff",superadminviews.createstaff,name='createstaff'),
-    path("staffaccess",superadminviews.staffaccess,name='staffaccess'),
-    path("userdata",superadminviews.userdata,name='userdata'),
-    path("viewsuggestion",superadminviews.viewsuggestion,name='viewsuggestion'),
-    path("viewworkmanager",superadminviews.viewworkmanager,name='viewworkmanager')
+    path("superadmin/",superadminviews.superadmin,name='superadmin'),
+    path("createstaff/",superadminviews.createstaff,name='createstaff'),
+    path("staffaccess/",superadminviews.staffaccess,name='staffaccess'),
+    path("userdata/",superadminviews.userdata,name='userdata'),
+    path("viewsuggestion/",superadminviews.viewsuggestion,name='viewsuggestion'),
+    path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager')
 
    
 ]
