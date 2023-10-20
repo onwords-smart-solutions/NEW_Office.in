@@ -131,3 +131,5 @@ def checkUserName(uid):
         if uid == x:
             z = data[x]["name"]
             return z
+def indvattendanced(request):
+    return render(request,'indvattendanced.html')

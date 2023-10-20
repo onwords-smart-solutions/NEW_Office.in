@@ -309,56 +309,53 @@
                             </div>
                         </form>
                     </div>
-                    <form action="/attendancesort/" method="post" id="datetime1">
-                        {% csrf_token %}
-                        <div class="col-md-2">
-                            <div class="cust-inps">
-                                <input type="month" name="get-total1" id="sortDate" onchange="dateTimeSubmit()">
-                            </div>
-
+                    <div class="col-md-2">
+                        <div class="cust-inps">
+                            <input type="month">
                         </div>
-                    </form>    
+
+                    </div>
                 </div>
                 <div class="check-table-con">
-                    <div id="attendance-table">
-                        <table class="table w-100" >
-                            <thead>
-                                <tr class="leave-table-head text-center">
-                                    <th>S.No</th>
-                                    <th>Employe Name</th>
-                                    <th>Department</th>
-                                    <th>Present</th>
-                                    <th>Absent</th>
-                                    <th>View</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {%for sno,staffuid,staffname,staffdep,staffpresentlist,staffleavecount in attendancelistall %}
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>{{sno}}</td>
-                                    <td>{{staffname}}</td>
-                                    <td>{{staffdep}}</td>
-                                    <td>{{staffpresentlist}}</td>
-                                    <td>{{staffleavecount}}</td>
-                                    <form action="/indvattendanced/" method="post">
-                                        <input type="hidden" name="uid" value="{{staffuid}}">
-                                        <td type="submit" class="eyeview"><img
-                                                src="{% static 'images/eye-view.svg'  %}" alt="eyeView" class="img-fluid">
-                                        </td>
-                                    </form>
-                                </tr>
-                                {%endfor%}
-                            </tbody>
-                        </table>
+                <div>
+                    <div class="forms-con">
+                        <h3>Emply Name : Balaji</h3>
+                        <h3>DEP : AIML</h3>
                     </div>
-               
-                    <div class="check-bottom-con">
-                        <div class="">
-                            <button class="primary-button back-button" onclick="location.href='/attendanced'">Back</button>
-                        </div>
-                        <button class="primary-button print-unwant" id="printcheckBtn" onclick="printAttendanceTable()">Print
-                            Attendance</button>
-                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr class="leave-table-head">
+                                <th>Date</th>
+                                <th>Permission</th>
+                                <th>Sick Leave</th>
+                                <th>Casual Leave</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-body-li my-3">
+                                <td>20-09-2023</td>
+                                <td>1 1/2Hrs</td>
+                                <td>3</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="table-body-li my-3">
+                                <td>23-09-2023</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class=" leave-table-head text-center">
+                                <td>Total</td>
+                                <td>1 1/2</td>
+                                <td>-</td>
+                                <td>3</td>
+                            
+                            </tr>
+                        </tbody>
+                    </table>
+                  
+                </div>
+                 
                 </div>
 
             </div>
@@ -375,11 +372,6 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-    <script>
-        function dateTimeSubmit(){
-           document.getElementById("datetime1").submit()
-         }
-    </script>
 
 </body>
 
