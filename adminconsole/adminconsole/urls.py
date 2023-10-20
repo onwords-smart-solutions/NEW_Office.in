@@ -70,6 +70,9 @@ urlpatterns = [
     path("superadmin",superadminviews.superadmin,name='superadmin'),
     path("createstaff",superadminviews.createstaff,name='createstaff'),
     path("staffaccess",superadminviews.staffaccess,name='staffaccess'),
+    path("userdata",superadminviews.userdata,name='userdata'),
+    path("viewsuggestion",superadminviews.viewsuggestion,name='viewsuggestion'),
+    path("viewworkmanager",superadminviews.viewworkmanager,name='viewworkmanager')
 
    
 ]
