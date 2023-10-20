@@ -309,12 +309,15 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-2">
-                        <div class="cust-inps">
-                            <input type="month">
-                        </div>
+                    <form action="/attendancesort/" method="post" id="datetime1">
+                        {% csrf_token %}
+                        <div class="col-md-2">
+                            <div class="cust-inps">
+                                <input type="month" name="get-total1" id="sortDate" onchange="dateTimeSubmit()">
+                            </div>
 
-                    </div>
+                        </div>
+                    </form>    
                 </div>
                 <div class="check-table-con">
                     <div id="attendance-table">
