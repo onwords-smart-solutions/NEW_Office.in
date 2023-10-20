@@ -23,6 +23,7 @@ urlpatterns = [
     path("approvalprocess/", views.approvalprocess, name="approvalprocess"),
     path("financialpost/",views.financialpost,name="financialpost"),
     path("logout/",views.logout,name="logout"),
+    path("workdonedetails/",views.workdonedetails,name="workdonedetails"),
     # ========================coo page =========================
 
     path('coohome/', views.coohome,name='coohome'),
