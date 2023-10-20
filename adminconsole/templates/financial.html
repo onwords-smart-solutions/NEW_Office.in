@@ -162,14 +162,14 @@
                 <div class="financial-top-row my-4">
                     <div class="this-month-incm-exp">
                         {%if color == "Red"%}
-                            <h5>{{expenseamount}}(Expense) - {{incomeamount}}(Income) : -{{diffWithSalary}} (with salary)</h5>
+                            <h5 >{{expenseamount}}(Expense) - {{incomeamount}}(Income) : <span class="text-danger fs-5">-{{diffWithSalary}}</span> (with salary)</h5>
                         {%elif color == "Green"%}
-                            <h5>{{expenseamount}}(Expense) - {{incomeamount}}(Income) : {{diffWithSalary}} (with salary)</h5>
+                            <h5>{{expenseamount}}(Expense) - {{incomeamount}}(Income) : <span class="text-success fs-5">{{diffWithSalary}}</span> (with salary)</h5>
                         {%endif%}
                         {%if color == "Red"%}
-                            <h5>{{expenseWithoutSalary}}(Expense) - {{incomeamount}}(Income) : -{{diffWithoutSalary}} (without salary)</h5>
+                            <h5>{{expenseWithoutSalary}}(Expense) - {{incomeamount}}(Income) : <span class="text-danger fs-5">{{diffWithSalary}}</span> (without salary)</h5>
                         {%elif color == "Green"%}
-                            <h5>{{expenseWithoutSalary}}(Expense) - {{incomeamount}}(Income) : {{diffWithoutSalary}} (without salary)</h5>
+                            <h5>{{expenseWithoutSalary}}(Expense) - {{incomeamount}}(Income) : <span class="text-success fs-5">{{diffWithoutSalary}}</span> (without salary)</h5>
                         {%endif%}    
                     </div>
                     <div class="sort-month">
