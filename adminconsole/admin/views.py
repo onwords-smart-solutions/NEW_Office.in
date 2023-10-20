@@ -74,3 +74,6 @@ def attendanced(request):
             "attendancelistall":attendancelistall
         }
     return render(request,'attendanced.html',context)
+
+def indvattendanced(request):
+    return render(request,'indvattendanced.html')

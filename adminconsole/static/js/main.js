@@ -468,21 +468,6 @@ function presentBtn() {
 }
 // =============
 
-// ===============attendance List===============
-
-function viewattendanced() {
-    const attendanceTable = document.getElementById('attendance-table')
-    const attendanceDetials = document.getElementById('attendanceDetials')
-    const printUnwant = document.querySelector('.print-unwant')
-    const backBtn = document.querySelector('.back-button')
-
-    attendanceTable.style.display = 'none'
-    attendanceDetials.style.display = 'block'
-    printUnwant.style.display = 'none'
-    backBtn.style.display = 'block'
-}
-
-// ================quotation form================
 
 
 function quotation() {

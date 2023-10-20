@@ -193,7 +193,7 @@
                         {% endif %}
                        
                         {% if quotation %}
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/quotation'">
+                        <li class="navlistmenu" onclick="location.href='/quotation'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/invoice.png' %}" alt="quottaion_Icon">
@@ -292,145 +292,77 @@
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
             <div class="container-fluid">
-                <div class="">
-                    <div class="forms-con">
-                        <p class="active-form-li" id="quotationBtn" onclick="quotation()" >Quotation</p>
-                        <p class="" id="proformaBtn" onclick="proforma()">Proforma Invoice</p>
-                        <p id="invoiceBtn" onclick="invoice()">Invoice</p>
+                <div class="row my-3 align-items-center ">
+                    <div class="col-md-4">
+                        <h3>Attendance list</h3>
                     </div>
-
-                    <div class="sort-date">
-                        <div></div>
-                        <div class="date-sort">
-
-                            <p>
-                            <form action="/quotation/" method="post" id="datetime1">
-                                {% csrf_token %}
-                                <label for="sortDate"><img src="{% static 'images/sort-date.svg' %}"
-                                        alt="sort-date">Sort date</label>
-                                <input type="date" name="get-total1" id="sortDate" onchange="dateTimeSubmit()">
-                                {{date}}
-                            </form>
-                            </p>
+                    <div class="col-md-6">
+                        <form action="">
+                            <div class="customer-searchbar">
+                                <div class="cust-inp">
+                                    <input type="text" placeholder="Search">
+                                </div>
+                                <div class="searchBtn" type="submit">
+                                    <img src="{% static 'images/search-icon.svg' %}" alt="search-icon"
+                                        class="img-fluid">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="cust-inps">
+                            <input type="month">
                         </div>
-                    </div>
 
-                    <div id="quotationTable">
-                        <table class="table">
-                            <thead>
-                                <tr class="leave-table-head">
-                                    <th>Customer name </th>
-                                    <th>Notes</th>
-                                    <th>Number</th>
-                                    <th>Created By</th>
-                                    <th>Invoice name</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Link</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for qName, qmobile_number, qCreatedBy, qNum, qTimeStampDate, qTimeStampTime, qdocument_link, note,notedate in quotationList reversed %}
-                                <form action="/quoteForm/" method="post">{% csrf_token %}
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>{{qName}}</td>
-                                    <td>{{note}} {{notedate}}</td>
-                                    <td><input type="submit" class="quotmobilenumber" name="numb" value="{{qmobile_number}}"></td>
-                                    <td>{{qCreatedBy}}</td>
-                                    <td>{{qNum}}</td>
-                                    <input type="hidden" name="qnum" value="{{qNum}}">
-                                    <td>{{qTimeStampDate}}</td>
-                                    <td>{{qTimeStampTime}}</td>
-                                    <td><a href="{{qdocument_link}}" target="_blank">View Quotation</a></td>
-                                    <input type="hidden" name="quote-link" value="{{qdocument_link}}">
-                                </tr>
-                                </form>
-                                {%endfor%}
-                            </tbody>
-                            </thead>
-                        </table>
                     </div>
-
-                    <div id="proformaTable">
-                        <table class="table">
-                            <thead>
-                                <tr class="leave-table-head">
-                                    <th>Customer name </th>
-                                    <th>Notes</th>
-                                    <th>Number</th>
-                                    <th>Created By</th>
-                                    <th>Invoice name</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Invoice Link</th>
-                                    <th>Installation Invoice Link</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for piName, pimobile_number, piCreatedBy, piNum, piTimeStampDate, piTimeStampTime, pidocument_link,pi_installtion_document_link,pnote,pnotedate in pinvoiceList reversed %}
-                                <form action="/pinvoiceForm/" method="post">{% csrf_token %}
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>{{piName}}</td>
-                                    <td>{{pnote}} {{pnotedate}}</td>
-                                    <td><input type="submit" name="numb" value="{{pimobile_number}}"></td>
-                                    <td>{{piCreatedBy}}</td>
-                                    <td>{{piNum}}</td>
-                                    <input type="hidden" name="newinum" value="{{piNum}}">
-                                    <td>{{piTimeStampDate}}</td>
-                                    <td>{{piTimeStampTime}}</td>
-                                    <td><a href="{{pidocument_link}}" target="_blank">View Invoice</a></td>
-                                    <input type="hidden" name="invoice-link" value="{{pidocument_link}}">
-                                    <td><a href="{{pi_installtion_document_link}}" target="_blank">View Installtion Invoice</a></td>
-                                    <input type="hidden" name="invoice-link" value="{{pi_installtion_document_link}}">
-                                </tr>
-                                </form>
-                                {%endfor%}
-                            </tbody>
-                            </thead>
-                        </table>
-                    </div>
-
-                    <div id="invoiceTable">
-                        <table class="table">
-                            <thead>
-                                <tr class="leave-table-head">
-                                    <th>Customer name </th>
-                                    <th>Notes</th>
-                                    <th>Number</th>
-                                    <th>Created By</th>
-                                    <th>Invoice name</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Link</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for iName, imobile_number, iCreatedBy, iNum, iTimeStampDate, iTimeStampTime, idocument_link,note,notedate in invoiceList reversed %}
-                                <form action="/invoiceForm/" method="post">{% csrf_token %}
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>{{iName}}</td>
-                                    <td>{{note}} {{notedate}}</td>
-                                    <td class="inp-qoi"><input type="submit" name="numb" value="{{imobile_number}}"></td>
-                                    <td>{{iCreatedBy}}</td>
-                                    <td>{{iNum}}</td>
-                                    <input type="hidden" name="newinum" value="{{iNum}}">
-                                    <td>{{iTimeStampDate}}</td>
-                                    <td>{{iTimeStampTime}}</td>
-                                    <td><a href="{{idocument_link}}" target="_blank">View Invoice</a></td>
-                                    <input type="hidden" name="invoice-link" value="{{idocument_link}}">
-                                </tr>
-                                </form>
-                                {%endfor%}
-                            </tbody>
-                            </thead>
-                        </table>
-                    </div>
-
                 </div>
+                <div class="check-table-con">
+                <div>
+                    <div class="forms-con">
+                        <h3>Emply Name : Balaji</h3>
+                        <h3>DEP : AIML</h3>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr class="leave-table-head">
+                                <th>Date</th>
+                                <th>Permission</th>
+                                <th>Sick Leave</th>
+                                <th>Casual Leave</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-body-li my-3">
+                                <td>20-09-2023</td>
+                                <td>1 1/2Hrs</td>
+                                <td>3</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="table-body-li my-3">
+                                <td>23-09-2023</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class=" leave-table-head text-center">
+                                <td>Total</td>
+                                <td>1 1/2</td>
+                                <td>-</td>
+                                <td>3</td>
+                            
+                            </tr>
+                        </tbody>
+                    </table>
+                  
+                </div>
+                 
+                </div>
+
             </div>
 
         </div>
     </div>
+
     <!-- bootstrap js -->
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>

@@ -337,9 +337,9 @@
                                     <td>{{staffdep}}</td>
                                     <td>{{staffpresentlist}}</td>
                                     <td>{{staffleavecount}}</td>
-                                    <form action="/fullleave" action="post">
+                                    <form action="/indvattendanced/" method="post">
                                         <input type="hidden" name="uid" value="{{staffuid}}">
-                                        <td onclick="viewattendanced()" class="eyeview"><img
+                                        <td type="submit" class="eyeview"><img
                                                 src="{% static 'images/eye-view.svg'  %}" alt="eyeView" class="img-fluid">
                                         </td>
                                     </form>
@@ -348,44 +348,7 @@
                             </tbody>
                         </table>
                     </div>
-                <div id="attendanceDetials">
-                    <div class="forms-con">
-                        <h3>Emply Name : Balaji</h3>
-                        <h3>DEP : AIML</h3>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr class="leave-table-head">
-                                <th>Date</th>
-                                <th>Permission</th>
-                                <th>Sick Leave</th>
-                                <th>Casual Leave</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table-body-li my-3">
-                                <td>20-09-2023</td>
-                                <td>1 1/2Hrs</td>
-                                <td>3</td>
-                                <td>-</td>
-                            </tr>
-                            <tr class="table-body-li my-3">
-                                <td>23-09-2023</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr class=" leave-table-head text-center">
-                                <td>Total</td>
-                                <td>1 1/2</td>
-                                <td>-</td>
-                                <td>3</td>
-                            
-                            </tr>
-                        </tbody>
-                    </table>
-                  
-                </div>
+               
                     <div class="check-bottom-con">
                         <div class="">
                             <button class="primary-button back-button" onclick="location.href='/attendanced'">Back</button>
