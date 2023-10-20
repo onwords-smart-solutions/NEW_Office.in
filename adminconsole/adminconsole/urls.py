@@ -21,6 +21,7 @@ urlpatterns = [
     path("submitaction/", views.submitaction, name="submitaction"),
     path("todo/", views.todo, name="todo"),
     path("approvalprocess/", views.approvalprocess, name="approvalprocess"),
+    path("financialpost/",views.financialpost,name="financialpost"),
     path("logout/",views.logout,name="logout"),
     # ========================coo page =========================
 
@@ -43,6 +44,7 @@ urlpatterns = [
     path("approval/",prviews.approval,name='approval'),
     path("leadinfo/",prviews.leadinfo,name="leadinfo"),
     path("addnotes/",prviews.addnotes,name="addnotes"),
+  
     # ================ accounts department ====================
 
     path("financial/",views.financial,name='financial'),

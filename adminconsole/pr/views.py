@@ -17,8 +17,6 @@ def prhome(request):
     leavedetails = db.child("leaveDetails").get().val()
     name = checkUserName(uid)
     istl = False
-    itaproval = False
-    aiaccess = False
     tl = db.child("tl").get().val()
 
     current_date = datetime.now()
@@ -93,7 +91,7 @@ def prhome(request):
             else:    
                 yesprogress = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["working_hours"]
                 yesterdayprogress = calculate_progress(yesprogress)
-                print("progress", yesterdayprogress)
+            print("progress", yesterdayprogress)
         except:
             yesterdayprogress = "Absent"    
         try:
@@ -165,8 +163,6 @@ def prhome(request):
             "name": name,
             "tl": istl,
             "dep": dep,
-            "itaproval": itaproval,
-            "aiaccess": aiaccess,
             "todaycheckin": todaycheckin,
             "todaycheckout": todaycheckout,
             "yescheckin": yesscheckin,
@@ -186,8 +182,6 @@ def prhome(request):
             "name": name,
             "tl": istl,
             "dep": dep,
-            "itaproval": itaproval,
-            "aiaccess": aiaccess,
             "todaycheckin": todaycheckin,
             "todaycheckout": todaycheckout,
             "yescheckin": yesscheckin,
@@ -200,7 +194,6 @@ def prhome(request):
             "sickleave":sickleave,
             "overallleave":overallleave,
         }
-
     return render(request, "prhome.html", context)
 
 def create_lead(request):
@@ -211,7 +204,6 @@ def create_lead(request):
     alreadyExistList = []
     custData = db.child("customer").get().val()
     name = checkUserName(uid)
-
     staff_data = db.child("staff").get().val()
     uid_list=[] 
     nameList = []    
@@ -528,6 +520,329 @@ def customer_details(request):
 def points_workdone(request):
     return render(request,'points_workdone.html')
 def quotation(request):
+    if request.method =="POST":
+        date1=request.POST["get-total1"]
+        uid = request.COOKIES["uid"]
+        dep = request.COOKIES["dep"]
+        name = checkUserName(uid)
+        istl = False
+        tl = db.child("tl").get().val()
+        for t in tl:
+            if name == tl[t]:
+                istl = True
+                break
+        suggestionNotification = 0
+        suggestionData = db.child("suggestion").get().val()
+        for suggestion in suggestionData:
+                if not suggestionData[suggestion]["isread"]:
+                    suggestionNotification += 1
+        # todaysDate = str(date.today())
+        todaysDate=str(date1)
+        thisYear = todaysDate[:4]
+        thisMonth = todaysDate[5:7]
+        quote = db.child("QuotationAndInvoice").get().val()
+        cust = db.child("customer").get().val()
+        iNum, iCreatedBy, iTimeStampDate,iTimeStampTime, idocument_link, imobile_number, iNameList = [], [], [], [], [], [], []
+        piNum,piCreatedBy,piTimeStampDate,piTimeStampTime,pidocument_link,piinstallation_document_link,pimobile_number,piNameList =[], [], [], [], [], [], [], []
+        qNum, qCreatedBy,qTimeStampDate,qTimeStampTime, qdocument_link, qmobile_number, qNameList = [], [], [], [], [], [], []
+        ilastNoteList,ilastNoteDateList,pilastNoteList,pilastNoteDateList, qlastNoteList, qlastNoteDateList = [], [], [], [], [], []
+        invoice = quote["INVOICE"][thisYear]
+        pinvoice = quote["PROFORMA_INVOICE"][thisYear]
+        _quotation = quote["QUOTATION"][thisYear]
+        # for _time in invoice:
+        #   ts = invoice[_time]['TimeStamp']
+        #   timeList.append(datetime.fromtimestamp(ts))
+        #   )
+        # timeList.sort()
+        # timeCount = 0
+        for inv_num in invoice[thisMonth]:
+            # if invoice[inv_num]['TimeStamp'][timeList[timeCount]]:
+            iNum.append(inv_num)
+            iCreatedBy.append((invoice[thisMonth][inv_num]["CreatedBy"].split("@")[0]).capitalize())
+            ts = invoice[thisMonth][inv_num]["TimeStamp"]
+            try:
+                datecon=str(datetime.fromtimestamp(ts)).split()[0]
+                if datecon == todaysDate:
+                    iTimeStampDate.append(str(datetime.fromtimestamp(ts)).split()[0])
+                    iTimeStampTime.append(str(datetime.fromtimestamp(ts)).split()[1])
+            except:
+                datecon=str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[0]
+                if datecon == todaysDate:
+                    iTimeStampDate.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[0])
+                    iTimeStampTime.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[1])
+            idocument_link.append(invoice[thisMonth][inv_num]["document_link"])
+            imobile_number.append(invoice[thisMonth][inv_num]["mobile_number"])
+        for number in imobile_number:
+            try:
+                iNameList.append(cust[str(number)]["name"])
+            except:
+                iNameList.append("Customer not in our lead list")
+
+
+        for pinv_num in pinvoice[thisMonth]:
+            # if invoice[inv_num]['TimeStamp'][timeList[timeCount]]:
+            piNum.append(inv_num)
+            piCreatedBy.append((pinvoice[thisMonth][pinv_num]["CreatedBy"].split("@")[0]).capitalize())
+            ts = pinvoice[thisMonth][pinv_num]["TimeStamp"]
+            try:
+                datecon=str(datetime.fromtimestamp(ts)).split()[0]
+                if datecon == todaysDate:
+                    piTimeStampDate.append(str(datetime.fromtimestamp(ts)).split()[0])
+                    piTimeStampTime.append(str(datetime.fromtimestamp(ts)).split()[1])
+            except:
+                datecon=str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[0]
+                if datecon == todaysDate:
+                    piTimeStampDate.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[0])
+                    piTimeStampTime.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[1])
+            pidocument_link.append(pinvoice[thisMonth][pinv_num]["document_link"])
+            piinstallation_document_link.append(pinvoice[thisMonth][pinv_num]["installation_document_link"])
+            pimobile_number.append(pinvoice[thisMonth][pinv_num]["mobile_number"])
+        for pnumber in pimobile_number:
+            try:
+                piNameList.append(cust[str(pnumber)]["name"])
+            except:
+                piNameList.append("Customer not in our lead list")
+
+       
+        for quote_num in _quotation[thisMonth]:
+            qNum.append(quote_num)
+            try:
+                qCreatedBy.append((_quotation[thisMonth][quote_num]["CreatedBy"].split("@")[0]).capitalize())
+            except:
+                pass
+            ts = _quotation[thisMonth][quote_num]["TimeStamp"]
+            try:
+                datecon1=str(datetime.fromtimestamp(ts)).split()[0]
+                if datecon1 == todaysDate:
+                    qTimeStampDate.append(str(datetime.fromtimestamp(ts)).split()[0])
+                    qTimeStampTime.append(str(datetime.fromtimestamp(ts)).split()[1])
+            except:
+                datecon1=str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[0]
+                if datecon1 == todaysDate:
+                    qTimeStampDate.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[0])
+                    qTimeStampTime.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[1])
+            qdocument_link.append(_quotation[thisMonth][quote_num]["document_link"])
+            qmobile_number.append(_quotation[thisMonth][quote_num]["mobile_number"])
+        for number in qmobile_number:
+            try:
+                qNameList.append(cust[str(number)]["name"])
+            except:
+                qNameList.append("Customer not in our lead list")
+
+        for num in imobile_number:
+            num = str(num)
+            try:
+                cust[num]["notes"]
+                for note in cust[num]["notes"]:
+                    lastNote = cust[num]["notes"][note]["note"]
+                    lastNoteDate = cust[num]["notes"][note]["date"]
+                ilastNoteList.append(lastNote)
+                ilastNoteDateList.append(lastNoteDate)
+            except:
+                ilastNoteList.append("No Notes were found")
+                ilastNoteDateList.append("-")
+
+        for pnum in pimobile_number:
+            pnum = str(pnum)
+            try:
+                cust[pnum]["notes"]
+                for note in cust[pnum]["notes"]:
+                    lastNote = cust[pnum]["notes"][note]["note"]
+                    lastNoteDate = cust[pnum]["notes"][note]["date"]
+                pilastNoteList.append(lastNote)
+                pilastNoteDateList.append(lastNoteDate)
+            except:
+                pilastNoteList.append("No Notes were found")
+                pilastNoteDateList.append("-")
+
+
+        for num in qmobile_number:
+            num = str(num)
+            try:
+                cust[num]["notes"]
+                for note in cust[num]["notes"]:
+                    lastNote = cust[num]["notes"][note]["note"]
+                    lastNoteDate = cust[num]["notes"][note]["date"]
+                qlastNoteList.append(lastNote)
+                qlastNoteDateList.append(lastNoteDate)
+            except:
+                qlastNoteList.append("No Notes were found")
+                qlastNoteDateList.append("-")
+
+        invoiceList = zip(iNameList,imobile_number,iCreatedBy,iNum,iTimeStampDate,iTimeStampTime,idocument_link,ilastNoteList,ilastNoteDateList)
+        pinvoiceList = zip(piNameList,pimobile_number,piCreatedBy,piNum,piTimeStampDate,piTimeStampTime,pidocument_link,piinstallation_document_link,pilastNoteList,pilastNoteDateList)
+        quotationList = zip(qNameList,qmobile_number,qCreatedBy,qNum,qTimeStampDate,qTimeStampTime,qdocument_link,qlastNoteList,qlastNoteDateList)
+        invoiceListMobile = zip(iNameList,imobile_number,iCreatedBy,iNum,iTimeStampDate,iTimeStampTime, idocument_link,ilastNoteList,ilastNoteDateList)
+        pinvoiceListMobile = zip(piNameList,pimobile_number,piCreatedBy,piNum,piTimeStampDate,piTimeStampTime,pidocument_link,pilastNoteList,pilastNoteDateList) 
+        quotationListMobile = zip(qNameList,qmobile_number,qCreatedBy,qNum,qTimeStampDate,qTimeStampTime,qdocument_link,qlastNoteList,qlastNoteDateList)
+        context = {
+            "invoiceList": invoiceList,
+            "pinvoiceList": pinvoiceList,
+            "quotationList": quotationList,
+            "invoiceListMobile": invoiceListMobile,
+            "pinvoiceListMobile" : pinvoiceListMobile,
+            "quotationListMobile": quotationListMobile,
+            "dep": dep,
+            "tl": istl,
+            "suggestionNotification":suggestionNotification
+        }
+        # iTimeStamp.sort()
+        # qTimeStamp.sort()
+        return render(request, "superadmin/quotation.html", context)
+
+
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
+    istl = False
+    tl = db.child("tl").get().val()
+    for t in tl:
+        if name == tl[t]:
+            istl = True
+            break
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+            if not suggestionData[suggestion]["isread"]:
+                suggestionNotification += 1
+    todaysDate = str(date.today())
+    thisYear = todaysDate[:4]
+    thisMonth = todaysDate[5:7]
+    quote = db.child("QuotationAndInvoice").get().val()
+    cust = db.child("customer").get().val()
+    iNum, iCreatedBy, iTimeStampDate,iTimeStampTime, idocument_link, imobile_number, iNameList = [], [], [], [], [], [], []
+    piNum,piCreatedBy,piTimeStampDate,piTimeStampTime,pidocument_link,piinstallation_document_link,pimobile_number,piNameList =[], [], [], [], [], [], [], []
+    qNum, qCreatedBy,qTimeStampDate,qTimeStampTime, qdocument_link, qmobile_number, qNameList = [], [], [], [], [], [], []
+    ilastNoteList,ilastNoteDateList,pilastNoteList,pilastNoteDateList, qlastNoteList, qlastNoteDateList = [], [], [], [], [], []
+    invoice = quote["INVOICE"][thisYear]
+    _quotation = quote["QUOTATION"][thisYear]
+    pinvoice = quote["PROFORMA_INVOICE"][thisYear]
+    # for _time in invoice:
+    #   ts = invoice[_time]['TimeStamp']
+    #   timeList.append(datetime.fromtimestamp(ts))
+    #   )
+    # timeList.sort()
+    # timeCount = 0
+    for month in invoice:
+        for inv_num in invoice[month]:
+            # if invoice[inv_num]['TimeStamp'][timeList[timeCount]]:
+            iNum.append(inv_num)
+            iCreatedBy.append((invoice[month][inv_num]["CreatedBy"].split("@")[0]).capitalize())
+            ts = invoice[month][inv_num]["TimeStamp"]
+            try:
+                iTimeStampDate.append(str(datetime.fromtimestamp(ts)).split()[0])
+                iTimeStampTime.append(str(datetime.fromtimestamp(ts)).split()[1])
+            except:
+                iTimeStampDate.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[0])
+                iTimeStampTime.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[1])
+            idocument_link.append(invoice[month][inv_num]["document_link"])
+            imobile_number.append(invoice[month][inv_num]["mobile_number"])
+    for number in imobile_number:
+        try:
+            iNameList.append(cust[str(number)]["name"])
+        except:
+            iNameList.append("Customer not in our lead list")
+
+    for month in pinvoice:
+        for pinv_num in pinvoice[month]:
+            # if invoice[inv_num]['TimeStamp'][timeList[timeCount]]:
+            piNum.append(pinv_num)
+            piCreatedBy.append((pinvoice[month][pinv_num]["CreatedBy"].split("@")[0]).capitalize())
+            ts = pinvoice[month][pinv_num]["TimeStamp"]
+            try:
+                piTimeStampDate.append(str(datetime.fromtimestamp(ts)).split()[0])
+                piTimeStampTime.append(str(datetime.fromtimestamp(ts)).split()[1])
+            except:
+                piTimeStampDate.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[0])
+                piTimeStampTime.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[1])
+            pidocument_link.append(pinvoice[month][pinv_num]["document_link"])
+            piinstallation_document_link.append(pinvoice[month][pinv_num]["installation_document_link"])
+            pimobile_number.append(pinvoice[month][pinv_num]["mobile_number"])
+    for number in pimobile_number:
+        try:
+            piNameList.append(cust[str(number)]["name"])
+        except:
+            piNameList.append("Customer not in our lead list")
+    for month in _quotation:
+        for quote_num in _quotation[month]:
+            qNum.append(quote_num)
+            try:
+                qCreatedBy.append((_quotation[month][quote_num]["CreatedBy"].split("@")[0]).capitalize())
+            except:
+                pass
+            ts = _quotation[month][quote_num]["TimeStamp"]
+            try:
+                qTimeStampDate.append(str(datetime.fromtimestamp(ts)).split()[0])
+                qTimeStampTime.append(str(datetime.fromtimestamp(ts)).split()[1])
+            except:
+                qTimeStampDate.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[0])
+                qTimeStampTime.append(str(datetime.fromtimestamp(ts / 1000).replace(microsecond=0)).split()[1])
+            qdocument_link.append(_quotation[month][quote_num]["document_link"])
+            qmobile_number.append(_quotation[month][quote_num]["mobile_number"])
+    for number in qmobile_number:
+        try:
+            qNameList.append(cust[str(number)]["name"])
+        except:
+            qNameList.append("Customer not in our lead list")
+    for num in imobile_number:
+        num = str(num)
+        try:
+            cust[num]["notes"]
+            for note in cust[num]["notes"]:
+                lastNote = cust[num]["notes"][note]["note"]
+                lastNoteDate = cust[num]["notes"][note]["date"]
+            ilastNoteList.append(lastNote)
+            ilastNoteDateList.append(lastNoteDate)
+        except:
+            ilastNoteList.append("No Notes were found")
+            ilastNoteDateList.append("-")
+
+    for pnum in pimobile_number:
+            pnum = str(pnum)
+            try:
+                cust[pnum]["notes"]
+                for note in cust[pnum]["notes"]:
+                    lastNote = cust[pnum]["notes"][note]["note"]
+                    lastNoteDate = cust[pnum]["notes"][note]["date"]
+                pilastNoteList.append(lastNote)
+                pilastNoteDateList.append(lastNoteDate)
+            except:
+                pilastNoteList.append("No Notes were found")
+                pilastNoteDateList.append("-")    
+
+    for num in qmobile_number:
+        num = str(num)
+        try:
+            cust[num]["notes"]
+            for note in cust[num]["notes"]:
+                lastNote = cust[num]["notes"][note]["note"]
+                lastNoteDate = cust[num]["notes"][note]["date"]
+            qlastNoteList.append(lastNote)
+            qlastNoteDateList.append(lastNoteDate)
+        except:
+            qlastNoteList.append("No Notes were found")
+            qlastNoteDateList.append("-")
+    invoiceList = zip(iNameList,imobile_number,iCreatedBy,iNum,iTimeStampDate,iTimeStampTime,idocument_link,ilastNoteList,ilastNoteDateList)
+    pinvoiceList = zip(piNameList,pimobile_number,piCreatedBy,piNum,piTimeStampDate,piTimeStampTime,pidocument_link,piinstallation_document_link,pilastNoteList,pilastNoteDateList)
+    quotationList = zip(qNameList,qmobile_number,qCreatedBy,qNum,qTimeStampDate,qTimeStampTime,qdocument_link,qlastNoteList,qlastNoteDateList)
+    invoiceListMobile = zip(iNameList,imobile_number,iCreatedBy,iNum,iTimeStampDate,iTimeStampTime, idocument_link,ilastNoteList,ilastNoteDateList)
+    pinvoiceListMobile = zip(piNameList,pimobile_number,piCreatedBy,piNum,piTimeStampDate,piTimeStampTime,pidocument_link,pilastNoteList,pilastNoteDateList) 
+    quotationListMobile = zip(qNameList,qmobile_number,qCreatedBy,qNum,qTimeStampDate,qTimeStampTime,qdocument_link,qlastNoteList,qlastNoteDateList)
+    context = {
+        "invoiceList": invoiceList,
+        "pinvoiceList": pinvoiceList,
+        "quotationList": quotationList,
+        "invoiceListMobile": invoiceListMobile,
+        "pinvoiceListMobile" : pinvoiceListMobile,
+        "quotationListMobile": quotationListMobile,
+        "dep": dep,
+        "tl": istl,
+        "suggestionNotification":suggestionNotification
+    }
+    # iTimeStamp.sort()
+    # qTimeStamp.sort()
+    return render(request, "superadmin/quotation.html", context)
+
     return render(request,'quotation.html')
 def leadinfo(request):
     uid = request.COOKIES["uid"]
