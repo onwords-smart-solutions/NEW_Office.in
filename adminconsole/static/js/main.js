@@ -173,19 +173,25 @@ function approvalpage() {
     const lateApprovalTable = document.getElementById('lateApprovalTable')
     const leaveApprovalTable = document.getElementById('leaveApprovalTable')
 
-    lateApprovalBtn.addEventListener('click', () => {
+   
         lateApprovalTable.style.display = 'block'
         leaveApprovalTable.style.display = 'none'
         lateApprovalBtn.classList.add('active-form-li')
         leaveApprovalBtn.classList.remove('active-form-li')
-    })
 
-    leaveApprovalBtn.addEventListener('click', () => {
+}
+function lateapproval() {
+    const lateApprovalBtn = document.getElementById('lateApprovalBtn')
+    const leaveApprovalBtn = document.getElementById('leaveApprovalBtn')
+    const lateApprovalTable = document.getElementById('lateApprovalTable')
+    const leaveApprovalTable = document.getElementById('leaveApprovalTable')
+
+   
         lateApprovalTable.style.display = 'none'
         leaveApprovalTable.style.display = 'block'
         lateApprovalBtn.classList.remove('active-form-li')
         leaveApprovalBtn.classList.add('active-form-li')
-    })
+
 }
 
 // ==================leave full day halfday=====
@@ -244,18 +250,23 @@ function createLead() {
     const LeadForm = document.getElementById('create_lead_form')
     const dataForm = document.getElementById('create_data_lead')
 
-    usingData.addEventListener('click', () => {
         LeadForm.style.display = 'block'
         dataForm.style.display = 'none'
         usingData.classList.add('active-form-late')
         usingFile.classList.remove('active-form-late')
-    })
-    usingFile.addEventListener('click', () => {
+    
+}
+function createLeadfile() {
+    const usingData = document.getElementById('usingData')
+    const usingFile = document.getElementById('usingFile')
+    const LeadForm = document.getElementById('create_lead_form')
+    const dataForm = document.getElementById('create_data_lead')
+
         LeadForm.style.display = 'none'
         dataForm.style.display = 'block'
         usingData.classList.remove('active-form-late')
         usingFile.classList.add('active-form-late')
-    })
+    
 }
 
 
@@ -326,6 +337,18 @@ function printTable() {
     var table = document.getElementById("myTable");
     var newWin = window.open('', '', 'width=800,height=600');
     newWin.document.open();
+    newWin.document.write('<style type="text/css">');
+    newWin.document.write('@media print {');
+    newWin.document.write('  body { width: 90%; }'); // Make sure the body is full width
+    newWin.document.write('  body { margin: 0 auto; }'); // Make sure the body is full width
+    newWin.document.write('  table { width: 100%; }'); // Make sure the table is full width
+    newWin.document.write('  table { text-align: center; }'); // Make sure the table is full width
+    newWin.document.write('  table { border: 1px solid #282828; }'); // Make sure the table is full width
+    newWin.document.write('  table th { border-bottom: 1px solid #282828; }'); // Make sure the table is full width
+    newWin.document.write('  table td { border-bottom: 1px solid #282828; }'); // Make sure the table is full width
+    newWin.document.write('  table td { padding: 4px; }'); // Make sure the table is full width
+    newWin.document.write('}');
+    newWin.document.write('</style>');
     newWin.document.write('<html><head><title>Installation Details</title></head><body>');
     newWin.document.write('<h1>Installation Details</h1>');
     newWin.document.write(table.outerHTML);
