@@ -591,8 +591,6 @@ def financial(request):
     return render(request,'financial.html')
 def inventorymanagement(request):
     return render(request,'inventorymanagement.html')
-def viewworkmanager(request):
-    return render (request,'viewworkmanager.html')
 def coohome(request):
     return render(request,'coohome.html')
 def installation_details(request):
