@@ -44,15 +44,15 @@ def login(request):
             if dep == "MEDIA":
                 response = redirect("ithome")
                 return response
-            # if dep == "PR":
-            #     response = redirect("prhome")
-            #     return response
-            # if dep == "RND":
-            #     response = redirect("rndhome")
-            #     return response
-            # if dep == "ADMIN":
-            #     response = redirect("adminhome")
-            #     return response
+            if dep == "PR":
+                response = redirect("prhome")
+                return response
+            if dep == "RND":
+                response = redirect("rndhome")
+                return response
+            if dep == "ADMIN":
+                response = redirect("adminhome")
+                return response
     except:
         pass
 
@@ -119,8 +119,7 @@ def leave_form(request):
     current_month = datetime.now().strftime("%m")
 
     if request.method == 'POST':
-        leave_type = request.POST['leave_type'] 
-     
+        leave_type = request.POST['leave_type']
         if leave_type == "general":
             try:
                 try:
@@ -135,17 +134,14 @@ def leave_form(request):
                         "status": "Pending",
                         "node":"Full Day",
                     }
-
                     date_list = []
 
                     while from_date <= to_date:
                         date_list.append(from_date.strftime('%Y-%m-%d'))
                         from_date += timedelta(days=1)
-
                     for date in date_list:
                         year, month, day = map(int, date.split('-'))
                         c["date"] = date
-
                         if from_date == to_date:
                             db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
                         else:
@@ -257,27 +253,20 @@ def leave_form(request):
             db.child("leaveDetails").child(current_year).child(current_month).child(current_date).child(uid).child(leave_type).set(c) 
 
     try:
-        leavedata = db.child("leaveDetails").get().val()
-        yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
-        for allYears in leavedata:
-            years = leavedata[allYears]
-            for allMonths in years:
-                months = leavedata[allYears][allMonths]
-                for allDates in months:
+        leavedata = db.child("leaveDetails").child(current_year).get().val()
+        datelist,reasonlist,statelist,inchargelist=[],[],[],[]
+        for monthdata in leavedata:
+            for datedata in leavedata[monthdata]:
+                for leavetype in leavedata[monthdata][datedata][uid]:
+                    datelist.append(leavedata[monthdata][datedata][uid][leavetype]["date"])
+                    reasonlist.append(leavedata[monthdata][datedata][uid][leavetype]["reason"])
+                    statelist.append(leavedata[monthdata][datedata][uid][leavetype]["status"])
                     try:
-                        le = leavedata[allYears][allMonths][allDates][uid]
-                        for leave_type, leave_info in le.items():
-                            types = leave_type
-                            data = leave_info
-                            yearList.append(allYears)
-                            monthList.append(allMonths)
-                            dateList.append(allDates)
-                            typelist.append(types)
-                            datalist.append(data)
+                        inchargelist.append(leavedata[monthdata][datedata][uid][leavetype]["updated_by"])
                     except:
-                        pass
-        
-        leavehistory = zip(yearList, monthList, dateList, typelist, datalist)
+                        inchargelist.append(False)
+
+        leavehistory = zip(datelist,reasonlist,statelist,inchargelist)
         context = {
             "leavehistory": leavehistory,
             # "tl": istl,
@@ -286,19 +275,16 @@ def leave_form(request):
             # "management":management,
             # "suggestionNotification":suggestionNotification
         }
+        return render(request,'leave-form.html',context)
     except:
-        pass    
-
-    return render(request,'leave-form.html',context)
+        pass
+    return render(request,'leave-form.html')
 
 def approvalprocess(request):
     uid1 = request.COOKIES["uid"]
     data = db.child("leaveDetails").get().val()
     name1 = checkUserName(uid1)
-    print("name",name1)
-    print("method",request.POST)
     if "approve" in request.POST:
-        print("approved")
         name = request.POST["namee1"]
         date = request.POST["_datee"]
         type = request.POST["type"]
@@ -586,9 +572,286 @@ def suggestion(request):
         return render(request, 'suggestion.html', context)
     return render(request,'suggestion.html', context)
 
+def financialpost(request):
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+            if not suggestionData[suggestion]["isread"]:
+                suggestionNotification += 1
+    tm = datetime.now()
+    thisYear = tm.strftime("%Y")
+    thisMonth = tm.strftime("%m")
+    if "close" in request.POST:
+            return redirect(financial)
+    if request.method == "POST":
+        if "expense" in request.POST:
+            uid = request.COOKIES["uid"]
+            productName = request.POST["product-name"]
+            dateTime = request.POST["date-time"]
+            PurchasedDate, PurchasedTime =  dateTime.split('T')
+            PurchasedDate=str(PurchasedDate)
+            Purchyear,purchmont,purchdate = PurchasedDate.split("-")
+            amount = request.POST["amount"]
+            service = request.POST["service"]
+            forDept = request.POST["for-dept"]
+            now = datetime.now()
+            enteredDate = now.strftime("%Y-%m-%d")
+            enteredTime = now.strftime("%H:%M:%S")
+            enteredBy = checkUserName(uid)
+            contex = {
+                "ProductName": productName,
+                "PurchasedDate": PurchasedDate,
+                "PurchasedTime": PurchasedTime,
+                "Amount": amount,
+                "Service": service, 
+                "PurchasedFor": forDept,
+                "EnteredDate": enteredDate,
+                "EnteredTime": enteredTime,
+                "EnteredBy": enteredBy,
+                "suggestionNotification":suggestionNotification
+            }
+            db.child('FinancialAnalyzing').child('Expense').child(thisYear).child(purchmont).child(PurchasedDate+'_'+PurchasedTime).update(contex)
+
+        if "income" in request.POST:
+            uid = request.COOKIES["uid"]
+            productName = request.POST["product-name"]
+            customerName = request.POST["customer-name"]
+            dateTime = request.POST["date-time"]
+            PaidDate, PaidTime =  dateTime.split('T')
+            amount = request.POST["amount"]
+            invoiceNumber = request.POST["invoice-number"]
+            paymentMethod = request.POST["payment-method"]
+            now = datetime.now()
+            enteredDate = now.strftime("%Y-%m-%d")
+            enteredTime = now.strftime("%H:%M:%S")
+            enteredBy = checkUserName(uid)
+            contex = {
+                "ProductName": productName,
+                "CustomerName": customerName,
+                "PaidDate": PaidDate,
+                "PaidTime": PaidTime,
+                "Amount": amount,
+                "InvoiceNumber": invoiceNumber,
+                "PaymentMethod": paymentMethod,
+                "EnteredDate": enteredDate,
+                "EnteredTime": enteredTime,
+                "EnteredBy": enteredBy,
+                "suggestionNotification":suggestionNotification
+            }
+            db.child('FinancialAnalyzing').child('Income').child(thisYear).child(thisMonth).child(PaidDate+'_'+PaidTime).update(contex)
+
+        if 'delete' in request.POST:
+            if "fromExpense" in request.POST:
+                print("inside delete")
+                edata = db.child("FinancialAnalyzing").child("Expense").get().val()
+                oProductName = request.POST["oProductName"]
+                oPurchasedDate = request.POST["oPurchasedDate"]
+                oPurchasedTime = request.POST["oPurchasedTime"]
+                oAmount = request.POST["oAmount"]
+                oEnteredBy = request.POST["oEnteredBy"]
+                oEnteredDate = request.POST["oEnteredDate"]
+                oEnteredTime = request.POST["oEnteredTime"]
+                year, month = oPurchasedDate.split("-")[0], oPurchasedDate.split("-")[1]
+                db.child("FinancialAnalyzing").child("Expense").child(year).child(month).child(oPurchasedDate+"_"+oPurchasedTime).remove()
+                return redirect(financial)
+
+        if "remove" in request.POST:
+            edata = db.child("FinancialAnalyzing").child("Expense").get().val()
+            oProductName = request.POST["dProductName"]
+            oPurchasedDate = request.POST["dPurchasedDate"]
+            oPurchasedTime = request.POST["dPurchasedTime"]
+            oAmount = request.POST["dAmount"]
+            oEnteredBy = request.POST["dEnteredBy"]
+            oEnteredDate = request.POST["dEnteredDate"]
+            oEnteredTime = request.POST["dEnteredTime"]
+            year, month = oPurchasedDate.split("-")[0], oPurchasedDate.split("-")[1]
+            # try:
+            #     edita = edata[year][month][oPurchasedDate+"_"+oPurchasedTime]
+            # except Exception as e:
+            #     edita = edata[year][month][oEnteredDate + "_" + oEnteredTime]
+            db.child("FinancialAnalyzing").child("Expense").child(year).child(month).child(oPurchasedDate+"_"+oPurchasedTime).remove()
+
+    
+    return redirect(financial)
 
 def financial(request):
-    return render(request,'financial.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name=db.child("staff").child(uid).child("name").get().val()
+    name = checkUserName(uid)
+    istl = False
+    praproval = False
+    tl = db.child("tl").get().val()
+    for t in tl:
+        if name == tl[t]:
+            istl = True
+            break
+    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
+        praproval = True    
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+            if not suggestionData[suggestion]["isread"]:
+                suggestionNotification += 1    
+    accounts = False
+    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
+        accounts = True
+        
+    tm = datetime.now()
+    thisYear = tm.strftime("%Y")
+    thisMonth = tm.strftime("%m")
+    
+    if request.method == "POST":
+        date = request.POST["get-total"]
+        thisyear=date[0:4]
+        thismonth=date[5:7]
+        incomeList, expenseList = [], []
+        incomeData, expenseData = False, False
+        expenseamount, incomeamount, salary = 0, 0, 0
+
+        try:
+            try:
+                ed = db.child("FinancialAnalyzing").child("Expense").get().val()
+            except:
+                pass
+            try:
+                id = db.child("FinancialAnalyzing").child("Income").get().val()
+            except:
+                pass
+            try:
+                for f in id[thisyear][thismonth]:
+                    incomeList.append(id[thisyear][thismonth][f])
+                    incomeData = True
+                    incomeamount += int(id[thisyear][thismonth][f]["Amount"])
+            except:
+                pass
+            try:
+                for f in ed[thisyear][thismonth]:
+                    expenseList.append(ed[thisyear][thismonth][f])
+                    expenseData = True
+                    expenseamount += int(ed[thisyear][thismonth][f]["Amount"])
+                    if (ed[thisyear][thismonth][f]["Service"]).lower() == "salary":
+                        salary = int(ed[thisyear][thismonth][f]["Amount"])
+            except:
+                pass
+        except:
+            pass
+        if expenseamount>incomeamount:
+            diffWithSalary = expenseamount - incomeamount
+            color = "Red"
+        else:
+            diffWithSalary = incomeamount - expenseamount
+            color = "Green"
+        expenseWithoutSalary = expenseamount - salary
+        if expenseWithoutSalary>incomeamount:
+            diffWithoutSalary = expenseWithoutSalary - incomeamount
+            dcolor = "Red"
+        else:
+            diffWithoutSalary = incomeamount - expenseWithoutSalary
+            dcolor = "Green"
+        context = {
+            "incomeList": incomeList,
+            "expenseList": expenseList,
+            "incomeData": incomeData,
+            "incomeamount": incomeamount,
+            "expenseData": expenseData,
+            "expenseamount": expenseamount,
+            "expenseWithoutSalary": expenseWithoutSalary,
+            "diffWithSalary": diffWithSalary,
+            "diffWithoutSalary": diffWithoutSalary,
+            "color": color,
+            "dcolor": dcolor,
+            "date": thismonth+"-"+thisyear,
+            "dep": dep,
+            "tl": istl,
+            "accounts": accounts,
+            "suggestionNotification":suggestionNotification,
+            "container": True,
+            "praproval":praproval
+        }
+        return render(request, "financial.html", context)
+      
+    incomeList, expenseList = [], []
+    incomeData, expenseData = False, False
+    expenseamount, incomeamount, salary = 0, 0, 0
+    try:
+        try:
+            ed = db.child("FinancialAnalyzing").child("Expense").get().val()
+        except:
+            pass
+        try:
+            id = db.child("FinancialAnalyzing").child("Income").get().val()
+        except:
+            pass
+        try:
+            for _year in id:
+                for _month in id[_year]:
+                    try:
+                        for f in id[_year][_month]:
+                            mm = (id[_year][_month][f]["PaidDate"]).split("-")[1]
+                            # print(mm)
+                            if thisMonth == mm:
+                                incomeList.append(id[_year][_month][f])
+                                incomeData = True
+                                # incomeamount += int(id[_year][_month][f]["Amount"])
+                                incomeamount += int(id[_year][_month][f]["Amount"].replace(',', ''))
+                    except Exception as e:
+                       pass
+        except:
+            pass
+        salary = 0
+        try:
+            for _year in ed:
+                for _month in ed[_year]:
+                    for f in ed[_year][_month]:
+                        mm = (ed[_year][_month][f]["PurchasedDate"]).split("-")[1]
+                        if thisMonth == mm:
+                            expenseList.append(ed[_year][_month][f])
+                            expenseData = True
+                            expenseamount += int(ed[_year][_month][f]["Amount"])
+                            service = ed[_year][_month][f]["Service"]
+                            if str(service).lower() == "salary":
+                                salary += int(ed[_year][_month][f]["Amount"])
+        except:
+            pass
+    except:
+        pass
+    if expenseamount>incomeamount:
+        diffWithSalary = expenseamount - incomeamount
+        color = "Red"
+    else:
+        diffWithSalary = incomeamount - expenseamount
+        color = "Green"
+    expenseWithoutSalary = expenseamount - salary
+    if expenseWithoutSalary>incomeamount:
+        diffWithoutSalary = expenseWithoutSalary - incomeamount
+        dcolor = "Red"
+    else:
+        diffWithoutSalary = incomeamount - expenseWithoutSalary
+        dcolor = "Green"
+    print(incomeList)
+    context = {
+        "incomeList": incomeList,
+        "expenseList": expenseList,
+        "incomeData": incomeData,
+        "incomeamount": incomeamount,
+        "expenseData": expenseData,
+        "expenseamount": expenseamount,
+        "expenseWithoutSalary": expenseWithoutSalary,
+        "diffWithSalary": diffWithSalary,
+        "diffWithoutSalary": diffWithoutSalary,
+        "color": color,
+        "dcolor": dcolor,
+        "date": thisMonth+"-"+thisYear,
+        "dep": dep,
+        "tl": istl,
+        "accounts": accounts,
+        "suggestionNotification":suggestionNotification,
+        "container": True,
+        "praproval":praproval
+    }
+    return render(request, "financial.html", context)
+
 def inventorymanagement(request):
     return render(request,'inventorymanagement.html')
 def coohome(request):
@@ -793,8 +1056,6 @@ def editworkdone(request):
                 db.child("workmanager").child(thisYear).child(thisMonth).child(todayDate).child(uid).child(childName1).remove()
                 db.child("workmanager").child(thisYear).child(thisMonth).child(todayDate).child(uid).child(childName).set(context)
     return redirect('ithome')
-
-
 
 def checkUserDepartment(uid):
     data = db.child("staff").get().val()

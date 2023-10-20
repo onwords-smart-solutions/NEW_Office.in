@@ -21,7 +21,8 @@ urlpatterns = [
     path("submitaction/", views.submitaction, name="submitaction"),
     path("todo/", views.todo, name="todo"),
     path("approvalprocess/", views.approvalprocess, name="approvalprocess"),
-
+    path("financialpost/",views.financialpost,name="financialpost"),
+    path("logout/",views.logout,name="logout"),
     # ========================coo page =========================
 
     path('coohome/', views.coohome,name='coohome'),
@@ -39,8 +40,11 @@ urlpatterns = [
     path("customer_details/",prviews.customer_details,name='customer_details'), 
     path("points_workdone/",prviews.points_workdone,name='points_workdone'), 
     path("quotation/",prviews.quotation,name='quotation'), 
-    path("leadinfo/",prviews.leadinfo,name='leadinfo'), 
-
+    path("leadinfo/",prviews.leadinfo,name='leadinfo'),
+    path("approval/",prviews.approval,name='approval'),
+    path("leadinfo/",prviews.leadinfo,name="leadinfo"),
+    path("addnotes/",prviews.addnotes,name="addnotes"),
+  
     # ================ accounts department ====================
 
     path("financial/",views.financial,name='financial'),
@@ -65,6 +69,9 @@ urlpatterns = [
     path("superadmin",superadminviews.superadmin,name='superadmin'),
     path("createstaff",superadminviews.createstaff,name='createstaff'),
     path("staffaccess",superadminviews.staffaccess,name='staffaccess'),
+    path("userdata",superadminviews.userdata,name='userdata'),
+    path("viewsuggestion",superadminviews.viewsuggestion,name='viewsuggestion'),
+    path("viewworkmanager",superadminviews.viewworkmanager,name='viewworkmanager')
 
    
 ]
