@@ -531,9 +531,6 @@
     outline: none;
     border: none;
 }
-.attendancetable input{
-border: 1px solid red;
-}
 
 .install-attendance input {
     padding: 10px;
@@ -1112,7 +1109,7 @@ border: 1px solid red;
 
 /* ==================== */
 
-.quotmobilenumber{
+.quotmobilenumber {
     border: none;
     outline: none;
     background: transparent;
