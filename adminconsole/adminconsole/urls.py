@@ -28,7 +28,6 @@ urlpatterns = [
     path("financialpost/",views.financialpost,name="financialpost"),
     path("attendancesort/",adminviews.attendancesort,name="attendancesort"),
     path("logout/",views.logout,name="logout"),
-    # ========================coo page =========================
     path('prdashboard',views.prdashboard,name='pradshboard'),
     path('coohome/', views.coohome,name='coohome'),
     path('installation_details',views.installation_details,name='installation_details'),
@@ -83,8 +82,8 @@ urlpatterns = [
     path("hrhome/",hrviews.hrhome,name='hrhome'),
 
     # =====================super admin====================================
-    path("installationhome/",hrviews.installationhome,name='installationhome'),
+    path("installationhome/",installationviews.installationhome,name='installationhome'),
 
     # =====================super admin====================================
-    path("aimlhome/",hrviews.aimlhome,name='aimlhome'),
+    path("aimlhome/",aimlviews.aimlhome,name='aimlhome'),
 ]
