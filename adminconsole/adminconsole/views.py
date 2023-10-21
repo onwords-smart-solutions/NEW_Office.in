@@ -239,10 +239,19 @@ def leave_form(request):
 
 
         if leave_type == "permission":   
-            duration = request.POST.get('duration')   
+            fromtime = request.POST.get('starttime')  
+            totime = request.POST.get('endtime')  
             reason = request.POST.get('reason')
-            time = datetime.strptime(duration, "%H:%M")
-            time_str = time.strftime("%H:%M")
+            print("time",fromtime,totime,reason)
+            if fromtime is not None and totime is not None:
+                fromtiming = datetime.strptime(fromtime, "%H:%M")
+                totiming = datetime.strptime(totime, "%H:%M")
+                duration = totiming - fromtiming
+                duration_hours, duration_minutes = divmod(duration.seconds, 3600)
+                duration_str = '{:02}:{:02}'.format(duration_hours, duration_minutes)
+                print("time", fromtime, totime, duration_str)
+            else:
+                print("From time and/or to time not provided.")
             
             c = {
                     "dep": department,
@@ -250,7 +259,7 @@ def leave_form(request):
                     "reason": reason,
                     "status": "Pending",
                     "date":current_date,
-                    "duration": time_str,
+                    "duration": duration_str,
                 }
             db.child("leaveDetails").child(current_year).child(current_month).child(current_date).child(uid).child(leave_type).set(c) 
 
