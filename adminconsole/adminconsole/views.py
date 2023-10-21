@@ -1091,3 +1091,6 @@ def logout(request):
     response.delete_cookie("uid")
     response.delete_cookie("loginState")
     return response            
+
+def prdashboard(request):
+    return render(request,'admindashboard.html')
