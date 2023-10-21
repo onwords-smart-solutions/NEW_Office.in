@@ -153,6 +153,10 @@ def prhome(request):
             }
         except:
             pass 
+        try:
+            pass
+        except:
+            pass
                     
         generalleave = 24 - generalcount
         sickleave = 12 - sickcount  

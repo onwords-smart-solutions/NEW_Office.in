@@ -131,7 +131,9 @@
                 <div class="row my-3 align-items-center ">
                     <div class="col-md-4">
                         <h3>Check in- Check Out</h3>
+                        <h4>Date : {{date}}</h4>
                     </div>
+                    
                     <div class="col-md-6">
                         <form action="">
                             <div class="customer-searchbar">
@@ -146,15 +148,16 @@
                         </form>
                     </div>
                     <div class="col-md-2">
-                        <div class="cust-inps">
-                            <input type="date">
-                        </div>
+                        <form method="post" action="/checkin/" id="myForm">
+                            {% csrf_token %}
+                            <input type="date" id="datetime" name="date" onchange="dateTimeSubmit()">
+                        </form>
                        
                     </div>
                 </div>
                 <div class="check-table-con">
                   <div id="checkin-table">
-                    <table class="table w-100"  id="checkinTable" >
+                    <table class="table w-100 checkin-table"  id="checkinTable" >
                         <thead>
                             <tr  class="leave-table-head text-center">
                                 <th>S.No</th>
@@ -165,13 +168,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="table-body-li my-3 text-center">
-                                <td>1</td>
-                                <td>Balaji</td>
-                                <td>09:10 AM</td>
-                                <td>06:20 PM</td>
-                                <td>09:10 hrs</td>
+                            {% for staffnamelist,attendenceloginlist,attendencelogoutlist,workinghourlist,workinghourlistall,attype,outtype in finallist %}
+                            <tr class="table-body-li my-3 text-center checkintr">
+                                <td class="checkintd"></td>
+                                <td>{{staffnamelist}}</td>
+                                <td>{{attendenceloginlist}}</td>
+                                <td>{{attendencelogoutlist}}</td>
+                                <td>{{workinghourlist}} hrs</td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                   </div>
@@ -219,6 +224,21 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
+    <script>
+        function dateTimeSubmit() {
+            document.getElementById("myForm").submit();
+        }
+    </script>
+    <script>
+        // Get all rows with the class "checkintr"
+        const rows = document.querySelectorAll('.checkintr');
+    
+        // Loop through the rows and set the S.No column
+        rows.forEach((row, index) => {
+            const snoCell = row.querySelector('.checkintd');
+            snoCell.textContent = index + 1;
+        });
+    </script>
 
 </body>
 
