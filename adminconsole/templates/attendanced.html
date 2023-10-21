@@ -333,7 +333,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {%for sno,staffuid,staffname,staffdep,staffpresentlist,staffleavecount in attendancelistall %}
+                                {%for sno,staffuid,staffname,staffdep,staffpresentlist,staffleavecount,datelist in attendancelistall %}
                                 <tr class="table-body-li my-3 text-center">
                                     <td>{{sno}}</td>
                                     <td>{{staffname}}</td>
@@ -341,9 +341,12 @@
                                     <td>{{staffpresentlist}}</td>
                                     <td>{{staffleavecount}}</td>
                                     <form action="/indvattendanced/" method="post">
-                                        <input type="hidden" name="uid" value="{{staffuid}}">
-                                        <td type="submit" class="eyeview"><img
+                                        {%csrf_token%}
+                                        <input type="hidden" name="suid" value="{{staffuid}}">
+                                        <input type="hidden" name="date" value="{{datelist}}">
+                                        <td><button type="submit" class="eyeview"><img
                                                 src="{% static 'images/eye-view.svg'  %}" alt="eyeView" class="img-fluid">
+                                                </button>
                                         </td>
                                     </form>
                                 </tr>
