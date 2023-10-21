@@ -271,6 +271,19 @@
                         </li>
                         {% endif %}
 
+                        {% if prdashboard %}
+                        <li class="navlistmenu " onclick="location.href='/prdashboard'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/prdashboard.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>PR Dashboard</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
                         <!-- =========================== -->
 
                     </ul>
@@ -339,7 +352,7 @@
                                 <div class="first-custm-text">
                                     <h6>Following Up</h6>
                                     <h4>{{followUpCount}}</h4>
-                                    <input name="state" id="fupId" value="Following Up" type="checkbox" style="display: none"
+                                    <input name="state" id="fupId" value="Following Up" type="checkbox" 
                                     onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -354,7 +367,7 @@
                                 <div class="first-custm-text">
                                     <h6>onwords</h6>
                                     <h4>{{onwordsCount}}</h4>
-                                    <input type="checkbox" name="state" id="onwordsId" value="ONWORDS" style="display: none"
+                                    <input type="checkbox" name="state" id="onwordsId" value="ONWORDS" 
                                                         onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -368,7 +381,7 @@
                                 <div class="first-custm-text">
                                     <h6>New Leads</h6>
                                     <h4>{{newleadscount}}</h4>
-                                    <input type="checkbox" name="state" id="newleadsId" value="New leads" style="display: none"
+                                    <input type="checkbox" name="state" id="newleadsId" value="New leads" 
                                                         onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -382,7 +395,7 @@
                                 <div class="first-custm-text">
                                     <h6>Delayed</h6>
                                     <h4>{{delayedCount}}</h4> 
-                                    <input type="checkbox" name="state" id="dId" value="Delayed" style="display: none"
+                                    <input type="checkbox" name="state" id="dId" value="Delayed" 
                                                         onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -396,7 +409,7 @@
                                 <div class="first-custm-text">
                                     <h6>Advanced</h6>
                                     <h4>{{advancedCount}}</h4>
-                                    <input type="checkbox" name="state" id="aId" value="Advanced" style="display: none"
+                                    <input type="checkbox" name="state" id="aId" value="Advanced" 
                                                         onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -410,7 +423,7 @@
                                 <div class="first-custm-text">
                                     <h6>Product</h6>
                                     <h4>{{productCount}}</h4>
-                                    <input type="checkbox" name="state" id="prId" value="Product" style="display: none"
+                                    <input type="checkbox" name="state" id="prId" value="Product" 
                                                         onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -426,7 +439,7 @@
                                 <div class="first-custm-text">
                                     <h6>B2B</h6>
                                     <h4>{{b2bCount}}</h4>
-                                    <input type="checkbox" name="state" id="b2bId" value="B2B" style="display: none"
+                                    <input type="checkbox" name="state" id="b2bId" value="B2B" 
                                                         onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -439,7 +452,7 @@
                                 <div class="first-custm-text">
                                     <h6>Under Construc</h6>
                                     <h4>{{ucCount}}</h4>
-                                    <input type="checkbox" name="state" id="ucId" style="display: none"
+                                    <input type="checkbox" name="state" id="ucId" 
                                                         value="Under Construction" onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -453,7 +466,7 @@
                                 <div class="first-custm-text">
                                     <h6>Installation Done</h6>
                                     <h4>{{installationCompletedCount}}</h4>
-                                    <input type="checkbox" name="state" id="icId" style="display: none"
+                                    <input type="checkbox" name="state" id="icId" 
                                                         value="Installation Completed" onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -467,7 +480,7 @@
                                 <div class="first-custm-text">
                                     <h6>Interested</h6>
                                     <h4>{{interestedCount}}</h4>
-                                    <input type="checkbox" name="state" id="htleadId" style="display: none"
+                                    <input type="checkbox" name="state" id="htleadId" 
                                                     value="Hot lead" onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -481,7 +494,7 @@
                                 <div class="first-custm-text">
                                     <h6>Others</h6>
                                     <h4>{{othersCount}}</h4>
-                                    <input type="checkbox" name="others" id="othersId" style="display: none"
+                                    <input type="checkbox" name="others" id="othersId" 
                                                         onclick="othersFunction()" />
                                 </div>
                                 <div class="second-custom-img">

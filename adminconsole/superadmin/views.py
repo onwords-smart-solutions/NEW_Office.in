@@ -1,8 +1,16 @@
 from django.shortcuts import render
+from adminconsole.views import db, checkUserName
 
 # Create your views here.
 def superadmin(request):
-    return render(request,'superadmin.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
+    context = {
+        "name":name,
+        "dep":dep,
+    }
+    return render(request,'superadmin.html',context)
 def createstaff(request):
     return render(request,'createstaff.html')
 def staffaccess(request):

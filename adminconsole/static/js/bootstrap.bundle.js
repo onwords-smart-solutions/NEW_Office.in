@@ -1,18 +1,14 @@
 /*!
-<<<<<<< HEAD
   * Bootstrap v5.2.0 (https://getbootstrap.com/)
   * Copyright 2011-2022 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
-=======
   * Bootstrap v5.0.2 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.bootstrap = factory());
-<<<<<<< HEAD
 })(this, (function () { 'use strict';
 
   /**
@@ -34,7 +30,6 @@
   };
   /**
    * Public Util API
-=======
 }(this, (function () { 'use strict';
 
   /**
@@ -130,7 +125,6 @@
    * --------------------------------------------------------------------------
    * Public Util Api
    * --------------------------------------------------------------------------
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
    */
 
 
@@ -146,37 +140,28 @@
     let selector = element.getAttribute('data-bs-target');
 
     if (!selector || selector === '#') {
-<<<<<<< HEAD
       let hrefAttribute = element.getAttribute('href'); // The only valid content that could double as a selector are IDs or classes,
-=======
       let hrefAttr = element.getAttribute('href'); // The only valid content that could double as a selector are IDs or classes,
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
       // so everything starting with `#` or `.`. If a "real" URL is used as the selector,
       // `document.querySelector` will rightfully complain it is invalid.
       // See https://github.com/twbs/bootstrap/issues/32273
 
-<<<<<<< HEAD
       if (!hrefAttribute || !hrefAttribute.includes('#') && !hrefAttribute.startsWith('.')) {
-=======
       if (!hrefAttr || !hrefAttr.includes('#') && !hrefAttr.startsWith('.')) {
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
         return null;
       } // Just in case some CMS puts out a full URL with the anchor appended
 
 
-<<<<<<< HEAD
       if (hrefAttribute.includes('#') && !hrefAttribute.startsWith('#')) {
         hrefAttribute = `#${hrefAttribute.split('#')[1]}`;
       }
 
       selector = hrefAttribute && hrefAttribute !== '#' ? hrefAttribute.trim() : null;
-=======
       if (hrefAttr.includes('#') && !hrefAttr.startsWith('#')) {
         hrefAttr = `#${hrefAttr.split('#')[1]}`;
       }
 
       selector = hrefAttr && hrefAttr !== '#' ? hrefAttr.trim() : null;
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
     }
 
     return selector;
@@ -224,7 +209,6 @@
     element.dispatchEvent(new Event(TRANSITION_END));
   };
 
-<<<<<<< HEAD
   const isElement$1 = object => {
     if (!object || typeof object !== 'object') {
       return false;
@@ -245,7 +229,6 @@
 
     if (typeof object === 'string' && object.length > 0) {
       return document.querySelector(object);
-=======
   const isElement$1 = obj => {
     if (!obj || typeof obj !== 'object') {
       return false;
@@ -266,14 +249,11 @@
 
     if (typeof obj === 'string' && obj.length > 0) {
       return SelectorEngine.findOne(obj);
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
     }
 
     return null;
   };
 
-<<<<<<< HEAD
-=======
   const typeCheckConfig = (componentName, config, configTypes) => {
     Object.keys(configTypes).forEach(property => {
       const expectedTypes = configTypes[property];
@@ -286,13 +266,11 @@
     });
   };
 
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
   const isVisible = element => {
     if (!isElement$1(element) || element.getClientRects().length === 0) {
       return false;
     }
 
-<<<<<<< HEAD
     const elementIsVisible = getComputedStyle(element).getPropertyValue('visibility') === 'visible'; // Handle `details` element as its content may falsie appear visible when it is closed
 
     const closedDetails = element.closest('details:not([open])');
@@ -314,9 +292,7 @@
     }
 
     return elementIsVisible;
-=======
     return getComputedStyle(element).getPropertyValue('visibility') === 'visible';
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
   };
 
   const isDisabled = element => {
@@ -359,7 +335,6 @@
   };
 
   const noop = () => {};
-<<<<<<< HEAD
   /**
    * Trick to restart an element's animation
    *
@@ -377,7 +352,6 @@
   const getjQuery = () => {
     if (window.jQuery && !document.body.hasAttribute('data-bs-no-jquery')) {
       return window.jQuery;
-=======
 
   const reflow = element => element.offsetHeight;
 
@@ -388,7 +362,6 @@
 
     if (jQuery && !document.body.hasAttribute('data-bs-no-jquery')) {
       return jQuery;
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
     }
 
     return null;
@@ -401,13 +374,10 @@
       // add listener on the first call when the document is in loading state
       if (!DOMContentLoadedCallbacks.length) {
         document.addEventListener('DOMContentLoaded', () => {
-<<<<<<< HEAD
           for (const callback of DOMContentLoadedCallbacks) {
             callback();
           }
-=======
           DOMContentLoadedCallbacks.forEach(callback => callback());
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
         });
       }
 
@@ -485,7 +455,6 @@
 
 
   const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed) => {
-<<<<<<< HEAD
     const listLength = list.length;
     let index = list.indexOf(activeElement); // if the element does not exist in the list return an element
     // depending on the direction and if cycle is allowed
@@ -494,7 +463,6 @@
       return !shouldGetNext && isCycleAllowed ? list[listLength - 1] : list[0];
     }
 
-=======
     let index = list.indexOf(activeElement); // if the element does not exist in the list return an element depending on the direction and if cycle is allowed
 
     if (index === -1) {
@@ -502,7 +470,6 @@
     }
 
     const listLength = list.length;
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
     index += shouldGetNext ? 1 : -1;
 
     if (isCycleAllowed) {
@@ -514,22 +481,16 @@
 
   /**
    * --------------------------------------------------------------------------
-<<<<<<< HEAD
    * Bootstrap (v5.2.0): dom/event-handler.js
-=======
    * Bootstrap (v5.0.2): dom/event-handler.js
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
   /**
-<<<<<<< HEAD
    * Constants
-=======
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
->>>>>>> ea55c069939a8717acbebdd987e33b1e80e47fcb
    */
 
   const namespaceRegex = /[^.]*(?=\..*)\.|.*/;

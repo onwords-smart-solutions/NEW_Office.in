@@ -7,6 +7,10 @@ from pr import views as prviews
 from rnd import views as rndviews
 from admin import views as adminviews
 from superadmin import views as superadminviews
+from hr import views as hrviews
+from installation import views as installationviews
+from aiml import views as aimlviews
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.login, name="login"),
@@ -22,10 +26,15 @@ urlpatterns = [
     path("todo/", views.todo, name="todo"),
     path("approvalprocess/", views.approvalprocess, name="approvalprocess"),
     path("financialpost/",views.financialpost,name="financialpost"),
+    path("attendancesort/",adminviews.attendancesort,name="attendancesort"),
     path("logout/",views.logout,name="logout"),
+<<<<<<< HEAD
     path("workdonedetails/",views.workdonedetails,name="workdonedetails"),
     # ========================coo page =========================
 
+=======
+    path('prdashboard',views.prdashboard,name='pradshboard'),
+>>>>>>> dd7b566922648732fadebbf7a6e8ccc6c3fd858a
     path('coohome/', views.coohome,name='coohome'),
     path('installation_details',views.installation_details,name='installation_details'),
 
@@ -45,7 +54,6 @@ urlpatterns = [
     path("approval/",prviews.approval,name='approval'),
     path("leadinfo/",prviews.leadinfo,name="leadinfo"),
     path("addnotes/",prviews.addnotes,name="addnotes"),
-  
     # ================ accounts department ====================
 
     path("financial/",views.financial,name='financial'),
@@ -74,7 +82,14 @@ urlpatterns = [
     path("staffaccess/",superadminviews.staffaccess,name='staffaccess'),
     path("userdata/",superadminviews.userdata,name='userdata'),
     path("viewsuggestion/",superadminviews.viewsuggestion,name='viewsuggestion'),
-    path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager')
+    path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager'),
 
-   
+    # =====================super admin====================================
+    path("hrhome/",hrviews.hrhome,name='hrhome'),
+
+    # =====================super admin====================================
+    path("installationhome/",installationviews.installationhome,name='installationhome'),
+
+    # =====================super admin====================================
+    path("aimlhome/",aimlviews.aimlhome,name='aimlhome'),
 ]
