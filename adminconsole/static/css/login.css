@@ -101,7 +101,7 @@ input {
 
     border-radius: 5px;
     /* height: 50px; */
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: space-around;
     padding: 5px;
@@ -352,14 +352,13 @@ input {
     display: none;
 }
 
-.cmo-nav h5 {
-    font-size: 20px;
+/* .cmo-nav h5 {
+    /* font-size: 20px;
     font-weight: 600;
     padding: 8px 5px;
     margin: 3px 0px;
     border-radius: 5px;
-}
-
+} */
 .add-name input {
     width: 40%;
     height: 30px;
@@ -406,6 +405,38 @@ input {
 
 .workdone-form input {
     background-color: hsl(43, 90%, 84%);
+}
+
+.workdone-table {
+    background-color: #fff;
+    border-radius: 5px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.staff-name {
+    text-align: center;
+
+}
+
+.staff-name-con {
+    width: 40%;
+    height: 60px;
+    border: 2px solid #918f8f;
+    outline: none;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: abzee-regular;
+
 }
 
 /* CMO PRODUCT PAGE */
