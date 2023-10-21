@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from adminconsole.views import db, checkUserName
+from adminconsole.views import db, checkUserName,checkUserDepartment
 from datetime import datetime, timedelta
 import pyrebase
 from datetime import datetime,timedelta
@@ -30,6 +30,9 @@ db1 = firebase1.database()
 storage = firebase1.storage()
 # Create your views here.
 def adminhome(request):
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
     current_year = datetime.now().strftime("%Y")
     current_month = datetime.now().strftime("%m")
     current_date1 = datetime.now().strftime("%d")
@@ -52,7 +55,6 @@ def adminhome(request):
     days_of_week = [start_of_week + timedelta(days=i) for i in range(1,7)]
     weekdaylist=[]
     for day in days_of_week:
-        # print(day.strftime("%Y-%m-%d"))
         weekdaylist.append(day.strftime("%Y-%m-%d"))
     allpresentlist,allabsentlist,alldatelist=[],[],[]
     for days in weekdaylist:
@@ -73,6 +75,8 @@ def adminhome(request):
         allabsentlist.append(totalstafftotalabsent)
     weeklypresentlist=zip(allpresentlist,allabsentlist,alldatelist)    
     context={
+        "name":name,
+        "dep":dep,
         "allpresentlist":allpresentlist,
         "allabsentlist":allabsentlist,
         "current_date_today":current_date_today,
@@ -83,6 +87,9 @@ def adminhome(request):
     return render(request,'adminhome.html',context)
 
 def checkin(request):
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
     attendance = db.child("attendance").get().val()
     staffDB = db.child("staff").get().val()
     todaysDate = datetime.today()
@@ -236,6 +243,8 @@ def checkin(request):
     absentworkinghourlist = sorted(zip(absentstaff, absentworkinghours), key=lambda x: x[0])
 
     context = {
+        "name":name,
+        "dep":dep,
         "request": request,
         "finallist": sorted_finallist,
         "absenteeslist":absentworkinghourlist,
@@ -248,6 +257,9 @@ def checkin(request):
 
 
 def attendanced(request):
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
     current_year = datetime.now().strftime("%Y")
     current_month = datetime.now().strftime("%m")
     current_date = datetime.now().strftime("%Y-%m-%d")
@@ -277,7 +289,8 @@ def attendanced(request):
             for date in leaveapplied:
                 try:
                     for leavetype in leaveapplied[date][staffuid]:
-                        staffleavecount=staffleavecount+1 
+                        if leavetype != "permission":
+                            staffleavecount=staffleavecount+1 
                 except:
                     pass
             staffattendancecount=0
@@ -297,6 +310,8 @@ def attendanced(request):
             datelist.append(current_year+current_month)
         attendancelistall=zip(snolist,staffuidlist,staffnamelist,staffdeplist,staffpresentlist,leavecountlist,datelist)
         context={
+            "name":name,
+            "dep":dep,
             "attendancelistall":attendancelistall
         }
     return render(request,'attendanced.html',context)
@@ -355,22 +370,62 @@ def attendancesort(request):
 
         attendancelistall=zip(snolist,staffuidlist,staffnamelist,staffdeplist,staffpresentlist,leavecountlist,datelist)
         context={
-            "attendancelistall":attendancelistall
+            "attendancelistall":attendancelistall,
+            "dep":dep,
+            "name":name
         }
         return render(request,'attendanced.html',context)
 
-def checkUserName(uid):
-    data = db.child("staff").get().val()
-    for x in data:
-        if uid == x:
-            z = data[x]["name"]
-            return z
 def indvattendanced(request):
     getuid=request.POST["suid"]
     date=request.POST["date"]
-    print(date)
+    print(date,getuid)
+    name=checkUserName(getuid)
+    dep=checkUserDepartment(getuid)
     current_year = date[:4]
     current_month = date[4:6]
     staff=db.child("staff").get().val()
+    datelist,leavetypelist,leavenode,permissioncountlist = [],[],[],[]
     leaveapplied=db.child("leaveDetails").child(current_year).child(current_month).get().val()
-    return render(request,'indvattendanced.html')
+    generalleavecount=0
+    sickleavecount=0
+    for date in leaveapplied:
+        for uid in leaveapplied[date]:
+            if uid == getuid:
+                for leavetype in leaveapplied[date][uid]:
+                    datelist.append(date)
+                    if leavetype == "permission":
+                        leavetypelist.append(leavetype)
+                        leavenode.append(leaveapplied[date][uid][leavetype]["duration"])
+                        permissioncountlist.append(leaveapplied[date][uid][leavetype]["duration"])
+                    elif leavetype == "sick":
+                        leavetypelist.append(leavetype)
+                        if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                            leavenode.append("Full Day")
+                            sickleavecount=sickleavecount+1
+                        else:
+                            leavenode.append("Half Day")
+                            sickleavecount=sickleavecount+0.5    
+                    else:
+                        leavetypelist.append(leavetype)
+                        if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                            leavenode.append("Full Day")
+                            generalleavecount=generalleavecount+1 
+                        else:
+                            leavenode.append("Half Day")
+                            generalleavecount=generalleavecount+0.5
+    permissioncount = 0.0
+    for time_str in permissioncountlist:
+        hours, minutes = map(int, time_str.split(':'))
+        permissioncount += hours + minutes / 60.0                        
+    print(datelist,leavetypelist,leavenode)
+    leaveall=zip(datelist,leavetypelist,leavenode)                        
+    context={
+        "name":name,
+        "dep":dep,
+        "leaveall":leaveall,
+        "permissioncount":permissioncount,
+        "sickleavecount":sickleavecount,
+        "generalleavecount":generalleavecount
+    }
+    return render(request,'indvattendanced.html',context)

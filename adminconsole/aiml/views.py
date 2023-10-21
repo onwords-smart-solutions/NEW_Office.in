@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from django.shortcuts import render
+from django.shortcuts import render
 from adminconsole.views import db, checkUserName
 from it.views import convert_to_12_hour_format,calculate_progress,calculate_progress_
 from datetime import datetime,timedelta
 # Create your views here.
 
-def rndhome(request):
+def aimlhome(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     data = db.child("staff").get().val()
@@ -201,7 +203,3 @@ def rndhome(request):
             "overallleave":overallleave,
         }
     return render(request,'rndhome.html',context)
-def inprocess(request):
-    return render(request,'inprocess.html')
-def create(request):
-    return render(request,'create.html')

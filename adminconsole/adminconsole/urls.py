@@ -7,6 +7,10 @@ from pr import views as prviews
 from rnd import views as rndviews
 from admin import views as adminviews
 from superadmin import views as superadminviews
+from hr import views as hrviews
+from installation import views as installationviews
+from aiml import views as aimlviews
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.login, name="login"),
@@ -73,7 +77,14 @@ urlpatterns = [
     path("staffaccess/",superadminviews.staffaccess,name='staffaccess'),
     path("userdata/",superadminviews.userdata,name='userdata'),
     path("viewsuggestion/",superadminviews.viewsuggestion,name='viewsuggestion'),
-    path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager')
+    path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager'),
 
-   
+    # =====================super admin====================================
+    path("hrhome/",hrviews.hrhome,name='hrhome'),
+
+    # =====================super admin====================================
+    path("installationhome/",hrviews.installationhome,name='installationhome'),
+
+    # =====================super admin====================================
+    path("aimlhome/",hrviews.aimlhome,name='aimlhome'),
 ]
