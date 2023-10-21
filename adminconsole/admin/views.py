@@ -45,7 +45,7 @@ def adminhome(request):
                 stafftotalpresent=stafftotalpresent+1
             except:
                 stafftotalabsent=stafftotalabsent+1
-    print(stafftotalpresent,stafftotalabsent)            
+          
     start_of_week = current_date - timedelta(days=current_date.weekday() + 1)
     days_of_week = [start_of_week + timedelta(days=i) for i in range(1,7)]
     weekdaylist=[]
@@ -53,22 +53,22 @@ def adminhome(request):
         # print(day.strftime("%Y-%m-%d"))
         weekdaylist.append(day.strftime("%Y-%m-%d"))
     allpresentlist,allabsentlist,alldatelist=[],[],[]
-
     for days in weekdaylist:
-        print(days)
+        current_year = days[:4]
+        days = days[8:10]
         totalstafftotalabsent=0
         totalstafftotalpresent=0
         for staffuid in staff:
             if staff[staffuid]["department"] != "ADMIN":
                 try:
-                    attendance[str(days)][staffuid]
+                    attendance[days][staffuid]
                     totalstafftotalpresent=totalstafftotalpresent+1
+                    print(totalstafftotalpresent)
                 except:
                     totalstafftotalabsent=totalstafftotalabsent+1
 
         allpresentlist.append(totalstafftotalpresent)
         allabsentlist.append(totalstafftotalabsent)
-    # print(allpresentlist,allabsentlist)   
     weeklypresentlist=zip(allpresentlist,allabsentlist,alldatelist)    
     context={
         "allpresentlist":allpresentlist,
