@@ -79,39 +79,39 @@
                                 <h5>Home</h5>
                             </div>
                         </li>
-                     {% if general %}
+                        {% if general %}
+                        <li class="navlistmenu " onclick="location.href='/leave_form'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Leave Form</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu" onclick="location.href='/late_form'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Late Form</h5>
+                            </div>
+                        </li>
+                        <li class="navlistmenu navlistmenu " onclick="location.href='/suggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/suggestion.png' %}" alt="dashboard_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Suggestion</h5>
+                            </div>
+                        </li>
+                        {% endif %}
 
-                     <li class="navlistmenu navlistmenu-active" onclick="location.href='/leave_form'">
-                        <div class="left-nav-list">
-                            <div class="menu-icon">
-                                <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon">
-                            </div>
-                        </div>
-                        <div class="right-nav-list">
-                            <h5>Leave Form</h5>
-                        </div>
-                    </li>
-                    <li class="navlistmenu" onclick="location.href='/late_form'">
-                        <div class="left-nav-list">
-                            <div class="menu-icon">
-                                <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
-                            </div>
-                        </div>
-                        <div class="right-nav-list">
-                            <h5>Late Form</h5>
-                        </div>
-                    </li>
-                    <li class="navlistmenu" onclick="location.href='/suggestion'">
-                        <div class="left-nav-list">
-                            <div class="menu-icon">
-                                <img src="{% static 'images/nav-icon/suggestion.png' %}" alt="dashboard_Icon">
-                            </div>
-                        </div>
-                        <div class="right-nav-list">
-                            <h5>Suggestion</h5>
-                        </div>
-                    </li>
-                 {% endif %}
                         <!-- ===========tl's============================ -->
                         {% if approvalpage %}
                         <li class="navlistmenu" onclick="location.href='/approval'">
@@ -153,7 +153,7 @@
                         {% endif %}
                       
                         {% if account %}
-                        <li class="navlistmenu " onclick="location.href='/financial'">
+                        <li class="navlistmenu" onclick="location.href='/financial'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/financial-icon.svg' %}" alt="dashboard_Icon">
@@ -218,7 +218,7 @@
                         {% endif %}
                         
                         {% if createstaff %}
-                        <li class="navlistmenu" onclick="location.href='/createstaff'">
+                        <li class="navlistmenu " onclick="location.href='/createstaff'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/create-staff.svg' %}" alt="createstaff_Icon">
@@ -229,6 +229,7 @@
                             </div>
                         </li>
                         {% endif %}
+                        
                         {% if viewworkmanager %}
                         <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
                             <div class="left-nav-list">
@@ -256,7 +257,7 @@
                         {% endif %}
 
                         {% if userdata %}
-                        <li class="navlistmenu" onclick="location.href='/userdata'">
+                        <li class="navlistmenu " onclick="location.href='/userdata'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
@@ -267,7 +268,6 @@
                             </div>
                         </li>
                         {% endif %}
-                       
 
                         <!-- =========================== -->
 

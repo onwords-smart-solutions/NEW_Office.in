@@ -527,6 +527,9 @@
 
 .eyeview {
     cursor: pointer;
+    background: transparent;
+    outline: none;
+    border: none;
 }
 
 .install-attendance input {
@@ -637,7 +640,7 @@
 }
 
 .check-bottom-con {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -1034,7 +1037,8 @@
 .dr {
     background: #FBD87F;
     padding: 10px;
-    color: #fff;
+    color: #282828;
+    font-weight: 600;
     border: none;
     outline: none;
     border-radius: 10px;
@@ -1100,4 +1104,13 @@
         width: 100%;
         padding: 10px 25px;
     }
+}
+
+
+/* ==================== */
+
+.quotmobilenumber {
+    border: none;
+    outline: none;
+    background: transparent;
 }
