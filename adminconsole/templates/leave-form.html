@@ -407,30 +407,40 @@
                            </div>
                            <!-- sick end -->
                          
-                            <form action="/leave_form/" method="post" class="leave-frm" id="permission">
-                                {% csrf_token %}
-
-                                <label for="reason">Reason</label>
-                                <div class="form-inp-con">
-                                    <input type="text" id="reason" placeholder="Reason" name="reason">
-                                </div>
-                                <div class="main-leave-con">
-                                    <!-- <div class="">
-                                        <label for="starttime">Duration<label><br>
-                                        <div class="time-inp">
-                                            <input type="time" id="starttime" name="duration">
-                                        </div>
-                                    </div> -->
-                                    <div class="">
-                                        <label for="endtime">Duration</label><br>
-                                        <div class="time-inp">
-                                            <input type="time" id="pertime" name="duration" required>
-                                        </div>
+                           <form action="/leave_form/" method="post" class="leave-frm" id="permission">
+                            {% csrf_token %}
+                        
+                            <label for="reason">Reason</label>
+                            <div class="form-inp-con">
+                                <input type="text" id="reason" placeholder="Reason" name="reason">
+                            </div>
+                            
+                            <div class="main-leave-con">
+                                <div class="">
+                                    <label for="starttime">From Time</label><br>
+                                    <div class="time-inp">
+                                        <input type="time" id="starttime" name="starttime" required>
                                     </div>
                                 </div>
-                                <input type="hidden" name="leave_type" value="permission">
-                                <button class="primary-button">Submit</button>
-                            </form>
+                                <div class="">
+                                    <label for="endtime">To Time</label><br>
+                                    <div class="time-inp">
+                                        <input type="time" id="endtime" name="endtime" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Error message container -->
+                            <div class="error-message" style="color: red; display: none;">
+                                Duration must not exceed 4 hours.
+                            </div>
+                            <div class="from-time-error" style="color: red; display: none;">
+                                "From Time" must not be greater than "To Time."
+                            </div>
+                            
+                            <input type="hidden" name="leave_type" value="permission">
+                            <button class="primary-button" onclick="return checkDuration()">Submit</button>
+                        </form>
                         </div>
                         <div class="leave-img">
                             <img src="{% static 'images/leave-frm-img.svg' %}" alt="leave-form" class="img-fluid">
@@ -509,17 +519,29 @@
         });
     </script>
     <script>
-        document.getElementById("pertime").addEventListener('change', function () {
-            var selectedTime = this.value;
+         function checkDuration() {
+        var fromTime = document.getElementById("starttime").valueAsDate;
+        var toTime = document.getElementById("endtime").valueAsDate;
         
-            var [hours, minutes] = selectedTime.split(':');
-            var totalMinutes = parseInt(hours, 10) * 60 + parseInt(minutes, 10);
-
-            if (totalMinutes > 240) {
-                alert("Selected time exceeds 4 hours. Please select a time within 4 hours.");
-                this.value = ''; 
+        if (fromTime && toTime) {
+            if (fromTime > toTime) {
+                document.querySelector('.from-time-error').style.display = 'block';
+                return false; // Prevent form submission
+            } else {
+                document.querySelector('.from-time-error').style.display = 'none';
             }
-        });
+            
+            var duration = toTime - fromTime;
+            var maxDuration = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
+            if (duration > maxDuration) {
+                document.querySelector('.error-message').style.display = 'block';
+                return false; // Prevent form submission
+            }
+        }
+        
+        // If the conditions are met, the form will be submitted
+        return true;
+    }
     </script>
     
     

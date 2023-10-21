@@ -140,7 +140,6 @@ function colorChange() {
     for (let j in row.cells) {
       let col = row.cells[j];
       customerState = row.cells[4].innerHTML;
-      console.log("customerstate",customerState)
       if (customerState === "Following Up") {
         document.getElementById("myTable").rows[i].style.backgroundColor =
           "#91f291";
@@ -397,7 +396,7 @@ function getBlackDots() {
 function getBDbyName() {
   var table = document.getElementById("myTable");
   var checkedName = getCheckedByNameBD();
-  console.log("table",table,checkedName)
+
   if (checkedName.length === 0) {
     var table = document.getElementById("myTable");
     for (var r = 1; r < table.rows.length; r++) {
@@ -499,7 +498,6 @@ function searchFunction() {
 function srt() {
   fi = document.getElementById("from-date1").value;
   si = document.getElementById("to-date1").value;
-  console.log("fisi",fi,si)
   if (fi == "" || si == "") {
     alert("Select from and to date as well");
   } else {

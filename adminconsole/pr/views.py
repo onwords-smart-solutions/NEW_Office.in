@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-from adminconsole.views import db, checkUserName
-from adminconsole.views import checkUserDepartment
+from adminconsole.views import db, checkUserName,checkUserDepartment
 from adminconsole.views import db, storage
 from datetime import date,datetime, timedelta
 import csv, codecs
@@ -154,6 +153,10 @@ def prhome(request):
             }
         except:
             pass 
+        try:
+            pass
+        except:
+            pass
                     
         generalleave = 24 - generalcount
         sickleave = 12 - sickcount  
@@ -179,7 +182,6 @@ def prhome(request):
         }
         return render(request, "prhome.html", context)
     except:
-        print("=============",todaycheckin,todaycheckout,yesscheckin,yesscheckout,yesterdayprogress,name)
         context = {
             "project": False,
             "name": name,
@@ -342,11 +344,11 @@ def create_lead(request):
                             # db.child("customer").child(number).update(cust_data)
                         else:
                             pass    
-                    return render(request, "createLead.html", {"akn": "user created success fully", "colour": True, "alreadyExistList": alreadyExistList,"nameList":nameList})
+                    return render(request, "createLead.html", {"akn": "user created success fully", "colour": True, "alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep})
             else:
-                return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList})
+                return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep})
         except:
-            return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList})
+            return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep})
 
     else:
         return redirect("login")
@@ -1047,6 +1049,7 @@ def leadinfo(request):
     uid = request.COOKIES["uid"]
     if uid == "ZIuUpLfSIRgRN5EqP7feKA9SbbS2" or uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2" or uid=="jDYzpwcpv3akKaoDL9N4mllsGCs2":
         context = {
+            "name":name,
             "userData": allData,
             "notesData": notesList,
             "star": starData,
@@ -1060,6 +1063,7 @@ def leadinfo(request):
         }
     else:
         context = {
+            "name":name,
             "userData": allData,
             "notesData": notesList,
             "star": starData,
@@ -1092,6 +1096,7 @@ def addnotes(request):
     return redirect(leadinfo)
 
 def approval(request):
+
     return render(request,'approval.html')
 
 def checkUserName(uid):

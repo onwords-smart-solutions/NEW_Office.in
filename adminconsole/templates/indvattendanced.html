@@ -332,8 +332,8 @@
                 <div class="check-table-con">
                 <div>
                     <div class="forms-con">
-                        <h3>Emply Name : Balaji</h3>
-                        <h3>DEP : AIML</h3>
+                        <h3>Emply Name : {{name}}</h3>
+                        <h3>DEP : {{dep}}</h3>
                     </div>
                     <table class="table">
                         <thead>
@@ -345,24 +345,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="table-body-li my-3">
-                                <td>20-09-2023</td>
-                                <td>1 1/2Hrs</td>
-                                <td>3</td>
-                                <td>-</td>
-                            </tr>
-                            <tr class="table-body-li my-3">
-                                <td>23-09-2023</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
+                            {%for datelist,leavetype,leavenode in leaveall%}
+                                <tr class="table-body-li my-3">
+                                    <td>{{datelist}}</td>
+                                    {%if leavetype == "permission"%}
+                                        <td>{{leavenode}}</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    {%elif leavetype == "sick"%}
+                                        <td>-</td>
+                                        <td>{{leavenode}}</td>
+                                        <td>-</td>
+                                    {%else%}
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>{{leavenode}}</td>
+                                    {%endif%}    
+                                </tr>
+                            {%endfor%}
                             <tr class=" leave-table-head text-center">
                                 <td>Total</td>
-                                <td>1 1/2</td>
-                                <td>-</td>
-                                <td>3</td>
-                            
+                                <td>{{permissioncount}} Hrs</td>
+                                <td>{{sickleavecount}} Days</td>
+                                <td>{{generalleavecount}} days</td>
                             </tr>
                         </tbody>
                     </table>

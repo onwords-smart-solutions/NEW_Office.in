@@ -174,7 +174,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="progress">
-                                        <div id="progress-bar" role="progressbar" style="width: {{ yesprogress }}%;"
+                                        <div id="progress-bar" role="progressbar" style="width: {{ yesprogress }}%"
                                             aria-valuenow="{{ yesprogress }}" aria-valuemin="0" aria-valuemax="100">
                                         </div>
                                     </div>
@@ -519,27 +519,26 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 
-        $(document).ready(function () {
-            var progressBar = document.getElementById("progress-bar");
-            progressBar.style.width = "{{ yesprogress }}%";
-            if ({{ yesprogress }
-        } < 100) {
+    $(document).ready(function () {
+        var yesprogress = {{yesprogress}};
+        var progressBar = document.getElementById("progress-bar");
+        progressBar.style.width = yesprogress + "%"; 
+        if (yesprogress < 100) {
             progressBar.style.backgroundColor = "red";
         } else {
             progressBar.style.backgroundColor = "#e0ae09";
         }
-        });
+    });
+
         $(document).ready(function () {
 
             function updateOptions() {
                 var currentDate = new Date();
                 var currentHour = currentDate.getHours();
-                console.log("hour", currentHour)
-
-
-                var showTeaCoffeeMilk = currentHour >= 9 && currentHour < 11;
-                var showTeaCoffee = currentHour >= 14 && currentHour < 16;
-
+                var currentMinutes = currentDate.getMinutes();
+              
+                var showTeaCoffeeMilk = (currentHour === 9 && currentMinutes >= 0) || (currentHour === 10 && currentMinutes <= 45);
+                var showTeaCoffee = (currentHour === 14 && currentMinutes >= 0) || (currentHour === 15 && currentMinutes <= 30);
 
                 if (showTeaCoffeeMilk) {
                     $("#tea-coffee-milk").show();
