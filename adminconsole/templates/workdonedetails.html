@@ -172,7 +172,69 @@
                 <div class="product-nav cmo-nav my-3">
                     <h5 class="  active-inv  li-inventry" onclick="productBtn()" id="pro-nav">Select Department
                     </h5>
-                    <h5 class=" li-inventry" onclick="updateBtn()" id="update-nav">Choose a staff</h5>
+                    <h5 class=" " onclick="updateBtn()" id="update-nav"> <select name="" id="" class="staff-name-con">
+                            <option value="">Choose a Staff here</option>
+                            <option value="">Ahamed ANwar</option>
+                            <option value="">MAnikandan</option>
+                            <option value="">Siva P</option>
+                            <option value="">MAnika Vasagan</option>
+                            <option value="">Devendiran</option>
+                            <option value="">TAmil selvan S</option>
+                            <option value="">Kiruba NAndhini</option>
+                            <option value="">Vinith</option>
+                            <option value="">Yugan</option>
+                            <option value="">Meenakshi Gayathiri</option>
+                            <option value="">Ramkumar</option>
+                            <option value="">Manoj R</option>
+                            <option value="">Mohan Kumar</option>
+                            <option value="">Karthika M</option>
+                            <option value="">Gipson joseph</option>
+                            <option value="">Jibin k john</option>
+                            <option value="">PP Logesh</option>
+                            <option value="">Dinesh L</option>
+                            <option value="">Sanjeev</option>
+                            <option value="">Dhanush B</option>
+                            <option value="">KarthickRAja A</option>
+                            <option value="">Sweetha T</option>
+                            <option value="">Guru Prasanth</option>
+                            <option value="">Naveen S</option>
+                            <option value="">Balaji S</option>
+                            <option value="">Premkumar</option>
+                            <option value="">Nivash M</option>
+                            <option value="">Gokul Kannan AK</option>
+                            <option value="">Santha Prasanth</option>
+                            <option value="">Ram Kumar</option>
+                            <option value="">Jeevanandham</option>
+                            <option value="">Gowtham R</option>
+                            <option value="">Nikhil Deepak</option>
+                            <option value="">Harshini U</option>
+                            <option value="">Mohammed Isak Mujamil</option>
+                            <option value="">Silambaran K</option>
+                            <option value="">ANitha</option>
+                            <option value="">Prasanna R</option>
+                            <option value="">Priyadharshini V</option>
+                            <option value="">Aravinthan P</option>
+                            <option value="">Nandhakumar S</option>
+                            <option value="">Muthu Saravanan</option>
+                            <option value="">Pradeep Kanth</option>
+                            <option value="">Jay Priya</option>
+                            <option value="">Rajkannan B</option>
+                            <option value="">Subashree</option>
+                            <option value="">R sabareeshwaran</option>
+                            <option value="">Naveenkumar M</option>
+                            <option value="">Golda Sharon J</option>
+                            <option value="">Logesh P</option>
+                            <option value="">Arun Kumar</option>
+                            <option value="">Kavin Vetrivel</option>
+                            <option value="">Jothi Prakash</option>
+                            <option value="">Bala Saravana</option>
+                            <option value="">Gowtham</option>
+                            <option value="">Girija R</option>
+                            <option value="">Tamilarasan K</option>
+                            <option value="">Tamil Selvan N</option>
+                            <option value="">Gokilavani </option>
+                            <option value="">Pavithra K</option>
+                        </select></h5>
 
 
                     </h5>
@@ -195,7 +257,7 @@
                 </div>
 
                 <div class="update-table staff-name my-3" id="update-table">
-                    <select name="" id="" class="staff-name-con">
+                    <!-- <select name="" id="" class="staff-name-con">
                         <option value="">Choose a Staff here</option>
                         <option value="">Ahamed ANwar</option>
                         <option value="">MAnikandan</option>
@@ -257,43 +319,44 @@
                         <option value="">Tamil Selvan N</option>
                         <option value="">Gokilavani </option>
                         <option value="">Pavithra K</option>
-                    </select>
+                    </select>  -->
                 </div>
-                <div class="admin-points " id="admin-points">
-
-                    <div class="adminpoints-nav-con my-3">
-                        <table class="table">
-                            <thead class="product-table-head">
-                                <tr>
-                                    <!-- <th></th> -->
-                                </tr>
-                            </thead>
-                            <tbody class="table my-3">
-                                <tr class="product-details">
-                                    <!-- <td></td> -->
-
-                                </tr>
-                            </tbody>
-                        </table>
+                <center>
+                    <div class="select-staff-date ">
+                        <h4>Select Staff IS : Ahammed Anwar</h4>
+                        <div class="date-input-form">
+                            <form class="date-form" action="">
+                                <input type="date" id="birthday" name="birthday">
+                            </form>
+                        </div>
+                        <div>
+                            <h3>OR</h3>
+                        </div>
+                        <div class="allwork-done">
+                            <button type="Submit">Get All Workdone Here</button>
+                        </div>
                     </div>
+                </center>
 
-                </div>
-                <div class="pr-percentage-dashboard " id="prdashboard">
-
-                </div>
             </div>
 
         </div>
-        <!-- bootstrap js -->
-        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <!-- js script  start -->
-        <script src="{% static 'js/main.js' %}"></script>
-        <script src="{% static 'js/login.js' %}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
-        <!-- js script  end -->
+        <div class="pr-percentage-dashboard " id="prdashboard">
+
+        </div>
+    </div>
+
+    </div>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- js script  start -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <!-- js script  end -->
 </body>
 
 </html>

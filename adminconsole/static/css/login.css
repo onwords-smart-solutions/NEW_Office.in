@@ -419,7 +419,7 @@ input {
     cursor: pointer;
 }
 
-.staff-name {
+/* .staff-name {
     text-align: center;
 
 }
@@ -437,6 +437,34 @@ input {
     font-weight: 500;
     font-family: abzee-regular;
 
+} */
+.staff-name-con {
+    border: none;
+    outline: none;
+
+}
+
+.date-input-form input {
+    width: 30%;
+    height: 40%;
+    border: 2px solid #918f8f;
+}
+
+.select-staff-date h3 {
+    transform: translate(12px, 69px);
+}
+
+.allwork-done button {
+    width: 30%;
+    height: 40%;
+    border: 2px solid #918f8f;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: abzee-regular;
+}
+
+.date-input-form {
+    transform: translate(0, 0);
 }
 
 /* CMO PRODUCT PAGE */
