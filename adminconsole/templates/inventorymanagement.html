@@ -443,7 +443,7 @@
                                 <td>{{x.obc}}</td>
                                 <td>{{x.stock}}</td>
                                 <form action="inventorymanagement" method="post">
-                                    <input type="hidden" name="x.id">
+                                    <input type="hidden" name="{{x.id}}">
                                     <td><button class="primary-button-update" value="update"><img src="{% static 'images/nav-icon/del-iocn.svg' %}" alt="del" class="img-fluid"></button></td>
                                 </form>
                             </tr>
