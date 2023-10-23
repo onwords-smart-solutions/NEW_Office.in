@@ -981,7 +981,26 @@ def inventorymanagement(request):
 def coohome(request):
     return render(request,'coohome.html')
 def installation_details(request):
-    return render(request,'installation_details.html')
+    installation = db.child("Installationdetails").get().val()
+    if request.method == "POST":
+        selected_month = request.POST.get("get-total")
+        # Split the selected_month into year and month parts
+        selected_year, selected_month = selected_month.split("-")
+    else:
+        current_date = datetime.now()
+        selected_year = current_date.strftime('%Y')
+        selected_month = current_date.strftime("%m")
+    alllist=[]
+    alldates = installation[selected_year][selected_month]
+    for date in alldates:
+        alluid = installation[selected_year][selected_month][date]
+        for uid in alluid:
+            alllist.append(installation[selected_year][selected_month][date][uid])
+    context={
+        "alllist":alllist,
+    }    
+    print("alllist",alllist)    
+    return render(request,'installation_details.html',context)
 def todo(request):
     return render(request,'todo.html')
 def refreshment(request):
