@@ -203,3 +203,48 @@ def installationhome(request):
             "overallleave":overallleave,
         }
     return render(request,'rndhome.html',context)
+
+def installationadd(request):
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    staff_data = db.child("staff").get().val()
+    installationboys = []
+    for staff in staff_data:
+        if staff_data[staff]["department"] == "Installation":
+            installationboys.append(staff_data[staff]["name"])
+
+    if request.method == "POST":
+        print(request.POST) 
+        selected_names = request.POST.getlist("selected_names")
+        print("name",selected_names)
+        name_list = ", ".join(selected_names) 
+        print("namelist",name_list)
+        date=request.POST["selectdate"]
+        print("date",date)   
+        place=request.POST["place"]
+        print("place",place)
+        work=request.POST["work"]
+        clientname=request.POST["clientname"]
+        clientnumber=request.POST["clientnumber"]   
+        clientdetails=request.POST["clientdetails"] 
+        date_parts = date.split("-")
+        tyear = date_parts[0]
+        tmonth = date_parts[1]
+        tday = date_parts[2]   
+        data={
+            "name":name_list,
+            "date":date,
+            "place":place,
+            "work":work,
+            "clientname":clientname,
+            "clientnumber":clientnumber,
+            "clientdetails":clientdetails
+        }
+      
+        db.child("Installationdetails").child(tyear).child(tmonth).child(date).push(data)
+        
+
+    context={
+        "installname":installationboys
+         }       
+    return render(request,'installationadd.html',context)

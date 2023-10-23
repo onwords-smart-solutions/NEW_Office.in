@@ -123,9 +123,15 @@ input {
     text-align: center;
     align-items: center;
     justify-content: space-around;
-    padding: 5px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     border-bottom: none
+}
+.product-details {
+    align-items: center;
+    text-align: center;
+}
+.product-details td{
+    font-weight: 600;
 }
 
 .calculate-table form {
@@ -225,10 +231,7 @@ input {
 
 
 
-#update-table {
-    display: none;
 
-}
 
 .cmo-input {
     width: 40%;
@@ -294,20 +297,24 @@ input {
 .installation-pending input {
     margin: 10px;
     outline: none;
-    border: 2px solid black;
+    border: 2px solid #282828;
     border-radius: 5px;
     width: 70%;
     height: 50px;
-    padding: 17px;
+    padding: 12px;
+    font-size: 18px;
 
 }
+
 
 .installation-pending {
     flex-direction: column;
     width: 30%;
-    margin: 20px;
+    margin: 5px;
     padding: 10px;
-
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .installation-pending button {
@@ -374,6 +381,14 @@ input {
 #choose-the-name {
     display: none;
 }
+#update-table{
+    display: none;
+}
+.inventory-ro td{
+    display: flex;
+    align-items: center;
+}
+
 
 .view-form {
     transform: translate(0, 0);

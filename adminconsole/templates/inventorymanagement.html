@@ -45,7 +45,11 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
+                                        {%if profile%}
+                                        <img src="{{profile}}" alt="user-profile">
+                                        {%else%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%endif%}
                                     </div>
                                     <div class="emply-id">
                                         <span>{{ name }}</span><br>
@@ -309,7 +313,7 @@
                 <div class="product-nav cmo-nav my-3">
                     <h5 class="  active-inv  li-inventry" onclick="productBtn()" id="pro-nav">Product
                     </h5>
-                    <h5 class=" li-inventry" onclick="updateBtn()" id="update-nav">Updates</h5>
+                    <!-- <h5 class=" li-inventry" onclick="updateBtn()" id="update-nav">Updates</h5> -->
                     <h5 class=" li-inventry" onclick="adminBtn()" id="admin-nav">Adminpoints</h5>
                     <h5 class=" li-inventry" onclick="prpercBtn()" id="prper-nav">PR percentage Dashboard</h5>
 
@@ -376,14 +380,15 @@
                             </div>
                             <div class="modal-body">
                                 <div class="addpoint-table" id="add-point">
-                                    <form action="">
-                                        <input type="text" placeholder="Product Name">
-                                        <input type="text" placeholder="Produt Id">
-                                        <input type="text" placeholder="OBC">
-                                        <input type="number" placeholder="Minimum Price">
-                                        <input type="number" placeholder="Maximum Price">
-                                        <input type="number" placeholder="Stock">
-                                        <button class="primary-button">Submit</button>
+                                    <form action="/inventorymanagement/" method="post">
+                                        {%csrf_token%}
+                                        <input type="text" name="id" placeholder="Produt Id">
+                                        <input type="text" name="name" placeholder="Product Name">
+                                        <input type="text" name="obc" placeholder="OBC">
+                                        <input type="number" name="min_price" placeholder="Minimum Price">
+                                        <input type="number" name="max_price" placeholder="Maximum Price">
+                                        <input type="number" name="stock" placeholder="Stock">
+                                        <button type="submit" class="primary-button" name="update">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -391,128 +396,43 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="product-table" id="product-table">
                     <table class="table">
                         <thead class="product-table-head">
-                            <tr>
+                            <tr class="text-center">
                                 <th>S.No</th>
                                 <th>Product Id</th>
                                 <th>Max Price</th>
                                 <th>Min Price</th>
                                 <th>Name</th>
-                                <th>Stock</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>1</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>10</td>
-                            </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>2</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>10</td>
-                            </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>3</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>10</td>
-                            </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>4</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>10</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="update-table" id="update-table">
-                    <table class=" table">
-                        <thead class="product-table-head">
-                            <tr>
-                                <th>S.No</th>
-                                <th>Product Id</th>
-                                <th>Max Price</th>
-                                <th>Min Price</th>
-                                <th>Name</th>
-                                <th>OBC</th>
+                                <th>Obc</th>
                                 <th>Stock</th>
                                 <th>Edit</th>
-
                             </tr>
                         </thead>
                         <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>1</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>408</td>
-                                <td>4</td>
-                                <td><button class="primary-button-update">Update</button></td>
-                            </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>2</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>408</td>
-                                <td>4</td>
-                                <td><button class="primary-button-update">Update</button></td>
-                            </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>3</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>408</td>
-                                <td>4</td>
-                                <td><button class="primary-button-update">Update</button></td>
-                            </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>4</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>408</td>
-                                <td>4</td>
-                                <td><button class="primary-button-update">Update</button></td>
-                            </tr>
+                            <form action="/inventorymanagement/" method="post">
+                                {%for sno,y in allinventory%}
+                                {%csrf_token%}
+                                <tr class="product-details">
+                                    <td><input type="number" value="{{sno}}"></td>
+                                    <td><input type="text" name="id" value="{{y.id}}"></td>
+                                    <td><input type="text" name="max_price" value="{{y.max_price}}"></td>
+                                    <td><input type="text" name="min_price" value="{{y.min_price}}"></td>
+                                    <td><input type="text" style="width: 400px;" name="name" value="{{y.name}}"></td>
+                                    <td><input type="text" name="obc" value="{{y.obc}}"></td>
+                                    <td><input type="text" name="stock" value="{{y.stock}}"></td>
+                                    <td><button type="submit" class="primary-button-update" name="update"><img
+                                                src="{% static 'images/nav-icon/edit.svg' %}" alt="del"
+                                                class="img-fluid"></button></td>
+                                </tr>
+                                {%endfor%}
+                            </form>
                         </tbody>
                     </table>
                 </div>
+
+
                 <div class="admin-points " id="admin-points">
                     <div class="adminpoints-nav ">
                         <span>
@@ -530,7 +450,7 @@
                         <span>
                             <h5 class="up-cmo">Target Total <span><input class="cmo-input" type="text"></span> </h5>
                         </span>
-                        <h5><button class="primary-button">Submit</button></h5>
+                        <h5><button type="submit" class="primary-button">Submit</button></h5>
                     </div>
                     <div class="adminpoints-nav-con my-3">
                         <table class="table">
@@ -567,26 +487,32 @@
                         <h5 class=" li-inventry" id="weekly-Btn" onclick="target()">Weekly Target</h5>
                     </div>
                     <center>
-                        <div class="installation-pending" id="firstline-Btn">
+                       <form action="" class="">
+                        <div class="installation-pending inventory-small-table" id="firstline-Btn">
                             <h5>Firstline</h5>
-                            <input type="number" name="" id="">
+                            <input type="number" name="" id="" placeholder="0">
                             <button class="primary-button">submit</button>
                         </div>
+                       </form>
                     </center>
                     <center>
-                        <div class="installation-pending" id="target-Btn">
+                       <form action="" class="e" >
+                        <div class="installation-pending inventory-small-tabl" id="target-Btn">
                             <h5>Target Point</h5>
-                            <input type="number" name="" id="">
+                            <input type="number" name="" id="" placeholder="0">
                             <button class="primary-button">submit</button>
                         </div>
+                       </form>
                     </center>
                     <center>
-                        <div class="installation-pending" id="pending-Btn">
-                            <h5>pending instalation</h5>
-                            <input type="number" name="" id="">
-                            <input type="number" name="" id="">
-                            <button class="primary-button">submit</button>
-                        </div>
+                        <form action="" >
+                            <div class="installation-pending inventory-small-tabl" id="pending-Btn">
+                                <h5>pending installation</h5>
+                                <input type="number" name="" id="" placeholder="0">
+                                <input type="number" name="" id="" placeholder="0">
+                                <button class="primary-button">submit</button>
+                            </div>
+                        </form>
                     </center>
                 </div>
             </div>

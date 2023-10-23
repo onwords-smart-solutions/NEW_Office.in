@@ -45,12 +45,28 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
+                                        {%if profile%}
+                                        <img src="{{profile}}" alt="user-profile">
+                                        {%else%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%endif%}
                                     </div>
                                     <div class="emply-id">
-                                        <span>Vinith</span><br>
-                                        <span>ID:WD002</span><br>
-                                        <span>Web Developer</span>
+                                        <span>{{name}}</span><br>
+                                        <span>{% if dep == "WEB" %}
+                                            <p>Web Developer</p>
+                                            {% elif dep == "APP" %}
+                                            <p>App developer</p>
+                                            {% elif dep == "MEDIA" %}
+                                            <p>Graphic designer</p>
+                                            {% elif dep == "PR" %}
+                                            <p>PR</p>
+                                            {% elif dep == "RND" %}
+                                            <p>R&D</p>
+                                            {% else %}
+                                            <p>Admin</p>
+                                            {% endif %}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -277,17 +293,12 @@
 
                                 </thead>
                                 <tbody>
+                                    {%for x in inventoryall%}
                                     <tr class="table-body-li my-3">
-                                        <td>Sliding Gate Motor</td>
-                                        <td>2</td>
+                                        <td>{{x.name}}</td>
+                                        <td>{{x.stock}}</td>
                                     </tr>
-                                    <tr class="table-body-li my-3">
-                                        <td>Siwing Gate Motor</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr class="table-body-li my-3">
-                                        <td>Sliding Gate Motor</td>
-                                        <td>2</td>
+                                    {%endfor%}
                                     </tr>
                                 </tbody>
                             </table>
@@ -298,7 +309,7 @@
                         <div class="quotation-box-dashboard" onclick="location.href='/attendanced'">
                             <div class="d-flex align-items-center justify-content-between">
                                 <h4> Attendance</h4>
-                                <h2 class="install-attendance"><span><input type="date"></span><span>12-Sep</span></h2>
+                                <!-- <h2 class="install-attendance"><span><input type="date"></span><span>12-Sep</span></h2> -->
                             </div>
                             <div class="quot-chart">
                                 <canvas id="myChart4"></canvas>
@@ -311,7 +322,7 @@
                                         <h5>Present</h5>
                                     </div>
                                     <div class="quot-count">
-                                        <h5>54</h5>
+                                        <h5>{{stafftotalpresent}}</h5>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mx-3">
@@ -320,7 +331,7 @@
                                         <h5>Absent</h5>
                                     </div>
                                     <div class="quot-count">
-                                        <h5>6</h5>
+                                        <h5>{{stafftotalabsent}}</h5>
                                     </div>
                                 </div>
 

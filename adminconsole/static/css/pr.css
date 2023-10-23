@@ -7,6 +7,10 @@
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
+#absentSearch {
+    display: none;
+}
+
 .pr-box-dashboard {
     height: 19vh;
     margin: 7px 0px;
@@ -250,6 +254,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+}
+.custom-active{
+border: 2px solid #282828;
 }
 
 .following-up {
@@ -1165,4 +1172,25 @@ input::-webkit-inner-spin-button {
 
 .main-con-admin>div>form>p {
     font-weight: 600;
+}
+
+#absent-date,
+#absentmyForm {
+    display: none;
+}
+
+#myForm input,
+#absentmyForm input {
+    padding: 4px 8px;
+    background: transparent;
+    border-radius: 5px;
+}
+
+.installation-imgs {
+    margin-top: 20%;
+}
+
+.install-item {
+    display: flex;
+    align-items: center;
 }

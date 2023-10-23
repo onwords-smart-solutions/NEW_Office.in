@@ -44,12 +44,28 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
+                                        {%if profile%}
+                                        <img src="{{profile}}" alt="user-profile">
+                                        {%else%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%endif%}
                                     </div>
                                     <div class="emply-id">
                                         <span>{{name}}</span><br>
-                                        <span>ID:WD002</span><br>
-                                        <span>{{dep}}</span>
+                                        <span>{% if dep == "WEB" %}
+                                            <p>Web Developer</p>
+                                            {% elif dep == "APP" %}
+                                            <p>App developer</p>
+                                            {% elif dep == "MEDIA" %}
+                                            <p>Graphic designer</p>
+                                            {% elif dep == "PR" %}
+                                            <p>PR</p>
+                                            {% elif dep == "RND" %}
+                                            <p>R&D</p>
+                                            {% else %}
+                                            <p>Admin</p>
+                                            {% endif %}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -57,20 +73,20 @@
 
                     </div>
                     <ul id="nav-main-con">
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/ithome'">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/dashboard.svg' %}" alt="dashboard_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
-                                <h5>dashboard</h5>
+                                <h5>Home</h5>
                             </div>
                         </li>
                         <li class="navlistmenu" onclick="location.href='/leave_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon">
+                                    <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="leaveform_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
@@ -80,7 +96,7 @@
                         <li class="navlistmenu" onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
+                                    <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="lateform_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">

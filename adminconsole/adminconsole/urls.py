@@ -33,7 +33,7 @@ urlpatterns = [
 
     path('prdashboard',views.prdashboard,name='pradshboard'),
     path('coohome/', views.coohome,name='coohome'),
-    path('installation_details',views.installation_details,name='installation_details'),
+    path('installation_details/',views.installation_details,name='installation_details'),
 
     # ============it team================
      path("ithome/", itviews.ithome, name="ithome"),
@@ -77,16 +77,18 @@ urlpatterns = [
     path("superadmin/",superadminviews.superadmin,name='superadmin'),
     path("createstaff/",superadminviews.createstaff,name='createstaff'),
     path("staffaccess/",superadminviews.staffaccess,name='staffaccess'),
-    path("userdata/",superadminviews.userdata,name='userdata'),
+    path("userdata/",views.userdata,name='userdata'),
     path("viewsuggestion/",superadminviews.viewsuggestion,name='viewsuggestion'),
     path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager'),
+    path("markasread/", superadminviews.markasread, name="markasread"),
 
-    # =====================super admin====================================
+    # =====================hr====================================
     path("hrhome/",hrviews.hrhome,name='hrhome'),
+   
 
-    # =====================super admin====================================
+    # =====================installation ====================================
     path("installationhome/",installationviews.installationhome,name='installationhome'),
-
-    # =====================super admin====================================
+    path("installationadd/",installationviews.installationadd,name='installationadd'),
+    # =====================aiml====================================
     path("aimlhome/",aimlviews.aimlhome,name='aimlhome'),
 ]

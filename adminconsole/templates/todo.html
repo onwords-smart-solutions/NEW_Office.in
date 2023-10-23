@@ -44,12 +44,28 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
+                                        {%if profile%}
+                                        <img src="{{profile}}" alt="user-profile">
+                                        {%else%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%endif%}
                                     </div>
                                     <div class="emply-id">
-                                        <span>Vinith</span><br>
-                                        <span>ID:WD002</span><br>
-                                        <span>Web Developer</span>
+                                        <span>{{name}}</span><br>
+                                        <span>{% if dep == "WEB" %}
+                                            <p>Web Developer</p>
+                                            {% elif dep == "APP" %}
+                                            <p>App developer</p>
+                                            {% elif dep == "MEDIA" %}
+                                            <p>Graphic designer</p>
+                                            {% elif dep == "PR" %}
+                                            <p>PR</p>
+                                            {% elif dep == "RND" %}
+                                            <p>R&D</p>
+                                            {% else %}
+                                            <p>Admin</p>
+                                            {% endif %}
+                                        </span>
                                     </div>
                                 </div>
                             </div>

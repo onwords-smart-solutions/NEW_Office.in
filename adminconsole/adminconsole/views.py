@@ -19,7 +19,16 @@ firebaseConfig = {
   "appId": "1:982262166733:web:b14a765e30b114ba37a584",
   "measurementId": "G-PSYFW4L5W9"
 }
-
+aiconfig = {
+    "apiKey": "AIzaSyAlNAm5qoM4SsK7Wrry5lbw7QndE_pBKa8",
+    "authDomain": "onyx-9lbl.firebaseapp.com",
+    "databaseURL": "https://onyx-9lbl-default-rtdb.firebaseio.com",
+    "projectId": "onyx-9lbl",
+    "storageBucket": "onyx-9lbl.appspot.com",
+    "messagingSenderId": "365318702826",
+    "appId": "1:365318702826:web:4a0b076ed7d7ee3b69b993",
+    "measurementId": "G-J4YXBZGFJY",
+}
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 auth = firebase.auth()
@@ -28,6 +37,11 @@ storage1 = firebase.storage()
 firebase1 = pyrebase.initialize_app(firebaseConfig)
 db1 = firebase1.database()
 storage = firebase1.storage()
+
+aifirebase = pyrebase.initialize_app(aiconfig)
+aidb = aifirebase.database()
+aiauth = aifirebase.auth()
+aistorage = aifirebase.storage()
 
 def login(request):
     try:
@@ -62,7 +76,7 @@ def login(request):
                 return response
             if dep == "HR":
                 response = redirect("hrhome")
-                return response       
+                return response   
     except:
         pass
 
@@ -73,23 +87,27 @@ def login(request):
             user = auth.sign_in_with_email_and_password(email, password)
             uid = user["localId"]  # to get the uid of the authentication
             dep = checkUserDepartment(uid)
+            profile=profileall(uid)
             exp = 100 * 365 * 24 * 60 * 60
             if dep == "APP":
                 response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "WEB":
                 response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "MEDIA":
                 response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "PR":
@@ -97,18 +115,21 @@ def login(request):
                 response = redirect("prhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "RND":
                 response = redirect("rndhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "ADMIN":
                 response = redirect("adminhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             return redirect("login")
@@ -887,11 +908,102 @@ def financial(request):
     return render(request, "financial.html", context)
 
 def inventorymanagement(request):
-    return render(request,'inventorymanagement.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
+    istl = False
+    rndaproval = False
+    praproval = False
+    tl = db.child("tl").get().val()
+    for t in tl:
+        if name == tl[t]:
+            istl = True
+            break
+    if uid == 'ZIuUpLfSIRgRN5EqP7feKA9SbbS2'or uid == 'Vhbt8jIAfiaV1HxuWERLqJh7dbj2':
+        istl = True
+    if uid == 'pztngdZPCPQrEvmI37b3gf3w33d2':
+        rndaproval = True
+    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid == 'yleZdWDZgFYTBxwzC5NtHVeb3733':
+        praproval = True       
+    allDataBase = db.get().val()
+    editvalue=[]
+    if 'getid1' in request.POST:
+        inventory = allDataBase["inventory_management"]
+        getid=request.POST['getid']
+        editvalue.append(inventory[getid])
+
+    if 'getid2' in request.POST:
+        getid=request.POST['getid']
+        db.child("inventory_management").child(getid).remove()
+
+    if 'update' in request.POST:
+        id=request.POST['id']
+        max_price=request.POST['max_price']
+        min_price=request.POST['min_price']
+        name=request.POST['name']
+        obc=request.POST['obc']
+        stock=request.POST['stock']
+
+        data={
+            "id":id,
+            "max_price":max_price,
+            "min_price":min_price,
+            "name":name,
+            "obc":obc,
+            "stock":stock
+        }
+        db.child("inventory_management").child(id).update(data)
+
+    allDataBase = db.get().val()
+    inventory = allDataBase["inventory_management"]
+    inventorylist=[]
+    snolist=[]
+    sno=0
+    for id in inventory:
+        inventorylist.append(inventory[id])
+        sno=sno+1
+        snolist.append(sno)
+    allinventory=zip(snolist,inventorylist)    
+    inventorylist2=[]
+    snolist=[]
+    sno=0
+    for id in inventory:
+        inventorylist2.append(inventory[id])
+        sno=sno+1
+        snolist.append(sno)  
+    context={
+        "editvalue":editvalue,
+        "allinventory":allinventory,
+        "dep": dep,
+        "tl": istl,
+        "rndaproval":rndaproval,
+        "praproval":praproval
+    }
+    return render(request,'inventorymanagement.html',context)
+
 def coohome(request):
     return render(request,'coohome.html')
 def installation_details(request):
-    return render(request,'installation_details.html')
+    installation = db.child("Installationdetails").get().val()
+    if request.method == "POST":
+        selected_month = request.POST.get("get-total")
+        # Split the selected_month into year and month parts
+        selected_year, selected_month = selected_month.split("-")
+    else:
+        current_date = datetime.now()
+        selected_year = current_date.strftime('%Y')
+        selected_month = current_date.strftime("%m")
+    alllist=[]
+    alldates = installation[selected_year][selected_month]
+    for date in alldates:
+        alluid = installation[selected_year][selected_month][date]
+        for uid in alluid:
+            alllist.append(installation[selected_year][selected_month][date][uid])
+    context={
+        "alllist":alllist,
+    }    
+    print("alllist",alllist)    
+    return render(request,'installation_details.html',context)
 def todo(request):
     return render(request,'todo.html')
 def workdonedetails(request):
@@ -1127,3 +1239,73 @@ def logout(request):
 
 def prdashboard(request):
     return render(request,'admindashboard.html')
+
+def userdata(request):
+    uid = request.COOKIES["uid"]
+    # aiaccess = False
+    # adminai = False
+    # aiteam = False
+
+    # userdata = aidb.child("onyx").get().val()
+    # if uid == "Vhbt8jIAfiaV1HxuWERLqJh7dbj2" or uid == "cQ4gFReQghZruTCDMP9NZgwMCzM2" or uid == "NH8ePNnoCtbmTvBbFdV2koxBIhR2":
+    #     aiaccess = True
+    # if uid == "Vhbt8jIAfiaV1HxuWERLqJh7dbj2":
+    #     adminai=True
+    # if uid == "cQ4gFReQghZruTCDMP9NZgwMCzM2" or uid == "NH8ePNnoCtbmTvBbFdV2koxBIhR2":
+    #     aiteam =True
+
+    userdata = aidb.child("onyx").get().val()
+    no_data_message = ""  
+    default_data = {}  
+    like_data = {} 
+    dislike_data = {} 
+
+    print("==")
+    if request.method == 'POST':
+        selected_date1 = request.POST.get('selected_date') 
+        if selected_date1:
+            selected_date = datetime.strptime(selected_date1, "%Y-%m-%d")
+
+            selected_year = selected_date.strftime("%Y")
+            selected_month = selected_date.strftime("%m")
+
+            entry = userdata.get(selected_year, {}).get(selected_month, {}).get(selected_date1, {})
+
+            categories = ["default", "dislike", "like"]
+
+            if entry is not None:
+                for category in categories:
+                    try:
+                        for did in entry[category]:
+                            command = entry[category][did].get("command", "No command")
+                            reply = entry[category][did].get("reply", "No Reply")
+
+                            if category == "default":
+                                default_data[did] = {"command": command, "reply": reply}
+                            elif category == "like":
+                                like_data[did] = {"command": command, "reply": reply}
+                            elif category == "dislike":
+                                dislike_data[did] = {"command": command, "reply": reply}
+                    except KeyError:
+                        pass
+            else:
+                no_data_message = "No data found for the selected date." 
+
+    context = {
+        # "aiaccess": aiaccess,
+        "default_data": default_data,
+        "like_data": like_data,
+        "dislike_data": dislike_data,
+        "no_data_message": no_data_message,
+        # "aiteam": aiteam,
+        # "adminai": adminai
+    } 
+    return render(request,'userdata.html',context)
+
+def profileall(uid):
+    profiledata=db.child("staff").get().val()
+    try:
+        profilepic=profiledata[uid]["profileImage"]
+    except:
+        profilepic="False"
+    return profilepic  

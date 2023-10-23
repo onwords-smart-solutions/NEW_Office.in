@@ -45,7 +45,11 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
+                                        {%if profile%}
+                                        <img src="{{profile}}" alt="user-profile">
+                                        {%else%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%endif%}
                                     </div>
                                     <div class="emply-id">
                                         <span>{{ name }}</span><br>
@@ -307,35 +311,36 @@
             <div class="container-fluid">
                 <div class="">
                     <div class="forms-con">
-                        <h5>Following Up : 12</h5>
-                        <h5>Delayed : 0</h5>
-                        <h5>Total :89</h5>
+                        <h5>Following Up : {{followingupCount}}</h5>
+                        <h5>Delayed : {{delayedCount}}</h5>
+                        <h5>Total :{{totalLeadCount}}</h5>
                     </div>
+                    {%if state=="update"%}
                     <form action="">
                         <div class="forms-con">
                             <div class="point-work-inp">
                                 <p>Calls</p>
-                                <input type="number" name="" id="" placeholder="0">
+                                <input type="number" name="calls" id="" placeholder="0" value="{{}}">
                             </div>
                             <div class="point-work-inp">
                                 <p>Text</p>
-                                <input type="number" name="" id="" placeholder="0">
+                                <input type="number" name="message" id="" placeholder="0">
                             </div>
                             <div class="point-work-inp">
                                 <p>Visit</p>
-                                <input type="number" name="" id="" placeholder="0">
+                                <input type="number" name="visit" id="" placeholder="0">
                             </div>
                             <div class="point-work-inp">
                                 <p>Quote</p>
-                                <input type="number" name="" id="" placeholder="0">
+                                <input type="number" name="quote" id="" placeholder="0">
                             </div>
                             <div class="point-work-inp">
                                 <p>Invoice</p>
-                                <input type="number" name="" id="" placeholder="0">
+                                <input type="number" name="invoice" id="" placeholder="0">
                             </div>
                             <div class="point-work-inp">
                                 <p>Points</p>
-                                <input type="number" name="" id="" placeholder="0">
+                                <input type="number" name="points" id="" placeholder="0">
                             </div>
                             <div class="point-work-inp">
                                 <button class="primary-button">Submit</button>

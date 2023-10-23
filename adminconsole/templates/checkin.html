@@ -45,7 +45,11 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
+                                        {%if profile%}
+                                        <img src="{{profile}}" alt="user-profile">
+                                        {%else%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%endif%}
                                     </div>
                                     <div class="emply-id">
                                         <span>{{ name }}</span><br>
@@ -307,34 +311,53 @@
 
             <div class="container-fluid">
                 <div class="row my-3 align-items-center ">
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="checkin-date">
                         <h3>Check in- Check Out</h3>
                         <h4>Date : {{date}}</h4>
                     </div>
-                    
-                    <div class="col-md-6">
-                        <form action="">
-                            <div class="customer-searchbar">
-                                <div class="cust-inp">
-                                    <input type="text" placeholder="Search">
-                                </div>
-                                <div class="searchBtn" type="submit">
-                                    <img src="{% static 'images/search-icon.svg' %}" alt="search-icon"
-                                        class="img-fluid">
-                                </div>
-                            </div>
-                        </form>
+                    <div class="col-md-4" id="absent-date">
+                        <h3>Absentees</h3>
+                        <h4>Date : {{date1}}</h4>
                     </div>
+                    
+                    <div class="col-md-6" id="presntSearch">
+                        <div class="customer-searchbar">
+                            <div class="cust-inp">
+                                <input type="text" placeholder="Search " id="searchInputCheckin">
+                            </div>
+                            <div class="searchBtn" type="submit">
+                                <img src="{% static 'images/search-icon.svg' %}" alt="search-icon" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" id="absentSearch">
+                        <div class="customer-searchbar">
+                            <div class="cust-inp">
+                                <input type="text" placeholder="Search" id="searchInputAbsent">
+                            </div>
+                            <div class="searchBtn" type="submit">
+                                <img src="{% static 'images/search-icon.svg' %}" alt="search-icon" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="col-md-2">
                         <form method="post" action="/checkin/" id="myForm">
                             {% csrf_token %}
+                            <input type="hidden" name="form_type" value="presentForm">
                             <input type="date" id="datetime" name="date" onchange="dateTimeSubmit()">
+                        </form>
+                        <form method="post" action="/checkin/" id="absentmyForm">
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" value="absentForm">
+                            <input type="date" id="datetime" name="date" onchange="dateTimeSubmit1()">
                         </form>
                        
                     </div>
                 </div>
                 <div class="check-table-con">
                   <div id="checkin-table">
+                    {% if finallist %}
                     <table class="table w-100 checkin-table"  id="checkinTable" >
                         <thead>
                             <tr  class="leave-table-head text-center">
@@ -346,6 +369,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                           
                             {% for staffnamelist,attendenceloginlist,attendencelogoutlist,workinghourlist,workinghourlistall,attype,outtype in finallist %}
                             <tr class="table-body-li my-3 text-center checkintr">
                                 <td class="checkintd"></td>
@@ -355,8 +379,12 @@
                                 <td>{{workinghourlist}} hrs</td>
                             </tr>
                             {% endfor %}
+                         
                         </tbody>
                     </table>
+                    {% else %}
+                    <center><h1>NO DATA</h1></center>
+                    {% endif %}
                   </div>
                   <div id="absentList-table">
                       <table class="table w-100"  id="absentTable" >
@@ -369,14 +397,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="table-body-li my-3">
-                                <td>1</td>
-                                <td>Balaji</td>
-                                <td>Sick </td>
-                                <td>Approved</td>
+
+                            {% for name, type, status in allabsentees %}
+                            <tr class="table-body-li my-3 absenttr">
+                                <td class="absenttd"></td>
+                                <td>{{name}}</td>
+                                <td>{{type}}</td>
+                                <td>{{status}}</td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
+    
                   </div>
                     <div class="check-bottom-con">
                         <div class="">
@@ -385,7 +417,7 @@
                             <button class="btn btn-info fw-bold" id="presentBtn" onclick="presentBtn()">Present
                                 List</button>
                         </div>
-                        <button class="primary-button" id="printcheckBtn" onclick="exportToExcel()">download </button>
+                        <button class="primary-button" id="printcheckBtn" onclick="printCheckinTable()">download </button>
                         <button class="primary-button" id="printabsentBtn" onclick="printAbsentTable()">Print Absent
                         </button>
                     </div>
@@ -408,19 +440,59 @@
     <script>
         function dateTimeSubmit() {
             document.getElementById("myForm").submit();
+           
+        }
+        function dateTimeSubmit1() {
+        document.getElementById("absentmyForm").submit()
         }
     </script>
     <script>
-        // Get all rows with the class "checkintr"
         const rows = document.querySelectorAll('.checkintr');
-    
-        // Loop through the rows and set the S.No column
         rows.forEach((row, index) => {
             const snoCell = row.querySelector('.checkintd');
             snoCell.textContent = index + 1;
         });
-    </script>
+        const rows1 = document.querySelectorAll('.absenttr');
+        rows1.forEach((row, index) => {
+            const snoCell = row.querySelector('.absenttd');
+            snoCell.textContent = index + 1;
+        });
+        document.getElementById("searchInputCheckin").addEventListener("keyup", function () {
+            const searchText = this.value.toLowerCase();
+            const rows = document.querySelectorAll("#checkin-table tbody tr");
 
+            rows.forEach(function (row) {
+                const nameCell = row.querySelector("td:nth-child(2)");
+                if (nameCell) {
+                    const nameText = nameCell.textContent.toLowerCase();
+                    if (nameText.includes(searchText)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+        });
+
+        document.getElementById("searchInputAbsent").addEventListener("keyup", function () {
+            const searchText = this.value.toLowerCase();
+            const rows = document.querySelectorAll("#absentList-table tbody tr");
+
+            rows.forEach(function (row) {
+                const nameCell = row.querySelector("td:nth-child(2)");
+                if (nameCell) {
+                    const nameText = nameCell.textContent.toLowerCase();
+                    if (nameText.includes(searchText)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+        });
+
+    </script>
+<!-- 
     <script>
         function exportToExcel() {
             var location = 'data:application/vnd.ms-excel;base64,';
@@ -434,7 +506,8 @@
                 '</html>'
             window.location.href = location + window.btoa(excelTemplate);
         }
-    </script>
+    </script> -->
+
 
 </body>
 

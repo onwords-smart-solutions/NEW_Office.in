@@ -84,7 +84,18 @@
                                 <h5>Home</h5>
                             </div>
                         </li>
+                        <li class="navlistmenu navlistmenu-active " onclick="location.href='/'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/installation.svg' %}" alt="installation_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Installation Add</h5>
+                            </div>
+                        </li>
                         {% if general %}
+
                         <li class="navlistmenu " onclick="location.href='/leave_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -95,7 +106,7 @@
                                 <h5>Leave Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu" onclick="location.href='/late_form'">
+                        <li class="navlistmenu " onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
@@ -115,6 +126,7 @@
                                 <h5>Suggestion</h5>
                             </div>
                         </li>
+
                         {% endif %}
 
                         <!-- ===========tl's============================ -->
@@ -156,9 +168,9 @@
                         </li>
 
                         {% endif %}
-                      
+
                         {% if account %}
-                        <li class="navlistmenu" onclick="location.href='/financial'">
+                        <li class="navlistmenu " onclick="location.href='/financial'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/financial-icon.svg' %}" alt="dashboard_Icon">
@@ -182,7 +194,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if customerdetails %}
                         <li class="navlistmenu " onclick="location.href='/customer_details'">
                             <div class="left-nav-list">
@@ -195,9 +207,9 @@
                             </div>
                         </li>
                         {% endif %}
-                       
+
                         {% if quotation %}
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/quotation'">
+                        <li class="navlistmenu" onclick="location.href='/quotation'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/invoice.png' %}" alt="quottaion_Icon">
@@ -221,9 +233,9 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if createstaff %}
-                        <li class="navlistmenu " onclick="location.href='/createstaff'">
+                        <li class="navlistmenu" onclick="location.href='/createstaff'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/create-staff.svg' %}" alt="createstaff_Icon">
@@ -234,7 +246,20 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
+                        {% if viewsuggestion %}
+                        <li class="navlistmenu" onclick="location.href='/viewsuggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/viewsuggestion.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>View Suggestion</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
                         {% if viewworkmanager %}
                         <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
                             <div class="left-nav-list">
@@ -260,6 +285,7 @@
                             </div>
                         </li>
                         {% endif %}
+                        
 
                         {% if userdata %}
                         <li class="navlistmenu" onclick="location.href='/userdata'">
@@ -273,7 +299,6 @@
                             </div>
                         </li>
                         {% endif %}
-
                         {% if prdashboard %}
                         <li class="navlistmenu " onclick="location.href='/prdashboard'">
                             <div class="left-nav-list">
@@ -308,144 +333,99 @@
         </div>
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
-            <div class="container-fluid">
-                <div class="">
-                    <div class="forms-con">
-                        <p class="active-form-li" id="quotationBtn" onclick="quotation()" >Quotation</p>
-                        <p class="" id="proformaBtn" onclick="proforma()">Proforma Invoice</p>
-                        <p id="invoiceBtn" onclick="invoice()">Invoice</p>
-                    </div>
+            <div class="container">
 
-                    <div class="sort-date">
-                        <div></div>
-                        <div class="date-sort">
 
-                            <p>
-                            <form action="/quotation/" method="post" id="datetime1">
+                <div id="late_con">
+                    <div class="leave-form-con">
+                        <div class="leave-list">
+                            <form action="/installationadd/" class=" leave-frm" method="post">
                                 {% csrf_token %}
-                                <label for="sortDate"><img src="{% static 'images/sort-date.svg' %}"
-                                        alt="sort-date">Sort date</label>
-                                <input type="date" name="get-total1" id="sortDate" onchange="dateTimeSubmit()">
-                                {{date}}
+                                <label for="name">Name</label>
+                                <!-- <div class="form-inp-con">
+                                    <select name="" id="">
+                                        <option value="">Select Staff</option>
+                                        {% for name in installname %}
+                                        <option value="">
+                                            <li>
+                                                <input type="checkbox" class="form-check-input" id="name_{{ forloop.counter }}" name="selected_names" value="{{ name }}">
+                                                <label class="form-check-label" for="name_{{ forloop.counter }}">{{ name }}</label>
+                                            </li>
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div> -->
+
+
+                                <div class="form-inp-con p-2">
+                                    <button class="  dropdown-toggle" type="button"
+                                    id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Select Staff
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    {% for name in installname %}
+                                    <li> <span class="dropdown-item install-item">
+                    
+                                        <label class="form-check-label" for="counter">{{ name }}</label>
+                                        <input type="checkbox" class="form-check-input" id="counter" name="selected_names" value="{{ name }}">
+                                        </span>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                </div>
+                                <!-- <div class="form-inp-con">
+                                    {% for name in installname %}
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="name_{{ forloop.counter }}" name="selected_names" value="{{ name }}">
+                                        <label class="form-check-label" for="name_{{ forloop.counter }}">{{ name }}</label>
+                                    </div>
+                                    {% endfor %}
+                                </div> -->
+
+                                <label for="from">Date</label>
+                                <div class="form-inp-con">
+                                    <img src="{% static 'images/date-set.png' %}" alt="date-icon">
+                                    <input type="date" id="from" placeholder="From" name="selectdate">
+                                </div>
+
+                                <label for="place">Place</label>
+                                <div class="form-inp-con">
+                                    <img src="{% static 'images/date-set.png' %}" alt="place-icon">
+                                    <input type="text" id="place" placeholder="place" name="place">
+                                </div>
+
+                                <label for="work">Work</label>
+                                <div class="form-inp-con">
+                                    <img src="{% static 'images/date-set.png' %}" alt="place-icon">
+                                    <input type="text" id="work" placeholder="work" name="work">
+                                </div>
+                                <label for="cname">Client Name</label>
+                                <div class="form-inp-con">
+                                    <img src="{% static 'images/date-set.png' %}" alt="client Name">
+                                    <input type="text" id="cname" placeholder="Client Name" name="clientname">
+                                </div>
+                                <label for="cnumber">Client Number</label>
+                                <div class="form-inp-con">
+                                    <img src="{% static 'images/date-set.png' %}" alt="client-number">
+                                    <input type="number" id="cnumber" placeholder="Client Number" name="clientnumber">
+                                </div>
+                                <label for="cdetails">Client Details</label>
+                                <div class="form-inp-con">
+                                    <img src="{% static 'images/date-set.png' %}" alt="details-icon">
+                                    <input type="text" id="cdetails" placeholder="Client Details" name="clientdetails">
+                                </div>
+
+                                <button class="primary-button">Submit</button>
                             </form>
-                            </p>
+                        </div>
+                        <div class="leave-img installation-imgs">
+                            <img src="{% static 'images/installationadd.svg' %}" alt="leave-form" class="img-fluid ">
                         </div>
                     </div>
-
-                    <div id="quotationTable">
-                        <table class="table">
-                            <thead>
-                                <tr class="leave-table-head">
-                                    <th>Customer name </th>
-                                    <th>Notes</th>
-                                    <th>Number</th>
-                                    <th>Created By</th>
-                                    <th>Invoice name</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Link</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for qName, qmobile_number, qCreatedBy, qNum, qTimeStampDate, qTimeStampTime, qdocument_link, note,notedate in quotationList reversed %}
-                                <form action="/quoteForm/" method="post">{% csrf_token %}
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>{{qName}}</td>
-                                    <td>{{note}} {{notedate}}</td>
-                                    <td><input type="submit" class="quotmobilenumber" name="numb" value="{{qmobile_number}}"></td>
-                                    <td>{{qCreatedBy}}</td>
-                                    <td>{{qNum}}</td>
-                                    <input type="hidden" name="qnum" value="{{qNum}}">
-                                    <td>{{qTimeStampDate}}</td>
-                                    <td>{{qTimeStampTime}}</td>
-                                    <td><a href="{{qdocument_link}}" target="_blank">View Quotation</a></td>
-                                    <input type="hidden" name="quote-link" value="{{qdocument_link}}">
-                                </tr>
-                                </form>
-                                {%endfor%}
-                            </tbody>
-                            </thead>
-                        </table>
-                    </div>
-
-                    <div id="proformaTable">
-                        <table class="table">
-                            <thead>
-                                <tr class="leave-table-head">
-                                    <th>Customer name </th>
-                                    <th>Notes</th>
-                                    <th>Number</th>
-                                    <th>Created By</th>
-                                    <th>Invoice name</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Invoice Link</th>
-                                    <th>Installation Invoice Link</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for piName, pimobile_number, piCreatedBy, piNum, piTimeStampDate, piTimeStampTime, pidocument_link,pi_installtion_document_link,pnote,pnotedate in pinvoiceList reversed %}
-                                <form action="/pinvoiceForm/" method="post">{% csrf_token %}
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>{{piName}}</td>
-                                    <td>{{pnote}} {{pnotedate}}</td>
-                                    <td><input type="submit" name="numb" value="{{pimobile_number}}"></td>
-                                    <td>{{piCreatedBy}}</td>
-                                    <td>{{piNum}}</td>
-                                    <input type="hidden" name="newinum" value="{{piNum}}">
-                                    <td>{{piTimeStampDate}}</td>
-                                    <td>{{piTimeStampTime}}</td>
-                                    <td><a href="{{pidocument_link}}" target="_blank">View Invoice</a></td>
-                                    <input type="hidden" name="invoice-link" value="{{pidocument_link}}">
-                                    <td><a href="{{pi_installtion_document_link}}" target="_blank">View Installtion Invoice</a></td>
-                                    <input type="hidden" name="invoice-link" value="{{pi_installtion_document_link}}">
-                                </tr>
-                                </form>
-                                {%endfor%}
-                            </tbody>
-                            </thead>
-                        </table>
-                    </div>
-
-                    <div id="invoiceTable">
-                        <table class="table">
-                            <thead>
-                                <tr class="leave-table-head">
-                                    <th>Customer name </th>
-                                    <th>Notes</th>
-                                    <th>Number</th>
-                                    <th>Created By</th>
-                                    <th>Invoice name</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Link</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for iName, imobile_number, iCreatedBy, iNum, iTimeStampDate, iTimeStampTime, idocument_link,note,notedate in invoiceList reversed %}
-                                <form action="/invoiceForm/" method="post">{% csrf_token %}
-                                <tr class="table-body-li my-3 text-center">
-                                    <td>{{iName}}</td>
-                                    <td>{{note}} {{notedate}}</td>
-                                    <td class="inp-qoi"><input type="submit" name="numb" value="{{imobile_number}}"></td>
-                                    <td>{{iCreatedBy}}</td>
-                                    <td>{{iNum}}</td>
-                                    <input type="hidden" name="newinum" value="{{iNum}}">
-                                    <td>{{iTimeStampDate}}</td>
-                                    <td>{{iTimeStampTime}}</td>
-                                    <td><a href="{{idocument_link}}" target="_blank">View Invoice</a></td>
-                                    <input type="hidden" name="invoice-link" value="{{idocument_link}}">
-                                </tr>
-                                </form>
-                                {%endfor%}
-                            </tbody>
-                            </thead>
-                        </table>
-                    </div>
-
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
     <!-- bootstrap js -->
@@ -457,10 +437,13 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function dateTimeSubmit(){
-           document.getElementById("datetime1").submit()
-         }
+        $(document).ready(function() {
+            $(".custom-dropdown .dropdown-toggle").click(function() {
+                $(this).next(".custom-dropdown-menu").toggle();
+            });
+        });
     </script>
 
 </body>

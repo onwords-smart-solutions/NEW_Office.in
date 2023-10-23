@@ -44,7 +44,11 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
+                                        {%if profile%}
+                                        <img src="{{profile}}" alt="user-profile">
+                                        {%else%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%endif%}
                                     </div>
                                     <div class="emply-id">
                                         <span>{{ name }}</span><br>
@@ -319,11 +323,9 @@
                                                 alt="searchicon" class="img-fluid search-aiuser-icon"></label>
                                     </div>
                                     <div class="searchbar">
-                                    <form method="post" onsubmit="return false;" class="datesort" >
+                                    <form method="post" class="datesort">
                                         {% csrf_token %}
-                                        <input type="date" id="datePicker" >
-                                        <input type="hidden" id="selectedDate" name="selected_date">
-                                        <button id="submitButton" class="primary-button">Submit</button>
+                                        <input type="date" id="datePicker" name="selected_date">
                                     </form>
                                 </div>
                                 </div>
@@ -380,7 +382,34 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-   
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector(".datesort");
+        const datePicker = document.getElementById("datePicker");
+
+        datePicker.addEventListener("input", function () {
+            if (datePicker.value) {  
+                form.submit();
+            }
+        });
+    });
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+            const searchText = this.value.toLowerCase();
+            const rows = document.querySelectorAll("tbody tr");
+
+            rows.forEach(function (row) {
+                const commandCell = row.querySelector("td:first-child");
+                if (commandCell) {
+                    const commandText = commandCell.textContent.toLowerCase();
+                    if (commandText.includes(searchText)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+        });
+    </script>   
 
 </body>
 

@@ -45,7 +45,11 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
+                                        {%if profile%}
+                                        <img src="{{profile}}" alt="user-profile">
+                                        {%else%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%endif%}
                                     </div>
                                     <div class="emply-id">
                                         <span>{{ name }}</span><br>
@@ -314,7 +318,7 @@
                             <form action="">
                                 <div class="customer-searchbar">
                                     <div class="cust-inp">
-                                        <input type="text" placeholder="Search">
+                                        <input type="text" placeholder="Search" id="searchInput">
                                     </div>
                                     <div class="searchBtn" type="submit">
                                         <img src="{% static 'images/search-icon.svg' %}" alt="search-icon"
@@ -325,14 +329,12 @@
                         </div>
                         <div class="col-md-4">
                             <div class="sort-month">
-                                <form action="/financial-tracking/" method="post" id="datetime">
+                                <form action="/installation_details/" method="post" id="datetime1" onchange="dateTimeSubmit()">
                                     {% csrf_token %}
-                                    <label for="sort-month"><img src="{% static 'images/sort-icon.svg' %}"
-                                            alt="sort-icon">
-                                        SortMonth</label>
-                                    <input type="month" name="get-total" id="sort-month" onchange="dateTimeSubmit()">
-                                    {{date}}
+                                    <label for="sort-month"><img src="{% static 'images/sort-icon.svg' %}" alt="sort-icon"> SortMonth</label>
+                                    <input type="month" name="get-total" id="sort-month">
                                 </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -348,19 +350,23 @@
                                     <th>Client Name</th>
                                     <th>Client Number</th>
                                     <th>Client Details</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for entry in alllist %}
                                 <tr class="table-body-li my-3">
                                     <td>1</td>
-                                    <td>Aravinth,Naveen,Anwar</td>
-                                    <td style="text-wrap: nowrap;">27-09-23 </td>
-                                    <td>Madurai</td>
-                                    <td>SmartHome</td>
-                                    <td>Shreyas Iyer</td>
-                                    <td>8784637882</td>
-                                    <td>103,Alagappa Layout, Valasaravakkam, Chennai-600028</td>
+                                    <td>{{ entry.name }}</td>
+                                    <td style="white-space: nowrap;">{{ entry.date }}</td>
+                                    <td>{{ entry.place }}</td>
+                                    <td>{{ entry.work }}</td>
+                                    <td>{{ entry.clientname }}</td>
+                                    <td>{{ entry.clientnumber }}</td>
+                                    <td>{{ entry.clientdetails }}</td>
+                                    <td><button class="primary-button"><img src="{% static 'images/nav-icon/del-icon.svg' %}" alt=""></button></td>
                                 </tr>
+                                {% endfor %}
 
                             </tbody>
                         </table>
@@ -383,6 +389,27 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
+    <script>
+    function dateTimeSubmit() {
+        document.getElementById("datetime1").submit();
+    }
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+            const searchText = this.value.toLowerCase();
+            const rows = document.querySelectorAll("#myTable tbody tr");
+
+            rows.forEach(function (row) {
+                const nameCell = row.querySelector("td:nth-child(2)");
+                if (nameCell) {
+                    const nameText = nameCell.textContent.toLowerCase();
+                    if (nameText.includes(searchText)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+        });
+</script>
 
 </body>
 
