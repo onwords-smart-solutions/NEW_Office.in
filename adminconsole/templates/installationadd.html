@@ -337,6 +337,15 @@
                         <div class="leave-list">
                             <form action="" class=" leave-frm" method="post">
                                 {% csrf_token %}
+                                <label for="name">Name</label>
+                                <div class="form-inp-con">
+                                    <select id="name" name="name">
+                                        <option value="">Select a Name</option>
+                                        {% for name in installname %}
+                                            <option value="{{ name }}">{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                                 <label for="from">Date</label>
                                 <div class="form-inp-con">
                                     <input type="date" id="from" placeholder="From" name="selectdate">
