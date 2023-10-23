@@ -205,4 +205,14 @@ def installationhome(request):
     return render(request,'rndhome.html',context)
 
 def installationadd(request):
-    return render(request,'installationadd.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    staff_data = db.child("staff").get().val()
+    installationboys = []
+    for staff in staff_data:
+        if staff_data[staff]["department"] == "Installation":
+            installationboys.append(staff_data[staff]["name"])
+    context={
+        "installname":installationboys
+         }       
+    return render(request,'installationadd.html',context)

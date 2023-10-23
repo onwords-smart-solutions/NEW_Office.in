@@ -469,6 +469,8 @@ function absentBtn() {
     const absentDate = document.getElementById("absent-date")
     const myForm =document.getElementById("myForm")
     const absentForm = document.getElementById('absentmyForm')
+    const presentSearch = document.getElementById("presntSearch")
+    const absentSearch = document.getElementById("absentSearch")
 
     absentTable.style.display = 'block'
     checkinTable.style.display = 'none'
@@ -480,6 +482,8 @@ function absentBtn() {
     checkinDate.style.display='none'
     myForm.style.display='none'
     absentForm.style.display='block'
+    presentSearch.style.display='none'
+    absentSearch.style.display='block'
 }
 
 function presentBtn() {
@@ -493,6 +497,9 @@ function presentBtn() {
     const absentDate = document.getElementById("absent-date")
     const myForm =document.getElementById("myForm")
     const absentForm = document.getElementById('absentmyForm')
+    const presentSearch = document.getElementById("presntSearch")
+    const absentSearch = document.getElementById("absentSearch")
+
 
     absentTable.style.display = 'none'
     checkinTable.style.display = 'block'
@@ -504,6 +511,8 @@ function presentBtn() {
     checkinDate.style.display='block'
     myForm.style.display='block'
     absentForm.style.display='none'
+    presentSearch.style.display='block'
+    absentSearch.style.display='none'
 }
 
 // =============
