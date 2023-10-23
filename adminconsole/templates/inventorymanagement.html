@@ -375,7 +375,8 @@
                             </div>
                             <div class="modal-body">
                                 <div class="addpoint-table" id="add-point">
-                                    <form action="inventorymanagement" method="post">
+                                    <form action="/inventorymanagement/" method="post">
+                                        {%csrf_token%}
                                         <input type="text" name="id" placeholder="Produt Id">
                                         <input type="text" name="name" placeholder="Product Name">
                                         <input type="text" name="obc" placeholder="OBC">
@@ -434,19 +435,19 @@
                         </thead>
                         <tbody class="table my-3">
                             {%for sno,x in allinventory%}
-                            <tr class="product-details">
-                                <td>{{sno}}</td>
-                                <td>{{x.id}}</td>
-                                <td>{{x.max_price}}</td>
-                                <td>{{x.min_price}}</td>
-                                <td>{{x.name}}</td>
-                                <td>{{x.obc}}</td>
-                                <td>{{x.stock}}</td>
-                                <form action="inventorymanagement" method="post">
-                                    <input type="hidden" name="{{x.id}}">
-                                    <td><button class="primary-button-update" value="update"><img src="{% static 'images/nav-icon/del-iocn.svg' %}" alt="del" class="img-fluid"></button></td>
-                                </form>
-                            </tr>
+                            <h2>{{x.id}}</h2>
+                            <!-- <form action="/inventorymanagement/" method="post">
+                                <tr class="product-details">
+                                    <td>{{sno}}</td>
+                                    <td><input type="text" name="id" value="{{x.id}}"></td>
+                                    <td><input type="text" name="max_price" value="{{x.max_price}}"></td>
+                                    <td><input type="text" name="min_price" value="{{x.min_price}}"></td>
+                                    <td><input type="text" name="name" value="{{x.name}}"></td>
+                                    <td><input type="text" name="obc" value="{{x.obc}}"></td>
+                                    <td><input type="text" name="stock" value="{{x.stock}}"></td>
+                                    <td><button class="primary-button-update" name="update" value="update"><img src="{% static 'images/nav-icon/del-iocn.svg' %}" alt="del" class="img-fluid"></button></td>
+                                </tr> 
+                            </form> -->
                             {%endfor%}
                         </tbody>
                     </table>
