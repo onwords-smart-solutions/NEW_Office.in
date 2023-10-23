@@ -958,9 +958,19 @@ def inventorymanagement(request):
         print(sno)
         snolist.append(sno)
     allinventory=zip(snolist,inventorylist)    
+    inventorylist2=[]
+    snolist=[]
+    sno=0
+    for id in inventory:
+        inventorylist2.append(inventory[id])
+        sno=sno+1
+        print(sno)
+        snolist.append(sno)
+    allinventory2=zip(snolist,inventorylist)    
     context={
         "editvalue":editvalue,
         "allinventory":allinventory,
+        "allinventory2":allinventory,
         "dep": dep,
         "tl": istl,
         "rndaproval":rndaproval,

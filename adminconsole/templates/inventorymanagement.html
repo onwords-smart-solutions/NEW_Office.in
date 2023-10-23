@@ -434,21 +434,21 @@
                             </tr>
                         </thead>
                         <tbody class="table my-3">
-                            {%for sno,x in allinventory%}
-                            <h2>{{x.id}}</h2>
-                            <!-- <form action="/inventorymanagement/" method="post">
+                            {%for sno,y in allinventory2 %}
+                            <form action="/inventorymanagement/" method="post">
                                 <tr class="product-details">
                                     <td>{{sno}}</td>
-                                    <td><input type="text" name="id" value="{{x.id}}"></td>
-                                    <td><input type="text" name="max_price" value="{{x.max_price}}"></td>
-                                    <td><input type="text" name="min_price" value="{{x.min_price}}"></td>
-                                    <td><input type="text" name="name" value="{{x.name}}"></td>
-                                    <td><input type="text" name="obc" value="{{x.obc}}"></td>
-                                    <td><input type="text" name="stock" value="{{x.stock}}"></td>
+                                    <td><input type="text" name="id" value="{{y.id}}"></td>
+                                    <td><input type="text" name="max_price" value="{{y.max_price}}"></td>
+                                    <td><input type="text" name="min_price" value="{{y.min_price}}"></td>
+                                    <td><input type="text" name="name" value="{{y.name}}"></td>
+                                    <td><input type="text" name="obc" value="{{y.obc}}"></td>
+                                    <td><input type="text" name="stock" value="{{y.stock}}"></td>
                                     <td><button class="primary-button-update" name="update" value="update"><img src="{% static 'images/nav-icon/del-iocn.svg' %}" alt="del" class="img-fluid"></button></td>
                                 </tr> 
-                            </form> -->
+                            </form>
                             {%endfor%}
+                            
                         </tbody>
                     </table>
                 </div>

@@ -7,7 +7,7 @@ import pyrebase
 # Create your views here.
 
 config2 = {
-    "apiKey": "AIzaSyAZcnME1iLaqUWHtnJWfnwvyp3_7h1Qdng",
+    "apiKey": "AIzaSyAZcnME1iLaqUWHtnWfnwvyp3_7h1Qdng",
     "authDomain": "smart-home-c08c4.firebaseapp.com",
     "databaseURL": "https://smart-home-c08c4-default-rtdb.firebaseio.com",
     "projectId": "smart-home-c08c4",
