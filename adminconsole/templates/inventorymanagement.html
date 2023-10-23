@@ -375,14 +375,14 @@
                             </div>
                             <div class="modal-body">
                                 <div class="addpoint-table" id="add-point">
-                                    <form action="">
-                                        <input type="text" placeholder="Product Name">
-                                        <input type="text" placeholder="Produt Id">
-                                        <input type="text" placeholder="OBC">
-                                        <input type="number" placeholder="Minimum Price">
-                                        <input type="number" placeholder="Maximum Price">
-                                        <input type="number" placeholder="Stock">
-                                        <button class="primary-button">Submit</button>
+                                    <form action="inventorymanagement" method="post">
+                                        <input type="text" name="id" placeholder="Produt Id">
+                                        <input type="text" name="name" placeholder="Product Name">
+                                        <input type="text" name="obc" placeholder="OBC">
+                                        <input type="number" name="min_price" placeholder="Minimum Price">
+                                        <input type="number" name="max_price" placeholder="Maximum Price">
+                                        <input type="number" name="stock" placeholder="Stock">
+                                        <button type="submit" class="primary-button" name="update">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -390,8 +390,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="product-table" id="product-table">
                     <table class="table">
                         <thead class="product-table-head">
@@ -405,44 +403,16 @@
                             </tr>
                         </thead>
                         <tbody class="table my-3">
+                            {%for sno,x in allinventory%}
                             <tr class="product-details">
-                                <td>1</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>10</td>
+                                <td>{{sno}}</td>
+                                <td>{{x.id}}</td>
+                                <td>{{x.max_price}}</td>
+                                <td>{{x.min_price}}</td>
+                                <td>{{x.name}}</td>
+                                <td>{{x.stock}}</td>
                             </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>2</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>10</td>
-                            </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>3</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>10</td>
-                            </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>4</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>10</td>
-                            </tr>
+                            {%endfor%}
                         </tbody>
                     </table>
                 </div>
@@ -463,52 +433,19 @@
                             </tr>
                         </thead>
                         <tbody class="table my-3">
+                            {%for sno,x in allinventory%}
                             <tr class="product-details">
-                                <td>1</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>408</td>
-                                <td>4</td>
+                                <td>{{sno}}</td>
+                                <td>{{x.id}}</td>
+                                <td>{{x.max_price}}</td>
+                                <td>{{x.min_price}}</td>
+                                <td>{{x.name}}</td>
+                                <td>{{x.obc}}</td>
+                                <td>{{x.stock}}</td>
+
                                 <td><button class="primary-button-update">Update</button></td>
                             </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>2</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>408</td>
-                                <td>4</td>
-                                <td><button class="primary-button-update">Update</button></td>
-                            </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>3</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>408</td>
-                                <td>4</td>
-                                <td><button class="primary-button-update">Update</button></td>
-                            </tr>
-                        </tbody>
-                        <tbody class="table my-3">
-                            <tr class="product-details">
-                                <td>4</td>
-                                <td>ONAJBP10</td>
-                                <td>5940</td>
-                                <td>408</td>
-                                <td>BATCH Of Pass(10 Pcs)</td>
-                                <td>408</td>
-                                <td>4</td>
-                                <td><button class="primary-button-update">Update</button></td>
-                            </tr>
+                            {%endfor%}
                         </tbody>
                     </table>
                 </div>
@@ -529,7 +466,7 @@
                         <span>
                             <h5 class="up-cmo">Target Total <span><input class="cmo-input" type="text"></span> </h5>
                         </span>
-                        <h5><button class="primary-button">Submit</button></h5>
+                        <h5><button type="submit" class="primary-button">Submit</button></h5>
                     </div>
                     <div class="adminpoints-nav-con my-3">
                         <table class="table">
@@ -581,7 +518,7 @@
                     </center>
                     <center>
                         <div class="installation-pending" id="pending-Btn">
-                            <h5>pending instalation</h5>
+                            <h5>pending installation</h5>
                             <input type="number" name="" id="">
                             <input type="number" name="" id="">
                             <button class="primary-button">submit</button>
