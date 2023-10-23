@@ -62,7 +62,7 @@ def login(request):
                 return response
             if dep == "HR":
                 response = redirect("hrhome")
-                return response       
+                return response   
     except:
         pass
 

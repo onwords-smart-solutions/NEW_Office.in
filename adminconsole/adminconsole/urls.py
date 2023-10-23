@@ -83,8 +83,8 @@ urlpatterns = [
     path("hrhome/",hrviews.hrhome,name='hrhome'),
 
     # =====================super admin====================================
-    path("installationhome/",hrviews.installationhome,name='installationhome'),
+    path("installationhome/",installationviews.installationhome,name='installationhome'),
 
     # =====================super admin====================================
-    path("aimlhome/",hrviews.aimlhome,name='aimlhome'),
+    path("aimlhome/",aimlviews.aimlhome,name='aimlhome'),
 ]
