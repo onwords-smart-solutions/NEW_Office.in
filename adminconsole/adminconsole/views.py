@@ -21,12 +21,12 @@ firebaseConfig = {
 }
 
 firebase = pyrebase.initialize_app(config)
-db = firebase.database()
+db1 = firebase.database()
 auth = firebase.auth()
 storage1 = firebase.storage()
 
 firebase1 = pyrebase.initialize_app(firebaseConfig)
-db1 = firebase1.database()
+db = firebase1.database()
 storage = firebase1.storage()
 
 def login(request):
@@ -54,6 +54,15 @@ def login(request):
             if dep == "ADMIN":
                 response = redirect("adminhome")
                 return response
+            if dep == "INSTALLATION":
+                response = redirect("installationhome")
+                return response
+            if dep == "AIML":
+                response = redirect("aimlhome")
+                return response
+            if dep == "HR":
+                response = redirect("hrhome")
+                return response   
     except:
         pass
 
@@ -114,7 +123,6 @@ def leave_form(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     name = checkUserName(uid)
-    department = checkUserDepartment(uid)
     leave_data = db.child("leaveDetails").get().val()
     current_date = datetime.now().strftime('%Y-%m-%d')
     current_year = datetime.now().strftime("%Y")
@@ -130,7 +138,7 @@ def leave_form(request):
                    
                     reason = request.POST['reason']
                     c = {
-                        "dep": department,
+                        "dep": dep,
                         "name": name,
                         "reason": reason,
                         "status": "Pending",
@@ -153,7 +161,7 @@ def leave_form(request):
                     year, month, day = map(int, from_date.split('-'))
                     reason = request.POST['reason']
                     c = {
-                        "dep": department,
+                        "dep": dep,
                         "name": name,
                         "reason": reason,
                         "status": "Pending",
@@ -164,20 +172,20 @@ def leave_form(request):
                   
                     db.child("leaveDetails").child(year).child(month).child(from_date).child(uid).child(leave_type).set(c)    
             except:
+                print("inside half")
                 half_date = (request.POST.get('halfdate'))    
                 reason = request.POST.get('reason')
                 year, month, day = map(int, half_date.split('-'))
 
                 c = {
-                    "dep": department,
+                    "dep": dep,
                     "name": name,
                     "reason": reason,
                     "status": "Pending",
                     "node":"Half Day",
                     "date":half_date,
                 }
-                db.child("leaveDetails").child(year).child(month).child(half_date).child(uid).child(leave_type).child(c) 
-
+                db.child("leaveDetails").child(year).child(month).child(half_date).child(uid).child(leave_type).set(c)
         if leave_type == "sick":
             try:
                 try:
@@ -186,7 +194,7 @@ def leave_form(request):
                    
                     reason = request.POST['reason']
                     c = {
-                        "dep": department,
+                        "dep": dep,
                         "name": name,
                         "reason": reason,
                         "status": "Pending",
@@ -212,7 +220,7 @@ def leave_form(request):
                     year, month, day = map(int, from_date.split('-'))
                     reason = request.POST['reason']
                     c = {
-                        "dep": department,
+                        "dep": dep,
                         "name": name,
                         "reason": reason,
                         "status": "Pending",
@@ -228,7 +236,7 @@ def leave_form(request):
                 year, month, day = map(int, half_date.split('-'))
 
                 c = {
-                    "dep": department,
+                    "dep": dep,
                     "name": name,
                     "reason": reason,
                     "status": "Pending",
@@ -254,7 +262,7 @@ def leave_form(request):
                 print("From time and/or to time not provided.")
             
             c = {
-                    "dep": department,
+                    "dep": dep,
                     "name": name,
                     "reason": reason,
                     "status": "Pending",
@@ -264,22 +272,30 @@ def leave_form(request):
             db.child("leaveDetails").child(current_year).child(current_month).child(current_date).child(uid).child(leave_type).set(c) 
 
     try:
+        print('test=============',uid)
         leavedata = db.child("leaveDetails").child(current_year).get().val()
         datelist,reasonlist,statelist,inchargelist=[],[],[],[]
         for monthdata in leavedata:
             for datedata in leavedata[monthdata]:
-                for leavetype in leavedata[monthdata][datedata][uid]:
-                    datelist.append(leavedata[monthdata][datedata][uid][leavetype]["date"])
-                    reasonlist.append(leavedata[monthdata][datedata][uid][leavetype]["reason"])
-                    statelist.append(leavedata[monthdata][datedata][uid][leavetype]["status"])
-                    try:
-                        inchargelist.append(leavedata[monthdata][datedata][uid][leavetype]["updated_by"])
-                    except:
-                        inchargelist.append(False)
+                print(datedata)
+                try:
+                    for leavetype in leavedata[monthdata][datedata][uid]:
+                        datelist.append(leavedata[monthdata][datedata][uid][leavetype]["date"])
+                        reasonlist.append(leavedata[monthdata][datedata][uid][leavetype]["reason"])
+                        statelist.append(leavedata[monthdata][datedata][uid][leavetype]["status"])
+                        try:
+                            inchargelist.append(leavedata[monthdata][datedata][uid][leavetype]["updated_by"])
+                        except:
+                            inchargelist.append(False)
+                except:
+                    pass            
 
+        print(datelist,reasonlist,statelist,inchargelist)
         leavehistory = zip(datelist,reasonlist,statelist,inchargelist)
         context = {
             "leavehistory": leavehistory,
+            "dep":dep,
+            "name":name
             # "tl": istl,
             # "dep":dep,
             # "accounts":accounts,
@@ -380,7 +396,7 @@ def late_form(request):
             childName = ft + " to " + tt
             db.child("workmanager").child(selectedYear).child(selectedMonth).child(sd).child(uid).child("LateEntry").child(childName).set(context)
             
-    return render(request, 'late_form.html', {"form_submitted": form_submitted, "dep":dep})
+    return render(request, 'late_form.html', {"form_submitted": form_submitted, "dep":dep,"name":name})
 
 def late_approval(request):
     uid = request.COOKIES["uid"]
@@ -430,6 +446,7 @@ def late_approval(request):
     allList = zip(yearList, monthList, dateList, lateList)
     allListMobile = zip(yearList, monthList, dateList, lateList)
     context = {
+        "name":name,
         "allList": allList,
         "allListMobile": allListMobile,
         # "tl": istl,
@@ -441,6 +458,9 @@ def late_approval(request):
     return render(request,'lateapproval.html', context)
 
 def leave_approval(request):
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
     leavedata = db.child("leaveDetails").get().val()
     staff_data = db.child("staff").get().val()
     yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
@@ -468,8 +488,9 @@ def leave_approval(request):
     allListMobile = zip(yearList, monthList, dateList, typelist, datalist)
     context = {
         "leaveList": allList,
+        "name":name,
         # "tl": istl,
-        # "dep":dep,
+        "dep":dep,
         # "accounts":accounts,
         # "management":management,
         # "suggestionNotification":suggestionNotification
@@ -548,6 +569,7 @@ def suggestion(request):
 
     context = {
         # "tl": istl,
+        "name":name,
         "dep":dep,
         # "accounts": accounts,
         # "management": management,
@@ -688,7 +710,7 @@ def financialpost(request):
 def financial(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
-    name=db.child("staff").child(uid).child("name").get().val()
+    # name=db.child("staff").child(uid).child("name").get().val()
     name = checkUserName(uid)
     istl = False
     praproval = False
@@ -761,6 +783,7 @@ def financial(request):
             diffWithoutSalary = incomeamount - expenseWithoutSalary
             dcolor = "Green"
         context = {
+            "name":name,
             "incomeList": incomeList,
             "expenseList": expenseList,
             "incomeData": incomeData,
@@ -840,8 +863,8 @@ def financial(request):
     else:
         diffWithoutSalary = incomeamount - expenseWithoutSalary
         dcolor = "Green"
-    print(incomeList)
     context = {
+        "name":name,
         "incomeList": incomeList,
         "expenseList": expenseList,
         "incomeData": incomeData,
@@ -871,9 +894,6 @@ def installation_details(request):
     return render(request,'installation_details.html')
 def todo(request):
     return render(request,'todo.html')
-
-
-
 def refreshment(request):
     if request.method == "POST":
         todayDate = str(date.today())
@@ -1100,3 +1120,6 @@ def logout(request):
     response.delete_cookie("uid")
     response.delete_cookie("loginState")
     return response            
+
+def prdashboard(request):
+    return render(request,'admindashboard.html')

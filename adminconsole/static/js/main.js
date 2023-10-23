@@ -535,3 +535,55 @@ function invoice() {
     proformaBtn.classList.remove('active-form-li')
     invoiceBtn.classList.add('active-form-li')
 }
+
+
+// ===========================
+
+function weeklytarget(){
+    const weeklytarget = document.getElementById('weeklytarget')
+    const employeweek = document.getElementById('employeofweek')
+    const progress = document.getElementById('progress')
+    const weeklyTable = document.getElementById('weekltTargetTable')
+    const emplytable = document.getElementById('employeofweekTable')
+    const progressTable= document.getElementById('progressTable')
+
+    weeklyTable.style.display='block'
+    emplytable.style.display='none'
+    progressTable.style.display='none'
+    weeklytarget.classList.add('active-form-late')
+    employeweek.classList.remove('active-form-late')
+    progress.classList.remove('active-form-late')
+    
+}
+function employeeweek(){
+    const weeklytarget = document.getElementById('weeklytarget')
+    const employeweek = document.getElementById('employeofweek')
+    const progress = document.getElementById('progress')
+    const weeklyTable = document.getElementById('weekltTargetTable')
+    const emplytable = document.getElementById('employeofweekTable')
+    const progressTable= document.getElementById('progressTable')
+
+    weeklyTable.style.display='none'
+    emplytable.style.display='block'
+    progressTable.style.display='none'
+    weeklytarget.classList.remove('active-form-late')
+    employeweek.classList.add('active-form-late')
+    progress.classList.remove('active-form-late')
+    
+}
+function progress(){
+    const weeklytarget = document.getElementById('weeklytarget')
+    const employeweek = document.getElementById('employeofweek')
+    const progress = document.getElementById('progress')
+    const weeklyTable = document.getElementById('weekltTargetTable')
+    const emplytable = document.getElementById('employeofweekTable')
+    const progressTable= document.getElementById('progressTable')
+
+    weeklyTable.style.display='none'
+    emplytable.style.display='none'
+    progressTable.style.display='block'
+    weeklytarget.classList.remove('active-form-late')
+    employeweek.classList.remove('active-form-late')
+    progress.classList.add('active-form-late')
+    
+}

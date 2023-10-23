@@ -7,6 +7,10 @@ from pr import views as prviews
 from rnd import views as rndviews
 from admin import views as adminviews
 from superadmin import views as superadminviews
+from hr import views as hrviews
+from installation import views as installationviews
+from aiml import views as aimlviews
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.login, name="login"),
@@ -24,8 +28,7 @@ urlpatterns = [
     path("financialpost/",views.financialpost,name="financialpost"),
     path("attendancesort/",adminviews.attendancesort,name="attendancesort"),
     path("logout/",views.logout,name="logout"),
-    # ========================coo page =========================
-
+    path('prdashboard',views.prdashboard,name='pradshboard'),
     path('coohome/', views.coohome,name='coohome'),
     path('installation_details',views.installation_details,name='installation_details'),
 
@@ -73,7 +76,15 @@ urlpatterns = [
     path("staffaccess/",superadminviews.staffaccess,name='staffaccess'),
     path("userdata/",superadminviews.userdata,name='userdata'),
     path("viewsuggestion/",superadminviews.viewsuggestion,name='viewsuggestion'),
-    path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager')
+    path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager'),
+    path("markasread/", superadminviews.markasread, name="markasread"),
 
-   
+    # =====================super admin====================================
+    path("hrhome/",hrviews.hrhome,name='hrhome'),
+
+    # =====================super admin====================================
+    path("installationhome/",installationviews.installationhome,name='installationhome'),
+
+    # =====================super admin====================================
+    path("aimlhome/",aimlviews.aimlhome,name='aimlhome'),
 ]

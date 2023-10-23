@@ -270,6 +270,19 @@
                         </li>
                         {% endif %}
 
+                        {% if prdashboard %}
+                        <li class="navlistmenu " onclick="location.href='/prdashboard'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/prdashboard.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>PR Dashboard</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
                         <!-- =========================== -->
 
                     </ul>
