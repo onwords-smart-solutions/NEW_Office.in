@@ -8,6 +8,7 @@ from datetime import datetime,timedelta
 def superadmin(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
+    profile=request.COOKIES["profile"]
     name = checkUserName(uid)
     current_year = datetime.now().strftime("%Y")
     current_month = datetime.now().strftime("%m")
@@ -26,10 +27,16 @@ def superadmin(request):
                 stafftotalpresent=stafftotalpresent+1
             except:
                 stafftotalabsent=stafftotalabsent+1
-                
+    inventory=db.child("inventory_management").get().val()
+    inventoryall=[]
+    for uid in inventory:
+        inventoryall.append(inventory[uid])
+
     context={
         "name":name,
         "dep":dep,
+        "profile":profile,
+        "inventoryall":inventoryall,
         "stafftotalpresent":stafftotalpresent,
         "stafftotalabsent":stafftotalabsent
     }            

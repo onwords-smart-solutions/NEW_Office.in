@@ -87,23 +87,27 @@ def login(request):
             user = auth.sign_in_with_email_and_password(email, password)
             uid = user["localId"]  # to get the uid of the authentication
             dep = checkUserDepartment(uid)
+            profile=profileall(uid)
             exp = 100 * 365 * 24 * 60 * 60
             if dep == "APP":
                 response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "WEB":
                 response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "MEDIA":
                 response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "PR":
@@ -111,18 +115,21 @@ def login(request):
                 response = redirect("prhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "RND":
                 response = redirect("rndhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "ADMIN":
                 response = redirect("adminhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             return redirect("login")
@@ -955,12 +962,12 @@ def inventorymanagement(request):
     for id in inventory:
         inventorylist.append(inventory[id])
         sno=sno+1
-        print(sno)
         snolist.append(sno)
     allinventory=zip(snolist,inventorylist)    
     context={
         "editvalue":editvalue,
         "allinventory":allinventory,
+        "allinventory2":allinventory,
         "dep": dep,
         "tl": istl,
         "rndaproval":rndaproval,
@@ -1264,4 +1271,12 @@ def userdata(request):
         # "aiteam": aiteam,
         # "adminai": adminai
     } 
-    return render(request,'userdata.html',context)    
+    return render(request,'userdata.html',context)
+
+def profileall(uid):
+    profiledata=db.child("staff").get().val()
+    try:
+        profilepic=profiledata[uid]["profileImage"]
+    except:
+        profilepic="False"
+    return profilepic  

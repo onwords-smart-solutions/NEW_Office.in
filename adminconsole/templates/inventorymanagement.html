@@ -45,7 +45,11 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
+                                        {%if profile%}
+                                        <img src="{{profile}}" alt="user-profile">
+                                        {%else%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%endif%}
                                     </div>
                                     <div class="emply-id">
                                         <span>{{ name }}</span><br>
@@ -400,6 +404,7 @@
                                 <th>Max Price</th>
                                 <th>Min Price</th>
                                 <th>Name</th>
+                                <th>Obs</th>
                                 <th>Stock</th>
                             </tr>
                         </thead>
@@ -411,6 +416,7 @@
                                 <td>{{x.max_price}}</td>
                                 <td>{{x.min_price}}</td>
                                 <td>{{x.name}}</td>
+                                <th>{{x.obc}}</th>
                                 <td>{{x.stock}}</td>
                             </tr>
                             {%endfor%}
@@ -434,20 +440,27 @@
                             </tr>
                         </thead>
                         <tbody class="table my-3">
-                            {%for sno,x in allinventory%}
-                            <h2>{{x.id}}</h2>
-                            <!-- <form action="/inventorymanagement/" method="post">
+                            {%for sno,y in allinventory2%}
+                            <!-- <h2>{{x.id}}</h2> -->
+                            <!-- <form action="/inventorymanagement/" method="post"> -->
                                 <tr class="product-details">
                                     <td>{{sno}}</td>
-                                    <td><input type="text" name="id" value="{{x.id}}"></td>
-                                    <td><input type="text" name="max_price" value="{{x.max_price}}"></td>
-                                    <td><input type="text" name="min_price" value="{{x.min_price}}"></td>
-                                    <td><input type="text" name="name" value="{{x.name}}"></td>
-                                    <td><input type="text" name="obc" value="{{x.obc}}"></td>
-                                    <td><input type="text" name="stock" value="{{x.stock}}"></td>
+                                    <td>{{y.id}}</td>
+                                    <td>{{y.max_price}}</td>
+                                    <td>{{y.min_price}}</td>
+                                    <td>{{y.name}}</td>
+                                    <td>{{y.obc}}</td>
+                                    <td>{{y.stock}}</td>
+                                    <!-- <td>{{sno}}</td> -->
+                                    <!-- <td><input type="text" name="id" value="{{y.id}}"></td>
+                                    <td><input type="text" name="max_price" value="{{y.max_price}}"></td>
+                                    <td><input type="text" name="min_price" value="{{y.min_price}}"></td>
+                                    <td><input type="text" name="name" value="{{y.name}}"></td>
+                                    <td><input type="text" name="obc" value="{{y.obc}}"></td>
+                                    <td><input type="text" name="stock" value="{{y.stock}}"></td> -->
                                     <td><button class="primary-button-update" name="update" value="update"><img src="{% static 'images/nav-icon/del-iocn.svg' %}" alt="del" class="img-fluid"></button></td>
                                 </tr> 
-                            </form> -->
+                            <!-- </form> -->
                             {%endfor%}
                         </tbody>
                     </table>
