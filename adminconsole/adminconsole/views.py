@@ -887,7 +887,70 @@ def financial(request):
     return render(request, "financial.html", context)
 
 def inventorymanagement(request):
-    return render(request,'inventorymanagement.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
+    istl = False
+    rndaproval = False
+    praproval = False
+    tl = db.child("tl").get().val()
+    for t in tl:
+        if name == tl[t]:
+            istl = True
+            break
+    if uid == 'ZIuUpLfSIRgRN5EqP7feKA9SbbS2'or uid == 'Vhbt8jIAfiaV1HxuWERLqJh7dbj2':
+        istl = True
+    if uid == 'pztngdZPCPQrEvmI37b3gf3w33d2':
+        rndaproval = True
+    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid == 'yleZdWDZgFYTBxwzC5NtHVeb3733':
+        praproval = True       
+    allDataBase = db.get().val()
+    editvalue=[]
+    if 'getid1' in request.POST:
+        inventory = allDataBase["inventory_management"]
+        getid=request.POST['getid']
+        editvalue.append(inventory[getid])
+
+    if 'getid2' in request.POST:
+        getid=request.POST['getid']
+        db.child("inventory_management").child(getid).remove()
+
+    if 'update' in request.POST:
+        id=request.POST['id']
+        max_price=request.POST['max_price']
+        min_price=request.POST['min_price']
+        name=request.POST['name']
+        obc=request.POST['obc']
+        stock=request.POST['stock']
+
+        data={
+            "id":id,
+            "max_price":max_price,
+            "min_price":min_price,
+            "name":name,
+            "obc":obc,
+            "stock":stock
+        }
+        db.child("inventory_management").child(id).update(data)
+
+    allDataBase = db.get().val()
+    inventory = allDataBase["inventory_management"]
+    inventorylist=[]
+    snolist=[]
+    sno=0
+    for id in inventory:
+        inventorylist.append(inventory[id])
+        snolist.append(sno)
+    allinventory=zip(snolist,inventorylist)    
+    context={
+        "editvalue":editvalue,
+        "allinventory":allinventory,
+        "dep": dep,
+        "tl": istl,
+        "rndaproval":rndaproval,
+        "praproval":praproval
+    }
+    return render(request,'inventorymanagement.html',context)
 def coohome(request):
     return render(request,'coohome.html')
 def installation_details(request):
