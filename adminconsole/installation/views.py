@@ -203,3 +203,6 @@ def installationhome(request):
             "overallleave":overallleave,
         }
     return render(request,'rndhome.html',context)
+
+def installationadd(request):
+    return render(request,'installationadd.html')
