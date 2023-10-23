@@ -77,7 +77,6 @@ def createstaff(request):
 
 def staffaccess(request):
     return render(request,'staff-access.html')
-
 def userdata(request):
     return render(request,'userdata.html')
 def viewsuggestion(request):
