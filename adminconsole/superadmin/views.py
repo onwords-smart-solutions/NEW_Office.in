@@ -16,8 +16,7 @@ def createstaff(request):
     return render(request,'createstaff.html')
 def staffaccess(request):
     return render(request,'staff-access.html')
-def userdata(request):
-    return render(request,'userdata.html')
+
 def viewsuggestion(request):
     # suggestionNotification = 0
     # suggestionData = db.child("suggestion").get().val()
