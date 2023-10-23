@@ -442,9 +442,10 @@
                                 <td>{{x.name}}</td>
                                 <td>{{x.obc}}</td>
                                 <td>{{x.stock}}</td>
-
-                                <td><button class="primary-button-update"><img src="{% static 'images/nav-icon/edit.svg'  %}" alt="edit" class="img-fluid"></button></td>
-                                <td><button class="primary-button-update"><img src="{% static 'images/nav-icon/del-iocn.svg' %}" alt="del" class="img-fluid"></button></td>
+                                <form action="inventorymanagement" method="post">
+                                    <input type="hidden" name="{{x.id}}">
+                                    <td><button class="primary-button-update" value="update"><img src="{% static 'images/nav-icon/del-iocn.svg' %}" alt="del" class="img-fluid"></button></td>
+                                </form>
                             </tr>
                             {%endfor%}
                         </tbody>

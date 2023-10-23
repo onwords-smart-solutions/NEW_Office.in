@@ -2,7 +2,22 @@ from django.shortcuts import render
 from adminconsole.views import db, checkUserName
 from it.views import convert_to_12_hour_format,calculate_progress,calculate_progress_
 from datetime import datetime,timedelta
+from django.contrib import messages
+import pyrebase
 # Create your views here.
+
+config2 = {
+    "apiKey": "AIzaSyAZcnME1iLaqUWHtnJWfnwvyp3_7h1Qdng",
+    "authDomain": "smart-home-c08c4.firebaseapp.com",
+    "databaseURL": "https://smart-home-c08c4-default-rtdb.firebaseio.com",
+    "projectId": "smart-home-c08c4",
+    "storageBucket": "smart-home-c08c4.appspot.com",
+    "messagingSenderId": "867325064971",
+    "appId": "1:867325064971:web:03089586292c3ed943540e",
+    "measurementId": "G-01LGYRSE6M",
+}
+firebase2 = pyrebase.initialize_app(config2)
+shDB = firebase2.database()
 
 def rndhome(request):
     uid = request.COOKIES["uid"]
@@ -202,6 +217,80 @@ def rndhome(request):
         }
     return render(request,'rndhome.html',context)
 def inprocess(request):
-    return render(request,'inprocess.html')
+    uid = request.COOKIES["uid"]
+    name = checkUserName(uid)
+    istl = False
+    rndaproval = False
+    tl = db.child("tl").get().val()
+    for t in tl:
+        if name == tl[t]:
+            istl = True
+            break
+    if uid == "pztngdZPCPQrEvmI37b3gf3w33d2":
+        rndaproval = True
+    data = db.child("customer").get().val()
+    custNameList = []
+    custPhnList = []
+    for cust in data:
+        try:
+            if data[cust]["InProcess"]:
+                custNameList.append(data[cust]["name"])
+                custPhnList.append(cust)
+        except:
+            pass
+    if custNameList == [] and custPhnList == []:
+        context = {"nocustomer": "No Customer is currently In Process", "tl": istl,"rndaproval":rndaproval}
+        return render(request, "rnd/inprocess.html", context)
+    # try:
+    #     # for cust in data:
+    #     #     try:
+    #     #         if data[cust]['InProcess']:
+    #     #             # custList.append(cust)
+    #     #     except:
+    #     #         pass
+    #     # if data[]
+    # except:
+    #     pass
+    allList = zip(custNameList, custPhnList)
+    context = {
+        "allList": allList,
+        "tl": istl,
+        "rndaproval":rndaproval
+    }
+    return render(request,'inprocess.html',context)
+
 def create(request):
-    return render(request,'create.html')
+    uid = request.COOKIES["uid"]
+    name = checkUserName(uid)
+    istl = False
+    tl = db.child("tl").get().val()
+    rndaproval = False
+    for t in tl:
+        if name == tl[t]:
+            istl = True
+            break
+    if uid == "pztngdZPCPQrEvmI37b3gf3w33d2":
+        rndaproval = True    
+    if request.method == "POST":
+        try:
+            email1 = request.POST["email"]
+            data = shDB.get().val()
+            for uid in data:
+                try:
+                    if email1 in data[uid]["email"]:
+                        uidd = data[uid]
+                except:
+                    pass
+            messages.success(request, "User Created for Gate Automation")
+
+        except:
+            # try:
+            #     email2 = request.POST['email2']
+            #     data = shDB.get().val()
+            #     for uid in data:
+            #         if email1 in data[uid]['email']:
+            #     messages.success(request, "User Created for WTA" )
+            # except:
+            pass
+    context = {"tl": istl,"rndaproval":rndaproval}
+    return render(request,'create.html',context)

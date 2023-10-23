@@ -954,6 +954,8 @@ def inventorymanagement(request):
     sno=0
     for id in inventory:
         inventorylist.append(inventory[id])
+        sno=sno+1
+        print(sno)
         snolist.append(sno)
     allinventory=zip(snolist,inventorylist)    
     context={

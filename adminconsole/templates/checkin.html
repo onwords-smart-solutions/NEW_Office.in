@@ -453,27 +453,7 @@
                 '</html>'
             window.location.href = location + window.btoa(excelTemplate);
         }
-<<<<<<< HEAD
     </script> -->
-=======
-        document.getElementById("searchInput").addEventListener("keyup", function () {
-            const searchText = this.value.toLowerCase();
-            const rows = document.querySelectorAll("tbody tr");
-
-            rows.forEach(function (row) {
-                const commandCell = row.querySelector("td:first-child");
-                if (commandCell) {
-                    const commandText = commandCell.textContent.toLowerCase();
-                    if (commandText.includes(searchText)) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
-                }
-            });
-        });
-    </script>
->>>>>>> d2036546f5840d0e5abcb8e890cff62b056d9f0f
 
 
 </body>
