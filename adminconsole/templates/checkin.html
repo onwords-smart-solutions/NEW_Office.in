@@ -307,11 +307,11 @@
 
             <div class="container-fluid">
                 <div class="row my-3 align-items-center ">
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="checkin-date">
                         <h3>Check in- Check Out</h3>
                         <h4>Date : {{date}}</h4>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="absent-date">
                         <h3>Absentees</h3>
                         <h4>Date : {{date1}}</h4>
                     </div>
@@ -397,7 +397,7 @@
                             <button class="btn btn-info fw-bold" id="presentBtn" onclick="presentBtn()">Present
                                 List</button>
                         </div>
-                        <button class="primary-button" id="printcheckBtn" onclick="exportToExcel()">download </button>
+                        <button class="primary-button" id="printcheckBtn" onclick="printCheckinTable()">download </button>
                         <button class="primary-button" id="printabsentBtn" onclick="printAbsentTable()">Print Absent
                         </button>
                     </div>
@@ -438,7 +438,7 @@
             snoCell.textContent = index + 1;
         });
     </script>
-
+<!-- 
     <script>
         function exportToExcel() {
             var location = 'data:application/vnd.ms-excel;base64,';
@@ -452,7 +452,7 @@
                 '</html>'
             window.location.href = location + window.btoa(excelTemplate);
         }
-    </script>
+    </script> -->
 
 </body>
 
