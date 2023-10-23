@@ -341,38 +341,45 @@
                         <div class="leave-list">
                             <form action="" class=" leave-frm" method="post">
                                 {% csrf_token %}
-                                <label for="from">Date</label>
+                                <label for="from">Name</label>
                                 <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="From" name="selectdate">
-                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
+                                    <img src="{% static 'images/user-icon.svg' %}" alt="user-icon">
+                                    <input type="text" id="from" placeholder="From" name="selectdate">
                                 </div>
 
-                                <label for="to">Workdone</label>
+                                <label for="from">Date</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Enter your Workdone" name="workdone">
+                                    <img src="{% static 'images/date-set.png' %}" alt="date-icon">
+                                    <input type="date" id="from" placeholder="From" name="selectdate">
                                 </div>
-                                <div class="main-leave-con">
-                                    <div class="">
-                                        <label for="starttime">From</label>
-                                        <div class="time-inp">
-                                            <input type="time" id="starttime" name="fromtime">
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <label for="endtime">To</label>
-                                        <div class="time-inp">
-                                            <input type="time" id="endtime" name="totime" onchange="timediff()">
-                                        </div>
-                                    </div>
-                                </div>
-                                <label for="to">Work Percentage</label>
+
+                                <label for="from">Place</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="%" name="workpercent">
+                                    <img src="{% static 'images/date-set.png' %}" alt="place-icon">
+                                    <input type="text" id="from" placeholder="place" name="selectdate">
                                 </div>
-                                <label for="to">Reason</label>
+
+                                <label for="from">Work</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Reason" name="reason">
+                                    <img src="{% static 'images/date-set.png' %}" alt="place-icon">
+                                    <input type="text" id="from" placeholder="work" name="selectdate">
                                 </div>
+                                <label for="from">Client Name</label>
+                                <div class="form-inp-con">
+                                    <img src="{% static 'images/date-set.png' %}" alt="client Name">
+                                    <input type="text" id="from" placeholder="Client Name" name="selectdate">
+                                </div>
+                                <label for="from">Client Number</label>
+                                <div class="form-inp-con">
+                                    <img src="{% static 'images/date-set.png' %}" alt="client-number">
+                                    <input type="number" id="from" placeholder="Client Number" name="selectdate">
+                                </div>
+                                <label for="from">Client Details</label>
+                                <div class="form-inp-con">
+                                    <img src="{% static 'images/date-set.png' %}" alt="details-icon">
+                                    <input type="text" id="from" placeholder="Client Details" name="selectdate">
+                                </div>
+
                                 <button class="primary-button">Submit</button>
                             </form>
                         </div>
