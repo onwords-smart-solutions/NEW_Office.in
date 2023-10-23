@@ -298,6 +298,10 @@
                         <h3>Check in- Check Out</h3>
                         <h4>Date : {{date}}</h4>
                     </div>
+                    <div class="col-md-4">
+                        <h3>Absentees</h3>
+                        <h4>Date : {{date1}}</h4>
+                    </div>
                     
                     <div class="col-md-6">
                         <form action="">
@@ -315,7 +319,13 @@
                     <div class="col-md-2">
                         <form method="post" action="/checkin/" id="myForm">
                             {% csrf_token %}
+                            <input type="hidden" name="form_type" value="presentForm">
                             <input type="date" id="datetime" name="date" onchange="dateTimeSubmit()">
+                        </form>
+                        <form method="post" action="/checkin/" id="absentmyForm">
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" value="absentForm">
+                            <input type="date" id="datetime" name="date" onchange="dateTimeSubmit1()">
                         </form>
                        
                     </div>
@@ -356,12 +366,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="table-body-li my-3">
-                                <td>1</td>
-                                <td>Balaji</td>
-                                <td>Sick </td>
-                                <td>Approved</td>
+                            {% for name, type, status in allabsentees %}
+                            <tr class="table-body-li my-3 absenttr">
+                                <td class="absenttd"></td>
+                                <td>{{name}}</td>
+                                <td>{{type}}</td>
+                                <td>{{status}}</td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                   </div>
@@ -395,15 +407,21 @@
     <script>
         function dateTimeSubmit() {
             document.getElementById("myForm").submit();
+           
+        }
+        function dateTimeSubmit1() {
+        document.getElementById("absentmyForm").submit()
         }
     </script>
     <script>
-        // Get all rows with the class "checkintr"
         const rows = document.querySelectorAll('.checkintr');
-    
-        // Loop through the rows and set the S.No column
         rows.forEach((row, index) => {
             const snoCell = row.querySelector('.checkintd');
+            snoCell.textContent = index + 1;
+        });
+        const rows1 = document.querySelectorAll('.absenttr');
+        rows1.forEach((row, index) => {
+            const snoCell = row.querySelector('.absenttd');
             snoCell.textContent = index + 1;
         });
     </script>
