@@ -914,8 +914,7 @@ def inventorymanagement(request):
     if 'getid2' in request.POST:
         getid=request.POST['getid']
         db.child("inventory_management").child(getid).remove()
-        return render(request,'inventorymanagement.html')
-    
+
     if 'update' in request.POST:
         id=request.POST['id']
         max_price=request.POST['max_price']
@@ -933,7 +932,8 @@ def inventorymanagement(request):
             "stock":stock
         }
         db.child("inventory_management").child(id).update(data)
-        return render(request,'inventorymanagement.html')
+
+    allDataBase = db.get().val()
     inventory = allDataBase["inventory_management"]
     inventorylist=[]
     snolist=[]
