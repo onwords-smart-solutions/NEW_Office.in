@@ -75,8 +75,6 @@ def ithome(request):
 
         try:
             if yesterday.weekday() == 6:
-                # If yesterday was a Sunday, retrieve Saturday data
-                
                 yescheckout = attendence[saturday_year][saturday_month][saturday_day][uid]["check_out"]
                 yesscheckout = convert_to_12_hour_format(yescheckin)
             else:    
