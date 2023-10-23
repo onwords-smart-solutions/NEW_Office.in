@@ -3,15 +3,36 @@ from django.shortcuts import redirect
 from adminconsole.views import db, checkUserName
 from django.http import HttpResponse, JsonResponse
 from adminconsole.views import db, auth, checkUserName
+from datetime import datetime,timedelta
 # Create your views here.
 def superadmin(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     name = checkUserName(uid)
-    context = {
+    current_year = datetime.now().strftime("%Y")
+    current_month = datetime.now().strftime("%m")
+    current_date1 = datetime.now().strftime("%d")
+    current_date_today = datetime.now().strftime("%Y-%m-%d")
+    current_date = datetime.now()
+
+    staff=db.child("staff").get().val()
+    attendance=db.child("attendance").child(current_year).child(current_month).get().val()
+    stafftotalpresent=0
+    stafftotalabsent=0
+    for staffuid in staff:
+        if staff[staffuid]["department"] != "ADMIN":
+            try:
+                attendance[current_date1][staffuid]
+                stafftotalpresent=stafftotalpresent+1
+            except:
+                stafftotalabsent=stafftotalabsent+1
+                
+    context={
         "name":name,
         "dep":dep,
-    }
+        "stafftotalpresent":stafftotalpresent,
+        "stafftotalabsent":stafftotalabsent
+    }            
     return render(request,'superadmin.html',context)
 
 def createstaff(request):

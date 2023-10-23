@@ -524,7 +524,104 @@ def customer_details(request):
     return render(request, "customer_details.html", context)
 
 def points_workdone(request):
-    return render(request,'points_workdone.html')
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = checkUserName(uid)
+    istl = False
+    praproval = False
+    tl = db.child("tl").get().val()
+    for t in tl:
+        if name == tl[t]:
+            istl = True
+            break
+    accounts = False
+    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
+        accounts = True
+    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid == 'yleZdWDZgFYTBxwzC5NtHVeb3733':
+        praproval = True    
+    management = False
+    if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2":
+        management = True    
+    todaysDate = str(date.today())
+    thisYear, thisMonth, _date = todaysDate.split("-")
+    followingupCount, delayedCount, totalLeadCount = 0, 0, 0
+    if request.method == "POST":
+        calls = request.POST["calls"]
+        message = request.POST["message"]
+        visit = request.POST["visit"]
+        quote = request.POST["quote"]
+        invoice = request.POST["invoice"]
+        points = request.POST["points"]
+        _data = {
+            "calls": calls,
+            "message": message,
+            "visit": visit,
+            "quote": quote,
+            "invoice": invoice,
+            "points": points
+        }
+        db.child("PRPoints").child(uid).child(thisYear).child(thisMonth).child(todaysDate).update(_data)
+    pointsDB = db.child("PRPoints").get().val()
+    if uid not in pointsDB:
+        db.child("PRPoints").child(uid).update({"name": name})
+    custDB = db.child("customer").get().val()
+    for number in custDB:
+        try:
+            if custDB[number]["LeadIncharge"] == name:
+                custState = custDB[number]["customer_state"]
+                if custState == "Following Up":
+                    followingupCount += 1
+                if custState == "Delayed":
+                    delayedCount += 1
+                totalLeadCount += 1
+        except:
+            pass
+    try:
+        prpoints = db.child("PRPoints").get().val()
+        if prpoints[uid][thisYear][thisMonth][todaysDate]:
+            calls = prpoints[uid][thisYear][thisMonth][todaysDate]["calls"]
+            message = prpoints[uid][thisYear][thisMonth][todaysDate]["message"]
+            visit = prpoints[uid][thisYear][thisMonth][todaysDate]["visit"]
+            quote = prpoints[uid][thisYear][thisMonth][todaysDate]["quote"]
+            invoice = prpoints[uid][thisYear][thisMonth][todaysDate]["invoice"]
+            points = prpoints[uid][thisYear][thisMonth][todaysDate]["points"]
+
+            context = {
+                "state": "update",
+                "name": name,
+                "calls": calls,
+                "message": message,
+                "visit": visit,
+                "quote": quote,
+                "invoice": invoice,
+                "points": points,
+                "followingupCount": followingupCount,
+                "delayedCount": delayedCount,
+                "totalLeadCount": totalLeadCount,
+                "dep": dep,
+                "tl": istl,
+                "accounts": accounts,
+                "management": management,
+                "praproval":praproval
+            }
+            return render(request, "points_workdone.html", context)
+    except:
+        pass
+
+    context = {
+        "state": "create",
+        "name": name,
+        "followingupCount": followingupCount,
+        "delayedCount": delayedCount,
+        "totalLeadCount": totalLeadCount,
+        "dep": dep,
+        "tl": istl,
+        "accounts": accounts,
+        "management": management,
+        "praproval":praproval
+        
+    }
+    return render(request,'points_workdone.html',context)
 
 def quotation(request):
     if request.method =="POST":
