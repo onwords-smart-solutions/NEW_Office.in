@@ -314,10 +314,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {%for name,phno in allList%}
                             <tr class="table-body-li my-3">
-                                <td>Pranesh</td>
-                                <td>9159918535</td>
+                                <td>{{name}}</td>
+                                <td>{{phno}}</td>
                             </tr>
+                            {%endfor%}
                         </tbody>
                     </table>
                 </div>

@@ -310,22 +310,27 @@
                             <img src="{% static 'images/leave-frm-img.svg' %}" alt="leave-form" class="img-fluid">
                         </div>
                         <div class="leave-list">
-                            <form action="" class=" leave-frm">
+                            <form action="createstaff" class=" leave-frm" method="post">
                                 {% csrf_token %}
                                 <label for="staffName">staff Name</label>
                                 <div class="form-inp-con">
                                     <img src="{% static 'images/user-icon.svg' %}" alt="user-iocn">
-                                    <input type="text" id="staffName" placeholder="Staff Name">
+                                    <input type="text" name="name" id="staffName" placeholder="Staff Name">
                                 </div>
                                 <label for="email">staff Email</label>
                                 <div class="form-inp-con">
                                     <img src="{% static 'images/email-icon.svg' %}" alt="email-icon">
-                                    <input type="text" id="email" placeholder="Staff Email">
+                                    <input type="text" id="email" name="email" placeholder="Staff Email">
                                 </div>
                                 <label for="department">Staff Department</label>
                                 <div class="form-inp-con">
                                     <img src="{% static 'images/department-staff.svg' %}" alt="staff-icpn">
-                                    <input type="text" id="department" placeholder="Staff Department">
+                                    <input type="text" id="department" name="department" placeholder="Staff Department">
+                                </div><br>
+                                <label for="department">Password</label>
+                                <div class="form-inp-con">
+                                    <img src="{% static 'images/department-staff.svg' %}" alt="staff-icpn">
+                                    <input type="password" id="department" name="password" nameplaceholder="Staff Department">
                                 </div><br>
 
                                 <button class="primary-button">Create Staff</button>
