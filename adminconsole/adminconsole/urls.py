@@ -28,13 +28,10 @@ urlpatterns = [
     path("financialpost/",views.financialpost,name="financialpost"),
     path("attendancesort/",adminviews.attendancesort,name="attendancesort"),
     path("logout/",views.logout,name="logout"),
-<<<<<<< HEAD
     path("workdonedetails/",views.workdonedetails,name="workdonedetails"),
     # ========================coo page =========================
 
-=======
     path('prdashboard',views.prdashboard,name='pradshboard'),
->>>>>>> dd7b566922648732fadebbf7a6e8ccc6c3fd858a
     path('coohome/', views.coohome,name='coohome'),
     path('installation_details',views.installation_details,name='installation_details'),
 

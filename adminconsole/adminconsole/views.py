@@ -894,13 +894,10 @@ def installation_details(request):
     return render(request,'installation_details.html')
 def todo(request):
     return render(request,'todo.html')
-<<<<<<< HEAD
 def workdonedetails(request):
     return render (request,'workdonedetails.html')
 
 
-=======
->>>>>>> dd7b566922648732fadebbf7a6e8ccc6c3fd858a
 def refreshment(request):
     if request.method == "POST":
         todayDate = str(date.today())
