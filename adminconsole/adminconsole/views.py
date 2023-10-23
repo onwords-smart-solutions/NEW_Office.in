@@ -19,15 +19,29 @@ firebaseConfig = {
   "appId": "1:982262166733:web:b14a765e30b114ba37a584",
   "measurementId": "G-PSYFW4L5W9"
 }
-
+aiconfig = {
+    "apiKey": "AIzaSyAlNAm5qoM4SsK7Wrry5lbw7QndE_pBKa8",
+    "authDomain": "onyx-9lbl.firebaseapp.com",
+    "databaseURL": "https://onyx-9lbl-default-rtdb.firebaseio.com",
+    "projectId": "onyx-9lbl",
+    "storageBucket": "onyx-9lbl.appspot.com",
+    "messagingSenderId": "365318702826",
+    "appId": "1:365318702826:web:4a0b076ed7d7ee3b69b993",
+    "measurementId": "G-J4YXBZGFJY",
+}
 firebase = pyrebase.initialize_app(config)
-db1 = firebase.database()
+db = firebase.database()
 auth = firebase.auth()
 storage1 = firebase.storage()
 
 firebase1 = pyrebase.initialize_app(firebaseConfig)
-db = firebase1.database()
+db1 = firebase1.database()
 storage = firebase1.storage()
+
+aifirebase = pyrebase.initialize_app(aiconfig)
+aidb = aifirebase.database()
+aiauth = aifirebase.auth()
+aistorage = aifirebase.storage()
 
 def login(request):
     try:
@@ -1123,3 +1137,65 @@ def logout(request):
 
 def prdashboard(request):
     return render(request,'admindashboard.html')
+
+def userdata(request):
+    uid = request.COOKIES["uid"]
+    # aiaccess = False
+    # adminai = False
+    # aiteam = False
+
+    # userdata = aidb.child("onyx").get().val()
+    # if uid == "Vhbt8jIAfiaV1HxuWERLqJh7dbj2" or uid == "cQ4gFReQghZruTCDMP9NZgwMCzM2" or uid == "NH8ePNnoCtbmTvBbFdV2koxBIhR2":
+    #     aiaccess = True
+    # if uid == "Vhbt8jIAfiaV1HxuWERLqJh7dbj2":
+    #     adminai=True
+    # if uid == "cQ4gFReQghZruTCDMP9NZgwMCzM2" or uid == "NH8ePNnoCtbmTvBbFdV2koxBIhR2":
+    #     aiteam =True
+
+    userdata = aidb.child("onyx").get().val()
+    no_data_message = ""  
+    default_data = {}  
+    like_data = {} 
+    dislike_data = {} 
+
+    print("==")
+    if request.method == 'POST':
+        selected_date1 = request.POST.get('selected_date') 
+        if selected_date1:
+            selected_date = datetime.strptime(selected_date1, "%Y-%m-%d")
+
+            selected_year = selected_date.strftime("%Y")
+            selected_month = selected_date.strftime("%m")
+
+            entry = userdata.get(selected_year, {}).get(selected_month, {}).get(selected_date1, {})
+
+            categories = ["default", "dislike", "like"]
+
+            if entry is not None:
+                for category in categories:
+                    try:
+                        for did in entry[category]:
+                            command = entry[category][did].get("command", "No command")
+                            reply = entry[category][did].get("reply", "No Reply")
+
+                            if category == "default":
+                                default_data[did] = {"command": command, "reply": reply}
+                            elif category == "like":
+                                like_data[did] = {"command": command, "reply": reply}
+                            elif category == "dislike":
+                                dislike_data[did] = {"command": command, "reply": reply}
+                    except KeyError:
+                        pass
+            else:
+                no_data_message = "No data found for the selected date." 
+
+    context = {
+        # "aiaccess": aiaccess,
+        "default_data": default_data,
+        "like_data": like_data,
+        "dislike_data": dislike_data,
+        "no_data_message": no_data_message,
+        # "aiteam": aiteam,
+        # "adminai": adminai
+    } 
+    return render(request,'userdata.html',context)    
