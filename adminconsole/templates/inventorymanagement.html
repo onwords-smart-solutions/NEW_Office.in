@@ -45,7 +45,11 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
+                                        {%if profile%}
+                                        <img src="{{profile}}" alt="user-profile">
+                                        {%else%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%endif%}
                                     </div>
                                     <div class="emply-id">
                                         <span>{{ name }}</span><br>
@@ -152,7 +156,7 @@
                         </li>
 
                         {% endif %}
-                      
+
                         {% if account %}
                         <li class="navlistmenu" onclick="location.href='/financial'">
                             <div class="left-nav-list">
@@ -178,7 +182,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if customerdetails %}
                         <li class="navlistmenu " onclick="location.href='/customer_details'">
                             <div class="left-nav-list">
@@ -191,7 +195,7 @@
                             </div>
                         </li>
                         {% endif %}
-                       
+
                         {% if quotation %}
                         <li class="navlistmenu" onclick="location.href='/quotation'">
                             <div class="left-nav-list">
@@ -217,7 +221,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if createstaff %}
                         <li class="navlistmenu " onclick="location.href='/createstaff'">
                             <div class="left-nav-list">
@@ -230,12 +234,13 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if viewworkmanager %}
                         <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}" alt="createstaff_Icon">
+                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}"
+                                        alt="createstaff_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
@@ -308,7 +313,7 @@
                 <div class="product-nav cmo-nav my-3">
                     <h5 class="  active-inv  li-inventry" onclick="productBtn()" id="pro-nav">Product
                     </h5>
-                    <h5 class=" li-inventry" onclick="updateBtn()" id="update-nav">Updates</h5>
+                    <!-- <h5 class=" li-inventry" onclick="updateBtn()" id="update-nav">Updates</h5> -->
                     <h5 class=" li-inventry" onclick="adminBtn()" id="admin-nav">Adminpoints</h5>
                     <h5 class=" li-inventry" onclick="prpercBtn()" id="prper-nav">PR percentage Dashboard</h5>
 
@@ -394,64 +399,40 @@
                 <div class="product-table" id="product-table">
                     <table class="table">
                         <thead class="product-table-head">
-                            <tr>
+                            <tr class="text-center">
                                 <th>S.No</th>
                                 <th>Product Id</th>
                                 <th>Max Price</th>
                                 <th>Min Price</th>
                                 <th>Name</th>
-                                <th>Stock</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table my-3">
-                            {%for sno,x in allinventory%}
-                            <tr class="product-details">
-                                <td>{{sno}}</td>
-                                <td>{{x.id}}</td>
-                                <td>{{x.max_price}}</td>
-                                <td>{{x.min_price}}</td>
-                                <td>{{x.name}}</td>
-                                <td>{{x.stock}}</td>
-                            </tr>
-                            {%endfor%}
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="update-table" id="update-table">
-                    <table class=" table">
-                        <thead class="product-table-head">
-                            <tr>
-                                <th>S.No</th>
-                                <th>Product Id</th>
-                                <th>Max Price</th>
-                                <th>Min Price</th>
-                                <th>Name</th>
-                                <th>OBC</th>
+                                <th>Obc</th>
                                 <th>Stock</th>
                                 <th>Edit</th>
-
                             </tr>
                         </thead>
                         <tbody class="table my-3">
-                            {%for sno,y in allinventory2 %}
                             <form action="/inventorymanagement/" method="post">
+                                {%for sno,y in allinventory%}
+                                {%csrf_token%}
                                 <tr class="product-details">
-                                    <td>{{sno}}</td>
+                                    <td><input type="number" value="{{sno}}"></td>
                                     <td><input type="text" name="id" value="{{y.id}}"></td>
                                     <td><input type="text" name="max_price" value="{{y.max_price}}"></td>
                                     <td><input type="text" name="min_price" value="{{y.min_price}}"></td>
-                                    <td><input type="text" name="name" value="{{y.name}}"></td>
+                                    <td><input type="text" style="width: 400px;" name="name" value="{{y.name}}"></td>
                                     <td><input type="text" name="obc" value="{{y.obc}}"></td>
                                     <td><input type="text" name="stock" value="{{y.stock}}"></td>
-                                    <td><button class="primary-button-update" name="update" value="update"><img src="{% static 'images/nav-icon/del-iocn.svg' %}" alt="del" class="img-fluid"></button></td>
-                                </tr> 
+                                    <td><button type="submit" class="primary-button-update" name="update"><img
+                                                src="{% static 'images/nav-icon/edit.svg' %}" alt="del"
+                                                class="img-fluid"></button></td>
+                                </tr>
+                                {%endfor%}
                             </form>
-                            {%endfor%}
-                            
                         </tbody>
                     </table>
                 </div>
+
+
                 <div class="admin-points " id="admin-points">
                     <div class="adminpoints-nav ">
                         <span>
@@ -506,26 +487,32 @@
                         <h5 class=" li-inventry" id="weekly-Btn" onclick="target()">Weekly Target</h5>
                     </div>
                     <center>
-                        <div class="installation-pending" id="firstline-Btn">
+                       <form action="" class="">
+                        <div class="installation-pending inventory-small-table" id="firstline-Btn">
                             <h5>Firstline</h5>
-                            <input type="number" name="" id="">
+                            <input type="number" name="" id="" placeholder="0">
                             <button class="primary-button">submit</button>
                         </div>
+                       </form>
                     </center>
                     <center>
-                        <div class="installation-pending" id="target-Btn">
+                       <form action="" class="e" >
+                        <div class="installation-pending inventory-small-tabl" id="target-Btn">
                             <h5>Target Point</h5>
-                            <input type="number" name="" id="">
+                            <input type="number" name="" id="" placeholder="0">
                             <button class="primary-button">submit</button>
                         </div>
+                       </form>
                     </center>
                     <center>
-                        <div class="installation-pending" id="pending-Btn">
-                            <h5>pending installation</h5>
-                            <input type="number" name="" id="">
-                            <input type="number" name="" id="">
-                            <button class="primary-button">submit</button>
-                        </div>
+                        <form action="" >
+                            <div class="installation-pending inventory-small-tabl" id="pending-Btn">
+                                <h5>pending installation</h5>
+                                <input type="number" name="" id="" placeholder="0">
+                                <input type="number" name="" id="" placeholder="0">
+                                <button class="primary-button">submit</button>
+                            </div>
+                        </form>
                     </center>
                 </div>
             </div>
