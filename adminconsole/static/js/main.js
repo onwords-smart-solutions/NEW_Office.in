@@ -465,6 +465,10 @@ function absentBtn() {
     const presentBtns = document.getElementById('presentBtn')
     const printcheckBtn = document.getElementById('printcheckBtn')
     const printabsentBtn = document.getElementById('printabsentBtn')
+    const checkinDate =document.getElementById("checkin-date")
+    const absentDate = document.getElementById("absent-date")
+    const myForm =document.getElementById("myForm")
+    const absentForm = document.getElementById('absentmyForm')
 
     absentTable.style.display = 'block'
     checkinTable.style.display = 'none'
@@ -472,6 +476,10 @@ function absentBtn() {
     presentBtns.style.display = 'block'
     printcheckBtn.style.display = 'none'
     printabsentBtn.style.display = 'block'
+    absentDate.style.display='block'
+    checkinDate.style.display='none'
+    myForm.style.display='none'
+    absentForm.style.display='block'
 }
 
 function presentBtn() {
@@ -481,6 +489,10 @@ function presentBtn() {
     const absentBtns = document.getElementById('absentBtn')
     const printcheckBtn = document.getElementById('printcheckBtn')
     const printabsentBtn = document.getElementById('printabsentBtn')
+    const checkinDate =document.getElementById("checkin-date")
+    const absentDate = document.getElementById("absent-date")
+    const myForm =document.getElementById("myForm")
+    const absentForm = document.getElementById('absentmyForm')
 
     absentTable.style.display = 'none'
     checkinTable.style.display = 'block'
@@ -488,7 +500,12 @@ function presentBtn() {
     absentBtns.style.display = 'block'
     printcheckBtn.style.display = 'block'
     printabsentBtn.style.display = 'none'
+    absentDate.style.display='none'
+    checkinDate.style.display='block'
+    myForm.style.display='block'
+    absentForm.style.display='none'
 }
+
 // =============
 
 
@@ -587,3 +604,4 @@ function progress(){
     progress.classList.add('active-form-late')
     
 }
+

@@ -80,7 +80,18 @@
                                 <h5>Home</h5>
                             </div>
                         </li>
+                        <li class="navlistmenu navlistmenu-active " onclick="location.href='/'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/installation.svg' %}" alt="installation_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Installation Add</h5>
+                            </div>
+                        </li>
                         {% if general %}
+
                         <li class="navlistmenu " onclick="location.href='/leave_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -91,7 +102,7 @@
                                 <h5>Leave Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu" onclick="location.href='/late_form'">
+                        <li class="navlistmenu " onclick="location.href='/late_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/late-icons.png' %}" alt="dashboard_Icon">
@@ -111,6 +122,7 @@
                                 <h5>Suggestion</h5>
                             </div>
                         </li>
+
                         {% endif %}
 
                         <!-- ===========tl's============================ -->
@@ -154,7 +166,7 @@
                         {% endif %}
 
                         {% if account %}
-                        <li class="navlistmenu" onclick="location.href='/financial'">
+                        <li class="navlistmenu " onclick="location.href='/financial'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/financial-icon.svg' %}" alt="dashboard_Icon">
@@ -219,7 +231,7 @@
                         {% endif %}
 
                         {% if createstaff %}
-                        <li class="navlistmenu " onclick="location.href='/createstaff'">
+                        <li class="navlistmenu" onclick="location.href='/createstaff'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/create-staff.svg' %}" alt="createstaff_Icon">
@@ -231,12 +243,24 @@
                         </li>
                         {% endif %}
 
+                        {% if viewsuggestion %}
+                        <li class="navlistmenu" onclick="location.href='/viewsuggestion'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/viewsuggestion.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>View Suggestion</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
                         {% if viewworkmanager %}
                         <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}"
-                                        alt="createstaff_Icon">
+                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}" alt="createstaff_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
@@ -257,6 +281,7 @@
                             </div>
                         </li>
                         {% endif %}
+                        
 
                         {% if userdata %}
                         <li class="navlistmenu" onclick="location.href='/userdata'">
@@ -270,7 +295,6 @@
                             </div>
                         </li>
                         {% endif %}
-
                         {% if prdashboard %}
                         <li class="navlistmenu " onclick="location.href='/prdashboard'">
                             <div class="left-nav-list">
@@ -305,110 +329,58 @@
         </div>
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
-            <div class="container-fluid">
-                <div class="row my-3 align-items-center ">
-                    <div class="col-md-4" id="checkin-date">
-                        <h3>Check in- Check Out</h3>
-                        <h4>Date : {{date}}</h4>
-                    </div>
-                    <div class="col-md-4" id="absent-date">
-                        <h3>Absentees</h3>
-                        <h4>Date : {{date1}}</h4>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <form action="">
-                            <div class="customer-searchbar">
-                                <div class="cust-inp">
-                                    <input type="text" placeholder="Search" id="searchinput">
+            <div class="container">
+
+
+                <div id="late_con">
+                    <div class="leave-form-con">
+                        <div class="leave-list">
+                            <form action="" class=" leave-frm" method="post">
+                                {% csrf_token %}
+                                <label for="from">Date</label>
+                                <div class="form-inp-con">
+                                    <input type="date" id="from" placeholder="From" name="selectdate">
+                                    <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
                                 </div>
-                                
-                                <div class="searchBtn" type="submit">
-                                    <img src="{% static 'images/search-icon.svg' %}" alt="search-icon"
-                                        class="img-fluid">
+
+                                <label for="to">Workdone</label>
+                                <div class="form-inp-con">
+                                    <input type="text" id="from" placeholder="Enter your Workdone" name="workdone">
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-2">
-                        <form method="post" action="/checkin/" id="myForm">
-                            {% csrf_token %}
-                            <input type="hidden" name="form_type" value="presentForm">
-                            <input type="date" id="datetime" name="date" onchange="dateTimeSubmit()">
-                        </form>
-                        <form method="post" action="/checkin/" id="absentmyForm">
-                            {% csrf_token %}
-                            <input type="hidden" name="form_type" value="absentForm">
-                            <input type="date" id="datetime" name="date" onchange="dateTimeSubmit1()">
-                        </form>
-                       
-                    </div>
-                </div>
-                <div class="check-table-con">
-                  <div id="checkin-table">
-                    <table class="table w-100 checkin-table"  id="checkinTable" >
-                        <thead>
-                            <tr  class="leave-table-head text-center">
-                                <th>S.No</th>
-                                <th>Name</th>
-                                <th>Check in</th>
-                                <th>Check Out</th>
-                                <th>Working Hrs</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for staffnamelist,attendenceloginlist,attendencelogoutlist,workinghourlist,workinghourlistall,attype,outtype in finallist %}
-                            <tr class="table-body-li my-3 text-center checkintr">
-                                <td class="checkintd"></td>
-                                <td>{{staffnamelist}}</td>
-                                <td>{{attendenceloginlist}}</td>
-                                <td>{{attendencelogoutlist}}</td>
-                                <td>{{workinghourlist}} hrs</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                  </div>
-                  <div id="absentList-table">
-                      <table class="table w-100"  id="absentTable" >
-                        <thead>
-                            <tr  class="leave-table-head">
-                                <th>S.No</th>
-                                <th>Name</th>
-                                <th>type</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for name, type, status in allabsentees %}
-                            <tr class="table-body-li my-3 absenttr">
-                                <td class="absenttd"></td>
-                                <td>{{name}}</td>
-                                <td>{{type}}</td>
-                                <td>{{status}}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                  </div>
-                    <div class="check-bottom-con">
-                        <div class="">
-                            <button class="btn btn-danger fw-bold" id="absentBtn" onclick="absentBtn()">Absent
-                                List</button>
-                            <button class="btn btn-info fw-bold" id="presentBtn" onclick="presentBtn()">Present
-                                List</button>
+                                <div class="main-leave-con">
+                                    <div class="">
+                                        <label for="starttime">From</label>
+                                        <div class="time-inp">
+                                            <input type="time" id="starttime" name="fromtime">
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <label for="endtime">To</label>
+                                        <div class="time-inp">
+                                            <input type="time" id="endtime" name="totime" onchange="timediff()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <label for="to">Work Percentage</label>
+                                <div class="form-inp-con">
+                                    <input type="text" id="from" placeholder="%" name="workpercent">
+                                </div>
+                                <label for="to">Reason</label>
+                                <div class="form-inp-con">
+                                    <input type="text" id="from" placeholder="Reason" name="reason">
+                                </div>
+                                <button class="primary-button">Submit</button>
+                            </form>
                         </div>
-                        <button class="primary-button" id="printcheckBtn" onclick="printCheckinTable()">download </button>
-                        <button class="primary-button" id="printabsentBtn" onclick="printAbsentTable()">Print Absent
-                        </button>
+                        <div class="leave-img installation-imgs">
+                            <img src="{% static 'images/installationadd.svg' %}" alt="leave-form" class="img-fluid ">
+                        </div>
                     </div>
                 </div>
 
             </div>
-
         </div>
     </div>
-
     <!-- bootstrap js -->
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -418,63 +390,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-    <script>
-        function dateTimeSubmit() {
-            document.getElementById("myForm").submit();
-           
-        }
-        function dateTimeSubmit1() {
-        document.getElementById("absentmyForm").submit()
-        }
-    </script>
-    <script>
-        const rows = document.querySelectorAll('.checkintr');
-        rows.forEach((row, index) => {
-            const snoCell = row.querySelector('.checkintd');
-            snoCell.textContent = index + 1;
-        });
-        const rows1 = document.querySelectorAll('.absenttr');
-        rows1.forEach((row, index) => {
-            const snoCell = row.querySelector('.absenttd');
-            snoCell.textContent = index + 1;
-        });
-    </script>
-<!-- 
-    <script>
-        function exportToExcel() {
-            var location = 'data:application/vnd.ms-excel;base64,';
-            var excelTemplate = '<html> ' +
-                '<head> ' +
-                '<meta http-equiv="content-type" content="text/plain; charset=UTF-8"/> ' +
-                '</head> ' +
-                '<body> ' +
-                document.getElementById("table-conatainer").innerHTML +
-                '</body> ' +
-                '</html>'
-            window.location.href = location + window.btoa(excelTemplate);
-        }
-<<<<<<< HEAD
-    </script> -->
-=======
-        document.getElementById("searchInput").addEventListener("keyup", function () {
-            const searchText = this.value.toLowerCase();
-            const rows = document.querySelectorAll("tbody tr");
-
-            rows.forEach(function (row) {
-                const commandCell = row.querySelector("td:first-child");
-                if (commandCell) {
-                    const commandText = commandCell.textContent.toLowerCase();
-                    if (commandText.includes(searchText)) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
-                }
-            });
-        });
-    </script>
->>>>>>> d2036546f5840d0e5abcb8e890cff62b056d9f0f
-
+   
 
 </body>
 
