@@ -965,6 +965,7 @@ def inventorymanagement(request):
         "praproval":praproval
     }
     return render(request,'inventorymanagement.html',context)
+
 def coohome(request):
     return render(request,'coohome.html')
 def installation_details(request):

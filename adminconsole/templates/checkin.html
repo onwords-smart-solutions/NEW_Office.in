@@ -320,8 +320,9 @@
                         <form action="">
                             <div class="customer-searchbar">
                                 <div class="cust-inp">
-                                    <input type="text" placeholder="Search">
+                                    <input type="text" placeholder="Search" id="searchinput">
                                 </div>
+                                
                                 <div class="searchBtn" type="submit">
                                     <img src="{% static 'images/search-icon.svg' %}" alt="search-icon"
                                         class="img-fluid">
@@ -452,7 +453,22 @@
                 '</html>'
             window.location.href = location + window.btoa(excelTemplate);
         }
-        
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+            const searchText = this.value.toLowerCase();
+            const rows = document.querySelectorAll("tbody tr");
+
+            rows.forEach(function (row) {
+                const commandCell = row.querySelector("td:first-child");
+                if (commandCell) {
+                    const commandText = commandCell.textContent.toLowerCase();
+                    if (commandText.includes(searchText)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+        });
     </script>
 
 
