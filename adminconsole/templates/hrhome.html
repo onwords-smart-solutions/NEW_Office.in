@@ -68,16 +68,6 @@
                                 <h5>dashboard</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu  " onclick="location.href='/installationadd'">
-                            <div class="left-nav-list">
-                                <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/installation.svg' %}" alt="installation_Icon">
-                                </div>
-                            </div>
-                            <div class="right-nav-list">
-                                <h5>Installation Add</h5>
-                            </div>
-                        </li>
                         <li class="navlistmenu" onclick="location.href='/leave_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -297,7 +287,7 @@
                                                         alt="lunch-img" class="caro-img">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img src="{% static 'images/slide-img.png' %}" alt="lunch-img"
+                                                    <img src="{% static 'images/tea-slider-img.png' %}" alt="lunch-img"
                                                         class="caro-img">
                                                 </div>
                                             </div>
@@ -320,33 +310,41 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="notification-con p-2">
-                            <h4>Installation</h4>
-                            <table class="table">
-                                <thead>
-                                    <tr class="leave-table-head">
-                                        <th>Name</th>
-                                        <th>Place</th>
-                                        <th>Installation</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="table-body-li my-3">
-                                        <td>Aravinth,Naveen,Anwar</td>
-                                        <td>Madurai</td>
-                                        <td>Smart Home</td>
-                                    </tr>
-                                    <tr class="table-body-li my-3">
-                                        <td>Aravinth,Naveen,Anwar</td>
-                                        <td>Madurai</td>
-                                        <td>Smart Home</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <h4>Notification</h4>
+                            <div class="notify-parent">
+                                <div class="notify-list">
+                                    <div class="notify-left pending">
+                                        <span><img src="{% static 'images/wall-clock.svg' %}" alt="remind-icon"
+                                                class="clock-icon"></span> Pending
+                                    </div>
+                                    <div class="notify-center">
+                                        Admin Dashboard UI Implementaion
+                                    </div>
+                                    <div class="notify-right remaind">
+                                        <span><img src="{% static 'images/remind-bell.svg' %}" alt="remind-icon"
+                                                class="remind-icon"></span> Remind
+                                    </div>
+                                </div>
+                                <div class="notify-list">
+                                    <div class="notify-left pending">
+                                        <span><img src="{% static 'images/wall-clock.svg' %}" alt="remind-icon"
+                                                class="clock-icon"></span> Pending
+                                    </div>
+                                    <div class="notify-center">
+                                        Admin Dashboard UI Implementaion
+                                    </div>
+                                    <div class="notify-right remaind">
+                                        <span><img src="{% static 'images/remind-bell.svg' %}" alt="remind-icon"
+                                                class="remind-icon"></span> Remind
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="leavebalance-con p-2">
-                            <h4>Installation Leave Details</h4>
+                            <h4>Leave Balance</h4>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="leave-chart">
@@ -387,38 +385,18 @@
 
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="stock-details p-2" onclick="location.href='/inventorymanagement/'">
-                            <h4>Stocks</h4>
-                            <table class="table">
-                                <thead>
-                                    <tr class="leave-table-head">
-                                        <th>Name</th>
-                                        <th>No of stocks</th>
-                                    </tr>
-                                   
-                                </thead>
-                                <tbody>
-                                    <tr class="table-body-li my-3">
-                                        <td>Sliding Gate Motor</td>
-                                        <td>2</td>
-                                    </tr>
-                                    <tr class="table-body-li my-3">
-                                        <td>Siwing Gate Motor</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr class="table-body-li my-3">
-                                        <td>Sliding Gate Motor</td>
-                                        <td>2</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="stock-details  p-2" onclick="location.href='/checkin'">
+                            <h4>Daily Attendance</h4>
+                            <canvas id="densityChart" width="300" height="100"></canvas>
+
                         </div>
+
                     </div>
                     <div class="col-md-4">
-                        <div class="quotation-box-dashboard">
+                        <div class="quotation-box-dashboard" onclick="location.href='/attendanced'">
                             <div class="d-flex align-items-center justify-content-between">
                                 <h4> Attendance</h4>
-                                <h2 class="install-attendance"><span><input type="date"></span><span>12-Sep</span></h2>
+                                <h2 class="install-attendance"><span>{{current_date_today}}</span></h2>
                             </div>
                             <div class="quot-chart">
                                 <canvas id="myChart4"></canvas>
@@ -431,7 +409,7 @@
                                         <h5>Present</h5>
                                     </div>
                                     <div class="quot-count">
-                                        <h5>54</h5>
+                                        <h5>{{stafftotalpresent}}</h5>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mx-3">
@@ -440,10 +418,10 @@
                                         <h5>Absent</h5>
                                     </div>
                                     <div class="quot-count">
-                                        <h5>6</h5>
+                                        <h5>{{stafftotalabsent}}</h5>
                                     </div>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -488,6 +466,57 @@
                     }
                 }
             });
+        </script>
+        <script>
+            var densityCanvas = document.getElementById("densityChart");
+
+            Chart.defaults.global.defaultFontFamily = "Lato";
+            Chart.defaults.global.defaultFontSize = 16;
+
+            var densityData = {
+                label: 'Present',
+                data: {{allpresentlist}},
+                backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                borderColor: 'rgba(0, 99, 132, 1)',
+                yAxisID: "y-axis-density"
+            };
+
+            var gravityData = {
+                label: 'Absent',
+                data: {{allabsentlist}},
+                backgroundColor: 'rgba(99, 132, 0, 0.6)',
+                borderColor: 'rgba(99, 132, 0, 1)',
+                yAxisID: "y-axis-gravity"
+            };
+
+            var planetData = {
+                labels: ["Monday", "Tuesday", "Wednesady", "Thursday", "Friday", "Saturday"],
+                datasets: [densityData, gravityData]
+            };
+
+            var chartOptions = {
+                scales: {
+                    xAxes: [{
+                        barPercentage: 1,
+                        categoryPercentage: 0.6
+                    }],
+                    yAxes: [{
+                        id: "y-axis-density"
+                    }, {
+                        id: "y-axis-gravity"
+                    }],
+                    datasets: [{
+                        label: 'hied',
+                    }]
+                }
+            };
+
+            var barChart = new Chart(densityCanvas, {
+                type: 'bar',
+                data: planetData,
+                options: chartOptions
+            });
+
         </script>
 </body>
 

@@ -79,12 +79,13 @@ urlpatterns = [
     path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager'),
     path("markasread/", superadminviews.markasread, name="markasread"),
 
-    # =====================super admin====================================
+    # =====================hr====================================
     path("hrhome/",hrviews.hrhome,name='hrhome'),
+   
 
-    # =====================super admin====================================
+    # =====================installation ====================================
     path("installationhome/",installationviews.installationhome,name='installationhome'),
-
-    # =====================super admin====================================
+    path("installationadd/",installationviews.installationadd,name='installationadd'),
+    # =====================aiml====================================
     path("aimlhome/",aimlviews.aimlhome,name='aimlhome'),
 ]

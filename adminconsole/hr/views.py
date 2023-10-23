@@ -201,4 +201,4 @@ def hrhome(request):
             "sickleave":sickleave,
             "overallleave":overallleave,
         }
-    return render(request,'rndhome.html',context)
+    return render(request,'hrhome.html',context)

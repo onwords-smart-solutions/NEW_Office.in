@@ -1175,3 +1175,6 @@ input::-webkit-inner-spin-button {
     background: transparent;
     border-radius: 5px;
 }
+.installation-imgs{
+    margin-top: 100px;
+}
