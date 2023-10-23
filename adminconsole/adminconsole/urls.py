@@ -77,6 +77,7 @@ urlpatterns = [
     path("userdata/",superadminviews.userdata,name='userdata'),
     path("viewsuggestion/",superadminviews.viewsuggestion,name='viewsuggestion'),
     path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager'),
+    path("markasread/", superadminviews.markasread, name="markasread"),
 
     # =====================super admin====================================
     path("hrhome/",hrviews.hrhome,name='hrhome'),

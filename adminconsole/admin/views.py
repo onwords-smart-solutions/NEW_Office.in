@@ -120,11 +120,39 @@ def checkin(request):
     #     tmonth = date_parts[1]
     #     tday = date_parts[2] 
     if request.method == 'POST':
-        dates = request.POST.get("date")
+        form_type = request.POST.get("form_type")
+        print("form",form_type)    
+        if form_type == 'presentForm':
+            dates = request.POST.get("date")
+            current_date = datetime.now()
+            formatted_date = current_date.strftime("%Y-%m-%d")
+            dates1 = formatted_date
+        elif form_type == 'absentForm':
+            dates1 = request.POST.get("date")
+            print("dates1",dates1)
+            todaysDate = datetime.today()
+            yesterdayDate = todaysDate - timedelta(days=1)
+            if yesterdayDate.weekday() == 6:  
+                saturdayDate = yesterdayDate - timedelta(days=1)
+                dates = saturdayDate.strftime("%Y-%m-%d")
+            else:
+                dates = yesterdayDate.strftime("%Y-%m-%d")
+        else:
+            pass
+            
     else:
         todaysDate = datetime.today()
         yesterdayDate = todaysDate - timedelta(days=1)
-        dates = yesterdayDate.strftime("%Y-%m-%d")
+        if yesterdayDate.weekday() == 6: 
+            saturdayDate = yesterdayDate - timedelta(days=1)
+            dates = saturdayDate.strftime("%Y-%m-%d")
+        else:
+            dates = yesterdayDate.strftime("%Y-%m-%d")
+
+        current_date = datetime.now()
+        formatted_date = current_date.strftime("%Y-%m-%d")
+        dates1 = formatted_date
+    
 
     date_parts = dates.split("-")
     tyear = date_parts[0]
@@ -242,6 +270,28 @@ def checkin(request):
     sorted_finallist = sorted(zip(staffnamelist,attendenceloginlist,attendencelogoutlist,workinghourlist,workinghourlistall,attype,outtype), key=lambda x: x[0])
     absentworkinghourlist = sorted(zip(absentstaff, absentworkinghours), key=lambda x: x[0])
 
+    print("dates1",dates1)
+    date_parts = dates1.split("-")
+    tyear = date_parts[0]
+    tmonth = date_parts[1]
+    tday = date_parts[2]   
+
+    leavedetails=db.child("leaveDetails").get().val()
+    alltypes=[]
+    allstatus=[]
+    allnames=[]
+    for uid in staffDB:
+        try:
+            print("uid",uid)
+            types=leavedetails[tyear][tmonth][dates1][uid]
+            for leave_type, details in types.items():
+                alltypes.append(leave_type)
+                allstatus.append(details["status"])
+                allnames.append(details["name"])
+        except:
+            pass 
+    absenteeslistwithstatus=zip(allnames,alltypes,allstatus)           
+
     context = {
         "name":name,
         "dep":dep,
@@ -252,6 +302,8 @@ def checkin(request):
         "presentcount":present_staff_count,
         "absentcount":absent_staff_count,
         "date":dates,
+        "allabsentees":absenteeslistwithstatus,
+        "date1":dates1
     }
     return render(request,'checkin.html',context) 
 
