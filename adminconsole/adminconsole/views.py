@@ -32,12 +32,12 @@ aiconfig = {
     "measurementId": "G-J4YXBZGFJY",
 }
 firebase = pyrebase.initialize_app(config)
-db = firebase.database()
+db1 = firebase.database()
 auth = firebase.auth()
 storage1 = firebase.storage()
 
 firebase1 = pyrebase.initialize_app(firebaseConfig)
-db1 = firebase1.database()
+db = firebase1.database()
 storage = firebase1.storage()
 
 aifirebase = pyrebase.initialize_app(aiconfig)
@@ -1937,6 +1937,7 @@ def refreshment(request):
         d = db.child("refreshments").get().val()
         uid = request.COOKIES["uid"]
         _name = checkUserName(uid)
+        dep = checkUserDepartment(uid)
         for choosen in selected_refreshments:
             if choosen == "tea":
                 if currTime < "14:00":
@@ -2035,8 +2036,25 @@ def refreshment(request):
                         d = db.child("refreshments").get().val()
                         newLen = len(d[todayDate][choosen]["lunch_list"])
                         db.child("refreshments").child(todayDate).child("Lunch").update({choosen + "_count": newLen})
-    
-        return redirect('ithome')
+        
+        if dep == "APP":
+            return redirect('ithome')
+        if dep == "WEB":
+            return redirect('ithome')
+        if dep == "MEDIA":
+            return redirect('ithome')
+        if dep == "PR":
+            return redirect("prhome")
+        if dep == "RND":
+            return redirect("rndhome")
+        if dep == "ADMIN":
+            return redirect("adminhome")
+        if dep == "Installation":
+            return redirect("rndhome")
+        if dep == "AIML":
+            return redirect("ithome")
+        if dep == "HR":
+            return redirect("hrhome")
     
 def submitwork(request):
     uid = request.COOKIES["uid"]
@@ -2080,8 +2098,24 @@ def submitwork(request):
                 pass
             else:
                 db.child("workmanager").child(thisYear).child(thisMonth).child(todayDate).child(uid).child(childName).set(context)
+        if dep == "APP":
             return redirect('ithome')
-    return render(request, "ithome.html")   
+        if dep == "WEB":
+            return redirect('ithome')
+        if dep == "MEDIA":
+            return redirect('ithome')
+        if dep == "PR":
+            return redirect("prhome")
+        if dep == "RND":
+            return redirect("rndhome")
+        if dep == "ADMIN":
+            return redirect("adminhome")
+        if dep == "Installation":
+            return redirect("rndhome")
+        if dep == "AIML":
+            return redirect("ithome")
+        if dep == "HR":
+            return redirect("hrhome")  
 
 def editworkdone(request):
     uid = request.COOKIES["uid"]
