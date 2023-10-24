@@ -32,12 +32,12 @@ aiconfig = {
     "measurementId": "G-J4YXBZGFJY",
 }
 firebase = pyrebase.initialize_app(config)
-db = firebase.database()
+db1 = firebase.database()
 auth = firebase.auth()
 storage1 = firebase.storage()
 
 firebase1 = pyrebase.initialize_app(firebaseConfig)
-db1 = firebase1.database()
+db = firebase1.database()
 storage = firebase1.storage()
 
 aifirebase = pyrebase.initialize_app(aiconfig)
@@ -1076,6 +1076,142 @@ def installation_details(request):
 def todo(request):
     return render(request,'todo.html')
 def workdonedetails(request):
+    # todaysDate = str(date.today())
+    # day = (date.today()).strftime("%A")
+    # _year = todaysDate[:4]
+    # _month = todaysDate[5:7]
+    # workDoneListFinal = []
+    # workDoneListFinal.clear()
+    # uid = request.COOKIES["uid"]
+    # dep = request.COOKIES["dep"]
+    # name = checkUserName(uid)
+    # istl = False
+    # accounts = False
+    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
+    #     accounts = True
+    # management = False
+    # if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2":
+    #          management = True      
+    # data = db.child("staff").get().val()
+    # fingerprintData = db.child("fingerPrint").get().val()
+    # if request.method == "POST":
+    #     dep = request.POST['dep']
+    #     dte = request.POST['dte']
+    #     if dep == "IT":
+    #         if not dte:
+    #             dte = str(datetime.today().date())
+    #         ddte = datetime.strptime(dte, '%Y-%m-%d').date()
+    #         day = ddte.strftime("%A")
+    #         _year, _month, todaysDate = dte[0:4], dte[5:7], dte
+    #         totalName, totalTime, punchingTime = [], [], []
+    #         for x in data:
+    #             mysum = timedelta()
+    #             if data[x]['department'] == "MEDIA":
+    #                 try:
+    #                     _todaysDateData = data[x]["workManager"]["timeSheet"][_year][_month][todaysDate]
+    #                     for _time in _todaysDateData:
+    #                         try:
+    #                             if _todaysDateData[_time]["time_in_hours"]:
+    #                                 workDoneListFinal.append(_todaysDateData[_time])
+    #                             tm = _todaysDateData[_time]['time_in_hours']
+    #                             if len(tm)>5:
+    #                                 (h, m, s) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+    #                             else:
+    #                                 (h, m) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m))
+    #                             mysum += d
+    #                         except:
+    #                             pass
+    #                     try:
+    #                         fd = fingerprintData[x][todaysDate]
+    #                         for f in fd:
+    #                             f = convert24HoursTime(f)
+    #                             punchingTime.append(f)
+    #                             break
+    #                     except:
+    #                         punchingTime.append('Entry Not Registered')
+
+    #                     totalName.append(data[x]['name'])
+    #                     totalTime.append(mysum)
+    #                 except:
+    #                     pass
+    #             if data[x]['department'] == "APP":
+    #                 try:
+    #                     _todaysDateData = data[x]["workManager"]["timeSheet"][_year][_month][todaysDate]
+    #                     for _time in _todaysDateData:
+    #                         try:
+    #                             if _todaysDateData[_time]["time_in_hours"]:
+    #                                 workDoneListFinal.append(_todaysDateData[_time])
+    #                             tm = _todaysDateData[_time]['time_in_hours']
+    #                             if len(tm)>5:
+    #                                 (h, m, s) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+    #                             else:
+    #                                 (h, m) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m))
+    #                             mysum += d
+    #                         except:
+    #                             pass
+    #                     try:
+    #                         fd = fingerprintData[x][todaysDate]
+    #                         for f in fd:
+    #                             f = convert24HoursTime(f)
+    #                             punchingTime.append(f)
+    #                             break
+    #                     except:
+    #                         punchingTime.append('Entry Not Registered')
+
+    #                     totalName.append(data[x]['name'])
+    #                     totalTime.append(mysum)
+    #                 except:
+    #                     pass
+    #             if data[x]['department'] == "WEB":
+    #                 try:
+    #                     _todaysDateData = data[x]["workManager"]["timeSheet"][_year][_month][todaysDate]
+    #                     for _time in _todaysDateData:
+    #                         try:
+    #                             if _todaysDateData[_time]["time_in_hours"]:
+    #                                 workDoneListFinal.append(_todaysDateData[_time])
+    #                             tm = _todaysDateData[_time]['time_in_hours']
+    #                             if len(tm)>5:
+    #                                 (h, m, s) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+    #                             else:
+    #                                 (h, m) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m))
+    #                             mysum += d
+    #                         except:
+    #                             pass
+    #                     try:
+    #                         fd = fingerprintData[x][todaysDate]
+    #                         for f in fd:
+    #                             f = convert24HoursTime(f)
+    #                             punchingTime.append(f)
+    #                             break
+    #                     except:
+    #                         punchingTime.append('Entry Not Registered')
+
+    #                     totalName.append(data[x]['name'])
+    #                     totalTime.append(mysum)
+    #                 except:
+    #                     pass
+    #         combined = list(zip(totalName, totalTime, punchingTime))
+    #         combined.sort(key=lambda x: x[1])
+    #         # totalName, totalTime, punchingTime = zip(*combined)
+    #         total = zip(totalName, totalTime, punchingTime)
+    #         context = {
+    #             "dep":dep,
+    #             "day":day,
+    #             "date": todaysDate,
+    #             "firstTable": workDoneListFinal,
+    #             "total": total,
+    #             "tl":getTl(dep),
+    #             "tl":istl,
+    #             "accounts":accounts,
+    #             "dep":dep,
+    #             "management":management
+    #         }
     return render (request,'workdonedetails.html')
 
 
@@ -1390,3 +1526,21 @@ def profileall(uid):
     except:
         profilepic="False"
     return profilepic  
+
+def convert24HoursTime(time):
+  if int(time[0:2]) > 12:
+    x = int(time[0:2]) - 12
+    y = str(x) + time[2:] + " PM"
+    return y
+  elif int(time[0:2]) == 12:
+    y = time + " PM"
+    return y
+  else:
+    y = time + " AM"
+    return y
+
+def getTl(dep):
+    data = db.child('tl').get().val()
+    for x in data:
+        if x == dep:
+            return data[x]    
