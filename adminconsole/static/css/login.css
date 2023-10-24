@@ -545,26 +545,6 @@ form {
     border: none;
 }
 
-<<<<<<< HEAD
-.depart-btn {
-    font-size: 18px;
-    font-weight: 600;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.workdone-nav {
-    background-color: #fff;
-    border-radius: 5px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 5px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    padding: 10px;
-=======
 .form-inp-cons {
     display: flex;
     align-items: center;
@@ -582,7 +562,49 @@ form {
     outline: none;
     border: none;
     padding: 0px 10px;
->>>>>>> 20d3302df035e4f65de4a3228235c188885e1e3b
 }
 
 /* CMO PRODUCT PAGE */
+
+.workdone-nav-below{
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.workdone-nav-below input{
+    width: 100px;
+    padding: 10px;
+    background: transparent;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+.workdone-nav-below input:hover{
+    background-color: #FBD87F;
+    
+    /* padding: 10px; */
+}
+.form-btn input{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.dropdown-menu{
+    height: 50vh;
+    width: 200px;
+    overflow-y: scroll;
+}
+.dropdown-menu li{
+    padding: 10px 0px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.main-workdoneprint{
+    display: none;
+}

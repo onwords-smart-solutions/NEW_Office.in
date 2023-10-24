@@ -290,29 +290,45 @@ function prpercBtn() {
 
 
 
-const selectNav = document.getElementById('select-nav')
-const staffName = document.getElementById('staff-name')
-const depBtn = document.getElementById('dep-Btn')
-const staffDetailsWorkdone = document.getElementById('staff-details-workdone')
-const workdoneView = document.getElementById('workdone-view')
+// const selectNav = document.getElementById('select-nav')
+// const staffName = document.getElementById('staff-name')
+// const depBtn = document.getElementById('dep-Btn')
+// const staffDetailsWorkdone = document.getElementById('staff-details-workdone')
+// const workdoneView = document.getElementById('workdone-view')
 
 
-function selectBtn() {
-    depBtn.style.display = 'block'
-    staffDetailsWorkdone.style.display = 'none'
-    workdoneView.style.display = 'none'
-    staffName.display.style = 'block'
-    selectNav.classList.add('activ-inv')
-}
-function choosestaff() {
-    depBtn.style.display = 'none'
-    staffDetailsWorkdone.style.display = 'none'
-    workdoneView.style.display = 'none'
-    staffName.display.style = 'block'
-    selectNav.classList.add('activ-inv')
-}
+// function selectBtn() {
+//     depBtn.style.display = 'block'
+//     staffDetailsWorkdone.style.display = 'none'
+//     workdoneView.style.display = 'none'
+//     staffName.display.style = 'block'
+//     selectNav.classList.add('activ-inv')
+// }
+// function choosestaff() {
+//     depBtn.style.display = 'none'
+//     staffDetailsWorkdone.style.display = 'none'
+//     workdoneView.style.display = 'none'
+//     staffName.display.style = 'block'
+//     selectNav.classList.add('activ-inv')
+// }
 
 
-if(id2.checked==true){
-    tableid.style.display='block'
-}
+// if(id2.checked==true){
+//     tableid.style.display='block'
+// }
+
+// const itBtn = document.querySelector('.itbtn')
+// const prBtn = document.querySelector('.prbtn')
+// const RndBtn = document.querySelector('.rndbtn')
+// const mainWorkdone = document.querySelector('.main-workdoneprint')
+
+
+// RndBtn.addEventListener('click',()=>{
+//     mainWorkdone.style.display='block'
+// })
+// prBtn.addEventListener('click',()=>{
+//     mainWorkdone.style.display='block'
+// })
+// itBtn.addEventListener('click',()=>{
+//     mainWorkdone.style.display='block'
+// })
