@@ -9,11 +9,13 @@ from datetime import datetime,timedelta
 def installationhome(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
     leavedetails = db.child("leaveDetails").get().val()
-    name = checkUserName(uid)
+    # name = checkUserName(uid)
     istl = False
     itaproval = False
     aiaccess = False
@@ -165,6 +167,7 @@ def installationhome(request):
         context = {
             "project": True,
             "name": name,
+            "profile":profile,
             "tl": istl,
             "dep": dep,
             "itaproval": itaproval,
@@ -188,6 +191,7 @@ def installationhome(request):
             "name": name,
             "tl": istl,
             "dep": dep,
+            "profile":profile,
             "itaproval": itaproval,
             "aiaccess": aiaccess,
             "todaycheckin": todaycheckin,
@@ -207,12 +211,17 @@ def installationhome(request):
 def installationadd(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     staff_data = db.child("staff").get().val()
     installationboys = []
     for staff in staff_data:
         if staff_data[staff]["department"] == "Installation":
             installationboys.append(staff_data[staff]["name"])
     context={
-        "installname":installationboys
+        "installname":installationboys,
+        "dep":dep,
+        "name":name,
+        "profile":profile
          }       
     return render(request,'installationadd.html',context)
