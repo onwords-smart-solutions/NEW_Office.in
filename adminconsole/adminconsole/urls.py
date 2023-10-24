@@ -9,7 +9,6 @@ from admin import views as adminviews
 from superadmin import views as superadminviews
 from hr import views as hrviews
 from installation import views as installationviews
-from aiml import views as aimlviews
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -89,6 +88,4 @@ urlpatterns = [
     # =====================installation ====================================
     path("installationhome/",installationviews.installationhome,name='installationhome'),
     path("installationadd/",installationviews.installationadd,name='installationadd'),
-    # =====================aiml====================================
-    path("aimlhome/",aimlviews.aimlhome,name='aimlhome'),
 ]
