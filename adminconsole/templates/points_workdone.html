@@ -315,12 +315,12 @@
                         <h5>Delayed : {{delayedCount}}</h5>
                         <h5>Total :{{totalLeadCount}}</h5>
                     </div>
-                    {%if state=="update"%}
+                    {%if state == 'update'%}
                     <form action="">
                         <div class="forms-con">
                             <div class="point-work-inp">
                                 <p>Calls</p>
-                                <input type="number" name="calls" id="" placeholder="0" value="{{}}">
+                                <input type="number" name="calls" id="" placeholder="0" value="">
                             </div>
                             <div class="point-work-inp">
                                 <p>Text</p>
@@ -347,6 +347,7 @@
                             </div>
                         </div>
                     </form>
+                    {%endif%}
                     <div class="forms-cons">
                         <div class="point-work-view">
                             <p>Calls</p>

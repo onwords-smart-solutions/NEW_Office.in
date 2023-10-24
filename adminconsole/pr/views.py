@@ -90,11 +90,7 @@ def prhome(request):
     saturday_day = str(saturday_date.day).zfill(2)
     try:
         try:
-            print("==")
-            print("date", current_year, current_month, current_day, uid)
             todaycheckin = attendence[current_year][current_month][current_day][uid]["check_in"]
-            
-            print("today", todaycheckin)
         except:
             todaycheckin = "No Entry"
 
@@ -136,19 +132,16 @@ def prhome(request):
             else:    
                 yesprogress = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["working_hours"]
                 yesterdayprogress = calculate_progress(yesprogress)
-            print("progress", yesterdayprogress)
         except:
             yesterdayprogress = "Absent"    
         try:
             today_progress= calculate_progress_(todaycheckin, todaycheckout)
-            print("prog",today_progress)
         except:
             today_progress= "Absent"
         todaycheckout = convert_to_12_hour_format(todaycheckout)
         todaycheckin = convert_to_12_hour_format(todaycheckin)   
 
         listOfTodaysWork= []
-        print("date",formatted_date)
         try:
             for z in workmanager[current_year][current_month][formatted_date][uid]:
                 listOfTodaysWork.append(workmanager[current_year][current_month][formatted_date][uid][z])
@@ -223,7 +216,6 @@ def prhome(request):
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
         data[uid]["projects"]
-        print(todaycheckin,todaycheckout,yesscheckin,yesscheckout,yesterdayprogress)
         context = {
             "project": True,
             "name": name,
@@ -401,17 +393,12 @@ def create_lead(request):
                         "createLead.html",
                         {"akn": "user created success fully", "colour": True,"nameList":nameList,"dep":dep,"name":name,"profile":profile},
                     )
-                print("method",request.POST)
                 if "create-using-file" in request.POST:
-                    print("==")
                     curent_date = date.today()
                     now = datetime.now()
                     current_time = now.strftime("%H:%M:%S")
                     enqFor = request.POST["eqfor"]
-                    print("for",enqFor)
                     name = request.POST["selectedName"]
-                    print("name",name)
-                    # selected_staffs = request.POST.getlist('selectedStaffs')
                     reader=request.FILES['myfile']
                     
                     a=0
@@ -653,7 +640,6 @@ def customer_details(request):
             customerCreatedList.append(data[cust]["created_date"])
             totalCount += 1
         except:
-            print(cust)
             pass
         try:
             data[cust]["notes"]
