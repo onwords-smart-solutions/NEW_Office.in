@@ -78,8 +78,8 @@ def ithome(request):
         try:
             if yesterday.weekday() == 6:
                 yescheckout = attendence[saturday_year][saturday_month][saturday_day][uid]["check_out"]
-                yesscheckout = convert_to_12_hour_format(yescheckin)
-            else:
+                yesscheckout = convert_to_12_hour_format(yescheckout)
+            else:    
                 yescheckout = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_out"]
                 yesscheckout = convert_to_12_hour_format(yescheckout)
         except:

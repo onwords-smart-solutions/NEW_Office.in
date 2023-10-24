@@ -220,15 +220,10 @@ def installationadd(request):
             installationboys.append(staff_data[staff]["name"])
 
     if request.method == "POST":
-        print(request.POST) 
         selected_names = request.POST.getlist("selected_names")
-        print("name",selected_names)
         name_list = ", ".join(selected_names) 
-        print("namelist",name_list)
-        date=request.POST["selectdate"]
-        print("date",date)   
+        date=request.POST["selectdate"] 
         place=request.POST["place"]
-        print("place",place)
         work=request.POST["work"]
         clientname=request.POST["clientname"]
         clientnumber=request.POST["clientnumber"]   
@@ -243,11 +238,11 @@ def installationadd(request):
             "place":place,
             "work":work,
             "clientname":clientname,
-            "clientnumber":clientnumber,
             "clientdetails":clientdetails
         }
       
-        db.child("Installationdetails").child(tyear).child(tmonth).child(date).push(data)
+        db.child("Installationdetails").child(tyear).child(tmonth).child(date).child(clientnumber).set(data)
+
         
 
     context={
