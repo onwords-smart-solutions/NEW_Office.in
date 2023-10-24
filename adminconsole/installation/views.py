@@ -4,7 +4,6 @@ from django.shortcuts import render
 from adminconsole.views import db, checkUserName
 from it.views import convert_to_12_hour_format,calculate_progress,calculate_progress_
 from datetime import datetime,timedelta
-# Create your views here.
 
 def installationhome(request):
     uid = request.COOKIES["uid"]
