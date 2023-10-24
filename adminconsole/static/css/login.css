@@ -14,16 +14,7 @@ form {
     transform: translate(0%, 50%);
 }
 
-input {
-    background: #eee;
-    padding: 12px 15px;
-    margin: 8px 15px;
-    width: 100%;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    margin: 15px;
-}
+
 
 .sign-btn {
     background-color: #FBD87F;
@@ -126,11 +117,13 @@ input {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     border-bottom: none
 }
+
 .product-details {
     align-items: center;
     text-align: center;
 }
-.product-details td{
+
+.product-details td {
     font-weight: 600;
 }
 
@@ -381,10 +374,12 @@ input {
 #choose-the-name {
     display: none;
 }
-#update-table{
+
+#update-table {
     display: none;
 }
-.inventory-ro td{
+
+.inventory-ro td {
     display: flex;
     align-items: center;
 }
@@ -551,6 +546,25 @@ input {
     background: transparent;
     outline: none;
     border: none;
+}
+
+.form-inp-cons {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    border: 1px solid #282828;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px auto;
+}
+
+.form-inp-cons input {
+    width: 90%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+    padding: 0px 10px;
 }
 
 /* CMO PRODUCT PAGE */
