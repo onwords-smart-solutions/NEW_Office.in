@@ -2288,7 +2288,7 @@ def profileall(uid):
     try:
         profilepic=profiledata[uid]["profileImage"]
     except:
-        profilepic="False"
+        profilepic="NULL"
     return profilepic  
 
 def convert24HoursTime(time):

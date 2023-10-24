@@ -12,6 +12,7 @@ def prhome(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile = request.COOKIES["profile"]
+    
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
