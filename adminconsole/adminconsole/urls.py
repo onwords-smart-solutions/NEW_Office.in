@@ -27,6 +27,9 @@ urlpatterns = [
     path("financialpost/",views.financialpost,name="financialpost"),
     path("attendancesort/",adminviews.attendancesort,name="attendancesort"),
     path("logout/",views.logout,name="logout"),
+    path("workdonedetails/",views.workdonedetails,name="workdonedetails"),
+    # ========================coo page =========================
+
     path('prdashboard',views.prdashboard,name='pradshboard'),
     path('coohome/', views.coohome,name='coohome'),
     path('installation_details/',views.installation_details,name='installation_details'),

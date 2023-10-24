@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 import pyrebase, requests
 from datetime import date, datetime, timedelta, time
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+
 
 config = {
     "apiKey": "AIzaSyCCTeiCYTB_npcWKKxl-Oj0StQLTmaFOaE",
@@ -1029,10 +1031,48 @@ def inventorymanagement(request):
     return render(request,'inventorymanagement.html',context)
 
 def coohome(request):
-    return render(request,'coohome.html')
+    installation = db.child("Installationdetails").get().val()
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=7)
+    current_date = datetime.now()
+    selected_year = current_date.strftime('%Y')
+    selected_month = current_date.strftime("%m")
+    alllist=[]
+    alldates = installation[selected_year][selected_month]
+    for date in alldates:
+        alluid = installation[selected_year][selected_month][date]
+        date_object = datetime.strptime(date, '%Y-%m-%d')
+
+            # Check if the date is within the last 7 days
+        if start_date <= date_object <= end_date:
+            for num, data in alluid.items():
+                alllist.append((num, data)) 
+    inventory=db.child("inventory_management").get().val()
+    inventoryall=[]
+    for uid in inventory:
+        inventoryall.append(inventory[uid])                 
+    context={
+        "alllist":alllist,
+        "inventoryall":inventoryall
+    }    
+    print("alllist",alllist)
+    return render(request,'coohome.html',context)
 def installation_details(request):
     installation = db.child("Installationdetails").get().val()
     if request.method == "POST":
+        if "delete_entry" in request.POST:
+            print("==")
+            num_to_delete = request.POST.get("delete_num")
+            date_to_delete = request.POST.get("delete_date")
+            print("num",num_to_delete,date_to_delete)
+            date_parts = date_to_delete.split("-")
+            tyear = date_parts[0]
+            tmonth = date_parts[1]
+            print("year",tyear,tmonth)
+            db.child("Installationdetails").child(tyear).child(tmonth).child(date_to_delete).child(num_to_delete).remove()
+            # installation[tyear][tmonth][date_to_delete].remove(num_to_delete)
+
+            return HttpResponseRedirect('/installation_details/')
         selected_month = request.POST.get("get-total")
         # Split the selected_month into year and month parts
         selected_year, selected_month = selected_month.split("-")
@@ -1044,8 +1084,8 @@ def installation_details(request):
     alldates = installation[selected_year][selected_month]
     for date in alldates:
         alluid = installation[selected_year][selected_month][date]
-        for uid in alluid:
-            alllist.append(installation[selected_year][selected_month][date][uid])
+        for num, data in alluid.items():
+            alllist.append((num, data))       
     context={
         "alllist":alllist,
     }    
@@ -1053,6 +1093,10 @@ def installation_details(request):
     return render(request,'installation_details.html',context)
 def todo(request):
     return render(request,'todo.html')
+def workdonedetails(request):
+    return render (request,'workdonedetails.html')
+
+
 def refreshment(request):
     if request.method == "POST":
         todayDate = str(date.today())

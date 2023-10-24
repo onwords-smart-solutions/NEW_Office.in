@@ -334,33 +334,31 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-8 ">
                         <div class="notification-con p-2">
-                            <h4>Installation</h4>
-                            <table class="table">
-                                <thead>
-                                    <tr class="leave-table-head">
-                                        <th>Date</th>
-                                        <th>Name</th>
-                                        <th>Place</th>
-                                        <th>Installation</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="table-body-li my-3">
-                                        <td>12/08/2023</td>
-                                        <td>Aravinth,Naveen,Anwar</td>
-                                        <td>Madurai</td>
-                                        <td>Smart Home</td>
-                                    </tr>
-                                    <tr class="table-body-li my-3">
-                                        <td>13/08/2023</td>
-                                        <td>Aravinth,Naveen,Anwar</td>
-                                        <td>Madurai</td>
-                                        <td>Smart Home</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class=" carousel-container1">
+                                <h4>Installation</h4>
+                                <table class="table">
+                                    <thead>
+                                        <tr class="leave-table-head">
+                                            <th>Date</th>
+                                            <th>Name</th>
+                                            <th>Place</th>
+                                            <th>Installation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for num,data in alllist %}
+                                        <tr class="table-body-li my-3">
+                                            <td>{{data.date}}</td>
+                                            <td>{{data.name}}</td>
+                                            <td>{{data.place}}</td>
+                                            <td>{{data.work}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>    
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -408,29 +406,26 @@
                     <div class="col-md-8">
                         <div class="stock-details p-2" onclick="location.href='/inventorymanagement/'">
                             <h4>Stocks</h4>
-                            <table class="table">
-                                <thead>
-                                    <tr class="leave-table-head">
-                                        <th>Name</th>
-                                        <th>No of stocks</th>
-                                    </tr>
-                                   
-                                </thead>
-                                <tbody>
-                                    <tr class="table-body-li my-3">
-                                        <td>Sliding Gate Motor</td>
-                                        <td>2</td>
-                                    </tr>
-                                    <tr class="table-body-li my-3">
-                                        <td>Siwing Gate Motor</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr class="table-body-li my-3">
-                                        <td>Sliding Gate Motor</td>
-                                        <td>2</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="carousel-container2">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="leave-table-head">
+                                            <th>Name</th>
+                                            <th>No of stocks</th>
+                                        </tr>
+                                    
+                                    </thead>
+                                    <tbody>
+                                        {% for x in inventoryall %}
+                                        <tr class="table-body-li my-3">
+                                            <td>{{x.name}}</td>
+                                            <td>{{x.stock}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        
+                                    </tbody>
+                                </table>
+                            </div>    
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -478,6 +473,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
         <!-- js script  end -->
 
         <script>
@@ -507,6 +504,45 @@
                     }
                 }
             });
+            function animateTable1() {
+            const $table1 = $('.carousel-container1 table');
+            const $tableBody1 = $table1.find('tbody');
+            const rowHeight1 = $table1.find('tr:first').outerHeight();
+            // Animate the table rows
+            function moveRows1() {
+                $tableBody1.animate({ marginTop: -rowHeight1 }, 1000, 'linear', function () {
+                 
+                    $tableBody1.find('tr:first').appendTo($tableBody1);
+                    $tableBody1.css('marginTop', 0);
+                });
+            }
+
+            setInterval(moveRows1, 3000); 
+        }
+  
+        $(document).ready(function () {
+            animateTable1();
+        });
+    
+        function animateTable2() {
+            const $table2 = $('.carousel-container2 table');
+            const $tableBody2 = $table2.find('tbody');
+            const rowHeight2 = $table2.find('tr:first').outerHeight();
+         
+            function moveRows2() {
+                $tableBody2.animate({ marginTop: -rowHeight2 }, 1000, 'linear', function () {
+                 
+                    $tableBody2.find('tr:first').appendTo($tableBody2);
+                    $tableBody2.css('marginTop', 0);
+                });
+            }
+       
+            setInterval(moveRows2, 5000);
+        }
+        
+        $(document).ready(function () {
+            animateTable2();
+        });
         </script>
 </body>
 

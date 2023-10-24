@@ -354,17 +354,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for entry in alllist %}
-                                <tr class="table-body-li my-3">
-                                    <td>1</td>
-                                    <td>{{ entry.name }}</td>
-                                    <td style="white-space: nowrap;">{{ entry.date }}</td>
-                                    <td>{{ entry.place }}</td>
-                                    <td>{{ entry.work }}</td>
-                                    <td>{{ entry.clientname }}</td>
-                                    <td>{{ entry.clientnumber }}</td>
-                                    <td>{{ entry.clientdetails }}</td>
-                                    <td><button class="primary-button"><img src="{% static 'images/nav-icon/del-icon.svg' %}" alt=""></button></td>
+                                {% for num,data in alllist %}
+                                <tr class="table-body-li my-3 trclass">
+                                    <form method="post" action="/installation_details/">
+                                        {% csrf_token %}
+                                    <td class="tdclass"></td>
+                                    <td>{{ data.name }}</td>
+                                    <td style="white-space: nowrap;">{{ data.date }}</td>
+                                    <td>{{ data.place }}</td>
+                                    <td>{{ data.work }}</td>
+                                    <td>{{ data.clientname }}</td>
+                                    <td>{{ num }}</td>
+                                    <td>{{ data.clientdetails }}</td>
+                                    <input type="hidden" name="delete_num" value="{{ num }}">
+                                    <input type="hidden" name="delete_date" value="{{ data.date }}">
+                                    <td><button class="primary-button" type="submit" name="delete_entry" value="{{ num }}">
+                                        <img src="{% static 'images/nav-icon/del-icon.svg' %}" alt="">
+                                    </button></td>
+                                </form>
                                 </tr>
                                 {% endfor %}
 
@@ -409,6 +416,12 @@
                 }
             });
         });
+        const rows = document.querySelectorAll('.trclass');
+        rows.forEach((row, index) => {
+            const snoCell = row.querySelector('.tdclass');
+            snoCell.textContent = index + 1;
+        });
+
 </script>
 
 </body>

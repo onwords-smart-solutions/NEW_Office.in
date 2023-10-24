@@ -14,16 +14,7 @@ form {
     transform: translate(0%, 50%);
 }
 
-input {
-    background: #eee;
-    padding: 12px 15px;
-    margin: 8px 15px;
-    width: 100%;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    margin: 15px;
-}
+
 
 .sign-btn {
     background-color: #FBD87F;
@@ -101,7 +92,7 @@ input {
 
     border-radius: 5px;
     /* height: 50px; */
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: space-around;
     padding: 5px;
@@ -126,11 +117,13 @@ input {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     border-bottom: none
 }
+
 .product-details {
     align-items: center;
     text-align: center;
 }
-.product-details td{
+
+.product-details td {
     font-weight: 600;
 }
 
@@ -338,6 +331,14 @@ input {
     background-color: #FBD87F;
 }
 
+.view-date:hover {
+    background-color: #fff;
+}
+
+#prper-nav {
+    background: none;
+}
+
 #target-Btn,
 #pending-Btn {
     display: none;
@@ -351,14 +352,13 @@ input {
     display: none;
 }
 
-.cmo-nav h5 {
-    font-size: 20px;
+/* .cmo-nav h5 {
+    /* font-size: 20px;
     font-weight: 600;
     padding: 8px 5px;
     margin: 3px 0px;
     border-radius: 5px;
-}
-
+} */
 .add-name input {
     width: 40%;
     height: 30px;
@@ -374,13 +374,197 @@ input {
 #choose-the-name {
     display: none;
 }
-#update-table{
+
+#update-table {
     display: none;
 }
-.inventory-ro td{
+
+.inventory-ro td {
     display: flex;
     align-items: center;
 }
 
+
+.view-form {
+    transform: translate(0, 0);
+    height: 40px;
+    position: relative;
+}
+
+.view-form input {
+    background-color: #fff;
+    height: 40px;
+}
+
+.workdone-view {
+    background-color: hsl(43, 90%, 84%);
+    border-radius: 5px;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.workdone-form {
+    transform: translate(10px, 10px);
+
+}
+
+.workdone-form input {
+    background-color: hsl(43, 90%, 84%);
+}
+
+.workdone-table {
+    background-color: #fff;
+    border-radius: 5px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+/* .staff-name {
+    text-align: center;
+
+}
+
+.staff-name-con {
+    width: 40%;
+    height: 60px;
+    border: 2px solid #918f8f;
+    outline: none;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: abzee-regular;
+
+} */
+.staff-name-con {
+    border: none;
+    outline: none;
+
+}
+
+.date-input-form input {
+    width: 30%;
+    height: 40%;
+    border: 2px solid #918f8f;
+    border-radius: 10px;
+    background-color: hsl(43, 90%, 84%);
+}
+
+.select-staff-date h3 {
+    transform: translate(12px, 69px);
+}
+
+.allwork-done button {
+    width: 27%;
+    height: 50px;
+    border: 2px solid #918f8f;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: abzee-regular;
+    border-radius: 10px;
+    background-color: hsl(43, 90%, 84%);
+}
+
+.date-input-form {
+    transform: translate(0, 0);
+}
+
+.allwork-done button {
+    transform: translate(0, 70px);
+}
+
+
+.workdone-table-head {
+    background-color: #FBD87F;
+    border: none;
+    outline: none;
+    font-family: abzee-regular;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: none
+}
+
+.workdone-details {
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-bottom: none
+}
+
+.workdone-btn {
+    border: none;
+    outline: none;
+    width: 50px;
+    height: 40px;
+    background-color: #FBD87F;
+    border-radius: 10px;
+
+}
+
+.workdone-btn h5 {
+    font-family: abzee-regular;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+#staff-details-workdone {
+    display: none;
+}
+
+#workdone-view {
+    display: none;
+}
+
+.workdone-staff {
+    width: 20%;
+    height: 35px;
+    background: #fff;
+    margin: 8px;
+    font-family: abzee-regular;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.workdone-staff button {
+    background: transparent;
+    outline: none;
+    border: none;
+}
+
+.form-inp-cons {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    border: 1px solid #282828;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px auto;
+}
+
+.form-inp-cons input {
+    width: 90%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+    padding: 0px 10px;
+}
 
 /* CMO PRODUCT PAGE */
