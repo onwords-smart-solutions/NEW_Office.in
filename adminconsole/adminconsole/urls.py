@@ -30,7 +30,7 @@ urlpatterns = [
     path("logout/",views.logout,name="logout"),
     path('prdashboard',views.prdashboard,name='pradshboard'),
     path('coohome/', views.coohome,name='coohome'),
-    path('installation_details',views.installation_details,name='installation_details'),
+    path('installation_details/',views.installation_details,name='installation_details'),
 
     # ============it team================
      path("ithome/", itviews.ithome, name="ithome"),
