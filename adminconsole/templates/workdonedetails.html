@@ -14,11 +14,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 
-    <!-- chart js start  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <!-- chart js end -->
+   
     <title>Document</title>
 </head>
 
@@ -46,7 +42,11 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
+                                        {%if profile == "NULL"%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%else%}
+                                        <img src="{{profile}}" alt="user-profile">
+                                        {%endif%}
                                     </div>
                                     <div class="emply-id">
                                         <span>Vinith</span><br>
@@ -171,11 +171,16 @@
         <div class="right-con " id="rightCon" onclick="rightcon()">
             <div class="container-fluid">
                 <div class="product-nav cmo-nav my-3">
-                    <h5 class=" depart-btn   li-inventry" onclick="selectBtn()" id="select-nav">Select
+                    <h5 class=" depart-btn   li-inventry" onclick="location.href='/workmanagerTl'" id="select-nav">Select
                         Department
                     </h5>
-                    <div class=" dropdown workdone-staff">
-                        <button class="  dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    <h5 class=" depart-btn   li-inventry" onclick="location.href='/workdonedetails'" id="select-nav">Select
+                        Staff
+                    </h5>
+                </div>
+                <center>
+                    <div class=" dropdown workdone-staff" >
+                        <button class="  dropdown-toggle"  type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Choose a Staff
                         </button>
@@ -365,97 +370,9 @@
                                 </span>
                             </li>
                         </ul>
-
+    
                     </div>
-                    <!-- <h5 class=" " onclick="choosestaff()" id="staff-name">
-                        <select name="" id="" class="staff-name-con">
-                            <option value="">Choose a Staff here</option>
-                            <option value=""></option>
-                            <option value="">MAnikandan</option>
-                            <option value="">Siva P</option>
-                            <option value="">MAnika Vasagan</option>
-                            <option value="">Devendiran</option>
-                            <option value="">TAmil selvan S</option>
-                            <option value="">Kiruba NAndhini</option>
-                            <option value="">Vinith</option>
-                            <option value="">Yugan</option>
-                            <option value="">Meenakshi Gayathiri</option>
-                            <option value="">Ramkumar</option>
-                            <option value="">Manoj R</option>
-                            <option value="">Mohan Kumar</option>
-                            <option value="">Karthika M</option>
-                            <option value="">Gipson joseph</option>
-                            <option value="">Jibin k john</option>
-                            <option value="">PP Logesh</option>
-                            <option value="">Dinesh L</option>
-                            <option value="">Sanjeev</option>
-                            <option value="">Dhanush B</option>
-                            <option value="">KarthickRAja A</option>
-                            <option value="">Sweetha T</option>
-                            <option value="">Guru Prasanth</option>
-                            <option value="">Naveen S</option>
-                            <option value="">Balaji S</option>
-                            <option value="">Premkumar</option>
-                            <option value="">Nivash M</option>
-                            <option value="">Gokul Kannan AK</option>
-                            <option value="">Santha Prasanth</option>
-                            <option value="">Ram Kumar</option>
-                            <option value="">Jeevanandham</option>
-                            <option value="">Gowtham R</option>
-                            <option value="">Nikhil Deepak</option>
-                            <option value="">Harshini U</option>
-                            <option value="">Mohammed Isak Mujamil</option>
-                            <option value="">Silambaran K</option>
-                            <option value="">ANitha</option>
-                            <option value="">Prasanna R</option>
-                            <option value="">Priyadharshini V</option>
-                            <option value="">Aravinthan P</option>
-                            <option value="">Nandhakumar S</option>
-                            <option value="">Muthu Saravanan</option>
-                            <option value="">Pradeep Kanth</option>
-                            <option value="">Jay Priya</option>
-                            <option value="">Rajkannan B</option>
-                            <option value="">Subashree</option>
-                            <option value="">R sabareeshwaran</option>
-                            <option value="">Naveenkumar M</option>
-                            <option value="">Golda Sharon J</option>
-                            <option value="">Logesh P</option>
-                            <option value="">Arun Kumar</option>
-                            <option value="">Kavin Vetrivel</option>
-                            <option value="">Jothi Prakash</option>
-                            <option value="">Bala Saravana</option>
-                            <option value="">Gowtham</option>
-                            <option value="">Girija R</option>
-                            <option value="">Tamilarasan K</option>
-                            <option value="">Tamil Selvan N</option>
-                            <option value="">Gokilavani </option>
-                            <option value="">Pavithra K</option>
-                        </select>
-                    </h5> -->
-                </div>
-                <div class="product-table" id="dep-Btn">
-                    <form action="" class="product-nav cmo-nav my-3">
-                        
-
-                       
-                        <h5 class="  " onclick="productBtn()" id="pro-nav">
-                            
-                                <input type="date" id="birthday" name="birthday">
-                            
-                        </h5>
-                        <button class="workdone-btn" type="button">
-                            <h5 class=" li-inventry active-inv" onclick="" id="update-nav">PR</h5>
-                        </button>
-                        <button class="workdone-btn" type="button">
-                            <h5 class="li-inventry" onclick="" id="update-nav">RND</h5>
-                        </button>
-                        <button class="workdone-btn" type="button">
-                            <h5 class="li-inventry" onclick="" id="update-nav">PR</h5>
-                        </button>
-
-                    </form>
-                    
-                </div>
+                </center>
 
                 <center class="" id="staff-details-workdone">
                     <div class="select-staff-date ">

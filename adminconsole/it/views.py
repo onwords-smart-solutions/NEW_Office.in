@@ -8,6 +8,7 @@ def ithome(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile = request.COOKIES["profile"]
+    print(profile)
     webaccess=db.child("webaccess").get().val()
     general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
     for accessuid in webaccess["customer details"]:
@@ -200,7 +201,21 @@ def ithome(request):
                 "leavehistory": leavehistory,
                 "dep":dep,
                 "name":name,
-                "profile":profile
+                "profile":profile,
+                "general":general,
+                "approvalpage":approvalacccess,
+                "rnd":inprogressacccess,
+                "account":accountacccess,
+                "createlead":createleadacccess,
+                "customerdetails":customeracccess,
+                "quotation":quotationacccess,
+                "inventory":inventoryacccess,
+                "createstaff":createstaffacccess,
+                "viewworkmanager":viewmanageracccess,
+                "viewsuggestion":viewsuggestionacccess,
+                "userdata":userdataacccess,
+                "prdashboard":prdashboardacccess,
+
                 # "tl": istl,
                 # "dep":dep,
                 # "accounts":accounts,
@@ -233,6 +248,20 @@ def ithome(request):
             "generalleave":generalleave,
             "sickleave":sickleave,
             "overallleave":overallleave,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,
+
         }
         return render(request, "ithome.html", context)
     except:

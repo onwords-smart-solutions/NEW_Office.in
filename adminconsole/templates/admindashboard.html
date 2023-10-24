@@ -45,10 +45,10 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
-                                        {%if profile%}
-                                        <img src="{{profile}}" alt="user-profile">
-                                        {%else%}
+                                        {%if profile == "NULL"%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%else%}
+                                        <img src="{{profile}}" alt="user-profile">
                                         {%endif%}
                                     </div>
                                     <div class="emply-id">
@@ -320,7 +320,7 @@
                <div class="main-con-admin">
 
                 <div id="weekltTargetTable">
-                    <form action="/admindashboard/" method="post" class="admin-dashboard-form"> {% csrf_token %}
+                    <form action="/prdashboard/" method="post" class="admin-dashboard-form"> {% csrf_token %}
                         <p class="text-center fs-4 fw-3">Weekly target</p>
                         <label for="noti1">Target Acheived</label><br>
                         <input type="number" name="totalprgettarget" id="noti1" value="{{totalprgettarget}}"><br>
@@ -330,7 +330,7 @@
                       </form>
                 </div>
                 <div id="employeofweekTable">
-                    <form action="/admindashboard/" method="post" class="admin-dashboard-form"> {% csrf_token %}
+                    <form action="/prdashboard/" method="post" class="admin-dashboard-form"> {% csrf_token %}
                         <p class="text-center fs-4 fw-2">Employee of the week</p>
                         <label for="name">Select a name:</label><br>
                         <select name="name" id="name">
@@ -350,7 +350,7 @@
                 </div>
                 <div id="progressTable">
                     
-              <form action="/admindashboard/" method="post" class="admin-dashboard-form"> {% csrf_token %}
+              <form action="/prdashboard/" method="post" class="admin-dashboard-form"> {% csrf_token %}
                 <p class="text-center fs-4 fw-3">Progress</p>
                 <input type="number" name="progress" value="{{progress}}"><br>
               <center>  <button type="submit" name="progresssubmit" value="Submit" class="primary-button mt-4">Submit</button></center>

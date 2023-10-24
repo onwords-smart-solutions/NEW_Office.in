@@ -12,6 +12,7 @@ def prhome(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile = request.COOKIES["profile"]
+    
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
@@ -90,11 +91,7 @@ def prhome(request):
     saturday_day = str(saturday_date.day).zfill(2)
     try:
         try:
-            print("==")
-            print("date", current_year, current_month, current_day, uid)
             todaycheckin = attendence[current_year][current_month][current_day][uid]["check_in"]
-            
-            print("today", todaycheckin)
         except:
             todaycheckin = "No Entry"
 
@@ -136,19 +133,16 @@ def prhome(request):
             else:    
                 yesprogress = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["working_hours"]
                 yesterdayprogress = calculate_progress(yesprogress)
-            print("progress", yesterdayprogress)
         except:
             yesterdayprogress = "Absent"    
         try:
             today_progress= calculate_progress_(todaycheckin, todaycheckout)
-            print("prog",today_progress)
         except:
             today_progress= "Absent"
         todaycheckout = convert_to_12_hour_format(todaycheckout)
         todaycheckin = convert_to_12_hour_format(todaycheckin)   
 
         listOfTodaysWork= []
-        print("date",formatted_date)
         try:
             for z in workmanager[current_year][current_month][formatted_date][uid]:
                 listOfTodaysWork.append(workmanager[current_year][current_month][formatted_date][uid][z])
@@ -223,7 +217,6 @@ def prhome(request):
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
         data[uid]["projects"]
-        print(todaycheckin,todaycheckout,yesscheckin,yesscheckout,yesterdayprogress)
         context = {
             "project": True,
             "name": name,
@@ -290,6 +283,7 @@ def prhome(request):
 
 def create_lead(request):
     uid = request.COOKIES["uid"]
+    print("get",uid)
     dep = request.COOKIES["dep"]
     logedInUser = request.COOKIES["uid"]
     loginState = request.COOKIES["loginState"]
@@ -300,13 +294,14 @@ def create_lead(request):
     staff_data = db.child("staff").get().val()
     uid_list=[] 
     nameList = []    
-    for uid in staff_data:
-        if staff_data[uid]['department'] == "PR":
-            uid_list.append(uid)
-            nameList.append(staff_data[uid]['name'])
+    for uid1 in staff_data:
+        if staff_data[uid1]['department'] == "PR":
+            uid_list.append(uid1)
+            nameList.append(staff_data[uid1]['name'])
     webaccess=db.child("webaccess").get().val()
     general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
     for accessuid in webaccess["customer details"]:
+        print(uid)
         if webaccess["customer details"][accessuid] == uid:
             customeracccess=True
 
@@ -317,6 +312,7 @@ def create_lead(request):
     for accessuid in webaccess["Create Lead"]:
         if webaccess["Create Lead"][accessuid] == uid:    
             createleadacccess=True
+            print("=============")
 
     for accessuid in webaccess["Create Staff"]:
         if webaccess["Create Staff"][accessuid] == uid:    
@@ -396,22 +392,34 @@ def create_lead(request):
                     }
                 
                     db.child("customer").child(phno).set(data)
-                    return render(
-                        request,
-                        "createLead.html",
-                        {"akn": "user created success fully", "colour": True,"nameList":nameList,"dep":dep,"name":name,"profile":profile},
-                    )
-                print("method",request.POST)
+                    context={
+                        "akn": "user created success fully",
+                        "colour": True,
+                        "nameList":nameList,
+                        "dep":dep,
+                        "name":name,
+                        "profile":profile,
+                        "general":general,
+                        "approvalpage":approvalacccess,
+                        "rnd":inprogressacccess,
+                        "account":accountacccess,
+                        "createlead":createleadacccess,
+                        "customerdetails":customeracccess,
+                        "quotation":quotationacccess,
+                        "inventory":inventoryacccess,
+                        "createstaff":createstaffacccess,
+                        "viewworkmanager":viewmanageracccess,
+                        "viewsuggestion":viewsuggestionacccess,
+                        "userdata":userdataacccess,
+                        "prdashboard":prdashboardacccess,
+                        }
+                    return render(request,"createLead.html",context)
                 if "create-using-file" in request.POST:
-                    print("==")
                     curent_date = date.today()
                     now = datetime.now()
                     current_time = now.strftime("%H:%M:%S")
                     enqFor = request.POST["eqfor"]
-                    print("for",enqFor)
                     name = request.POST["selectedName"]
-                    print("name",name)
-                    # selected_staffs = request.POST.getlist('selectedStaffs')
                     reader=request.FILES['myfile']
                     
                     a=0
@@ -492,6 +500,7 @@ def create_lead(request):
                       }
                     return render(request, "createLead.html",context)
             else:
+                print("========",createleadacccess)
                 context={
                         "akn": "error creating user",
                         "colour": False,
@@ -514,8 +523,9 @@ def create_lead(request):
                         "userdata":userdataacccess,
                         "prdashboard":prdashboardacccess,
                     }
-                return render(request,"createLead.html",)
+                return render(request,"createLead.html",context)
         except:
+            print("qddw",approvalacccess)
             context={
                     "akn": "error creating user",
                     "colour": False,
@@ -538,8 +548,7 @@ def create_lead(request):
                     "userdata":userdataacccess,
                     "prdashboard":prdashboardacccess,
                 }
-            return render(request,"createLead.html",)
-
+            return render(request,"createLead.html",context)
     else:
         return redirect("login")
 
@@ -653,7 +662,6 @@ def customer_details(request):
             customerCreatedList.append(data[cust]["created_date"])
             totalCount += 1
         except:
-            print(cust)
             pass
         try:
             data[cust]["notes"]
@@ -938,6 +946,10 @@ def points_workdone(request):
     return render(request,'points_workdone.html',context)
 
 def quotation(request):
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     webaccess=db.child("webaccess").get().val()
     general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
     for accessuid in webaccess["customer details"]:

@@ -29,9 +29,11 @@ urlpatterns = [
     path("attendancesort/",adminviews.attendancesort,name="attendancesort"),
     path("logout/",views.logout,name="logout"),
     path("workdonedetails/",views.workdonedetails,name="workdonedetails"),
+    path("workmanagerTl/",views.workmanagerTl,name='workmanagreTl'),
+
     # ========================coo page =========================
 
-    path('prdashboard',views.prdashboard,name='pradshboard'),
+    path('prdashboard/',views.prdashboard,name='pradshboard'),
     path('coohome/', views.coohome,name='coohome'),
     path('installation_details/',views.installation_details,name='installation_details'),
 
@@ -60,10 +62,10 @@ urlpatterns = [
     path("rndhome/",rndviews.rndhome,name='rndhome'),
     path("inprocess/",rndviews.inprocess,name='inprocess'),
     path("create/",rndviews.create,name='create'),
+    path("gate/",rndviews.gate,name='gate'),
 
-    
     # ==================admin department==================================
-
+    
     path("adminhome/",adminviews.adminhome,name='adminhome'),
     path("checkin/",adminviews.checkin,name='checkin'),
     path("attendanced/",adminviews.attendanced,name='attendanced'),

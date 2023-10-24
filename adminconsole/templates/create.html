@@ -45,10 +45,10 @@
                             <div class="right-nav-list">
                                 <div class="user-profiles">
                                     <div class="user-img">
-                                        {%if profile%}
-                                        <img src="{{profile}}" alt="user-profile">
-                                        {%else%}
+                                        {%if profile == "NULL"%}
                                         <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                        {%else%}
+                                        <img src="{{profile}}" alt="user-profile">
                                         {%endif%}
                                     </div>
                                     <div class="emply-id">
@@ -322,32 +322,32 @@
                     <div class="col-md-6">
                         <div class="create-products">
                             <div id="createGate">
-                                <form action="" class="create-gate">
+                                <form action="/gate/" class="create-gate">
                                     <!-- <label for="create-product-mail" class="create-product">Email</label> -->
                                     <div class="form-inp-con">
-                                        <input type="email" name="" id="create-product-mail" placeholder="Email">
+                                        <input type="email" name="email" id="create-product-mail" placeholder="Email">
                                     </div>
                                     <div class="form-inp-con form-check">
                                         <lable for="cycle">Cycle</lable>
-                                        <input type="checkbox" name="" id="cycle" placeholder="cycle">
+                                        <input type="checkbox" name="cycle" id="cycle" placeholder="cycle">
                                     </div>
                                     <div class="form-inp-con">
-                                        <select name="" id="" class="leadAssignPerson">
+                                        <select name="typ" id="" class="leadAssignPerson">
                                             <option value="">Gate Type</option>
-                                            <option value="sliding">Sliding</option>
-                                            <option value="swing">Swing</option>
+                                            <option value="Slider">Sliding</option>
+                                            <option value="Roller">Swing</option>
                                         </select>
                                     </div>
-                                    <button class="primary-button">Create Gate</button>
+                                    <button class="primary-button" name="create-gate">Create Gate</button>
                                 </form>
                             </div>
                             <div id="createWTA">
-                                <form action="" class="create-gate">
+                                <form action="/gate/" class="create-gate">
                                     <!-- <label for="create-product-mail" class="create-product">Email</label> -->
                                     <div class="form-inp-con">
-                                        <input type="email" name="" id="create-product-mail" placeholder="Email">
+                                        <input type="email" name="email" id="create-product-mail" placeholder="Email">
                                     </div>
-                                    <button class="primary-button">Create WTA</button>
+                                    <button class="primary-button" name="create-wta">Create WTA</button>
                                 </form>
                             </div>
                         </div>

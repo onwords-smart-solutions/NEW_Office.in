@@ -623,7 +623,7 @@ def late_form(request):
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,  
             }        
-    return render(request, 'late_form.html')
+    return render(request, 'late_form.html',context)
 
 def late_approval(request):
     uid = request.COOKIES["uid"]
@@ -1081,8 +1081,7 @@ def suggestion(request):
         tm = datetime.now()
         date_time = tm.strftime("%Y-%m-%d_%H:%M:%S")
         date = tm.strftime("%Y-%m-%d")
-        time = tm.strftime("%I:%M:%S %p")
-        time = tm.strftime("%I:%M:%S %p")
+        time = tm.strftime("%H:%M")
         val = {
             "message":msg,
             "date": date,
@@ -2198,7 +2197,133 @@ def logout(request):
     return response            
 
 def prdashboard(request):
-    return render(request,'admindashboard.html')
+    uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile=request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+
+    if 'total-target' in request.POST:
+        totalprgettarget=request.POST['totalprgettarget']
+        totalprtarget=request.POST['totalprtarget']
+        if totalprgettarget:
+            db.child("PRDashboard").child("prtarget").update({"totalprgettarget":totalprgettarget})
+        if totalprtarget:
+            db.child("PRDashboard").child("prtarget").update({"totalprtarget":totalprtarget})
+    dashboardDB = db.child("PRDashboard").get().val()
+    totalprgettarget = dashboardDB["prtarget"]["totalprgettarget"]
+    totalprtarget= dashboardDB["prtarget"]["totalprtarget"]
+    namelist=[]
+    uidlist=[]
+    profilepic=[]
+    try:
+        staff_data = db.child("staff").get().val()
+        if staff_data:
+            for uid, data in staff_data.items():
+                department = data.get("department")
+                if department == "PR":
+                    namelist.append(data.get("name"))
+                    uidlist.append(uid)
+                    profilepic.append(data.get("profileImage", None))
+                else:
+                    pass
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+    if "employeeofmonth" in request.POST:
+        selected_uid = request.POST.get("name")  
+        reason = request.POST.get("reason")
+        data_to_update = {
+            "person": selected_uid,
+            "reason": reason
+        }
+        try:
+            db.child("PRDashboard").child("employee_of_week").update(data_to_update) 
+           
+        except:
+            pass  
+
+    if "progresssubmit" in request.POST:
+        progress = request.POST['progress']
+        if progress:
+            db.child("PRDashboard").update({"progress": progress}) 
+            
+    dashboardDB = db.child("PRDashboard").get().val()
+    progress1=dashboardDB["progress"]    
+
+
+    dropdown=zip(namelist,uidlist,profilepic)
+    context={
+        "totalprgettarget":totalprgettarget,
+        "totalprtarget":totalprtarget,
+        "dep":dep,
+        "dropdown":dropdown,
+        "progress":progress1,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
+    }
+    return render(request,'admindashboard.html',context)
 
 def userdata(request):
     uid = request.COOKIES["uid"]
@@ -2322,7 +2447,7 @@ def profileall(uid):
     try:
         profilepic=profiledata[uid]["profileImage"]
     except:
-        profilepic="False"
+        profilepic="NULL"
     return profilepic  
 
 def convert24HoursTime(time):
@@ -2342,3 +2467,7 @@ def getTl(dep):
     for x in data:
         if x == dep:
             return data[x]    
+        
+def workmanagerTl(request):
+    
+    return render(request,'workmanagerTL.html')      

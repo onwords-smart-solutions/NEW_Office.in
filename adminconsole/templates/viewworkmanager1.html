@@ -84,7 +84,7 @@
                             </div>
                         </li>
                         {% if general %}
-                        <li class="navlistmenu " onclick="location.href='/leave_form'">
+                        <li class="navlistmenu" onclick="location.href='/leave_form'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/forms-icon.svg' %}" alt="dashboard_Icon">
@@ -104,7 +104,7 @@
                                 <h5>Late Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu navlistmenu " onclick="location.href='/suggestion'">
+                        <li class="navlistmenu" onclick="location.href='/suggestion'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/suggestion.png' %}" alt="dashboard_Icon">
@@ -118,7 +118,7 @@
 
                         <!-- ===========tl's============================ -->
                         {% if approvalpage %}
-                        <li class="navlistmenu" onclick="location.href='/approval'">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/approval'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/approval.png' %}" alt="dashboard_Icon">
@@ -155,9 +155,9 @@
                         </li>
 
                         {% endif %}
-                      
+
                         {% if account %}
-                        <li class="navlistmenu" onclick="location.href='/financial'">
+                        <li class="navlistmenu " onclick="location.href='/financial'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/financial-icon.svg' %}" alt="dashboard_Icon">
@@ -181,7 +181,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if customerdetails %}
                         <li class="navlistmenu " onclick="location.href='/customer_details'">
                             <div class="left-nav-list">
@@ -194,7 +194,7 @@
                             </div>
                         </li>
                         {% endif %}
-                       
+
                         {% if quotation %}
                         <li class="navlistmenu" onclick="location.href='/quotation'">
                             <div class="left-nav-list">
@@ -220,9 +220,9 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if createstaff %}
-                        <li class="navlistmenu " onclick="location.href='/createstaff'">
+                        <li class="navlistmenu" onclick="location.href='/createstaff'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/create-staff.svg' %}" alt="createstaff_Icon">
@@ -233,12 +233,13 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if viewworkmanager %}
                         <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}" alt="createstaff_Icon">
+                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}"
+                                        alt="createstaff_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
@@ -248,7 +249,7 @@
                         {% endif %}
 
                         {% if viewsuggestion %}
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/viewsuggestion'">
+                        <li class="navlistmenu" onclick="location.href='/viewsuggestion'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/viewsuggestion.svg' %}" alt="userdata_Icon">
@@ -261,7 +262,7 @@
                         {% endif %}
 
                         {% if userdata %}
-                        <li class="navlistmenu " onclick="location.href='/userdata'">
+                        <li class="navlistmenu" onclick="location.href='/userdata'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
@@ -307,40 +308,180 @@
         </div>
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
-           <div class="container">
-            <div class="row">
-                {% if sugg %}
-                                {% for a in sugg %}
-                                <div class="col-md-4 my-3">
-                                    <form method="post" action="/markasread/"class="box-sugg"> {% csrf_token %}
-                                        <div class="">
-                                            <p class="dat-img"><img src="{%static 'images/dat.svg' %}" alt="gr">
-                                                {{a.date}} {{a.time}}</p>
-                                            <p class="dat-imgs"><img src="{%static 'images/vv.svg' %}" alt="gr"> Message
-                                            </p>
-                                            <p>{{a.message}}</p>
-                                            <input type="hidden" name="message" value="{{a.message}}">
-                                            <input type="hidden" name="date" value="{{a.date}}">
-                                            <input type="hidden" name="time" value="{{a.time}}">
-                                            {% if not a.isread %}
-                                            <button class="fsd"><i class="fa-regular fa-circle cirs"></i>Mark as
-                                                read</button>
-                                            {% else %}
-                                            <button class="fsd"><i class="fa-solid fa-circle-check succ"></i>Mark as
-                                                read</button>
-                                            {% endif %}
-                                            <br>
-                                        </div>
+            <div class="container-fluid">
+                <div class="" onclick="approvalpage()">
+                    <div class="forms-con">
+                        <p class="active-form-li" id="CompleteWork" onclick="completework()">Complete Work</p>
+                        <p class="" id="didnotworkdone" onclick="didnotworkdone()">Didn't Enter the work done</p>
+                        <p class="" id="Stillworkingon" onclick="Stillworkingon()">Still working on</p>
+                        <p class=""><input type="date" name="" id=""></p>
+                    </div>
+
+                    <div id="colpleteTable">
+                        <table class="table">
+                            <thead>
+                                <tr class="leave-table-head">
+                                    <th>S.No</th>
+                                    <th>Name</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>workdone</th>
+                                    <th>Working hours</th>
+                                    <th>percentage</th>
+                                </tr>
+                                <tbody>
+                                    <tr class="table-body-li my-3">
+                                        <td>1</td>
+                                        <td>Anwar</td>
+                                        <td>09:10 AM</td>
+                                        <td>12:20 PM</td>
+                                        <td>three module</td>
+                                        <td>06 Hrs</td>
+                                        <td>80</td>
+                                    </tr>
+                                </tbody>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="didnotworkdoneTable">
+                        <table class="table">
+                            <thead>
+                                <tr class="leave-table-head">
+                                    <th>Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-body-li my-3">
+                                    <td>Anwar</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="stillworkingtable">
+                        <table class="table">
+                            <thead>
+                                <tr class="leave-table-head">
+                                    <th>Name</th>
+                                    <th>Total WorkTime</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-body-li my-3">
+                                    <td>Anwar</td>
+                                    <td>08:34</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- <div class="" id="lateApprovalTable">
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <tr class="leave-table-head">
+                                        <th>Date</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Time</th>
+                                        <th>Name</th>
+                                        <th>Workdone</th>
+                                        <th>Work Percentage</th>
+                                        <th>Reason</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for year, month, date, all in allList %}
+                                    <tr class="table-body-li my-3">
+                                        <form action="/submitaction/" method="post">{% csrf_token %}
+                                            <td>{{date}}</td><input type="hidden" name="_date" value="{{date}}">
+                                            <input type="hidden" name="_month" value="{{month}}">
+                                            <input type="hidden" name="_year" value="{{year}}">
+                                            <td>{{all.from}}</td><input type="hidden" name="_from" value="{{all.from}}">
+                                            <td>{{all.to}}</td><input type="hidden" name="_to" value="{{all.to}}">
+                                            <td>{{all.time_in_hours}}</td><input type="hidden" name="_time_in_hours"
+                                                value="{{all.time_in_hours}}">
+                                            <td>{{all.name}}</td><input type="hidden" name="_name" value="{{all.name}}">
+
+                                            <td>{{all.workDone}}</td><input type="hidden" name="_workDone"
+                                                value="{{all.workDone}}">
+                                            <td>{{all.workPercentage}}</td><input type="hidden" name="_workPercentage"
+                                                value="{{all.workPercentage}}">
+                                            <td>{{all.reason}}</td><input type="hidden" name="_reason"
+                                                value="{{all.reason}}">
+                                            <td>
+                                                <button class="btn btn-success" name="approved">Approved <img
+                                                        src="{% static 'images/approved-tick.png' %}" alt="approve-icon"
+                                                        class="img-fluid table-icon"></button>
+                                                <button class="btn btn-danger" name="declined">Decline <img
+                                                        src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
+                                                        class="img-fluid table-icon"></button>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                    {% endfor %}
+
+
+                                </tbody>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="" id="leaveApprovalTable">
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <tr class="leave-table-head">
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Type</th>
+                                        <th>Reason</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for year, month, date, type, data in leaveList %}
+                                    {% if data.status == "Pending" %}
+                                    <form action="/approvalprocess/" method="post">
+                                        <tr class="table-body-li my-3">
+                                            <td>{{ data.date }}</td>
+                                            <td>{{ data.name }}</td>
+                                            <td>{{ data.dep }}</td>
+                                            <td>{{ type }}</td>
+                                            <td>{{ data.reason }}</td>
+
+                                            {% csrf_token %}
+                                            <input type="hidden" name="type" value="{{type}}">
+                                            <input type="hidden" name="namee1" value="{{data.name}}" />
+                                            <input type="hidden" name="_datee" value="{{data.date}}" />
+                                            <td>
+                                                <button class="btn btn-success" name="approve" value="approved">Approved
+                                                    <img src="{% static 'images/approved-tick.png' %}"
+                                                        alt="approve-icon" class="img-fluid table-icon"></button>
+                                                <button class="btn btn-danger" name="deny" value="Declined">Decline <img
+                                                        src="{% static 'images/decline-icon.png' %}" alt="approve-icon"
+                                                        class="img-fluid table-icon"></button>
+                                            </td>
+
+                                        </tr>
                                     </form>
-                                </div>
-                                {% endfor %}
-                                {% else %}
-                                <center>
-                                    <h2>No Suggestions found</h2>
-                                </center>
-                                {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+
+                                </tbody>
+                                </thead>
+                            </table>
+                        </div>
+                    </div> -->
+
+                </div>
             </div>
-           </div>
+
         </div>
     </div>
     <!-- bootstrap js -->
@@ -352,12 +493,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-   
-    
-    
-    
 
 </body>
 
 </html>
-
