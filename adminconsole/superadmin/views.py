@@ -84,7 +84,40 @@ def createstaff(request):
         return render(request, "createstaff.html",{"suggestionNotification":suggestionNotification})
 
 def staffaccess(request):
-    return render(request,'staff-access.html')
+    uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile = request.COOKIES["profile"]
+
+    if request.method == "POST":
+        uid = request.POST["uid"]
+        access = request.POST["access"]
+        web=db.child("webaccess").get().val()
+        try:
+            count=len(web[access])
+            print(count)
+        except:
+            print('ll')
+            count=0
+        data={
+            "uid"+str(count+1):uid
+        }
+        print(data)
+        db.child("webaccess").child(access).update(data)
+    staff=db.child("staff").get().val()
+    namelist=[]
+    uidlist=[]
+    for uid in staff:
+        namelist.append(staff[uid]["name"])
+        uidlist.append(uid)
+    allstaff=zip(uidlist,namelist) 
+    context={
+        "allstaff":allstaff,
+        "name":name,
+        "dep":dep,
+        "profile":profile
+    }   
+    return render(request,'staff-access.html',context)
 def userdata(request):
     return render(request,'userdata.html')
 def viewsuggestion(request):

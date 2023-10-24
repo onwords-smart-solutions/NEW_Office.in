@@ -72,7 +72,7 @@ def login(request):
                 response = redirect("installationhome")
                 return response
             if dep == "AIML":
-                response = redirect("aimlhome")
+                response = redirect("ithome")
                 return response
             if dep == "HR":
                 response = redirect("hrhome")
@@ -115,7 +115,6 @@ def login(request):
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "PR":
-                print("log pr")
                 response = redirect("prhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
@@ -133,6 +132,22 @@ def login(request):
                 return response
             if dep == "ADMIN":
                 response = redirect("adminhome")
+                response.set_cookie("uid", uid, expires=exp)
+                response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("name", name, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
+                response.set_cookie("loginState", "loggedIn", expires=exp)
+                return response
+            if dep == "INSTALLATION":
+                response = redirect("installationhome")
+                response.set_cookie("uid", uid, expires=exp)
+                response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("name", name, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
+                response.set_cookie("loginState", "loggedIn", expires=exp)
+                return response
+            if dep == "HR":
+                response = redirect("hrhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
                 response.set_cookie("name", name, expires=exp)
@@ -571,6 +586,9 @@ def suggestion(request):
     name = request.COOKIES["name"]
     profile=request.COOKIES["profile"]
     current_date = datetime.now()
+    general=False
+    if uid is not None:
+        general=True
     formatted_date = current_date.strftime("%Y-%m-%d")
 
     # Get the current year, month, and day

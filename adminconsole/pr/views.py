@@ -8,7 +8,6 @@ from django.http import HttpResponse
 # Create your views here.
 
 def prhome(request):
-    print("insode pr home")
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
@@ -17,9 +16,57 @@ def prhome(request):
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
     leavedetails = db.child("leaveDetails").get().val()
-    name = checkUserName(uid)
-    istl = False
-    tl = db.child("tl").get().val()
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
 
     current_date = datetime.now()
     formatted_date = current_date.strftime("%Y-%m-%d")
@@ -41,10 +88,6 @@ def prhome(request):
     saturday_year = str(saturday_date.year)
     saturday_month = str(saturday_date.month).zfill(2)
     saturday_day = str(saturday_date.day).zfill(2)
-    for t in tl:
-        if name == tl[t]:
-            istl = True
-            break
     try:
         try:
             print("==")
@@ -149,7 +192,20 @@ def prhome(request):
                 "leavehistory": leavehistory,
                 "name":name,
                 "dep":dep,
-                "profile":profile
+                "profile":profile,
+                "general":general,
+                "approvalpage":approvalacccess,
+                "rnd":inprogressacccess,
+                "account":accountacccess,
+                "createlead":createleadacccess,
+                "customerdetails":customeracccess,
+                "quotation":quotationacccess,
+                "inventory":inventoryacccess,
+                "createstaff":createstaffacccess,
+                "viewworkmanager":viewmanageracccess,
+                "viewsuggestion":viewsuggestionacccess,
+                "userdata":userdataacccess,
+                "prdashboard":prdashboardacccess, 
                 # "tl": istl,
                 # "dep":dep,
                 # "accounts":accounts,
@@ -171,7 +227,6 @@ def prhome(request):
         context = {
             "project": True,
             "name": name,
-            "tl": istl,
             "dep": dep,
             "profile":profile,
             "todaycheckin": todaycheckin,
@@ -185,13 +240,25 @@ def prhome(request):
             "generalleave":generalleave,
             "sickleave":sickleave,
             "overallleave":overallleave,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess, 
         }
         return render(request, "prhome.html", context)
     except:
         context = {
             "project": False,
             "name": name,
-            "tl": istl,
             "dep": dep,
             "profile":profile,
             "todaycheckin": todaycheckin,
@@ -205,6 +272,19 @@ def prhome(request):
             "generalleave":generalleave,
             "sickleave":sickleave,
             "overallleave":overallleave,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess, 
         }
     return render(request, "prhome.html", context)
 
@@ -224,21 +304,57 @@ def create_lead(request):
         if staff_data[uid]['department'] == "PR":
             uid_list.append(uid)
             nameList.append(staff_data[uid]['name'])
-    # istl = False
-    # praproval = False
-    # tl = db.child("tl").get().val()
-    # for t in tl:
-    #     if name == tl[t]:
-    #         istl = True
-    #         break
-    # accounts = False
-    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
-    #     accounts = True
-    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid == 'yleZdWDZgFYTBxwzC5NtHVeb3733' or uid == 'jDYzpwcpv3akKaoDL9N4mllsGCs2':
-    #     praproval = True    
-    # management = False
-    # if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2":
-    #     management = True    
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True    
     if loginState == "loggedIn":
         try:
             if request.method == "POST":
@@ -352,11 +468,77 @@ def create_lead(request):
                             # db.child("customer").child(number).update(cust_data)
                         else:
                             pass    
-                    return render(request, "createLead.html", {"akn": "user created success fully", "colour": True, "alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep,"profile":profile})
+                    context={
+                            "akn": "user created success fully", 
+                            "colour": True,
+                            "alreadyExistList": alreadyExistList,
+                            "nameList":nameList,
+                            "name":name,
+                            "dep":dep,
+                            "profile":profile,
+                            "general":general,
+                            "approvalpage":approvalacccess,
+                            "rnd":inprogressacccess,
+                            "account":accountacccess,
+                            "createlead":createleadacccess,
+                            "customerdetails":customeracccess,
+                            "quotation":quotationacccess,
+                            "inventory":inventoryacccess,
+                            "createstaff":createstaffacccess,
+                            "viewworkmanager":viewmanageracccess,
+                            "viewsuggestion":viewsuggestionacccess,
+                            "userdata":userdataacccess,
+                            "prdashboard":prdashboardacccess,
+                      }
+                    return render(request, "createLead.html",context)
             else:
-                return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep,"profile":profile})
+                context={
+                        "akn": "error creating user",
+                        "colour": False,
+                        "alreadyExistList": alreadyExistList,
+                        "nameList":nameList,
+                        "name":name,
+                        "dep":dep,
+                        "profile":profile,
+                        "general":general,
+                        "approvalpage":approvalacccess,
+                        "rnd":inprogressacccess,
+                        "account":accountacccess,
+                        "createlead":createleadacccess,
+                        "customerdetails":customeracccess,
+                        "quotation":quotationacccess,
+                        "inventory":inventoryacccess,
+                        "createstaff":createstaffacccess,
+                        "viewworkmanager":viewmanageracccess,
+                        "viewsuggestion":viewsuggestionacccess,
+                        "userdata":userdataacccess,
+                        "prdashboard":prdashboardacccess,
+                    }
+                return render(request,"createLead.html",)
         except:
-            return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep,"profile":profile})
+            context={
+                    "akn": "error creating user",
+                    "colour": False,
+                    "alreadyExistList": alreadyExistList,
+                    "nameList":nameList,
+                    "name":name,
+                    "dep":dep,
+                    "profile":profile,
+                    "general":general,
+                    "approvalpage":approvalacccess,
+                    "rnd":inprogressacccess,
+                    "account":accountacccess,
+                    "createlead":createleadacccess,
+                    "customerdetails":customeracccess,
+                    "quotation":quotationacccess,
+                    "inventory":inventoryacccess,
+                    "createstaff":createstaffacccess,
+                    "viewworkmanager":viewmanageracccess,
+                    "viewsuggestion":viewsuggestionacccess,
+                    "userdata":userdataacccess,
+                    "prdashboard":prdashboardacccess,
+                }
+            return render(request,"createLead.html",)
 
     else:
         return redirect("login")
@@ -366,6 +548,57 @@ def customer_details(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile = request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
     # istl = False
     # praproval = False
     
@@ -507,6 +740,19 @@ def customer_details(request):
     )
 
     context = {
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,  
         "name": name,
         "allData": allData,
         "allDataMob": allDataMob,
@@ -538,21 +784,59 @@ def points_workdone(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile = request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
     istl = False
-    praproval = False
-    tl = db.child("tl").get().val()
-    for t in tl:
-        if name == tl[t]:
-            istl = True
-            break
-    accounts = False
-    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
-        accounts = True
-    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid == 'yleZdWDZgFYTBxwzC5NtHVeb3733':
-        praproval = True    
-    management = False
-    if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2":
-        management = True    
+    praproval = False    
     todaysDate = str(date.today())
     thisYear, thisMonth, _date = todaysDate.split("-")
     followingupCount, delayedCount, totalLeadCount = 0, 0, 0
@@ -611,10 +895,20 @@ def points_workdone(request):
                 "totalLeadCount": totalLeadCount,
                 "dep": dep,
                 "profile":profile,
-                "tl": istl,
-                "accounts": accounts,
-                "management": management,
-                "praproval":praproval
+                "general":general,
+                "approvalpage":approvalacccess,
+                "rnd":inprogressacccess,
+                "account":accountacccess,
+                "createlead":createleadacccess,
+                "customerdetails":customeracccess,
+                "quotation":quotationacccess,
+                "inventory":inventoryacccess,
+                "createstaff":createstaffacccess,
+                "viewworkmanager":viewmanageracccess,
+                "viewsuggestion":viewsuggestionacccess,
+                "userdata":userdataacccess,
+                "prdashboard":prdashboardacccess,  
+                
             }
             return render(request, "points_workdone.html", context)
     except:
@@ -629,9 +923,19 @@ def points_workdone(request):
         "dep": dep,
         "profile":profile,
         "tl": istl,
-        "accounts": accounts,
-        "management": management,
-        "praproval":praproval
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
         
     }
     return render(request,'points_workdone.html',context)
