@@ -170,10 +170,7 @@ def adminhome(request):
         aiaccess = True   
     try:
         try:
-            # print("date", current_year, current_month, current_day, uid)
             todaycheckin = attendence[current_year][current_month][current_day][uid]["check_in"]
-            
-            # print("today", todaycheckin)
         except:
             todaycheckin = "No Entry"
 

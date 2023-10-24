@@ -313,6 +313,3 @@ function choosestaff() {
 }
 
 
-if(id2.checked==true){
-    tableid.style.display='block'
-}

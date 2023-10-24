@@ -365,14 +365,16 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     {% for name in installname %}
-                                    <li> <span class="dropdown-item install-item">
-                    
-                                        <label class="form-check-label" for="counter">{{ name }}</label>
-                                        <input type="checkbox" class="form-check-input" id="counter" name="selected_names" value="{{ name }}">
+                                    <li>
+                                        <span class="dropdown-item install-item">
+                                            <input type="checkbox" class="form-check-input" name="selected_names" value="{{ name }}">
+                                            <label class="form-check-label" for="checkbox_{{ name }}">{{ name }}</label>
                                         </span>
                                     </li>
                                     {% endfor %}
                                 </ul>
+                                
+                                
                                 </div>
                                 <!-- <div class="form-inp-con">
                                     {% for name in installname %}
@@ -439,11 +441,22 @@
     <!-- js script  end -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $(".custom-dropdown .dropdown-toggle").click(function() {
-                $(this).next(".custom-dropdown-menu").toggle();
-            });
-        });
+        // $(document).ready(function() {
+        //     $(".custom-dropdown .dropdown-toggle").click(function() {
+        //         $(this).next(".custom-dropdown-menu").toggle();
+        //     });
+        // });
+        $(document).ready(function () {
+    // Attach a click event handler to each checkbox label
+    $('.dropdown-menu .form-check-label').on('click', function () {
+        // Find the associated checkbox and toggle its state
+        var checkboxId = $(this).attr('for');
+        var checkbox = $('#' + checkboxId);
+        checkbox.prop('checked', !checkbox.prop('checked'));
+    });
+});
+
+
     </script>
 
 </body>
