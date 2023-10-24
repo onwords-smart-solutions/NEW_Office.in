@@ -314,7 +314,13 @@
                         <p class="active-form-li" id="CompleteWork" onclick="completework()">Complete Work</p>
                         <p class="" id="didnotworkdone" onclick="didnotworkdone()">Didn't Enter the work done</p>
                         <p class="" id="Stillworkingon" onclick="Stillworkingon()">Still working on</p>
-                        <p class=""><input type="date" name="" id=""></p>
+                        <p class="">
+                           <form action="/viewworkmanager/" method="post" id ="datetime">
+                            {%csrf_token%}
+                                <input type="date" name="date" id="" onchange="dateTimeSubmit()">
+                           </form>
+                           
+                        </p>
                     </div>
 
                     <div id="colpleteTable">
@@ -330,15 +336,17 @@
                                     <th>percentage</th>
                                 </tr>
                                 <tbody>
+                                    {%for sno,i in alltodayworks%}
                                     <tr class="table-body-li my-3">
-                                        <td>1</td>
-                                        <td>Anwar</td>
-                                        <td>09:10 AM</td>
-                                        <td>12:20 PM</td>
-                                        <td>three module</td>
-                                        <td>06 Hrs</td>
-                                        <td>80</td>
+                                        <td>{{sno}}</td>
+                                        <td>{{i.name}}</td>
+                                        <td>{{i.from}}</td>
+                                        <td>{{i.to}}</td>
+                                        <td>{{i.workDone}}</td>
+                                        <td>{{i.time_in_hours}} Hrs</td>
+                                        <td>{{i.workPercentage}}</td>
                                     </tr>
+                                    {%endfor%}
                                 </tbody>
                             </thead>
                         </table>
@@ -493,7 +501,11 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-
+    <script>
+        function dateTimeSubmit(){
+           document.getElementById("datetime").submit()
+         }
+    </script>
 </body>
 
 </html>

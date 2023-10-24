@@ -504,12 +504,12 @@ def viewworkmanager(request):
     yesterday = current_date - timedelta(days=1)
     yesterday_str = yesterday.strftime("%Y-%m-%d")
     today=datetime.now().strftime("%Y-%m-%d")
-    currenr_month=datetime.now().strftime("%m")
+    current_month=datetime.now().strftime("%m")
     current_year=datetime.now().strftime("%Y")
     workdetailslist=[]
     snolist=[]
     sno=0
-    workdetails=db.child("workmanager").child(current_year).child(currenr_month).child(today).get().val()
+    workdetails=db.child("workmanager").child(current_year).child(current_month).child(today).get().val()
     for uid in workdetails:
         try:
             workdetails[uid]["LateEntry"]
@@ -520,7 +520,47 @@ def viewworkmanager(request):
                 sno=sno+1
                 snolist.append(sno)
     alltodayworks=zip(snolist,workdetailslist)
-    # if request.method == "POST":
+    if request.method == "POST":
+        date=request.POST["date"]
+        current_year=date[0:4]
+        current_month=date[5:7]
+        workdetailslist=[]
+        snolist=[]
+        sno=0
+        workdetails=db.child("workmanager").child(current_year).child(current_month).child(date).get().val()
+        try:
+            for uid in workdetails:
+                try:
+                    workdetails[uid]["LateEntry"]
+                    pass
+                except:
+                    for fulltime in workdetails[uid]:
+                        workdetailslist.append(workdetails[uid][fulltime])
+                        sno=sno+1
+                        snolist.append(sno)
+        except:
+            pass                
+        alltodayworks=zip(snolist,workdetailslist)
+        context={
+        "name":name,
+        "dep":dep,
+        "profile":profile,
+        "alltodayworks":alltodayworks,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
+        }
+        return render(request,'viewworkmanager1.html',context)              
 
     context={
         "name":name,
@@ -541,4 +581,4 @@ def viewworkmanager(request):
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
     }          
-    return render(request,'viewworkmanager.html',context)
+    return render(request,'viewworkmanager1.html',context)
