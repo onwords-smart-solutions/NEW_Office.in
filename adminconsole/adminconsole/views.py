@@ -850,6 +850,114 @@ def leave_approval(request):
     }
     return render(request,'approval.html', context)
 
+def approval(request):
+    uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile = request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True    
+             
+    if uid is not None:
+        general=True
+
+    leavedata = db.child("leaveDetails").get().val()
+    staff_data = db.child("staff").get().val()
+    yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
+    for staff in staff_data:
+        for allYears in leavedata:
+            years = leavedata[allYears]
+            for allMonths in years:
+                months = leavedata[allYears][allMonths]
+                for allDates in months:
+                    try:
+                        le = leavedata[allYears][allMonths][allDates][staff]
+                        
+                        for leave_type, leave_info in le.items():
+                            types = leave_type
+                            data = leave_info
+                            yearList.append(allYears)
+                            monthList.append(allMonths)
+                            dateList.append(allDates)
+                            typelist.append(types)
+                            datalist.append(data)
+                    except:
+                        pass
+        
+    allList = zip(yearList, monthList, dateList, typelist, datalist)
+
+        
+    context={
+            "name":name,
+            "dep":dep,
+            "profile":profile,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,
+            "leaveList": allList,
+    }    
+    return render(request,'approval.html',context)
+
+
+
+
 def submitaction(request):
     _year = request.POST["_year"]
     _month = request.POST["_month"]
@@ -1683,6 +1791,142 @@ def installation_details(request):
 def todo(request):
     return render(request,'todo.html')
 def workdonedetails(request):
+    # todaysDate = str(date.today())
+    # day = (date.today()).strftime("%A")
+    # _year = todaysDate[:4]
+    # _month = todaysDate[5:7]
+    # workDoneListFinal = []
+    # workDoneListFinal.clear()
+    # uid = request.COOKIES["uid"]
+    # dep = request.COOKIES["dep"]
+    # name = checkUserName(uid)
+    # istl = False
+    # accounts = False
+    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
+    #     accounts = True
+    # management = False
+    # if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2":
+    #          management = True      
+    # data = db.child("staff").get().val()
+    # fingerprintData = db.child("fingerPrint").get().val()
+    # if request.method == "POST":
+    #     dep = request.POST['dep']
+    #     dte = request.POST['dte']
+    #     if dep == "IT":
+    #         if not dte:
+    #             dte = str(datetime.today().date())
+    #         ddte = datetime.strptime(dte, '%Y-%m-%d').date()
+    #         day = ddte.strftime("%A")
+    #         _year, _month, todaysDate = dte[0:4], dte[5:7], dte
+    #         totalName, totalTime, punchingTime = [], [], []
+    #         for x in data:
+    #             mysum = timedelta()
+    #             if data[x]['department'] == "MEDIA":
+    #                 try:
+    #                     _todaysDateData = data[x]["workManager"]["timeSheet"][_year][_month][todaysDate]
+    #                     for _time in _todaysDateData:
+    #                         try:
+    #                             if _todaysDateData[_time]["time_in_hours"]:
+    #                                 workDoneListFinal.append(_todaysDateData[_time])
+    #                             tm = _todaysDateData[_time]['time_in_hours']
+    #                             if len(tm)>5:
+    #                                 (h, m, s) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+    #                             else:
+    #                                 (h, m) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m))
+    #                             mysum += d
+    #                         except:
+    #                             pass
+    #                     try:
+    #                         fd = fingerprintData[x][todaysDate]
+    #                         for f in fd:
+    #                             f = convert24HoursTime(f)
+    #                             punchingTime.append(f)
+    #                             break
+    #                     except:
+    #                         punchingTime.append('Entry Not Registered')
+
+    #                     totalName.append(data[x]['name'])
+    #                     totalTime.append(mysum)
+    #                 except:
+    #                     pass
+    #             if data[x]['department'] == "APP":
+    #                 try:
+    #                     _todaysDateData = data[x]["workManager"]["timeSheet"][_year][_month][todaysDate]
+    #                     for _time in _todaysDateData:
+    #                         try:
+    #                             if _todaysDateData[_time]["time_in_hours"]:
+    #                                 workDoneListFinal.append(_todaysDateData[_time])
+    #                             tm = _todaysDateData[_time]['time_in_hours']
+    #                             if len(tm)>5:
+    #                                 (h, m, s) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+    #                             else:
+    #                                 (h, m) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m))
+    #                             mysum += d
+    #                         except:
+    #                             pass
+    #                     try:
+    #                         fd = fingerprintData[x][todaysDate]
+    #                         for f in fd:
+    #                             f = convert24HoursTime(f)
+    #                             punchingTime.append(f)
+    #                             break
+    #                     except:
+    #                         punchingTime.append('Entry Not Registered')
+
+    #                     totalName.append(data[x]['name'])
+    #                     totalTime.append(mysum)
+    #                 except:
+    #                     pass
+    #             if data[x]['department'] == "WEB":
+    #                 try:
+    #                     _todaysDateData = data[x]["workManager"]["timeSheet"][_year][_month][todaysDate]
+    #                     for _time in _todaysDateData:
+    #                         try:
+    #                             if _todaysDateData[_time]["time_in_hours"]:
+    #                                 workDoneListFinal.append(_todaysDateData[_time])
+    #                             tm = _todaysDateData[_time]['time_in_hours']
+    #                             if len(tm)>5:
+    #                                 (h, m, s) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+    #                             else:
+    #                                 (h, m) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m))
+    #                             mysum += d
+    #                         except:
+    #                             pass
+    #                     try:
+    #                         fd = fingerprintData[x][todaysDate]
+    #                         for f in fd:
+    #                             f = convert24HoursTime(f)
+    #                             punchingTime.append(f)
+    #                             break
+    #                     except:
+    #                         punchingTime.append('Entry Not Registered')
+
+    #                     totalName.append(data[x]['name'])
+    #                     totalTime.append(mysum)
+    #                 except:
+    #                     pass
+    #         combined = list(zip(totalName, totalTime, punchingTime))
+    #         combined.sort(key=lambda x: x[1])
+    #         # totalName, totalTime, punchingTime = zip(*combined)
+    #         total = zip(totalName, totalTime, punchingTime)
+    #         context = {
+    #             "dep":dep,
+    #             "day":day,
+    #             "date": todaysDate,
+    #             "firstTable": workDoneListFinal,
+    #             "total": total,
+    #             "tl":getTl(dep),
+    #             "tl":istl,
+    #             "accounts":accounts,
+    #             "dep":dep,
+    #             "management":management
+    #         }
     return render (request,'workdonedetails.html')
 
 def refreshment(request):
@@ -2046,3 +2290,21 @@ def profileall(uid):
     except:
         profilepic="False"
     return profilepic  
+
+def convert24HoursTime(time):
+  if int(time[0:2]) > 12:
+    x = int(time[0:2]) - 12
+    y = str(x) + time[2:] + " PM"
+    return y
+  elif int(time[0:2]) == 12:
+    y = time + " PM"
+    return y
+  else:
+    y = time + " AM"
+    return y
+
+def getTl(dep):
+    data = db.child('tl').get().val()
+    for x in data:
+        if x == dep:
+            return data[x]    

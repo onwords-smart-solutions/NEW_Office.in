@@ -322,13 +322,14 @@ form {
 }
 
 .li-inventry {
-    padding: 12px;
+    padding: 10px;
     margin: 0;
 }
 
 .li-inventry:hover,
 .active-inv {
     background-color: #FBD87F;
+    border-radius: 5px;
 }
 
 .view-date:hover {
@@ -509,18 +510,14 @@ form {
 .workdone-btn {
     border: none;
     outline: none;
-    width: 50px;
-    height: 40px;
-    background-color: #FBD87F;
-    border-radius: 10px;
-
+    pad: 10px;
+    background: none;
 }
 
 .workdone-btn h5 {
-    font-family: abzee-regular;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
-    margin-top: 10px;
+
 }
 
 #staff-details-workdone {
@@ -548,6 +545,26 @@ form {
     border: none;
 }
 
+<<<<<<< HEAD
+.depart-btn {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.workdone-nav {
+    background-color: #fff;
+    border-radius: 5px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    padding: 10px;
+=======
 .form-inp-cons {
     display: flex;
     align-items: center;
@@ -565,6 +582,7 @@ form {
     outline: none;
     border: none;
     padding: 0px 10px;
+>>>>>>> 20d3302df035e4f65de4a3228235c188885e1e3b
 }
 
 /* CMO PRODUCT PAGE */
