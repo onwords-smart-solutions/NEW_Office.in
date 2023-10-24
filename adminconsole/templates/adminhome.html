@@ -53,7 +53,6 @@
                                     </div>
                                     <div class="emply-id">
                                         <span>{{name}}</span><br>
-                                        <span>ID:WD002</span><br>
                                         <span>{% if dep == "WEB" %}
                                             <p>Web Developer</p>
                                             {% elif dep == "APP" %}
@@ -193,7 +192,7 @@
                             <div class="row d-flex align-items-center">
                                 <div class="col-md-4">
                                     <span>Check In</span><br>
-                                    <span>09:00</span>
+                                    <span>{{todaycheckin}}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="progress">
@@ -203,14 +202,14 @@
                                 </div>
                                 <div class="col-md-4">
                                     <span>Check Out</span><br>
-                                    <span>No Entry</span>
+                                    <span>{{todaycheckout}}</span>
                                 </div>
                             </div>
                             <h6>Yesterday</h6>
                             <div class="row d-flex align-items-center mt-1">
                                 <div class="col-md-4">
                                     <span>Check In</span><br>
-                                    <span>09:00</span>
+                                    <span>{{yesscheckin}}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="progress">
@@ -220,7 +219,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <span>Check Out</span><br>
-                                    <span>06:23</span>
+                                    <span>{{yesscheckout}}</span>
                                 </div>
                             </div>
                         </div>
@@ -457,6 +456,22 @@
         <!-- js script  end -->
 
         <script>
+            $(document).ready(function () {
+                var yesprogress = {{yesprogress}};
+                var progressBar = document.getElementById("progress-bar");
+                progressBar.style.width = yesprogress + "%"; 
+                if (yesprogress === "Absent") 
+                {
+                    progressBar.style.backgroundColor = "#FF0000";
+                    console.log("inside absent")
+                }
+                else if (yesprogress < 100) {
+                    progressBar.style.backgroundColor = "#FF0000";
+                    console.log("inside present")
+                } else {
+                    progressBar.style.backgroundColor = "#e0ae09";
+                }
+            });
             // break
             var xValues = [];
             var yValues = [45, 37, 18];

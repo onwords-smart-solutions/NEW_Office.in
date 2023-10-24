@@ -8,6 +8,8 @@ from datetime import datetime,timedelta
 def hrhome(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
@@ -166,6 +168,7 @@ def hrhome(request):
             "name": name,
             "tl": istl,
             "dep": dep,
+            "profile":profile,
             "itaproval": itaproval,
             "aiaccess": aiaccess,
             "todaycheckin": todaycheckin,
@@ -187,6 +190,7 @@ def hrhome(request):
             "name": name,
             "tl": istl,
             "dep": dep,
+            "profile":profile,
             "itaproval": itaproval,
             "aiaccess": aiaccess,
             "todaycheckin": todaycheckin,

@@ -22,11 +22,12 @@ shDB = firebase2.database()
 def rndhome(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
     leavedetails = db.child("leaveDetails").get().val()
-    name = checkUserName(uid)
     istl = False
     itaproval = False
     aiaccess = False
@@ -180,6 +181,7 @@ def rndhome(request):
             "name": name,
             "tl": istl,
             "dep": dep,
+            "profile":profile,
             "itaproval": itaproval,
             "aiaccess": aiaccess,
             "todaycheckin": todaycheckin,
@@ -201,6 +203,7 @@ def rndhome(request):
             "name": name,
             "tl": istl,
             "dep": dep,
+            "profile":profile,
             "itaproval": itaproval,
             "aiaccess": aiaccess,
             "todaycheckin": todaycheckin,
@@ -218,7 +221,9 @@ def rndhome(request):
     return render(request,'rndhome.html',context)
 def inprocess(request):
     uid = request.COOKIES["uid"]
-    name = checkUserName(uid)
+    dep = request.COOKIES["dep"]
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     istl = False
     rndaproval = False
     tl = db.child("tl").get().val()
@@ -255,13 +260,18 @@ def inprocess(request):
     context = {
         "allList": allList,
         "tl": istl,
-        "rndaproval":rndaproval
+        "rndaproval":rndaproval,
+        "dep":dep,
+        "name":name,
+        "profile":profile
     }
     return render(request,'inprocess.html',context)
 
 def create(request):
     uid = request.COOKIES["uid"]
-    name = checkUserName(uid)
+    dep = request.COOKIES["dep"]
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     istl = False
     tl = db.child("tl").get().val()
     rndaproval = False
@@ -292,5 +302,5 @@ def create(request):
             #     messages.success(request, "User Created for WTA" )
             # except:
             pass
-    context = {"tl": istl,"rndaproval":rndaproval}
+    context = {"tl": istl,"rndaproval":rndaproval,"name":name,"dep":dep,"profile":profile}
     return render(request,'create.html',context)
