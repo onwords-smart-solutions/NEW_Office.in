@@ -621,3 +621,55 @@ function progress(){
     
 }
 
+
+
+// ===================view workmanager==========
+
+function completework(){
+    const completeTable = document.getElementById('colpleteTable')
+    const didnotworkdoneTable = document.getElementById('didnotworkdoneTable')
+    const stillworkingtable = document.getElementById('stillworkingtable')
+    const CompleteWork = document.getElementById('CompleteWork')
+    const didnotworkdone = document.getElementById('didnotworkdone')
+    const Stillworkingon = document.getElementById('Stillworkingon')
+
+    completeTable.style.display='block'
+    didnotworkdoneTable.style.display='none'
+    stillworkingtable.style.display='none'
+    CompleteWork.classList.add('active-form-li')
+    didnotworkdone.classList.remove('active-form-li')
+    Stillworkingon.classList.remove('active-form-li')
+    
+}
+function didnotworkdone(){
+    const completeTable = document.getElementById('colpleteTable')
+    const didnotworkdoneTable = document.getElementById('didnotworkdoneTable')
+    const stillworkingtable = document.getElementById('stillworkingtable')
+    const CompleteWork = document.getElementById('CompleteWork')
+    const didnotworkdone = document.getElementById('didnotworkdone')
+    const Stillworkingon = document.getElementById('Stillworkingon')
+
+    completeTable.style.display='none'
+    didnotworkdoneTable.style.display='block'
+    stillworkingtable.style.display='none'
+    CompleteWork.classList.remove('active-form-li')
+    didnotworkdone.classList.add('active-form-li')
+    Stillworkingon.classList.remove('active-form-li')
+
+}
+function Stillworkingon(){
+    const completeTable = document.getElementById('colpleteTable')
+    const didnotworkdoneTable = document.getElementById('didnotworkdoneTable')
+    const stillworkingtable = document.getElementById('stillworkingtable')
+    const CompleteWork = document.getElementById('CompleteWork')
+    const didnotworkdone = document.getElementById('didnotworkdone')
+    const Stillworkingon = document.getElementById('Stillworkingon')
+
+    completeTable.style.display='none'
+    didnotworkdoneTable.style.display='none'
+    stillworkingtable.style.display='block'
+    CompleteWork.classList.remove('active-form-li')
+    didnotworkdone.classList.remove('active-form-li')
+    Stillworkingon.classList.add('active-form-li')
+
+}
