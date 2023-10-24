@@ -2308,3 +2308,6 @@ def getTl(dep):
     for x in data:
         if x == dep:
             return data[x]    
+        
+def workmanagerTl(request):
+    return render(request,'workmanagerTL.html')      

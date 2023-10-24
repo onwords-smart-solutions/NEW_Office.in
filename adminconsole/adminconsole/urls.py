@@ -29,6 +29,8 @@ urlpatterns = [
     path("attendancesort/",adminviews.attendancesort,name="attendancesort"),
     path("logout/",views.logout,name="logout"),
     path("workdonedetails/",views.workdonedetails,name="workdonedetails"),
+    path("workmanagerTl/",views.workmanagerTl,name='workmanagreTl'),
+
     # ========================coo page =========================
 
     path('prdashboard',views.prdashboard,name='pradshboard'),
