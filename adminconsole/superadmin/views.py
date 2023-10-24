@@ -496,4 +496,4 @@ def viewworkmanager(request):
         "staffsPresent": len(presentList),
         "suggestionNotification":suggestionNotification
     }
-    return render(request,'viewworkmanager.html',context)
+    return render(request,'viewworkmanager1.html',context)

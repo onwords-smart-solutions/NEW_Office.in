@@ -672,3 +672,6 @@ ul {
     display: block;
   }
   
+  #didnotworkdoneTable,#stillworkingtable{
+    display: none;
+}
