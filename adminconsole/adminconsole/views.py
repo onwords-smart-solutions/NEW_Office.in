@@ -32,12 +32,12 @@ aiconfig = {
     "measurementId": "G-J4YXBZGFJY",
 }
 firebase = pyrebase.initialize_app(config)
-db1 = firebase.database()
+db = firebase.database()
 auth = firebase.auth()
 storage1 = firebase.storage()
 
 firebase1 = pyrebase.initialize_app(firebaseConfig)
-db = firebase1.database()
+db1 = firebase1.database()
 storage = firebase1.storage()
 
 aifirebase = pyrebase.initialize_app(aiconfig)
@@ -548,6 +548,114 @@ def leave_approval(request):
         # "suggestionNotification":suggestionNotification
     }
     return render(request,'approval.html', context)
+
+def approval(request):
+    uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile = request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True    
+             
+    if uid is not None:
+        general=True
+
+    leavedata = db.child("leaveDetails").get().val()
+    staff_data = db.child("staff").get().val()
+    yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
+    for staff in staff_data:
+        for allYears in leavedata:
+            years = leavedata[allYears]
+            for allMonths in years:
+                months = leavedata[allYears][allMonths]
+                for allDates in months:
+                    try:
+                        le = leavedata[allYears][allMonths][allDates][staff]
+                        
+                        for leave_type, leave_info in le.items():
+                            types = leave_type
+                            data = leave_info
+                            yearList.append(allYears)
+                            monthList.append(allMonths)
+                            dateList.append(allDates)
+                            typelist.append(types)
+                            datalist.append(data)
+                    except:
+                        pass
+        
+    allList = zip(yearList, monthList, dateList, typelist, datalist)
+
+        
+    context={
+            "name":name,
+            "dep":dep,
+            "profile":profile,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,
+            "leaveList": allList,
+    }    
+    return render(request,'approval.html',context)
+
+
+
 
 def submitaction(request):
     _year = request.POST["_year"]
