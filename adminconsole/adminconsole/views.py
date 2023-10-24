@@ -1035,6 +1035,10 @@ def installation_details(request):
     return render(request,'installation_details.html',context)
 def todo(request):
     return render(request,'todo.html')
+def workdonedetails(request):
+    return render (request,'workdonedetails.html')
+
+
 def refreshment(request):
     if request.method == "POST":
         todayDate = str(date.today())
