@@ -1150,7 +1150,20 @@ def quotation(request):
             "dep": dep,
             "name":name,
             "profile":profile,
-            "suggestionNotification":suggestionNotification
+            "suggestionNotification":suggestionNotification,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,  
         }
         # iTimeStamp.sort()
         # qTimeStamp.sort()
@@ -1299,7 +1312,20 @@ def quotation(request):
         "dep": dep,
         "profile":profile,
         "name":name,
-        "suggestionNotification":suggestionNotification
+        "suggestionNotification":suggestionNotification,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
     }
     # iTimeStamp.sort()
     # qTimeStamp.sort()
@@ -1407,19 +1433,57 @@ def leadinfo(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile = request.COOKIES["profile"]
-    istl = False
-    tl = db.child("tl").get().val()
-    for t in tl:
-        if name == tl[t]:
-            istl = True
-            break
-    accounts = False
-    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid == "jDYzpwcpv3akKaoDL9N4mllsGCs2":
-        accounts = True
-    management = False
-    if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2" or uid == "ZIuUpLfSIRgRN5EqP7feKA9SbbS2"or uid=="jDYzpwcpv3akKaoDL9N4mllsGCs2":
-        management = True    
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
 
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
     try:
         a = request.POST["numb"]
     except:
@@ -1512,11 +1576,21 @@ def leadinfo(request):
             "schedulesData": schedulesList,
             "incharge": incharge,
             "management": True,
-            "tl":istl,
             "dep":dep,
             "profile":profile,
-            "accounts":accounts,
-            "management":management
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,  
         }
     else:
         context = {
@@ -1526,11 +1600,21 @@ def leadinfo(request):
             "star": starData,
             "schedulesData": schedulesList,
             "incharge": incharge,
-            "tl":istl,
             "dep":dep,
             "profile":profile,
-            "accounts":accounts,
-            "management":management
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,  
         }
     response = render(request, "leadinfo.html", context)
     response.set_cookie("userPhno", a)
@@ -1554,8 +1638,80 @@ def addnotes(request):
     return redirect(leadinfo)
 
 def approval(request):
+    uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile = request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
 
-    return render(request,'approval.html')
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+    context={
+            "name":name,
+            "dep":dep,
+            "profile":profile,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,
+    }    
+    return render(request,'approval.html',context)
 
 def checkUserName(uid):
     data = db.child("staff").get().val()
