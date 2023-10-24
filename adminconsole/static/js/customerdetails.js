@@ -140,16 +140,17 @@ function colorChange() {
     for (let j in row.cells) {
       let col = row.cells[j];
       customerState = row.cells[4].innerHTML;
+
       if (customerState === "Following Up") {
         document.getElementById("myTable").rows[i].style.backgroundColor =
           "#91f291";
       } else if (customerState === "Delayed") {
         document.getElementById("myTable").rows[i].style.backgroundColor =
           "orange";
-      } else if (customerState === "Rejected from Customer end") {
+      } else if (customerState === "Rejected from Customer") {
         document.getElementById("myTable").rows[i].style.backgroundColor =
           "#f55f5f";
-      } else if (customerState === "Rejected from management side") {
+      } else if (customerState === "Rejected from MGMT") {
         document.getElementById("myTable").rows[i].style.backgroundColor =
           "#f55f5f";
       } else if (customerState === "Advanced") {
@@ -164,6 +165,15 @@ function colorChange() {
       } else if (customerState === "Installation Completed") {
         document.getElementById("myTable").rows[i].style.backgroundColor =
           "#16f0b6";
+      }else if (customerState === "Product") {
+        document.getElementById("myTable").rows[i].style.backgroundColor =
+          "#63e0e9";
+      }else if (customerState === "New leads") {
+        document.getElementById("myTable").rows[i].style.backgroundColor =
+          "#F55F5F78";
+      }else if (customerState === "Others") {
+        document.getElementById("myTable").rows[i].style.backgroundColor =
+          "#212529";
       }
     }
   }
