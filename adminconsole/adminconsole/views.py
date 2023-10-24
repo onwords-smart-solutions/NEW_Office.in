@@ -168,11 +168,62 @@ def leave_form(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     profile=request.COOKIES["profile"]
-    name = checkUserName(uid)
+    name = request.COOKIES["name"]
     leave_data = db.child("leaveDetails").get().val()
     current_date = datetime.now().strftime('%Y-%m-%d')
     current_year = datetime.now().strftime("%Y")
     current_month = datetime.now().strftime("%m")
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
 
     if request.method == 'POST':
         leave_type = request.POST['leave_type']
@@ -318,7 +369,6 @@ def leave_form(request):
             db.child("leaveDetails").child(current_year).child(current_month).child(current_date).child(uid).child(leave_type).set(c) 
 
     try:
-        print('test=============',uid)
         leavedata = db.child("leaveDetails").child(current_year).get().val()
         datelist,reasonlist,statelist,inchargelist=[],[],[],[]
         for monthdata in leavedata:
@@ -342,12 +392,20 @@ def leave_form(request):
             "leavehistory": leavehistory,
             "dep":dep,
             "name":name,
-            "profile":profile
-            # "tl": istl,
-            # "dep":dep,
-            # "accounts":accounts,
-            # "management":management,
-            # "suggestionNotification":suggestionNotification
+            "profile":profile,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,  
         }
         return render(request,'leave-form.html',context)
     except:
@@ -378,9 +436,113 @@ def late_form(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     profile=request.COOKIES["profile"]
+    name = request.COOKIES["name"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+
     loginState = request.COOKIES["loginState"]
     form_submitted = False
-    name = checkUserName(uid)
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+
     todayDate = str(date.today())
     thisYear = datetime.now().strftime("%Y")
     thisMonth = datetime.now().strftime("%m")
@@ -443,14 +605,83 @@ def late_form(request):
             }
             childName = ft + " to " + tt
             db.child("workmanager").child(selectedYear).child(selectedMonth).child(sd).child(uid).child("LateEntry").child(childName).set(context)
-            
-    return render(request, 'late_form.html', {"form_submitted": form_submitted, "dep":dep,"name":name,"profile":profile})
+    context={
+            "form_submitted": form_submitted,
+            "dep":dep,"name":name,
+            "profile":profile,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,  
+            }        
+    return render(request, 'late_form.html')
 
 def late_approval(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     profile=request.COOKIES["profile"]
     name = request.COOKIES["name"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+
     # istl = False
     # accounts = False
     # suggestionNotification = 0
@@ -498,12 +729,21 @@ def late_approval(request):
         "name":name,
         "allList": allList,
         "allListMobile": allListMobile,
-        # "tl": istl,
         "dep":dep,
-        "profile":profile
-        # "accounts":accounts,
-        # "management":management,
-        # "suggestionNotification":suggestionNotification
+        "profile":profile,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,  
     }
     return render(request,'lateapproval.html', context)
 
@@ -512,6 +752,58 @@ def leave_approval(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile=request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+
     leavedata = db.child("leaveDetails").get().val()
     staff_data = db.child("staff").get().val()
     yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
@@ -540,14 +832,131 @@ def leave_approval(request):
     context = {
         "leaveList": allList,
         "name":name,
-        # "tl": istl,
         "dep":dep,
-        "profile":profile
-        # "accounts":accounts,
-        # "management":management,
-        # "suggestionNotification":suggestionNotification
+        "profile":profile,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,  
     }
     return render(request,'approval.html', context)
+
+def approval(request):
+    uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile = request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True    
+             
+    if uid is not None:
+        general=True
+
+    leavedata = db.child("leaveDetails").get().val()
+    staff_data = db.child("staff").get().val()
+    yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
+    for staff in staff_data:
+        for allYears in leavedata:
+            years = leavedata[allYears]
+            for allMonths in years:
+                months = leavedata[allYears][allMonths]
+                for allDates in months:
+                    try:
+                        le = leavedata[allYears][allMonths][allDates][staff]
+                        
+                        for leave_type, leave_info in le.items():
+                            types = leave_type
+                            data = leave_info
+                            yearList.append(allYears)
+                            monthList.append(allMonths)
+                            dateList.append(allDates)
+                            typelist.append(types)
+                            datalist.append(data)
+                    except:
+                        pass
+        
+    allList = zip(yearList, monthList, dateList, typelist, datalist)
+
+        
+    context={
+            "name":name,
+            "dep":dep,
+            "profile":profile,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,
+            "leaveList": allList,
+    }    
+    return render(request,'approval.html',context)
+
+
+
 
 def submitaction(request):
     _year = request.POST["_year"]
@@ -596,44 +1005,76 @@ def suggestion(request):
     # Get the current year, month, and day
     current_year = str(current_date.year)
     current_month = str(current_date.month).zfill(2)
-    current_day = str(current_date.day).zfill(2)
-    # istl = False
-    # itaproval = False
-    # rndaproval = False
-    # praproval = False
-    # tl = db.child("tl").get().val()
-    # for t in tl:
-    #     if name == tl[t]:
-    #         istl = True
-    #         break
-    # accounts = False
-    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
-    #     accounts = True
-    # management = False
-    # if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2":
-    #     management = True
+    current_day = str(current_date.day).zfill(2)   
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
 
-    # if  uid == 'jDYzpwcpv3akKaoDL9N4mllsGCs2':
-    #     itaproval = True
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
 
-    # if  uid == 'pztngdZPCPQrEvmI37b3gf3w33d2' or uid =='Vhbt8jIAfiaV1HxuWERLqJh7dbj2':
-    #     rndaproval = True
-    # if  uid == 'tQYuqy2ma6ecGURWSMpmNeVCHiD2' or uid == 'yleZdWDZgFYTBxwzC5NtHVeb3733':
-    #     praproval = True 
-    # if  uid == "cQ4gFReQghZruTCDMP9NZgwMCzM2" or uid == "NH8ePNnoCtbmTvBbFdV2koxBIhR2":
-    #     aiaccess = True    
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
 
     context = {
-        # "tl": istl,
         "name":name,
         "dep":dep,
-        "profile":profile
-        # "accounts": accounts,
-        # "management": management,
-        # "itaproval":itaproval,
-        # "rndaproval":rndaproval,
-        # "praproval":praproval,
-        # "aiaccess":aiaccess
+        "profile":profile,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
     }
     if request.method == "POST":
         msg = request.POST['msg']
@@ -652,17 +1093,23 @@ def suggestion(request):
         db.child('suggestion').child(date_time).update(val)
         context = {
             "msg":"Message sent successfully",
-            # "accounts": accounts,
-            # "management":management,
-            # "tl": istl,
             "dep":dep,
             "name":name,
-            "profile":profile
-            # "rndaproval":rn
-            # daproval,
-            # "itaproval":itaproval,
-            # "praproval":praproval,
-            # "aiaccess":aiaccess
+            "profile":profile,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,
+           
         }
         return render(request, 'suggestion.html', context)
     return render(request,'suggestion.html', context)
@@ -774,25 +1221,63 @@ def financial(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile=request.COOKIES["profile"]
-    # name=db.child("staff").child(uid).child("name").get().val()
-    istl = False
-    praproval = False
-    tl = db.child("tl").get().val()
-    for t in tl:
-        if name == tl[t]:
-            istl = True
-            break
-    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
-        praproval = True    
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+
     suggestionNotification = 0
     suggestionData = db.child("suggestion").get().val()
     for suggestion in suggestionData:
             if not suggestionData[suggestion]["isread"]:
-                suggestionNotification += 1    
-    accounts = False
-    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
-        accounts = True
-        
+                suggestionNotification += 1
     tm = datetime.now()
     thisYear = tm.strftime("%Y")
     thisMonth = tm.strftime("%m")
@@ -862,11 +1347,21 @@ def financial(request):
             "dcolor": dcolor,
             "date": thismonth+"-"+thisyear,
             "dep": dep,
-            "tl": istl,
-            "accounts": accounts,
             "suggestionNotification":suggestionNotification,
             "container": True,
-            "praproval":praproval
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,
         }
         return render(request, "financial.html", context)
       
@@ -945,11 +1440,21 @@ def financial(request):
         "dcolor": dcolor,
         "date": thisMonth+"-"+thisYear,
         "dep": dep,
-        "tl": istl,
-        "accounts": accounts,
         "suggestionNotification":suggestionNotification,
         "container": True,
-        "praproval":praproval
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
     }
     return render(request, "financial.html", context)
 
@@ -958,20 +1463,58 @@ def inventorymanagement(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile=request.COOKIES["profile"]
-    istl = False
-    rndaproval = False
-    praproval = False
-    tl = db.child("tl").get().val()
-    for t in tl:
-        if name == tl[t]:
-            istl = True
-            break
-    if uid == 'ZIuUpLfSIRgRN5EqP7feKA9SbbS2'or uid == 'Vhbt8jIAfiaV1HxuWERLqJh7dbj2':
-        istl = True
-    if uid == 'pztngdZPCPQrEvmI37b3gf3w33d2':
-        rndaproval = True
-    if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2" or uid == 'yleZdWDZgFYTBxwzC5NtHVeb3733':
-        praproval = True       
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+       
     allDataBase = db.get().val()
     editvalue=[]
     if 'getid1' in request.POST:
@@ -1024,13 +1567,79 @@ def inventorymanagement(request):
         "dep": dep,
         "name":name,
         "profile":profile,
-        "tl": istl,
-        "rndaproval":rndaproval,
-        "praproval":praproval
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
     }
     return render(request,'inventorymanagement.html',context)
 
 def coohome(request):
+    uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile = request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+
     installation = db.child("Installationdetails").get().val()
     end_date = datetime.now()
     start_date = end_date - timedelta(days=7)
@@ -1053,11 +1662,83 @@ def coohome(request):
         inventoryall.append(inventory[uid])                 
     context={
         "alllist":alllist,
-        "inventoryall":inventoryall
+        "inventoryall":inventoryall,
+        "name":name,
+        "dep":dep,
+        "profile":profile,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
     }    
-    print("alllist",alllist)
     return render(request,'coohome.html',context)
+
 def installation_details(request):
+    uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile = request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+
     installation = db.child("Installationdetails").get().val()
     if request.method == "POST":
         if "delete_entry" in request.POST:
@@ -1088,14 +1769,165 @@ def installation_details(request):
             alllist.append((num, data))       
     context={
         "alllist":alllist,
-    }    
-    print("alllist",alllist)    
+        "name":name,
+        "dep":dep,
+        "profile":profile,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
+    }
     return render(request,'installation_details.html',context)
+
 def todo(request):
     return render(request,'todo.html')
 def workdonedetails(request):
-    return render (request,'workdonedetails.html')
+    # todaysDate = str(date.today())
+    # day = (date.today()).strftime("%A")
+    # _year = todaysDate[:4]
+    # _month = todaysDate[5:7]
+    # workDoneListFinal = []
+    # workDoneListFinal.clear()
+    # uid = request.COOKIES["uid"]
+    # dep = request.COOKIES["dep"]
+    # name = checkUserName(uid)
+    # istl = False
+    # accounts = False
+    # if uid == "tQYuqy2ma6ecGURWSMpmNeVCHiD2":
+    #     accounts = True
+    # management = False
+    # if uid == "ujUtXFPW91NWQ17UZiLQ5aI7FtD2" or uid == "aOHbaMFpmMM4dB87wFyRVduAX7t2":
+    #          management = True      
+    # data = db.child("staff").get().val()
+    # fingerprintData = db.child("fingerPrint").get().val()
+    # if request.method == "POST":
+    #     dep = request.POST['dep']
+    #     dte = request.POST['dte']
+    #     if dep == "IT":
+    #         if not dte:
+    #             dte = str(datetime.today().date())
+    #         ddte = datetime.strptime(dte, '%Y-%m-%d').date()
+    #         day = ddte.strftime("%A")
+    #         _year, _month, todaysDate = dte[0:4], dte[5:7], dte
+    #         totalName, totalTime, punchingTime = [], [], []
+    #         for x in data:
+    #             mysum = timedelta()
+    #             if data[x]['department'] == "MEDIA":
+    #                 try:
+    #                     _todaysDateData = data[x]["workManager"]["timeSheet"][_year][_month][todaysDate]
+    #                     for _time in _todaysDateData:
+    #                         try:
+    #                             if _todaysDateData[_time]["time_in_hours"]:
+    #                                 workDoneListFinal.append(_todaysDateData[_time])
+    #                             tm = _todaysDateData[_time]['time_in_hours']
+    #                             if len(tm)>5:
+    #                                 (h, m, s) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+    #                             else:
+    #                                 (h, m) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m))
+    #                             mysum += d
+    #                         except:
+    #                             pass
+    #                     try:
+    #                         fd = fingerprintData[x][todaysDate]
+    #                         for f in fd:
+    #                             f = convert24HoursTime(f)
+    #                             punchingTime.append(f)
+    #                             break
+    #                     except:
+    #                         punchingTime.append('Entry Not Registered')
 
+    #                     totalName.append(data[x]['name'])
+    #                     totalTime.append(mysum)
+    #                 except:
+    #                     pass
+    #             if data[x]['department'] == "APP":
+    #                 try:
+    #                     _todaysDateData = data[x]["workManager"]["timeSheet"][_year][_month][todaysDate]
+    #                     for _time in _todaysDateData:
+    #                         try:
+    #                             if _todaysDateData[_time]["time_in_hours"]:
+    #                                 workDoneListFinal.append(_todaysDateData[_time])
+    #                             tm = _todaysDateData[_time]['time_in_hours']
+    #                             if len(tm)>5:
+    #                                 (h, m, s) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+    #                             else:
+    #                                 (h, m) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m))
+    #                             mysum += d
+    #                         except:
+    #                             pass
+    #                     try:
+    #                         fd = fingerprintData[x][todaysDate]
+    #                         for f in fd:
+    #                             f = convert24HoursTime(f)
+    #                             punchingTime.append(f)
+    #                             break
+    #                     except:
+    #                         punchingTime.append('Entry Not Registered')
+
+    #                     totalName.append(data[x]['name'])
+    #                     totalTime.append(mysum)
+    #                 except:
+    #                     pass
+    #             if data[x]['department'] == "WEB":
+    #                 try:
+    #                     _todaysDateData = data[x]["workManager"]["timeSheet"][_year][_month][todaysDate]
+    #                     for _time in _todaysDateData:
+    #                         try:
+    #                             if _todaysDateData[_time]["time_in_hours"]:
+    #                                 workDoneListFinal.append(_todaysDateData[_time])
+    #                             tm = _todaysDateData[_time]['time_in_hours']
+    #                             if len(tm)>5:
+    #                                 (h, m, s) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+    #                             else:
+    #                                 (h, m) = tm.split(':')
+    #                                 d = timedelta(hours=int(h), minutes=int(m))
+    #                             mysum += d
+    #                         except:
+    #                             pass
+    #                     try:
+    #                         fd = fingerprintData[x][todaysDate]
+    #                         for f in fd:
+    #                             f = convert24HoursTime(f)
+    #                             punchingTime.append(f)
+    #                             break
+    #                     except:
+    #                         punchingTime.append('Entry Not Registered')
+
+    #                     totalName.append(data[x]['name'])
+    #                     totalTime.append(mysum)
+    #                 except:
+    #                     pass
+    #         combined = list(zip(totalName, totalTime, punchingTime))
+    #         combined.sort(key=lambda x: x[1])
+    #         # totalName, totalTime, punchingTime = zip(*combined)
+    #         total = zip(totalName, totalTime, punchingTime)
+    #         context = {
+    #             "dep":dep,
+    #             "day":day,
+    #             "date": todaysDate,
+    #             "firstTable": workDoneListFinal,
+    #             "total": total,
+    #             "tl":getTl(dep),
+    #             "tl":istl,
+    #             "accounts":accounts,
+    #             "dep":dep,
+    #             "management":management
+    #         }
+    return render (request,'workdonedetails.html')
 
 def refreshment(request):
     if request.method == "POST":
@@ -1211,6 +2043,7 @@ def submitwork(request):
     name = request.COOKIES["name"]
     dep = request.COOKIES["dep"]
     profile=request.COOKIES["profile"]
+    
     loginState = request.COOKIES["loginState"]
     if bool(loginState) == True:
         todayDate = str(date.today())
@@ -1338,17 +2171,57 @@ def userdata(request):
     name = request.COOKIES["name"]
     dep = request.COOKIES["dep"]
     profile=request.COOKIES["profile"]
-    # aiaccess = False
-    # adminai = False
-    # aiteam = False
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
 
-    # userdata = aidb.child("onyx").get().val()
-    # if uid == "Vhbt8jIAfiaV1HxuWERLqJh7dbj2" or uid == "cQ4gFReQghZruTCDMP9NZgwMCzM2" or uid == "NH8ePNnoCtbmTvBbFdV2koxBIhR2":
-    #     aiaccess = True
-    # if uid == "Vhbt8jIAfiaV1HxuWERLqJh7dbj2":
-    #     adminai=True
-    # if uid == "cQ4gFReQghZruTCDMP9NZgwMCzM2" or uid == "NH8ePNnoCtbmTvBbFdV2koxBIhR2":
-    #     aiteam =True
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
 
     userdata = aidb.child("onyx").get().val()
     no_data_message = ""  
@@ -1356,7 +2229,6 @@ def userdata(request):
     like_data = {} 
     dislike_data = {} 
 
-    print("==")
     if request.method == 'POST':
         selected_date1 = request.POST.get('selected_date') 
         if selected_date1:
@@ -1391,13 +2263,23 @@ def userdata(request):
         "name":name,
         "dep":dep,
         "profile":profile,
-        # "aiaccess": aiaccess,
         "default_data": default_data,
         "like_data": like_data,
         "dislike_data": dislike_data,
         "no_data_message": no_data_message,
-        # "aiteam": aiteam,
-        # "adminai": adminai
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
     } 
     return render(request,'userdata.html',context)
 
@@ -1408,3 +2290,21 @@ def profileall(uid):
     except:
         profilepic="False"
     return profilepic  
+
+def convert24HoursTime(time):
+  if int(time[0:2]) > 12:
+    x = int(time[0:2]) - 12
+    y = str(x) + time[2:] + " PM"
+    return y
+  elif int(time[0:2]) == 12:
+    y = time + " PM"
+    return y
+  else:
+    y = time + " AM"
+    return y
+
+def getTl(dep):
+    data = db.child('tl').get().val()
+    for x in data:
+        if x == dep:
+            return data[x]    

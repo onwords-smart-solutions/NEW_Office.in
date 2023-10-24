@@ -17,6 +17,7 @@ urlpatterns = [
     path("late_form/", views.late_form, name="late_form"),
     path("leaveapproval/", views.leave_approval, name="leave_approval"),
     path("lateapproval/", views.late_approval, name="late_approval"),
+    path("approval/",views.approval,name='approval'),
     path("suggestion/", views.suggestion, name="suggestion"),
     path("refreshment/",views.refreshment, name="refreshment"),
     path("submitwork/", views.submitwork, name="submitwork"),
@@ -47,7 +48,7 @@ urlpatterns = [
     path("pinvoiceForm/", prviews.pinvoiceForm, name="pinvoiceForm"),
     path("quoteForm/", prviews.quoteForm, name="quoteForm"),
     path("leadinfo/",prviews.leadinfo,name='leadinfo'),
-    path("approval/",prviews.approval,name='approval'),
+    
     path("leadinfo/",prviews.leadinfo,name="leadinfo"),
     path("addnotes/",prviews.addnotes,name="addnotes"),
     # ================ accounts department ====================
