@@ -3,7 +3,8 @@ from django.shortcuts import redirect
 from adminconsole.views import db, checkUserName
 from django.http import HttpResponse, JsonResponse
 from adminconsole.views import db, auth, checkUserName
-from datetime import datetime,timedelta
+from datetime import datetime,timedelta,date
+import requests
 # Create your views here.
 
 def superadmin(request):
@@ -236,7 +237,7 @@ def createstaff(request):
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
             }
-        return render(request, "createstaff.html",)
+        return render(request, "createstaff.html",context)
 
 def staffaccess(request):
     uid = request.COOKIES["uid"]
@@ -444,4 +445,55 @@ def markasread(request):
     return redirect("/")
 
 def viewworkmanager(request):
-    return render(request,'viewworkmanager.html')
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+            if not suggestionData[suggestion]["isread"]:
+                suggestionNotification += 1
+    # try:
+    #     sensor = requests.get("http://117.247.181.113:8000/sensor/1/").json()
+    #     eb_status = sensor["EB_Status"]
+    # except:
+    #     eb_status = "-"
+    pendingWorkList, nameList, notWorkingList, absentList, presentList, presentTimeList = [], [], [], [], [], []
+    pendingWorkList.clear()
+    nameList.clear()
+    notWorkingList.clear()
+    absentList.clear()
+
+    data = db.child("staff").get().val()
+    todayDate = str(date.today())
+    thisYear = datetime.now().strftime("%Y")
+    thisMonth = datetime.now().strftime("%m")
+    for staff in data:
+        if not data[staff]["department"] == "ADMIN":
+            fp = db.child("fingerPrint").get().val()
+            try:
+                fp[staff][todayDate]
+                presentList.append(data[staff]["name"])
+                for time in fp[staff][todayDate]:
+                    presentTimeList.append(time)
+                    break
+            except:
+                absentList.append(data[staff]["name"])
+    nameWorkList = zip(nameList, pendingWorkList)
+    lenWorking = len(nameList)
+    lenNotWorking = len(notWorkingList)
+    lenAbsent = len(absentList)
+    present = zip(presentList, presentTimeList)
+    presentMobile = zip(presentList, presentTimeList)
+    context = {
+        "lenWorking": lenWorking,
+        "lenNotWorking": lenNotWorking,
+        "lenAbsent": lenAbsent,
+        "nameWorkList": nameWorkList,
+        "notWorkingList": notWorkingList,
+        "absentList": absentList,
+        # "eb_status": eb_status,
+        "todayDate": todayDate,
+        "present": present,
+        "presentMobile": presentMobile,
+        "staffsPresent": len(presentList),
+        "suggestionNotification":suggestionNotification
+    }
+    return render(request,'viewworkmanager.html',context)
