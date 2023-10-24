@@ -89,12 +89,14 @@ def login(request):
             user = auth.sign_in_with_email_and_password(email, password)
             uid = user["localId"]  # to get the uid of the authentication
             dep = checkUserDepartment(uid)
+            name = checkUserName(uid)
             profile=profileall(uid)
             exp = 100 * 365 * 24 * 60 * 60
             if dep == "APP":
                 response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("name", name, expires=exp)
                 response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
@@ -102,6 +104,7 @@ def login(request):
                 response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("name", name, expires=exp)
                 response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
@@ -109,6 +112,7 @@ def login(request):
                 response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("name", name, expires=exp)
                 response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
@@ -117,6 +121,7 @@ def login(request):
                 response = redirect("prhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("name", name, expires=exp)
                 response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
@@ -124,6 +129,7 @@ def login(request):
                 response = redirect("rndhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("name", name, expires=exp)
                 response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
@@ -131,6 +137,7 @@ def login(request):
                 response = redirect("adminhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("name", name, expires=exp)
                 response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
@@ -145,6 +152,7 @@ def login(request):
 def leave_form(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
+    profile=request.COOKIES["profile"]
     name = checkUserName(uid)
     leave_data = db.child("leaveDetails").get().val()
     current_date = datetime.now().strftime('%Y-%m-%d')
@@ -318,7 +326,8 @@ def leave_form(request):
         context = {
             "leavehistory": leavehistory,
             "dep":dep,
-            "name":name
+            "name":name,
+            "profile":profile
             # "tl": istl,
             # "dep":dep,
             # "accounts":accounts,
@@ -353,6 +362,7 @@ def approvalprocess(request):
 def late_form(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
+    profile=request.COOKIES["profile"]
     loginState = request.COOKIES["loginState"]
     form_submitted = False
     name = checkUserName(uid)
@@ -419,12 +429,13 @@ def late_form(request):
             childName = ft + " to " + tt
             db.child("workmanager").child(selectedYear).child(selectedMonth).child(sd).child(uid).child("LateEntry").child(childName).set(context)
             
-    return render(request, 'late_form.html', {"form_submitted": form_submitted, "dep":dep,"name":name})
+    return render(request, 'late_form.html', {"form_submitted": form_submitted, "dep":dep,"name":name,"profile":profile})
 
 def late_approval(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
-    name = checkUserName(uid)
+    profile=request.COOKIES["profile"]
+    name = request.COOKIES["name"]
     # istl = False
     # accounts = False
     # suggestionNotification = 0
@@ -474,6 +485,7 @@ def late_approval(request):
         "allListMobile": allListMobile,
         # "tl": istl,
         "dep":dep,
+        "profile":profile
         # "accounts":accounts,
         # "management":management,
         # "suggestionNotification":suggestionNotification
@@ -483,7 +495,8 @@ def late_approval(request):
 def leave_approval(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
-    name = checkUserName(uid)
+    name = request.COOKIES["name"]
+    profile=request.COOKIES["profile"]
     leavedata = db.child("leaveDetails").get().val()
     staff_data = db.child("staff").get().val()
     yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
@@ -514,6 +527,7 @@ def leave_approval(request):
         "name":name,
         # "tl": istl,
         "dep":dep,
+        "profile":profile
         # "accounts":accounts,
         # "management":management,
         # "suggestionNotification":suggestionNotification
@@ -556,7 +570,8 @@ def submitaction(request):
 def suggestion(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
-    name = checkUserName(uid)
+    name = request.COOKIES["name"]
+    profile=request.COOKIES["profile"]
     current_date = datetime.now()
     formatted_date = current_date.strftime("%Y-%m-%d")
 
@@ -594,6 +609,7 @@ def suggestion(request):
         # "tl": istl,
         "name":name,
         "dep":dep,
+        "profile":profile
         # "accounts": accounts,
         # "management": management,
         # "itaproval":itaproval,
@@ -607,20 +623,25 @@ def suggestion(request):
         date_time = tm.strftime("%Y-%m-%d_%H:%M:%S")
         date = tm.strftime("%Y-%m-%d")
         time = tm.strftime("%I:%M:%S %p")
+        time = tm.strftime("%I:%M:%S %p")
         val = {
             "message":msg,
             "date": date,
             "time":time,
+            "uid":uid,
             "isread":False
         }
-        db.child('suggestion').child(current_year).child(current_month).child(formatted_date).push(val)
+        db.child('suggestion').child(date_time).update(val)
         context = {
             "msg":"Message sent successfully",
             # "accounts": accounts,
             # "management":management,
             # "tl": istl,
-            # "dep":dep,
-            # "rndaproval":rndaproval,
+            "dep":dep,
+            "name":name,
+            "profile":profile
+            # "rndaproval":rn
+            # daproval,
             # "itaproval":itaproval,
             # "praproval":praproval,
             # "aiaccess":aiaccess
@@ -733,8 +754,9 @@ def financialpost(request):
 def financial(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
+    name = request.COOKIES["name"]
+    profile=request.COOKIES["profile"]
     # name=db.child("staff").child(uid).child("name").get().val()
-    name = checkUserName(uid)
     istl = False
     praproval = False
     tl = db.child("tl").get().val()
@@ -807,6 +829,8 @@ def financial(request):
             dcolor = "Green"
         context = {
             "name":name,
+            "dep":dep,
+            "profile":profile,
             "incomeList": incomeList,
             "expenseList": expenseList,
             "incomeData": incomeData,
@@ -888,6 +912,8 @@ def financial(request):
         dcolor = "Green"
     context = {
         "name":name,
+        "dep":dep,
+        "profile":profile,
         "incomeList": incomeList,
         "expenseList": expenseList,
         "incomeData": incomeData,
@@ -912,7 +938,8 @@ def financial(request):
 def inventorymanagement(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
-    name = checkUserName(uid)
+    name = request.COOKIES["name"]
+    profile=request.COOKIES["profile"]
     istl = False
     rndaproval = False
     praproval = False
@@ -977,6 +1004,8 @@ def inventorymanagement(request):
         "editvalue":editvalue,
         "allinventory":allinventory,
         "dep": dep,
+        "name":name,
+        "profile":profile,
         "tl": istl,
         "rndaproval":rndaproval,
         "praproval":praproval
@@ -1046,6 +1075,10 @@ def installation_details(request):
     return render(request,'installation_details.html',context)
 def todo(request):
     return render(request,'todo.html')
+def workdonedetails(request):
+    return render (request,'workdonedetails.html')
+
+
 def refreshment(request):
     if request.method == "POST":
         todayDate = str(date.today())
@@ -1157,6 +1190,9 @@ def refreshment(request):
     
 def submitwork(request):
     uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile=request.COOKIES["profile"]
     loginState = request.COOKIES["loginState"]
     if bool(loginState) == True:
         todayDate = str(date.today())
@@ -1198,6 +1234,9 @@ def submitwork(request):
 
 def editworkdone(request):
     uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile=request.COOKIES["profile"]
     loginState = request.COOKIES["loginState"]
     if bool(loginState) == True:
         todayDate = str(date.today())
@@ -1278,6 +1317,9 @@ def prdashboard(request):
 
 def userdata(request):
     uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile=request.COOKIES["profile"]
     # aiaccess = False
     # adminai = False
     # aiteam = False
@@ -1328,6 +1370,9 @@ def userdata(request):
                 no_data_message = "No data found for the selected date." 
 
     context = {
+        "name":name,
+        "dep":dep,
+        "profile":profile,
         # "aiaccess": aiaccess,
         "default_data": default_data,
         "like_data": like_data,

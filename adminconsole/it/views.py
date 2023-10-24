@@ -6,6 +6,8 @@ import pytz
 def ithome(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
@@ -144,6 +146,9 @@ def ithome(request):
             leavehistory = zip(yearList, monthList, dateList, typelist, datalist)
             context = {
                 "leavehistory": leavehistory,
+                "dep":dep,
+                "name":name,
+                "profile":profile
                 # "tl": istl,
                 # "dep":dep,
                 # "accounts":accounts,
@@ -160,6 +165,7 @@ def ithome(request):
         context = {
             "project": True,
             "name": name,
+            "profile":profile,
             "tl": istl,
             "dep": dep,
             "itaproval": itaproval,
@@ -178,11 +184,13 @@ def ithome(request):
         }
         return render(request, "ithome.html", context)
     except:
+        print(yesscheckout)
         context = {
             "project": False,
             "name": name,
             "tl": istl,
             "dep": dep,
+            "profile":profile,
             "itaproval": itaproval,
             "aiaccess": aiaccess,
             "todaycheckin": todaycheckin,

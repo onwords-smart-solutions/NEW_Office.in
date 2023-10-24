@@ -5,11 +5,12 @@ from django.http import HttpResponse, JsonResponse
 from adminconsole.views import db, auth, checkUserName
 from datetime import datetime,timedelta
 # Create your views here.
+
 def superadmin(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     profile=request.COOKIES["profile"]
-    name = checkUserName(uid)
+    name = request.COOKIES["name"]
     current_year = datetime.now().strftime("%Y")
     current_month = datetime.now().strftime("%m")
     current_date1 = datetime.now().strftime("%d")
@@ -31,7 +32,7 @@ def superadmin(request):
     inventoryall=[]
     for uid in inventory:
         inventoryall.append(inventory[uid])
-
+    
     context={
         "name":name,
         "dep":dep,

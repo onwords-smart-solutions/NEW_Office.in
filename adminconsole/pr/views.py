@@ -11,6 +11,8 @@ def prhome(request):
     print("insode pr home")
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
@@ -145,6 +147,9 @@ def prhome(request):
             leavehistory = zip(yearList, monthList, dateList, typelist, datalist)
             context = {
                 "leavehistory": leavehistory,
+                "name":name,
+                "dep":dep,
+                "profile":profile
                 # "tl": istl,
                 # "dep":dep,
                 # "accounts":accounts,
@@ -168,6 +173,7 @@ def prhome(request):
             "name": name,
             "tl": istl,
             "dep": dep,
+            "profile":profile,
             "todaycheckin": todaycheckin,
             "todaycheckout": todaycheckout,
             "yescheckin": yesscheckin,
@@ -187,6 +193,7 @@ def prhome(request):
             "name": name,
             "tl": istl,
             "dep": dep,
+            "profile":profile,
             "todaycheckin": todaycheckin,
             "todaycheckout": todaycheckout,
             "yescheckin": yesscheckin,
@@ -208,7 +215,8 @@ def create_lead(request):
     loginState = request.COOKIES["loginState"]
     alreadyExistList = []
     custData = db.child("customer").get().val()
-    name = checkUserName(uid)
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     staff_data = db.child("staff").get().val()
     uid_list=[] 
     nameList = []    
@@ -239,13 +247,13 @@ def create_lead(request):
                     phno = request.POST["phn"]
                     for cust in data["customer"]:
                         if phno == cust:
-                            return render(request,"createLead.html", {"error": "Phone number already exist in customer list","nameList":nameList})
+                            return render(request,"createLead.html", {"error": "Phone number already exist in customer list","nameList":nameList,"dep":dep,"name":name,"profile":profile})
                     for dcust in data["deletedcustomers"]:
                         if phno == dcust:
-                            return render(request,"createLead.html", {"error": "Phone number already exist in deleted customers list","nameList":nameList})
+                            return render(request,"createLead.html", {"error": "Phone number already exist in deleted customers list","nameList":nameList,"dep":dep,"name":name,"profile":profile})
                     name = request.POST["name"]
                     if len(phno) < 10:
-                        return render(request,"createLead.html",{"error": "phone number should not be less the 10 digit","nameList":nameList})
+                        return render(request,"createLead.html",{"error": "phone number should not be less the 10 digit","nameList":nameList,"dep":dep,"name":name,"profile":profile})
                     city = request.POST["city"]
                     try:
                         Email = request.POST["email"]
@@ -275,7 +283,7 @@ def create_lead(request):
                     return render(
                         request,
                         "createLead.html",
-                        {"akn": "user created success fully", "colour": True,"nameList":nameList},
+                        {"akn": "user created success fully", "colour": True,"nameList":nameList,"dep":dep,"name":name,"profile":profile},
                     )
                 print("method",request.POST)
                 if "create-using-file" in request.POST:
@@ -344,11 +352,11 @@ def create_lead(request):
                             # db.child("customer").child(number).update(cust_data)
                         else:
                             pass    
-                    return render(request, "createLead.html", {"akn": "user created success fully", "colour": True, "alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep})
+                    return render(request, "createLead.html", {"akn": "user created success fully", "colour": True, "alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep,"profile":profile})
             else:
-                return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep})
+                return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep,"profile":profile})
         except:
-            return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep})
+            return render(request,"createLead.html",{"akn": "error creating user", "colour": False,"alreadyExistList": alreadyExistList,"nameList":nameList,"name":name,"dep":dep,"profile":profile})
 
     else:
         return redirect("login")
@@ -356,7 +364,8 @@ def create_lead(request):
 def customer_details(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
-    name = checkUserName(uid)
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     # istl = False
     # praproval = False
     
@@ -514,6 +523,7 @@ def customer_details(request):
         "interestedCount":interestedCount,
         "newleadscount":newleadscount,
         "dep": dep,
+        "profile":profile
         # "tl": istl,
         # "accounts": accounts,
         # "management": management,
@@ -526,7 +536,8 @@ def customer_details(request):
 def points_workdone(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
-    name = checkUserName(uid)
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     istl = False
     praproval = False
     tl = db.child("tl").get().val()
@@ -599,6 +610,7 @@ def points_workdone(request):
                 "delayedCount": delayedCount,
                 "totalLeadCount": totalLeadCount,
                 "dep": dep,
+                "profile":profile,
                 "tl": istl,
                 "accounts": accounts,
                 "management": management,
@@ -615,6 +627,7 @@ def points_workdone(request):
         "delayedCount": delayedCount,
         "totalLeadCount": totalLeadCount,
         "dep": dep,
+        "profile":profile,
         "tl": istl,
         "accounts": accounts,
         "management": management,
@@ -628,7 +641,8 @@ def quotation(request):
         date1=request.POST["get-total1"]
         uid = request.COOKIES["uid"]
         dep = request.COOKIES["dep"]
-        name = checkUserName(uid)
+        name = request.COOKIES["name"]
+        profile = request.COOKIES["profile"]
         istl = False
         tl = db.child("tl").get().val()
         for t in tl:
@@ -787,6 +801,8 @@ def quotation(request):
             "pinvoiceListMobile" : pinvoiceListMobile,
             "quotationListMobile": quotationListMobile,
             "dep": dep,
+            "name":name,
+            "profile":profile,
             "tl": istl,
             "suggestionNotification":suggestionNotification
         }
@@ -797,7 +813,8 @@ def quotation(request):
 
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
-    name = checkUserName(uid)
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     istl = False
     tl = db.child("tl").get().val()
     for t in tl:
@@ -940,6 +957,8 @@ def quotation(request):
         "pinvoiceListMobile" : pinvoiceListMobile,
         "quotationListMobile": quotationListMobile,
         "dep": dep,
+        "profile":profile,
+        "name":name,
         "tl": istl,
         "suggestionNotification":suggestionNotification
     }
@@ -1047,7 +1066,8 @@ def invoiceForm(request):
 def leadinfo(request):
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
-    name = checkUserName(uid)
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     istl = False
     tl = db.child("tl").get().val()
     for t in tl:
@@ -1155,6 +1175,7 @@ def leadinfo(request):
             "management": True,
             "tl":istl,
             "dep":dep,
+            "profile":profile,
             "accounts":accounts,
             "management":management
         }
@@ -1168,6 +1189,7 @@ def leadinfo(request):
             "incharge": incharge,
             "tl":istl,
             "dep":dep,
+            "profile":profile,
             "accounts":accounts,
             "management":management
         }
