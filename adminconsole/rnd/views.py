@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from adminconsole.views import db, checkUserName
 from it.views import convert_to_12_hour_format,calculate_progress,calculate_progress_
 from datetime import datetime,timedelta
@@ -476,3 +476,58 @@ def create(request):
         "prdashboard":prdashboardacccess,  
         }
     return render(request,'create.html',context)
+
+def gate(request):
+    if request.method == "POST":
+        if "create-gate" in request.POST:
+            _email = request.POST["email"]
+            try:
+                if request.POST["cycle"]:
+                    cycle = True
+
+            except:
+                cycle = False
+            typ = request.POST["typ"]
+            data = shDB.get().val()
+            for uid in data:
+                try:
+                    if _email == data[uid]["email"]:
+                        _cycle = cycle
+                        gate_type = typ
+                        _data = {
+                            "Open": True,
+                            "Close": True,
+                            "Pause": True,
+                            "Cycle": _cycle,
+                            "Gate_Type": gate_type,
+                            "Gate_Status": False,
+                            "Single_Gate_Status": False,
+                        }
+                        print(_data)
+                        # shDB.child(uid).update({"Gate": True})
+                        # shDB.child(uid).child("GateAutomation").child("gate-1").set(_data)
+                except:
+                    # For Family
+                    pass
+        if "create-wta" in request.POST:
+            _email = request.POST["email"]
+            data = shDB.get().val()
+            for uid in data:
+                try:
+                    if _email == data[uid]["email"]:
+                        try:
+                            if data[uid]["WTA"] == True:
+                                context = {"msg":"WaterTankAutomation Already Enabled"}
+                                return render(request, "rnd/create.html", context)
+                            else:
+                                _data = {"level":40, "status":False}
+                                
+                                # shDB.child(uid).update({"WTA": True})
+                                # shDB.child(uid).child("WaterTankAutomation").child("waterTank1").set(_data)
+
+                        except:
+                            pass
+                except:
+                    pass
+    response = redirect(create)
+    return response

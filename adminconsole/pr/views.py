@@ -283,6 +283,7 @@ def prhome(request):
 
 def create_lead(request):
     uid = request.COOKIES["uid"]
+    print("get",uid)
     dep = request.COOKIES["dep"]
     logedInUser = request.COOKIES["uid"]
     loginState = request.COOKIES["loginState"]
@@ -293,13 +294,14 @@ def create_lead(request):
     staff_data = db.child("staff").get().val()
     uid_list=[] 
     nameList = []    
-    for uid in staff_data:
-        if staff_data[uid]['department'] == "PR":
-            uid_list.append(uid)
-            nameList.append(staff_data[uid]['name'])
+    for uid1 in staff_data:
+        if staff_data[uid1]['department'] == "PR":
+            uid_list.append(uid1)
+            nameList.append(staff_data[uid1]['name'])
     webaccess=db.child("webaccess").get().val()
     general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
     for accessuid in webaccess["customer details"]:
+        print(uid)
         if webaccess["customer details"][accessuid] == uid:
             customeracccess=True
 
@@ -310,6 +312,7 @@ def create_lead(request):
     for accessuid in webaccess["Create Lead"]:
         if webaccess["Create Lead"][accessuid] == uid:    
             createleadacccess=True
+            print("=============")
 
     for accessuid in webaccess["Create Staff"]:
         if webaccess["Create Staff"][accessuid] == uid:    
@@ -389,11 +392,28 @@ def create_lead(request):
                     }
                 
                     db.child("customer").child(phno).set(data)
-                    return render(
-                        request,
-                        "createLead.html",
-                        {"akn": "user created success fully", "colour": True,"nameList":nameList,"dep":dep,"name":name,"profile":profile},
-                    )
+                    context={
+                        "akn": "user created success fully",
+                        "colour": True,
+                        "nameList":nameList,
+                        "dep":dep,
+                        "name":name,
+                        "profile":profile,
+                        "general":general,
+                        "approvalpage":approvalacccess,
+                        "rnd":inprogressacccess,
+                        "account":accountacccess,
+                        "createlead":createleadacccess,
+                        "customerdetails":customeracccess,
+                        "quotation":quotationacccess,
+                        "inventory":inventoryacccess,
+                        "createstaff":createstaffacccess,
+                        "viewworkmanager":viewmanageracccess,
+                        "viewsuggestion":viewsuggestionacccess,
+                        "userdata":userdataacccess,
+                        "prdashboard":prdashboardacccess,
+                        }
+                    return render(request,"createLead.html",context)
                 if "create-using-file" in request.POST:
                     curent_date = date.today()
                     now = datetime.now()
@@ -480,6 +500,7 @@ def create_lead(request):
                       }
                     return render(request, "createLead.html",context)
             else:
+                print("========",createleadacccess)
                 context={
                         "akn": "error creating user",
                         "colour": False,
@@ -502,8 +523,9 @@ def create_lead(request):
                         "userdata":userdataacccess,
                         "prdashboard":prdashboardacccess,
                     }
-                return render(request,"createLead.html",)
+                return render(request,"createLead.html",context)
         except:
+            print("qddw",approvalacccess)
             context={
                     "akn": "error creating user",
                     "colour": False,
@@ -526,8 +548,7 @@ def create_lead(request):
                     "userdata":userdataacccess,
                     "prdashboard":prdashboardacccess,
                 }
-            return render(request,"createLead.html",)
-
+            return render(request,"createLead.html",context)
     else:
         return redirect("login")
 
@@ -925,6 +946,10 @@ def points_workdone(request):
     return render(request,'points_workdone.html',context)
 
 def quotation(request):
+    uid = request.COOKIES["uid"]
+    dep = request.COOKIES["dep"]
+    name = request.COOKIES["name"]
+    profile = request.COOKIES["profile"]
     webaccess=db.child("webaccess").get().val()
     general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
     for accessuid in webaccess["customer details"]:
