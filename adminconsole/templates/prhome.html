@@ -155,7 +155,7 @@
                         </li>
 
                         {% endif %}
-                      
+
                         {% if account %}
                         <li class="navlistmenu " onclick="location.href='/financial'">
                             <div class="left-nav-list">
@@ -181,7 +181,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if customerdetails %}
                         <li class="navlistmenu " onclick="location.href='/customer_details'">
                             <div class="left-nav-list">
@@ -194,7 +194,7 @@
                             </div>
                         </li>
                         {% endif %}
-                       
+
                         {% if quotation %}
                         <li class="navlistmenu" onclick="location.href='/quotation'">
                             <div class="left-nav-list">
@@ -220,7 +220,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if createstaff %}
                         <li class="navlistmenu" onclick="location.href='/createstaff'">
                             <div class="left-nav-list">
@@ -233,12 +233,13 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if viewworkmanager %}
                         <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}" alt="createstaff_Icon">
+                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}"
+                                        alt="createstaff_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
@@ -285,7 +286,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         <!-- =========================== -->
 
                     </ul>
@@ -362,7 +363,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="emoj">
-                                            <img src="{% static 'images/coffee-animated-emoji.gif' %}" alt="coffee-emoj" class="img-fluid">
+                                            <img src="{% static 'images/coffee-animated-emoji.gif' %}" alt="coffee-emoj"
+                                                class="img-fluid">
                                         </div>
                                     </div>
                                 </div>
@@ -487,7 +489,7 @@
                                                 class="clock-icon"></span> Pending
                                     </div>
                                     <div class="notify-center">
-                                       Today Visit Raja -coimbatore
+                                        Today Visit Raja -coimbatore
                                     </div>
                                     <div class="notify-right remaind">
                                         <span><img src="{% static 'images/remind-bell.svg' %}" alt="remind-icon"
@@ -614,34 +616,34 @@
                                 <div class="quot-chart">
                                     <canvas id="myChart3"></canvas>
                                 </div>
-                                
+
                                 <div class="bottom-quot-list">
                                     <div class="d-flex align-items-center justify-content-between mx-3">
-                                      <div class="d-flex align-items-center">
-                                        <p class="circl-quot quots-cir"></p>
-                                        <h5>Quotation</h5>
-                                      </div>
-                                      <div class="quot-count">
-                                        <h5>23</h5>
-                                      </div>
+                                        <div class="d-flex align-items-center">
+                                            <p class="circl-quot quots-cir"></p>
+                                            <h5>Quotation</h5>
+                                        </div>
+                                        <div class="quot-count">
+                                            <h5>23</h5>
+                                        </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mx-3">
-                                      <div class="d-flex align-items-center">
-                                        <p class="circl-quot inv-circ"></p>
-                                        <h5>Invoice</h5>
-                                      </div>
-                                      <div class="quot-count">
-                                        <h5>2</h5>
-                                      </div>
+                                        <div class="d-flex align-items-center">
+                                            <p class="circl-quot inv-circ"></p>
+                                            <h5>Invoice</h5>
+                                        </div>
+                                        <div class="quot-count">
+                                            <h5>2</h5>
+                                        </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mx-3 pb-2">
-                                      <div class="d-flex align-items-center">
-                                        <p class="circl-quot proforma-cir"></p>
-                                        <h5>Proforma Invoice</h5>
-                                      </div>
-                                      <div class="quot-count">
-                                        <h5>5</h5>
-                                      </div>
+                                        <div class="d-flex align-items-center">
+                                            <p class="circl-quot proforma-cir"></p>
+                                            <h5>Proforma Invoice</h5>
+                                        </div>
+                                        <div class="quot-count">
+                                            <h5>5</h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -663,43 +665,45 @@
             crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-        
+
             $(document).ready(function () {
-                var yesprogress = {{yesprogress}};
-                var progressBar = document.getElementById("progress-bar");
-                progressBar.style.width = yesprogress + "%"; 
-                if (yesprogress < 100) {
-                    progressBar.style.backgroundColor = "red";
-                } else {
-                    console.log("inside except")
-                    progressBar.style.backgroundColor = "#e0ae09";
-                }
+                var yesprogress = {{ yesprogress }
+            };
+            var progressBar = document.getElementById("progress-bar");
+            progressBar.style.width = yesprogress + "%";
+            if (yesprogress < 100) {
+                progressBar.style.backgroundColor = "red";
+            } else {
+                console.log("inside except")
+                progressBar.style.backgroundColor = "#e0ae09";
+            }
             });
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-    
-        $(document).ready(function () {
-            var yesprogress = {{yesprogress}};
+
+            $(document).ready(function () {
+                var yesprogress = {{ yesprogress }
+            };
             var progressBar = document.getElementById("progress-bar");
-            progressBar.style.width = yesprogress + "%"; 
+            progressBar.style.width = yesprogress + "%";
             if (yesprogress < 100) {
                 progressBar.style.backgroundColor = "red";
             } else {
                 progressBar.style.backgroundColor = "#e0ae09";
             }
         });
-    
+
             $(document).ready(function () {
-    
+
                 function updateOptions() {
                     var currentDate = new Date();
                     var currentHour = currentDate.getHours();
                     var currentMinutes = currentDate.getMinutes();
-                  
+
                     var showTeaCoffeeMilk = (currentHour === 9 && currentMinutes >= 0) || (currentHour === 10 && currentMinutes <= 45);
                     var showTeaCoffee = (currentHour === 14 && currentMinutes >= 0) || (currentHour === 15 && currentMinutes <= 30);
-    
+
                     if (showTeaCoffeeMilk) {
                         $("#tea-coffee-milk").show();
                         $("#tea-coffee").show();
@@ -707,7 +711,7 @@
                         $("#tea-coffee-milk").show();
                         $("#tea-coffee").hide();
                     } else {
-    
+
                         $("#tea-coffee-milk").hide();
                         $("#tea-coffee").hide();
                         $("#main-refresh").hide();
@@ -717,14 +721,14 @@
                 }
                 updateOptions();
                 setInterval(updateOptions, 1000);
-    
+
             });
         </script>
         <script>
             $(document).ready(function () {
                 $("#refreshment-form").on("submit", function (event) {
                     event.preventDefault();
-    
+
                     var formData = $(this).serialize();
                     $.ajax({
                         type: "POST",
@@ -734,16 +738,16 @@
                             window.location.reload();
                         },
                         error: function (xhr, status, error) {
-    
+
                             console.log("AJAX Error: " + error);
                         }
                     });
                 });
             });
-            
+
         </script>
         <script>
-            
+
             // reload testing starts----------------
             // (function()
             // {
@@ -757,7 +761,7 @@
             //       localStorage.removeItem('firstLoad');
             //   }
             // })();
-    
+
             // ==================================================================
             // window.onload = function() {
             //   if(!window.location.hash) {
@@ -768,7 +772,7 @@
             // ==========================================================
             // reload testing ends================
             // setTimeout('location.reload()', 60000)
-            
+
             // b = diff(start, end)
             b = 1;
             document.addEventListener("DOMContentLoaded", function () {
@@ -804,31 +808,31 @@
         </script>
         <script>
             // break
-var xValues = [];
-var yValues = [30, 70];
-var barColors = [
-    "#7FA9FB",
-    "#266386",
-];
-new Chart("myChart3", {
-    type: "doughnut",
-    data: {
-        labels: xValues,
-        datasets: [{
-            backgroundColor: barColors,
-            data: yValues,
-            borderColor: 'transparent'
+            var xValues = [];
+            var yValues = [30, 70];
+            var barColors = [
+                "#7FA9FB",
+                "#266386",
+            ];
+            new Chart("myChart3", {
+                type: "doughnut",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues,
+                        borderColor: 'transparent'
 
-        }]
-    },
-    options: {
-        cutoutPercentage: 80,
-        title: {
-            display: true,
-            text: ""
-        }
-    }
-});
+                    }]
+                },
+                options: {
+                    cutoutPercentage: 80,
+                    title: {
+                        display: true,
+                        text: ""
+                    }
+                }
+            });
 
         </script>
 </body>

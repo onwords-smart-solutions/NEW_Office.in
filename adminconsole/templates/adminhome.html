@@ -569,7 +569,7 @@
                                 <h2 class="install-attendance"><span>{{current_date_today}}</span></h2>
                             </div>
                             <div class="quot-chart">
-                                <canvas id="myChart4"></canvas>
+                                <canvas id="myChart5"></canvas>
                             </div>
 
                             <div class="bottom-quot-list">
@@ -626,6 +626,7 @@
                     progressBar.style.backgroundColor = "#e0ae09";
                 }
             });
+            
             // break
             var xValues = [];
             var yValues = [45, 37, 18];
@@ -634,7 +635,7 @@
                 "#266386",
                 "#a78f0d",
             ];
-            new Chart("myChart4", {
+            new Chart("myChart5", {
                 type: "doughnut",
                 data: {
                     labels: xValues,
