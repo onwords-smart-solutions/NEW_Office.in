@@ -247,12 +247,13 @@
                             </div>
                         </li>
                         {% endif %}
-
                         {% if viewsuggestion %}
                         <li class="navlistmenu navlistmenu-active" onclick="location.href='/viewsuggestion'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
+                                    <span>{{suggestionNotification}}</span>
                                     <img src="{% static 'images/nav-icon/viewsuggestion.svg' %}" alt="userdata_Icon">
+                                    <span class="suggestionpop">{{suggestionNotification}}</span>
                                 </div>
                             </div>
                             <div class="right-nav-list">

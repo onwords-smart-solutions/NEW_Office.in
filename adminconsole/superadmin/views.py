@@ -69,6 +69,11 @@ def superadmin(request):
     current_date1 = datetime.now().strftime("%d")
     current_date_today = datetime.now().strftime("%Y-%m-%d")
     current_date = datetime.now()
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
 
     staff=db.child("staff").get().val()
     attendance=db.child("attendance").child(current_year).child(current_month).get().val()
@@ -195,6 +200,7 @@ def createstaff(request):
             usr = auth.create_user_with_email_and_password(_email,_password)
             db.child("staff").child(usr["localId"]).set(data)
             auth.send_password_reset_email(_email)
+
             context={
                     "message": "User Created Successfully",
                     "name":name,
@@ -213,6 +219,7 @@ def createstaff(request):
                     "viewsuggestion":viewsuggestionacccess,
                     "userdata":userdataacccess,
                     "prdashboard":prdashboardacccess,
+                    "suggestionNotification":suggestionNotification
             }
             return render(request,"createstaff.html",context)
         except:
@@ -317,7 +324,12 @@ def staffaccess(request):
     for uid in staff:
         namelist.append(staff[uid]["name"])
         uidlist.append(uid)
-    allstaff=zip(uidlist,namelist) 
+    allstaff=zip(uidlist,namelist)
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+            if not suggestionData[suggestion]["isread"]:
+                suggestionNotification += 1
     context={
         "allstaff":allstaff,
         "name":name,
@@ -336,6 +348,7 @@ def staffaccess(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
     }   
     return render(request,'staff-access.html',context)
 
@@ -396,11 +409,11 @@ def viewsuggestion(request):
     if uid is not None:
         general=True
 
-    # suggestionNotification = 0
-    # suggestionData = db.child("suggestion").get().val()
-    # for suggestion in suggestionData:
-    #         if not suggestionData[suggestion]["isread"]:
-    #             suggestionNotification += 1
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+            if not suggestionData[suggestion]["isread"]:
+                suggestionNotification += 1
     dList = []
     data = db.child('suggestion').get().val()
     try:
@@ -426,7 +439,7 @@ def viewsuggestion(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
-        # "suggestionNotification": suggestionNotification
+        "suggestionNotification": suggestionNotification
     }
     return render(request,'viewsuggestion.html',context)
 
@@ -510,6 +523,11 @@ def viewworkmanager(request):
     workdetailslist=[]
     snolist=[]
     sno=0
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     workdetails=db.child("workmanager").child(current_year).child(current_month).child(today).get().val()
     try:
         for uid in workdetails:
@@ -620,6 +638,7 @@ def viewworkmanager(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
         }
         return render(request,'viewworkmanager1.html',context)              
     
@@ -643,6 +662,7 @@ def viewworkmanager(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
     }          
     return render(request,'viewworkmanager1.html',context)
 

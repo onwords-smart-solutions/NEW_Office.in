@@ -61,7 +61,11 @@ def installationhome(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
@@ -247,6 +251,7 @@ def installationhome(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification
         }
         return render(request, "rndhome.html", context)
     except:
@@ -281,7 +286,8 @@ def installationhome(request):
             "viewworkmanager":viewmanageracccess,
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess,  
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification  
         }
     return render(request,'rndhome.html',context)
 
@@ -347,7 +353,11 @@ def installationadd(request):
     for staff in staff_data:
         if staff_data[staff]["department"] == "Installation":
             installationboys.append(staff_data[staff]["name"])
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     if request.method == "POST":
         selected_names = request.POST.getlist("selected_names")
         name_list = ", ".join(selected_names) 
@@ -392,5 +402,6 @@ def installationadd(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
          }       
     return render(request,'installationadd.html',context)

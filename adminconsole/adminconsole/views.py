@@ -224,7 +224,11 @@ def leave_form(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     if request.method == 'POST':
         leave_type = request.POST['leave_type']
         if leave_type == "general":
@@ -405,7 +409,8 @@ def leave_form(request):
             "viewworkmanager":viewmanageracccess,
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess,  
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification  
         }
         return render(request,'leave-form.html',context)
     except:
@@ -543,6 +548,11 @@ def late_form(request):
     if uid is not None:
         general=True
 
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     todayDate = str(date.today())
     thisYear = datetime.now().strftime("%Y")
     thisMonth = datetime.now().strftime("%m")
@@ -621,7 +631,8 @@ def late_form(request):
             "viewworkmanager":viewmanageracccess,
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess,  
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification 
             }        
     return render(request, 'late_form.html',context)
 
@@ -681,7 +692,11 @@ def late_approval(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     # istl = False
     # accounts = False
     # suggestionNotification = 0
@@ -743,7 +758,8 @@ def late_approval(request):
         "viewworkmanager":viewmanageracccess,
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
-        "prdashboard":prdashboardacccess,  
+        "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification  
     }
     return render(request,'lateapproval.html', context)
 
@@ -804,6 +820,11 @@ def leave_approval(request):
     if uid is not None:
         general=True
 
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     leavedata = db.child("leaveDetails").get().val()
     staff_data = db.child("staff").get().val()
     yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
@@ -846,7 +867,8 @@ def leave_approval(request):
         "viewworkmanager":viewmanageracccess,
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
-        "prdashboard":prdashboardacccess,  
+        "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification  
     }
     return render(request,'approval.html', context)
 
@@ -907,7 +929,11 @@ def approval(request):
              
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     leavedata = db.child("leaveDetails").get().val()
     staff_data = db.child("staff").get().val()
     yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
@@ -952,11 +978,9 @@ def approval(request):
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
             "leaveList": allList,
+            "suggestionNotification":suggestionNotification
     }    
     return render(request,'approval.html',context)
-
-
-
 
 def submitaction(request):
     _year = request.POST["_year"]
@@ -1057,7 +1081,11 @@ def suggestion(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     context = {
         "name":name,
         "dep":dep,
@@ -1075,6 +1103,7 @@ def suggestion(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
     }
     if request.method == "POST":
         msg = request.POST['msg']
@@ -1108,6 +1137,7 @@ def suggestion(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification
            
         }
         return render(request, 'suggestion.html', context)
@@ -1513,7 +1543,11 @@ def inventorymanagement(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-       
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     allDataBase = db.get().val()
     editvalue=[]
     if 'getid1' in request.POST:
@@ -1579,6 +1613,7 @@ def inventorymanagement(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
     }
     return render(request,'inventorymanagement.html',context)
 
@@ -1638,7 +1673,11 @@ def coohome(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     installation = db.child("Installationdetails").get().val()
     end_date = datetime.now()
     start_date = end_date - timedelta(days=7)
@@ -1678,6 +1717,7 @@ def coohome(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
     }    
     return render(request,'coohome.html',context)
 
@@ -1737,7 +1777,11 @@ def installation_details(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     installation = db.child("Installationdetails").get().val()
     if request.method == "POST":
         if "delete_entry" in request.POST:
@@ -1784,6 +1828,7 @@ def installation_details(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
     }
     return render(request,'installation_details.html',context)
 
@@ -1929,6 +1974,11 @@ def workdonedetails(request):
     return render (request,'workdonedetails.html')
 
 def refreshment(request):
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     if request.method == "POST":
         todayDate = str(date.today())
         currTime = datetime.now().strftime("%H:%M")
@@ -2252,7 +2302,11 @@ def prdashboard(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     if 'total-target' in request.POST:
         totalprgettarget=request.POST['totalprgettarget']
         totalprtarget=request.POST['totalprtarget']
@@ -2322,6 +2376,7 @@ def prdashboard(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
     }
     return render(request,'admindashboard.html',context)
 
@@ -2381,7 +2436,11 @@ def userdata(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     userdata = aidb.child("onyx").get().val()
     no_data_message = ""  
     default_data = {}  
@@ -2439,6 +2498,7 @@ def userdata(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
     } 
     return render(request,'userdata.html',context)
 
