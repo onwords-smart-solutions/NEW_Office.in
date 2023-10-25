@@ -2469,5 +2469,17 @@ def getTl(dep):
             return data[x]    
         
 def workmanagerTl(request):
-    
+    today=datetime.now().strftime("%Y-%m-%d")
+    cur_day=datetime.now().strftime("%d")
+    current_month=datetime.now().strftime("%m")
+    current_year=datetime.now().strftime("%Y")
+    workdetails=db.child("workmanager").child(current_year).child(current_month).child(today).get().val()
+    staff=db.child("staff").get().val()
+    # for uid in staff:
+    #     if staff[uid]["department"] == "IT":
+    #         try:
+    #             for fulldata in workdetails[uid]:
+                    
+    #         except:
+    #             pass      
     return render(request,'workmanagerTL.html')      

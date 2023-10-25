@@ -82,7 +82,6 @@ urlpatterns = [
     path("userdata/",views.userdata,name='userdata'),
     path("viewsuggestion/",superadminviews.viewsuggestion,name='viewsuggestion'),
     path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager'),
-    path("viewworkmanagerone/",superadminviews.viewworkmanagerone,name='viewworkmanagerone'),
     path("markasread/", superadminviews.markasread, name="markasread"),
 
     # =====================hr====================================

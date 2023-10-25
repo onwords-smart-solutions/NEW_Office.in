@@ -504,27 +504,58 @@ def viewworkmanager(request):
     yesterday = current_date - timedelta(days=1)
     yesterday_str = yesterday.strftime("%Y-%m-%d")
     today=datetime.now().strftime("%Y-%m-%d")
+    cur_day=datetime.now().strftime("%d")
     current_month=datetime.now().strftime("%m")
     current_year=datetime.now().strftime("%Y")
     workdetailslist=[]
     snolist=[]
     sno=0
     workdetails=db.child("workmanager").child(current_year).child(current_month).child(today).get().val()
-    for uid in workdetails:
+    try:
+        for uid in workdetails:
+            try:
+                workdetails[uid]["LateEntry"]
+                pass
+            except:
+                for fulltime in workdetails[uid]:
+                    workdetailslist.append(workdetails[uid][fulltime])
+                    sno=sno+1
+                    snolist.append(sno)
+       
+    except:
+        pass    
+    alltodayworks=zip(snolist,workdetailslist)    
+    staff=db.child("staff").get().val()
+    attendence=db.child("attendance").child(current_year).child(current_month).child(cur_day).get().val()
+    notenternamelist,totalworkinghourlist,totalworknamelist=[],[],[]
+    for uid in staff:
+        totalworkinghour = timedelta(hours=0, minutes=0, seconds=0)
         try:
-            workdetails[uid]["LateEntry"]
-            pass
-        except:
             for fulltime in workdetails[uid]:
-                workdetailslist.append(workdetails[uid][fulltime])
-                sno=sno+1
-                snolist.append(sno)
-    alltodayworks=zip(snolist,workdetailslist)
-    
+                time_in_hours = workdetails[uid][fulltime]["time_in_hours"]
+                hours, minutes, seconds = map(int, time_in_hours.split(":"))
+
+                total_time = timedelta(hours=hours, minutes=minutes, seconds=seconds)
+                totalworkinghour += total_time
+            total_seconds = totalworkinghour.total_seconds()
+            total_hours, remainder = divmod(totalworkinghour.total_seconds(), 3600)
+            total_minutes, total_seconds = divmod(remainder, 60)
+            totalworkinghourall=f"{int(total_hours)}:{int(total_minutes)}:{int(total_seconds)}"
+            totalworkinghourlist.append(totalworkinghourall)
+            totalworknamelist.append(staff[uid]["name"])
+
+        except:
+            try:
+                attendence[uid]
+                notenternamelist.append(staff[uid]["name"])
+            except:
+                pass 
+    totalcurentworkinglist=zip(totalworknamelist,totalworkinghourlist)
     if request.method == "POST":
         date=request.POST["date"]
         current_year=date[0:4]
         current_month=date[5:7]
+        cur_day=date[8:10]
         workdetailslist=[]
         snolist=[]
         sno=0
@@ -540,14 +571,42 @@ def viewworkmanager(request):
                         sno=sno+1
                         snolist.append(sno)
         except:
-            pass
-              
+            pass        
+
         alltodayworks=zip(snolist,workdetailslist)
+        staff=db.child("staff").get().val()
+        attendence=db.child("attendance").child(current_year).child(current_month).child(cur_day).get().val()
+        notenternamelist,totalworkinghourlist,totalworknamelist=[],[],[]
+        for uid in staff:
+            totalworkinghour = timedelta(hours=0, minutes=0, seconds=0)
+            try:
+                for fulltime in workdetails[uid]:
+                    time_in_hours = workdetails[uid][fulltime]["time_in_hours"]
+                    hours, minutes, seconds = map(int, time_in_hours.split(":"))
+
+                    total_time = timedelta(hours=hours, minutes=minutes, seconds=seconds)
+                    totalworkinghour += total_time
+                total_seconds = totalworkinghour.total_seconds()
+                total_hours, remainder = divmod(totalworkinghour.total_seconds(), 3600)
+                total_minutes, total_seconds = divmod(remainder, 60)
+                totalworkinghourall=f"{int(total_hours)}:{int(total_minutes)}:{int(total_seconds)}"
+                totalworkinghourlist.append(totalworkinghourall)
+                totalworknamelist.append(staff[uid]["name"])
+
+            except:
+                try:
+                    attendence[uid]
+                    notenternamelist.append(staff[uid]["name"])
+                except:
+                    pass 
+        totalcurentworkinglist=zip(totalworknamelist,totalworkinghourlist)
         context={
         "name":name,
         "dep":dep,
         "profile":profile,
         "alltodayworks":alltodayworks,
+        "totalcurentworkinglist":totalcurentworkinglist,
+        "notenternamelist":notenternamelist,
         "general":general,
         "approvalpage":approvalacccess,
         "rnd":inprogressacccess,
@@ -563,12 +622,14 @@ def viewworkmanager(request):
         "prdashboard":prdashboardacccess,
         }
         return render(request,'viewworkmanager1.html',context)              
-
+    
     context={
         "name":name,
         "dep":dep,
         "profile":profile,
         "alltodayworks":alltodayworks,
+        "totalcurentworkinglist":totalcurentworkinglist,
+        "notenternamelist":notenternamelist,
         "general":general,
         "approvalpage":approvalacccess,
         "rnd":inprogressacccess,
@@ -585,5 +646,3 @@ def viewworkmanager(request):
     }          
     return render(request,'viewworkmanager1.html',context)
 
-def viewworkmanagerone(request):
-    return render(request,'viewworkmanager.html')
