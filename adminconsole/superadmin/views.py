@@ -584,3 +584,6 @@ def viewworkmanager(request):
         "prdashboard":prdashboardacccess,
     }          
     return render(request,'viewworkmanager1.html',context)
+
+def viewworkmanagerone(request):
+    return render(request,'viewworkmanager.html')
