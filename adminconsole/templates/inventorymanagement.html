@@ -487,25 +487,25 @@
                         <h5 class=" li-inventry" id="weekly-Btn" onclick="target()">Weekly Target</h5>
                     </div>
                     <center>
-                       <form action="" class="">
-                        <div class="installation-pending inventory-small-table" id="firstline-Btn">
-                            <h5>Firstline</h5>
-                            <input type="number" name="" id="" placeholder="0">
-                            <button class="primary-button">submit</button>
-                        </div>
-                       </form>
+                        <form action="" class="">
+                            <div class="installation-pending inventory-small-table" id="firstline-Btn">
+                                <h5>Firstline</h5>
+                                <input type="number" name="" id="" placeholder="0">
+                                <button class="primary-button">submit</button>
+                            </div>
+                        </form>
                     </center>
                     <center>
-                       <form action="" class="e" >
-                        <div class="installation-pending inventory-small-tabl" id="target-Btn">
-                            <h5>Target Point</h5>
-                            <input type="number" name="" id="" placeholder="0">
-                            <button class="primary-button">submit</button>
-                        </div>
-                       </form>
+                        <form action="" class="e">
+                            <div class="installation-pending inventory-small-tabl" id="target-Btn">
+                                <h5>Target Point</h5>
+                                <input type="number" name="" id="" placeholder="0">
+                                <button class="primary-button">submit</button>
+                            </div>
+                        </form>
                     </center>
                     <center>
-                        <form action="" >
+                        <form action="">
                             <div class="installation-pending inventory-small-tabl" id="pending-Btn">
                                 <h5>pending installation</h5>
                                 <input type="number" name="" id="" placeholder="0">
@@ -528,7 +528,39 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
         <!-- js script  end -->
+        <script>
+            const firstline = document.getElementById('firstline-Btn')
+            const targetBtn = document.getElementById('target-Btn')
+            const pending = document.getElementById('pending-Btn')
+            const notipanlBtn = document.getElementById('notipanl-Btn')
+            const installBtn = document.getElementById('install-Btn')
+            const weeklyBtn = document.getElementById('weekly-Btn')
 
+            function notipanel() {
+                firstline.style.display = 'block'
+                targetBtn.style.display = 'none'
+                pending.style.display = 'none'
+                notipanlBtn.classList.add('active-inv')
+                installBtn.classList.remove('active-inv')
+                weeklyBtn.classList.remove('active-inv')
+            }
+            function installation() {
+                firstline.style.display = 'none'
+                targetBtn.style.display = 'block'
+                pending.style.display = 'none'
+                notipanlBtn.classList.remove('active-inv')
+                installBtn.classList.add('active-inv')
+                weeklyBtn.classList.remove('active-inv')
+            }
+            function target() {
+                firstline.style.display = 'none'
+                targetBtn.style.display = 'none'
+                pending.style.display = 'block'
+                notipanlBtn.classList.remove('active-inv')
+                installBtn.classList.remove('active-inv')
+                weeklyBtn.classList.add('active-inv')
+            }
+        </script>
 
 </body>
 
