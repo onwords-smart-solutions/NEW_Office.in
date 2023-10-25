@@ -520,6 +520,7 @@ def viewworkmanager(request):
                 sno=sno+1
                 snolist.append(sno)
     alltodayworks=zip(snolist,workdetailslist)
+    
     if request.method == "POST":
         date=request.POST["date"]
         current_year=date[0:4]
@@ -539,7 +540,8 @@ def viewworkmanager(request):
                         sno=sno+1
                         snolist.append(sno)
         except:
-            pass                
+            pass
+              
         alltodayworks=zip(snolist,workdetailslist)
         context={
         "name":name,
