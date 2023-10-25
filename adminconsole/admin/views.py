@@ -86,6 +86,11 @@ def adminhome(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1    
     current_year = datetime.now().strftime("%Y")
     current_month = datetime.now().strftime("%m")
     current_date1 = datetime.now().strftime("%d")
@@ -266,12 +271,12 @@ def adminhome(request):
                 "leavehistory": leavehistory,
                 "dep":dep,
                 "name":name,
-                "profile":profile
+                "profile":profile,
                 # "tl": istl,
                 # "dep":dep,
                 # "accounts":accounts,
                 # "management":management,
-                # "suggestionNotification":suggestionNotification
+                "suggestionNotification":suggestionNotification
             }
         except:
             pass 
@@ -317,7 +322,8 @@ def adminhome(request):
             "viewworkmanager":viewmanageracccess,
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess,  
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification 
         }     
         return render(request,'adminhome.html',context)
     except:
@@ -360,6 +366,7 @@ def adminhome(request):
                 "viewsuggestion":viewsuggestionacccess,
                 "userdata":userdataacccess,
                 "prdashboard":prdashboardacccess,
+                "suggestionNotification":suggestionNotification
         }
         return render(request,'adminhome.html',context)
 
@@ -419,7 +426,11 @@ def checkin(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     attendance = db.child("attendance").get().val()
     staffDB = db.child("staff").get().val()
     todaysDate = datetime.today()
@@ -654,10 +665,10 @@ def checkin(request):
         "viewworkmanager":viewmanageracccess,
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
-        "prdashboard":prdashboardacccess,  
+        "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification  
     }
     return render(request,'checkin.html',context) 
-
 
 def attendanced(request):
     uid = request.COOKIES["uid"]
@@ -715,6 +726,11 @@ def attendanced(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1    
     current_year = datetime.now().strftime("%Y")
     current_month = datetime.now().strftime("%m")
     current_date = datetime.now().strftime("%Y-%m-%d")
@@ -781,7 +797,8 @@ def attendanced(request):
             "viewworkmanager":viewmanageracccess,
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess,  
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification  
         }
     return render(request,'attendanced.html',context)
 
@@ -841,7 +858,11 @@ def attendancesort(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     if request.method =="POST":
         date1=request.POST["get-total1"]
         print(date1)
@@ -912,7 +933,8 @@ def attendancesort(request):
             "viewworkmanager":viewmanageracccess,
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess,  
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification 
         }
         return render(request,'attendanced.html',context)
 
@@ -972,7 +994,11 @@ def indvattendanced(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     getuid=request.POST["suid"]
     date=request.POST["date"]
     name=checkUserName(getuid)
@@ -1036,5 +1062,6 @@ def indvattendanced(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
     }
     return render(request,'indvattendanced.html',context)

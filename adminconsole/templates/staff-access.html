@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/forms.css' %}">
     <link rel="stylesheet" href="{% static 'css/pr.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -156,7 +157,7 @@
                         </li>
 
                         {% endif %}
-                      
+
                         {% if account %}
                         <li class="navlistmenu" onclick="location.href='/financial'">
                             <div class="left-nav-list">
@@ -182,7 +183,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if customerdetails %}
                         <li class="navlistmenu " onclick="location.href='/customer_details'">
                             <div class="left-nav-list">
@@ -195,7 +196,7 @@
                             </div>
                         </li>
                         {% endif %}
-                       
+
                         {% if quotation %}
                         <li class="navlistmenu" onclick="location.href='/quotation'">
                             <div class="left-nav-list">
@@ -221,7 +222,7 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if createstaff %}
                         <li class="navlistmenu " onclick="location.href='/createstaff'">
                             <div class="left-nav-list">
@@ -234,12 +235,13 @@
                             </div>
                         </li>
                         {% endif %}
-                        
+
                         {% if viewworkmanager %}
                         <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}" alt="createstaff_Icon">
+                                    <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}"
+                                        alt="createstaff_Icon">
                                 </div>
                             </div>
                             <div class="right-nav-list">
@@ -308,8 +310,12 @@
         <div class="right-con " id="rightCon" onclick="rightcon()">
 
             <div class="container">
-              
-                <div class="access-page-con">
+                <div class="product-nav  my-3">
+                    <h5 class="active-inv li-inventry" onclick="permissionBtn()" id="Permission-nav">Permission Access
+                    </h5>
+                    <h5 class="li-inventry" onclick="deleteBtn()" id="delete-form">Delete Access</h5>
+                </div>
+                <div class="access-page-con" id="staff-access">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="staff-access-form-con">
@@ -356,21 +362,68 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="access-page-con" id="delete-access">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="staff-access-form-con">
+                                <h3>Delete Access</h3>
+                                <form action="/staffaccess/" method="post">
+                                    {%csrf_token%}
+                                    <div class="form-inp-access">
+                                        <img src="{% static 'images/user-icon.svg' %}" alt="user-icon">
+                                        <select name="uid" id="">
+                                            <option value="">Select Staff</option>
+                                            {%for uid , name in allstaff%}
+                                            <option value="{{uid}}">{{name}}</option>
+                                            {%endfor%}
+                                        </select>
+                                    </div>
+                                    <!-- <div class="form-inp-access">
+                                        <img src="{% static 'images/position.svg' %}" alt="user-icon">
+                                        <input type="text" id="position" placeholder="Staff Position" >
+                                    </div> -->
+                                    <div class="form-inp-access">
+                                        <img src="{% static 'images/access-icon.svg' %}" alt="user-icon">
+                                        <select name="access" id="">
+                                            <option value="">Access Page</option>
+                                            <option value="customer details">Customer Details</option>
+                                            <option value="approval">Approval</option>
+                                            <option value="Account">Account</option>
+                                            <option value="Create Lead">Create Lead</option>
+                                            <option value="Quotation Page">Quotation Page</option>
+                                            <option value="Inventory Page">Inventory Page</option>
+                                            <option value="Create Staff">Create Staff</option>
+                                            <option value="Viewwork Manager">Viewwork Manager</option>
+                                            <option value="View Suggestion">View Suggestion</option>
+                                            <option value="User Data">User Data</option>
+                                            <option value="Prdashboard">Prdashboard</option>
+                                            <option value="inprogress">Inprogress</option>
+                                        </select>
+                                    </div>
+                                    <button class="primary-button">Permission</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="{% static 'images/access-page.svg' %}" alt="access-page" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <!-- bootstrap js -->
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
     <!-- js script  start -->
     <script src="{% static 'js/main.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-  
- 
+
+
 </body>
 
 </html>

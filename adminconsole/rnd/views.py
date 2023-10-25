@@ -76,6 +76,12 @@ def rndhome(request):
     if uid is not None:
         general=True
 
+
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
@@ -161,7 +167,6 @@ def rndhome(request):
         todaycheckin = convert_to_12_hour_format(todaycheckin)   
 
         listOfTodaysWork= []
-        print("date",formatted_date)
         try:
             for z in workmanager[current_year][current_month][formatted_date][uid]:
                 listOfTodaysWork.append(workmanager[current_year][current_month][formatted_date][uid][z])
@@ -207,7 +212,7 @@ def rndhome(request):
                 # "dep":dep,
                 # "accounts":accounts,
                 # "management":management,
-                # "suggestionNotification":suggestionNotification
+                "suggestionNotification":suggestionNotification
             }
         except:
             pass 
@@ -245,6 +250,7 @@ def rndhome(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification
         }
         return render(request, "rndhome.html", context)
     except:
@@ -277,6 +283,7 @@ def rndhome(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification
         }
     return render(request,'rndhome.html',context)
 def inprocess(request):
@@ -284,6 +291,11 @@ def inprocess(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile = request.COOKIES["profile"]
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     webaccess=db.child("webaccess").get().val()
     general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
     for accessuid in webaccess["customer details"]:
@@ -377,6 +389,7 @@ def inprocess(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
     }
     return render(request,'inprocess.html',context)
 
@@ -385,6 +398,11 @@ def create(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile = request.COOKIES["profile"]
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     webaccess=db.child("webaccess").get().val()
     general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
     for accessuid in webaccess["customer details"]:
@@ -473,13 +491,13 @@ def create(request):
         "viewworkmanager":viewmanageracccess,
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
-        "prdashboard":prdashboardacccess,  
+        "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification 
         }
     return render(request,'create.html',context)
 
 def gate(request):
     if request.method == "POST":
-        print("gate",request.POST)
         if "create-gate" in request.POST:
             print("=============")
             _email = request.POST["email"]
@@ -523,7 +541,6 @@ def gate(request):
                                 return render(request, "rnd/create.html", context)
                             else:
                                 _data = {"level":40, "status":False}
-                                
                                 shDB.child(uid).update({"WTA": True})
                                 shDB.child(uid).child("WaterTankAutomation").child("waterTank1").set(_data)
 

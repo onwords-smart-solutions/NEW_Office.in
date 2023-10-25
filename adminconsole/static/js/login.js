@@ -227,26 +227,7 @@ function productBtn() {
     adminNav.classList.remove('active-inv')
     prperNav.classList.remove('active-inv')
 }
-// function updateBtn() {
 
-//     const productTable = document.getElementById('product-table')
-//     const updateTable = document.getElementById('update-table')
-//     const adminPoints = document.getElementById('admin-points')
-//     const prdashBoard = document.getElementById('prdashboard')
-//     const proNav = document.getElementById('pro-nav')
-//     const updateNav = document.getElementById('update-nav')
-//     const adminNav = document.getElementById('admin-nav')
-//     const prperNav = document.getElementById('prper-nav')
-
-//     productTable.style.display = 'none'
-//     updateTable.style.display = 'block'
-//     adminPoints.style.display = 'none'
-//     prdashBoard.style.display = 'none'
-//     proNav.classList.remove('active-inv')
-//     updateNav.classList.add('active-inv')
-//     adminNav.classList.remove('active-inv')
-//     prperNav.classList.remove('active-inv')
-// }
 function adminBtn() {
     const productTable = document.getElementById('product-table')
     // const updateTable = document.getElementById('update-table')
@@ -290,45 +271,45 @@ function prpercBtn() {
 
 
 
-// const selectNav = document.getElementById('select-nav')
-// const staffName = document.getElementById('staff-name')
-// const depBtn = document.getElementById('dep-Btn')
-// const staffDetailsWorkdone = document.getElementById('staff-details-workdone')
-// const workdoneView = document.getElementById('workdone-view')
+const selectNav = document.getElementById('select-nav')
+const staffName = document.getElementById('staff-name')
+const depBtn = document.getElementById('dep-Btn')
+const staffDetailsWorkdone = document.getElementById('staff-details-workdone')
+const workdoneView = document.getElementById('workdone-view')
 
 
-// function selectBtn() {
-//     depBtn.style.display = 'block'
-//     staffDetailsWorkdone.style.display = 'none'
-//     workdoneView.style.display = 'none'
-//     staffName.display.style = 'block'
-//     selectNav.classList.add('activ-inv')
-// }
-// function choosestaff() {
-//     depBtn.style.display = 'none'
-//     staffDetailsWorkdone.style.display = 'none'
-//     workdoneView.style.display = 'none'
-//     staffName.display.style = 'block'
-//     selectNav.classList.add('activ-inv')
-// }
+function selectBtn() {
+    depBtn.style.display = 'block'
+    staffDetailsWorkdone.style.display = 'none'
+    workdoneView.style.display = 'none'
+    staffName.display.style = 'block'
+    selectNav.classList.add('activ-inv')
+}
+function choosestaff() {
+    depBtn.style.display = 'none'
+    staffDetailsWorkdone.style.display = 'none'
+    workdoneView.style.display = 'none'
+    staffName.display.style = 'block'
+    selectNav.classList.add('activ-inv')
+}
 
 
-// if(id2.checked==true){
-//     tableid.style.display='block'
-// }
+const permissionNav = document.getElementById('permission-nav')
+const deleteForm = document.getElementById('delete-form')
+const staffAccess = document.getElementById('staff-access')
+const deleteAccess = document.getElementById('delete-access')
 
-// const itBtn = document.querySelector('.itbtn')
-// const prBtn = document.querySelector('.prbtn')
-// const RndBtn = document.querySelector('.rndbtn')
-// const mainWorkdone = document.querySelector('.main-workdoneprint')
-
-
-// RndBtn.addEventListener('click',()=>{
-//     mainWorkdone.style.display='block'
-// })
-// prBtn.addEventListener('click',()=>{
-//     mainWorkdone.style.display='block'
-// })
-// itBtn.addEventListener('click',()=>{
-//     mainWorkdone.style.display='block'
-// })
+function permissionBtn() {
+    const staffAccess = document.getElementById('staff-access')
+    const deleteAccess = document.getElementById('delete-access')
+    staffAccess.style.display = 'block'
+    deleteAccess.style.display = 'none'
+    permissionNav.classList.add('active-inv')
+    deleteForm.classList.remove('active-inv')
+}
+function deleteBtn() {
+    staffAccess.style.display = 'none'
+    deleteAccess.style.display = 'block'
+    permissionNav.classList.remove('active-inv')
+    deleteForm.classList.add('active-inv')
+}
