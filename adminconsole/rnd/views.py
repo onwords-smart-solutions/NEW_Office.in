@@ -479,7 +479,9 @@ def create(request):
 
 def gate(request):
     if request.method == "POST":
+        print("gate",request.POST)
         if "create-gate" in request.POST:
+            print("=============")
             _email = request.POST["email"]
             try:
                 if request.POST["cycle"]:
@@ -504,8 +506,8 @@ def gate(request):
                             "Single_Gate_Status": False,
                         }
                         print(_data)
-                        # shDB.child(uid).update({"Gate": True})
-                        # shDB.child(uid).child("GateAutomation").child("gate-1").set(_data)
+                        shDB.child(uid).update({"Gate": True})
+                        shDB.child(uid).child("GateAutomation").child("gate-1").set(_data)
                 except:
                     # For Family
                     pass
@@ -522,8 +524,8 @@ def gate(request):
                             else:
                                 _data = {"level":40, "status":False}
                                 
-                                # shDB.child(uid).update({"WTA": True})
-                                # shDB.child(uid).child("WaterTankAutomation").child("waterTank1").set(_data)
+                                shDB.child(uid).update({"WTA": True})
+                                shDB.child(uid).child("WaterTankAutomation").child("waterTank1").set(_data)
 
                         except:
                             pass

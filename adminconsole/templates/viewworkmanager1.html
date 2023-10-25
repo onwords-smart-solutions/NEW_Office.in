@@ -360,10 +360,12 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {%for name in notenternamelist%}
                                 <tr class="table-body-li my-3">
-                                    <td>Anwar</td>
+                                    <td>{{name}}</td>
                                     <td></td>
                                 </tr>
+                                {%endfor%}
                             </tbody>
                         </table>
                     </div>
@@ -376,10 +378,12 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {%for name,time in totalcurentworkinglist%}
                                 <tr class="table-body-li my-3">
-                                    <td>Anwar</td>
-                                    <td>08:34</td>
+                                    <td>{{name}}</td>
+                                    <td>{{time}}</td>
                                 </tr>
+                                {%endfor%}
                             </tbody>
                         </table>
                     </div>

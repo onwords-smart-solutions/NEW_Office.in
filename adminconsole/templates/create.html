@@ -322,7 +322,8 @@
                     <div class="col-md-6">
                         <div class="create-products">
                             <div id="createGate">
-                                <form action="/gate/" class="create-gate">
+                                <form action="/gate/" class="create-gate" method="post">
+                                    {%csrf_token%}
                                     <!-- <label for="create-product-mail" class="create-product">Email</label> -->
                                     <div class="form-inp-con">
                                         <input type="email" name="email" id="create-product-mail" placeholder="Email">
@@ -342,7 +343,8 @@
                                 </form>
                             </div>
                             <div id="createWTA">
-                                <form action="/gate/" class="create-gate">
+                                <form action="/gate/" class="create-gate" method="post">
+                                    {%csrf_token%}
                                     <!-- <label for="create-product-mail" class="create-product">Email</label> -->
                                     <div class="form-inp-con">
                                         <input type="email" name="email" id="create-product-mail" placeholder="Email">
