@@ -510,38 +510,41 @@ def viewworkmanager(request):
     snolist=[]
     sno=0
     workdetails=db.child("workmanager").child(current_year).child(current_month).child(today).get().val()
-    for uid in workdetails:
-        try:
-            workdetails[uid]["LateEntry"]
-            pass
-        except:
-            for fulltime in workdetails[uid]:
-                workdetailslist.append(workdetails[uid][fulltime])
-                sno=sno+1
-                snolist.append(sno)
-    alltodayworks=zip(snolist,workdetailslist)
-    
-    if request.method == "POST":
-        date=request.POST["date"]
-        current_year=date[0:4]
-        current_month=date[5:7]
-        workdetailslist=[]
-        snolist=[]
-        sno=0
-        workdetails=db.child("workmanager").child(current_year).child(current_month).child(date).get().val()
-        try:
-            for uid in workdetails:
-                try:
-                    workdetails[uid]["LateEntry"]
-                    pass
-                except:
-                    for fulltime in workdetails[uid]:
-                        workdetailslist.append(workdetails[uid][fulltime])
-                        sno=sno+1
-                        snolist.append(sno)
-        except:
-            pass
-              
+    try:
+        for uid in workdetails:
+            try:
+                workdetails[uid]["LateEntry"]
+                pass
+            except:
+                for fulltime in workdetails[uid]:
+                    workdetailslist.append(workdetails[uid][fulltime])
+                    sno=sno+1
+                    snolist.append(sno)
+        alltodayworks=zip(snolist,workdetailslist)
+        
+        if request.method == "POST":
+            date=request.POST["date"]
+            current_year=date[0:4]
+            current_month=date[5:7]
+            workdetailslist=[]
+            snolist=[]
+            sno=0
+            workdetails=db.child("workmanager").child(current_year).child(current_month).child(date).get().val()
+            try:
+                for uid in workdetails:
+                    try:
+                        workdetails[uid]["LateEntry"]
+                        pass
+                    except:
+                        for fulltime in workdetails[uid]:
+                            workdetailslist.append(workdetails[uid][fulltime])
+                            sno=sno+1
+                            snolist.append(sno)
+            except:
+                pass
+    except:
+        pass        
+
         alltodayworks=zip(snolist,workdetailslist)
         context={
         "name":name,
