@@ -802,6 +802,35 @@
             //   } else { fname.setCustomValidity(""); }
             // });
         </script>
+        <script>
+            // break
+var xValues = [];
+var yValues = [30, 70];
+var barColors = [
+    "#7FA9FB",
+    "#266386",
+];
+new Chart("myChart3", {
+    type: "doughnut",
+    data: {
+        labels: xValues,
+        datasets: [{
+            backgroundColor: barColors,
+            data: yValues,
+            borderColor: 'transparent'
+
+        }]
+    },
+    options: {
+        cutoutPercentage: 80,
+        title: {
+            display: true,
+            text: ""
+        }
+    }
+});
+
+        </script>
 </body>
 
 </html>
