@@ -573,6 +573,7 @@ input {
     border: none;
     padding: 0px 10px;
 }
+
 .depart-btn {
     font-size: 18px;
     font-weight: 600;
@@ -596,7 +597,7 @@ input {
 
 /* CMO PRODUCT PAGE */
 
-.workdone-nav-below{
+.workdone-nav-below {
     width: 100%;
     padding: 10px;
     background-color: #fff;
@@ -606,7 +607,8 @@ input {
     align-items: center;
     justify-content: space-around;
 }
-.workdone-nav-below input{
+
+.workdone-nav-below input {
     width: 100px;
     padding: 10px;
     background: transparent;
@@ -614,28 +616,38 @@ input {
     border: none;
     border-radius: 5px;
 }
-.workdone-nav-below input:hover{
+
+.workdone-nav-below input:hover {
     background-color: #FBD87F;
-    
+
     /* padding: 10px; */
 }
-.form-btn input{
+
+.form-btn input {
     font-size: 20px;
     font-weight: 600;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     height: 50vh;
     width: 200px;
     overflow-y: scroll;
 }
-.dropdown-menu li{
+
+.dropdown-menu li {
     padding: 10px 0px;
     width: 80%;
     margin: 0 auto;
 }
 
-.main-workdoneprint{
+.main-workdoneprint {
     display: none;
 }
 
+#delete-access {
+    display: none;
+}
+
+.staff-access-form-con h3 {
+    transform: translate(0, 90px);
+}

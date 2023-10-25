@@ -665,3 +665,4 @@ def viewworkmanager(request):
         "suggestionNotification":suggestionNotification
     }          
     return render(request,'viewworkmanager1.html',context)
+
