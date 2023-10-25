@@ -445,55 +445,142 @@ def markasread(request):
     return redirect("/")
 
 def viewworkmanager(request):
-    suggestionNotification = 0
-    suggestionData = db.child("suggestion").get().val()
-    for suggestion in suggestionData:
-            if not suggestionData[suggestion]["isread"]:
-                suggestionNotification += 1
-    # try:
-    #     sensor = requests.get("http://117.247.181.113:8000/sensor/1/").json()
-    #     eb_status = sensor["EB_Status"]
-    # except:
-    #     eb_status = "-"
-    pendingWorkList, nameList, notWorkingList, absentList, presentList, presentTimeList = [], [], [], [], [], []
-    pendingWorkList.clear()
-    nameList.clear()
-    notWorkingList.clear()
-    absentList.clear()
+    uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile = request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
 
-    data = db.child("staff").get().val()
-    todayDate = str(date.today())
-    thisYear = datetime.now().strftime("%Y")
-    thisMonth = datetime.now().strftime("%m")
-    for staff in data:
-        if not data[staff]["department"] == "ADMIN":
-            fp = db.child("fingerPrint").get().val()
-            try:
-                fp[staff][todayDate]
-                presentList.append(data[staff]["name"])
-                for time in fp[staff][todayDate]:
-                    presentTimeList.append(time)
-                    break
-            except:
-                absentList.append(data[staff]["name"])
-    nameWorkList = zip(nameList, pendingWorkList)
-    lenWorking = len(nameList)
-    lenNotWorking = len(notWorkingList)
-    lenAbsent = len(absentList)
-    present = zip(presentList, presentTimeList)
-    presentMobile = zip(presentList, presentTimeList)
-    context = {
-        "lenWorking": lenWorking,
-        "lenNotWorking": lenNotWorking,
-        "lenAbsent": lenAbsent,
-        "nameWorkList": nameWorkList,
-        "notWorkingList": notWorkingList,
-        "absentList": absentList,
-        # "eb_status": eb_status,
-        "todayDate": todayDate,
-        "present": present,
-        "presentMobile": presentMobile,
-        "staffsPresent": len(presentList),
-        "suggestionNotification":suggestionNotification
-    }
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+    current_date = datetime.now()
+    yesterday = current_date - timedelta(days=1)
+    yesterday_str = yesterday.strftime("%Y-%m-%d")
+    today=datetime.now().strftime("%Y-%m-%d")
+    current_month=datetime.now().strftime("%m")
+    current_year=datetime.now().strftime("%Y")
+    workdetailslist=[]
+    snolist=[]
+    sno=0
+    workdetails=db.child("workmanager").child(current_year).child(current_month).child(today).get().val()
+    for uid in workdetails:
+        try:
+            workdetails[uid]["LateEntry"]
+            pass
+        except:
+            for fulltime in workdetails[uid]:
+                workdetailslist.append(workdetails[uid][fulltime])
+                sno=sno+1
+                snolist.append(sno)
+    alltodayworks=zip(snolist,workdetailslist)
+    
+    if request.method == "POST":
+        date=request.POST["date"]
+        current_year=date[0:4]
+        current_month=date[5:7]
+        workdetailslist=[]
+        snolist=[]
+        sno=0
+        workdetails=db.child("workmanager").child(current_year).child(current_month).child(date).get().val()
+        try:
+            for uid in workdetails:
+                try:
+                    workdetails[uid]["LateEntry"]
+                    pass
+                except:
+                    for fulltime in workdetails[uid]:
+                        workdetailslist.append(workdetails[uid][fulltime])
+                        sno=sno+1
+                        snolist.append(sno)
+        except:
+            pass
+              
+        alltodayworks=zip(snolist,workdetailslist)
+        context={
+        "name":name,
+        "dep":dep,
+        "profile":profile,
+        "alltodayworks":alltodayworks,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
+        }
+        return render(request,'viewworkmanager1.html',context)              
+
+    context={
+        "name":name,
+        "dep":dep,
+        "profile":profile,
+        "alltodayworks":alltodayworks,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
+    }          
     return render(request,'viewworkmanager1.html',context)
