@@ -8,7 +8,6 @@ def ithome(request):
     dep = request.COOKIES["dep"]
     name = request.COOKIES["name"]
     profile = request.COOKIES["profile"]
-    print(profile)
     webaccess=db.child("webaccess").get().val()
     general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
     for accessuid in webaccess["customer details"]:
@@ -91,6 +90,11 @@ def ithome(request):
     saturday_year = str(saturday_date.year)
     saturday_month = str(saturday_date.month).zfill(2)
     saturday_day = str(saturday_date.day).zfill(2)
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     for t in tl:
         if name == tl[t]:
             istl = True
@@ -220,7 +224,7 @@ def ithome(request):
                 # "dep":dep,
                 # "accounts":accounts,
                 # "management":management,
-                # "suggestionNotification":suggestionNotification
+                "suggestionNotification":suggestionNotification
             }
         except:
             pass 
@@ -261,6 +265,7 @@ def ithome(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification
 
         }
         return render(request, "ithome.html", context)
@@ -298,6 +303,7 @@ def ithome(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification
         }
 
     return render(request, "ithome.html", context)

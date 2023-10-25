@@ -69,6 +69,11 @@ def prhome(request):
     if uid is not None:
         general=True
 
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     current_date = datetime.now()
     formatted_date = current_date.strftime("%Y-%m-%d")
 
@@ -204,7 +209,7 @@ def prhome(request):
                 # "dep":dep,
                 # "accounts":accounts,
                 # "management":management,
-                # "suggestionNotification":suggestionNotification
+                "suggestionNotification":suggestionNotification
             }
         except:
             pass 
@@ -245,7 +250,8 @@ def prhome(request):
             "viewworkmanager":viewmanageracccess,
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess, 
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification
         }
         return render(request, "prhome.html", context)
     except:
@@ -277,13 +283,13 @@ def prhome(request):
             "viewworkmanager":viewmanageracccess,
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess, 
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification
         }
     return render(request, "prhome.html", context)
 
 def create_lead(request):
     uid = request.COOKIES["uid"]
-    print("get",uid)
     dep = request.COOKIES["dep"]
     logedInUser = request.COOKIES["uid"]
     loginState = request.COOKIES["loginState"]
@@ -301,7 +307,6 @@ def create_lead(request):
     webaccess=db.child("webaccess").get().val()
     general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
     for accessuid in webaccess["customer details"]:
-        print(uid)
         if webaccess["customer details"][accessuid] == uid:
             customeracccess=True
 
@@ -312,7 +317,6 @@ def create_lead(request):
     for accessuid in webaccess["Create Lead"]:
         if webaccess["Create Lead"][accessuid] == uid:    
             createleadacccess=True
-            print("=============")
 
     for accessuid in webaccess["Create Staff"]:
         if webaccess["Create Staff"][accessuid] == uid:    
@@ -350,9 +354,15 @@ def create_lead(request):
         if webaccess["inprogress"][accessuid] == uid:
             inprogressacccess=True            
     if uid is not None:
-        general=True    
+        general=True
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1        
     if loginState == "loggedIn":
         try:
+            print(request.POST)
             if request.method == "POST":
                 if "create-using-data" in request.POST:
                     data = db.get().val()
@@ -363,7 +373,7 @@ def create_lead(request):
                     for dcust in data["deletedcustomers"]:
                         if phno == dcust:
                             return render(request,"createLead.html", {"error": "Phone number already exist in deleted customers list","nameList":nameList,"dep":dep,"name":name,"profile":profile})
-                    name = request.POST["name"]
+                    name1 = request.POST["name"]
                     if len(phno) < 10:
                         return render(request,"createLead.html",{"error": "phone number should not be less the 10 digit","nameList":nameList,"dep":dep,"name":name,"profile":profile})
                     city = request.POST["city"]
@@ -377,7 +387,7 @@ def create_lead(request):
                     current_time = now.strftime("%H:%M:%S")
                     ef = request.POST["ef"]
                     data = {
-                        "name": name,
+                        "name": name1,
                         "phone_number": phno,
                         "city": city,
                         "email_id": Email,
@@ -390,8 +400,8 @@ def create_lead(request):
                         "created_by": checkUserName(uid),
                         "customer_state": "New leads",
                     }
-                
-                    db.child("customer").child(phno).set(data)
+                    print(data)
+                    # db.child("customer").child(phno).update(data)
                     context={
                         "akn": "user created success fully",
                         "colour": True,
@@ -412,6 +422,7 @@ def create_lead(request):
                         "viewsuggestion":viewsuggestionacccess,
                         "userdata":userdataacccess,
                         "prdashboard":prdashboardacccess,
+                        "suggestionNotification":suggestionNotification
                         }
                     return render(request,"createLead.html",context)
                 if "create-using-file" in request.POST:
@@ -419,14 +430,14 @@ def create_lead(request):
                     now = datetime.now()
                     current_time = now.strftime("%H:%M:%S")
                     enqFor = request.POST["eqfor"]
-                    name = request.POST["selectedName"]
+                    name1 = request.POST["selectedName"]
                     reader=request.FILES['myfile']
                     
                     a=0
                     read = csv.reader(codecs.iterdecode(reader, 'utf-8'))
                     for row in read:
                         if any(field.strip() for field in row):
-                            name = row[0]
+                            cname = row[0]
                             original_phone_number = row[1]
                             email = row[2]
                             city = row[3]
@@ -448,12 +459,12 @@ def create_lead(request):
                             else:
                                 number = original_phone_number
                             cust_data = {
-                                "name": name,
+                                "name": cname,
                                 "phone_number": number,
                                 "city": city,
                                 "email_id": email,
                                 "data_fetched_by": "Facebook Ads",
-                                "LeadIncharge": "Not Assigned",
+                                "LeadIncharge": name1,
                                 "created_by": checkUserName(logedInUser),
                                 "created_by": name,
                                 "created_date": str(curent_date),
@@ -462,6 +473,7 @@ def create_lead(request):
                                 "inquired_for": enqFor,
                                 "rating": 0
                             }
+                            print("=======================")
                             # custData = db.child("customer").get().val()
                             # if number not in custData:
                             #     db.child("customer").child(number).update(cust_data)
@@ -471,7 +483,8 @@ def create_lead(request):
                                 custData[number]
                                 alreadyExistList.append(number)
                             except Exception as err:
-                                db.child("customer").child(number).update(cust_data)
+                                print(cust_data)
+                                # db.child("customer").child(number).update(cust_data)
                             # return render(request,"pr/createlead.html",{"akn": "user created success fully", "colour": True, "tl":istl, "accounts": accounts,"management": management,"alreadyExistList": alreadyExistList})
                             # db.child("customer").child(number).update(cust_data)
                         else:
@@ -497,6 +510,7 @@ def create_lead(request):
                             "viewsuggestion":viewsuggestionacccess,
                             "userdata":userdataacccess,
                             "prdashboard":prdashboardacccess,
+                            "suggestionNotification":suggestionNotification
                       }
                     return render(request, "createLead.html",context)
             else:
@@ -522,6 +536,7 @@ def create_lead(request):
                         "viewsuggestion":viewsuggestionacccess,
                         "userdata":userdataacccess,
                         "prdashboard":prdashboardacccess,
+                        "suggestionNotification":suggestionNotification
                     }
                 return render(request,"createLead.html",context)
         except:
@@ -547,6 +562,7 @@ def create_lead(request):
                     "viewsuggestion":viewsuggestionacccess,
                     "userdata":userdataacccess,
                     "prdashboard":prdashboardacccess,
+                    "suggestionNotification":suggestionNotification
                 }
             return render(request,"createLead.html",context)
     else:
@@ -608,6 +624,12 @@ def customer_details(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
+
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1    
     # istl = False
     # praproval = False
     
@@ -777,11 +799,11 @@ def customer_details(request):
         "interestedCount":interestedCount,
         "newleadscount":newleadscount,
         "dep": dep,
-        "profile":profile
+        "profile":profile,
         # "tl": istl,
         # "accounts": accounts,
         # "management": management,
-        # "suggestionNotification":suggestionNotification,
+        "suggestionNotification":suggestionNotification,
         # "praproval":praproval,
         
     }
@@ -843,6 +865,13 @@ def points_workdone(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
+
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
+
     todaysDate = str(date.today())
     thisYear, thisMonth, _date = todaysDate.split("-")
     followingupCount, delayedCount, totalLeadCount = 0, 0, 0
@@ -913,7 +942,8 @@ def points_workdone(request):
                 "viewworkmanager":viewmanageracccess,
                 "viewsuggestion":viewsuggestionacccess,
                 "userdata":userdataacccess,
-                "prdashboard":prdashboardacccess,  
+                "prdashboard":prdashboardacccess,
+                "suggestionNotification":suggestionNotification  
                 
             }
             return render(request, "points_workdone.html", context)
@@ -941,7 +971,7 @@ def points_workdone(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
-        
+        "suggestionNotification":suggestionNotification
     }
     return render(request,'points_workdone.html',context)
 
@@ -1001,7 +1031,11 @@ def quotation(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     if request.method =="POST":
         date1=request.POST["get-total1"]
         uid = request.COOKIES["uid"]
@@ -1175,7 +1209,8 @@ def quotation(request):
             "viewworkmanager":viewmanageracccess,
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess,  
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification  
         }
         # iTimeStamp.sort()
         # qTimeStamp.sort()
@@ -1338,6 +1373,7 @@ def quotation(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
     }
     # iTimeStamp.sort()
     # qTimeStamp.sort()
@@ -1493,7 +1529,12 @@ def leadinfo(request):
 
     for accessuid in webaccess["inprogress"]:
         if webaccess["inprogress"][accessuid] == uid:
-            inprogressacccess=True            
+            inprogressacccess=True
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1                   
     if uid is not None:
         general=True
     try:
@@ -1602,7 +1643,8 @@ def leadinfo(request):
             "viewworkmanager":viewmanageracccess,
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess,  
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification 
         }
     else:
         context = {
@@ -1626,7 +1668,8 @@ def leadinfo(request):
             "viewworkmanager":viewmanageracccess,
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess,  
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification 
         }
     response = render(request, "leadinfo.html", context)
     response.set_cookie("userPhno", a)

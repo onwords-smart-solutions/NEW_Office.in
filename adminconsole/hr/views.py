@@ -61,7 +61,11 @@ def hrhome(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+        if not suggestionData[suggestion]["isread"]:
+            suggestionNotification += 1
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
@@ -206,7 +210,7 @@ def hrhome(request):
                 # "dep":dep,
                 # "accounts":accounts,
                 # "management":management,
-                # "suggestionNotification":suggestionNotification
+                "suggestionNotification":suggestionNotification
             }
         except:
             pass 
@@ -247,6 +251,7 @@ def hrhome(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification
         }
         return render(request, "adminhome.html", context)
     except:
@@ -282,5 +287,6 @@ def hrhome(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification
         }
     return render(request,'adminhome.html',context)
