@@ -361,10 +361,10 @@
                           <span class="right">: {{incharge}}</span>
                         </div>
                         <div class="in">
-                          <form action="/customerstate/" method="post" id="cust-form">
+                          <form action="/customerstate/" method="post" id="datetime1">
                             {% csrf_token %}
                             <label for="cust-state">Customer State : </label>
-                            <select name="cust-state" id="cust-state" onchange="custState()">
+                            <select name="cust-state" id="cust-state" onchange="leadIn()">
                               <option hidden>{{userData.customer_state}}</option>
                               <option>Following Up</option>
                               <option>Delayed</option>
@@ -380,10 +380,10 @@
                         </div>
                         <div class="in">
                           {% if management or tl %}
-                          <form action="/leadincharge/" method="post" id="lead-incharge">
+                          <form action="/leadincharge/" method="post" id="datetime">
                             {% csrf_token %}
                             <label for="lead-in">Select/Change Lead Incharge</label>
-                            <select name="lead-in" id="lead-in" onchange="leadIn()">
+                            <select name="lead-in" id="lead-in" onchange="leadIn1()">
                               <option value="" disabled selected>
                                 Select / Change Lead Incharge
                               </option>
@@ -450,18 +450,17 @@
                       </div>
                   </div>
                 </div>
-                {% if management %}
                   <div class="box-3" id="box-3">
                     <form action="/deletelead/" method="post" id="delete-form">
                       {% csrf_token %}
-                      <input type="hidden" name="phno" value="{{userData.phone_number}}" required/>
-                      <input type="hidden" name="nam" value="{{userData.name}}" required/>
+                      <input type="hidden" name="phno" value="{{userData.phone_number}}"/>
+                      <input type="hidden" name="nam" value="{{userData.name}}"/>
                       <input type="text" name="rsn" id="rsn" placeholder="Reason to delete the customer" required />
                       <br><br>
+                      <button  class="dr">Delete customer</button>
                     </form>
-                    <button onclick="deletePost()" class="dr">Delete customer</button>
+                    
                   </div>
-                {% endif %}
               </div>
           </div>
       </div>
@@ -481,7 +480,16 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-
+    <script>
+        function leadIn(){
+           document.getElementById("datetime1").submit()
+         }
+    </script>
+    <script>
+        function leadIn1(){
+           document.getElementById("datetime").submit()
+         }
+    </script>
 </body>
 
 </html>

@@ -398,7 +398,7 @@ def create_lead(request):
                         "created_by": checkUserName(uid),
                         "customer_state": "New leads",
                     }
-                    # db.child("customer").child(phno).update(data)
+                    db.child("customer").child(phno).update(data)
                     context={
                         "akn": "user created success fully",
                         "colour": True,
@@ -480,8 +480,8 @@ def create_lead(request):
                                 alreadyExistList.append(number)
                             except Exception as err:
                                 pass
-                                # print(number,cust_data)
-                                # db.child("customer").child(number).update(cust_data)
+                                print(number,cust_data)
+                                db.child("customer").child(number).update(cust_data)
                             # return render(request,"pr/createlead.html",{"akn": "user created success fully", "colour": True, "tl":istl, "accounts": accounts,"management": management,"alreadyExistList": alreadyExistList})
                             # db.child("customer").child(number).update(cust_data)
                         else:
@@ -1687,6 +1687,40 @@ def addnotes(request):
     db.child("customer").child(phn).child("notes").child(curr_time).set(notes)
     return redirect(leadinfo)
 
+def customerstate(request):
+    phn = request.COOKIES["userPhno"]
+    state = request.POST["cust-state"]
+    db.child("customer").child(phn).update({"customer_state": state})
+    # if state == "Installation Process":
+    #     return redirect(enquiryForm)
+    return redirect(leadinfo)
+
+def leadincharge(request):
+    uid = request.COOKIES["uid"]
+    name = checkUserName(uid)
+    curent_date = str(date.today())
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    phn = request.COOKIES["userPhno"]
+    incharge = request.POST["lead-in"]
+    db.child("customer").child(phn).update({"LeadIncharge": incharge})
+    time = curent_date+"_"+current_time
+    db.child("customer").child(phn).child("LeadInchargeChange").update({time:{"updated":time, "updated_by": name}})
+    return redirect(leadinfo)
+def deletelead(request):
+    if request.method == "POST":
+        data = db.get().val()
+        reason = request.POST["rsn"]
+        phno = request.POST["phno"]
+        name = request.POST["nam"]
+        a = data["customer"][phno]
+        a["reason"] = reason
+        a["deleted_on"] = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+        dc = {phno: a}
+        db.child("deletedcustomers").update(dc)
+        db.child("customer").child(phno).remove()
+        return redirect("customerdetails")
+    return redirect("customer_details")
 
 def checkUserName(uid):
     data = db.child("staff").get().val()

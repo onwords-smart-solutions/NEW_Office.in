@@ -50,10 +50,10 @@ urlpatterns = [
     path("pinvoiceForm/", prviews.pinvoiceForm, name="pinvoiceForm"),
     path("quoteForm/", prviews.quoteForm, name="quoteForm"),
     path("leadinfo/",prviews.leadinfo,name='leadinfo'),
-    
-    
-    path("leadinfo/",prviews.leadinfo,name="leadinfo"),
+    path("leadincharge/",prviews.leadincharge,name="leadincharge"),
+    path("/",prviews.customerstate,name="customerstate"),
     path("addnotes/",prviews.addnotes,name="addnotes"),
+     path("deletelead/",prviews.deletelead,name="deletelead"),
     # ================ accounts department ====================
 
     path("financial/",views.financial,name='financial'),

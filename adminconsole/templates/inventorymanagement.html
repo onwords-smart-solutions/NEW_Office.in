@@ -424,9 +424,10 @@
                             </tr>
                         </thead>
                         <tbody class="table my-3">
+                            {%for sno,y in allinventory%}
                             <form action="/inventorymanagement/" method="post">
-                                {%for sno,y in allinventory%}
                                 {%csrf_token%}
+                               
                                 <tr class="product-details">
                                     <td><input type="number" value="{{sno}}"></td>
                                     <td><input type="text" name="id" value="{{y.id}}"></td>
@@ -439,8 +440,9 @@
                                                 src="{% static 'images/nav-icon/edit.svg' %}" alt="del"
                                                 class="img-fluid"></button></td>
                                 </tr>
-                                {%endfor%}
+                                
                             </form>
+                            {%endfor%}
                         </tbody>
                     </table>
                 </div>

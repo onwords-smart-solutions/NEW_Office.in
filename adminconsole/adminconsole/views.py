@@ -1593,7 +1593,7 @@ def inventorymanagement(request):
         name=request.POST['name']
         obc=request.POST['obc']
         stock=request.POST['stock']
-
+        print(id,max_price,min_price,name,obc,stock)
         data={
             "id":id,
             "max_price":max_price,
