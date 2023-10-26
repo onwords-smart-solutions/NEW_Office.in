@@ -352,10 +352,10 @@
                     </div>
                 </div>
                 <div class="top-customer-btns">
-                    <div class="row">
+                    <div class="row" id="custom-parent">
 
                         <div class="col-md-2">
-                            <label for="fupId" class="custom-btn following-up">
+                            <label for="fupId" class="custom-btn custom-active following-up">
                                 <div class="first-custm-text">
                                     <h6>Following Up</h6>
                                     <h4>{{followUpCount}}</h4>
@@ -868,7 +868,7 @@
                 <div class="">
                     <table class="table mt-4" id="myTable">
                         <thead>
-                            <tr class="leave-table-head">
+                            <tr class="leave-table-head text-align-start">
                                 <th>S.No</th>
                                 <th>Name</th>
                                 <th>Number</th>
@@ -884,7 +884,7 @@
                             {% for name, phone, state, note, date, inc, created in allData %}
                             <form method="post" action="/leadinfo/" id="leadDetails">
                                 {% csrf_token %}
-                                <tr class="mt-3">
+                                <tr class="mt-3 text-center">
                                     <td hidden>{{date}}</td>
                                     <td></td>
                                     <td>
