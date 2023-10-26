@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from adminconsole.views import db, checkUserName,checkUserDepartment
 from adminconsole.views import db, storage
 from datetime import date,datetime, timedelta
-import csv, codecs
+import csv, codecs,requests
 from it.views import convert_to_12_hour_format,calculate_progress,calculate_progress_
 from django.http import HttpResponse
 # Create your views here.
@@ -433,7 +433,6 @@ def create_lead(request):
                     enqFor = request.POST["eqfor"]
                     name1 = request.POST["selectedName"]
                     reader=request.FILES['myfile']
-                    
                     a=0
                     read = csv.reader(codecs.iterdecode(reader, 'utf-8'))
                     for row in read:

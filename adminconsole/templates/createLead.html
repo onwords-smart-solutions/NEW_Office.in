@@ -370,7 +370,7 @@
                             <img src="{% static 'images/create_lead_img.svg' %}" alt="leave-form" class="img-fluid">
                         </div>
                        <div class="create-lead-list">
-                        <form action="/create_lead/" method="post" class="create-lead-forms">
+                        <form action="/create_lead/" method="post" class="create-lead-forms" enctype="multipart/form-data">
                             {% csrf_token %}
                           <div class="lead-inp-con d-flex align-items-center justify-content-around">
                            <div class="d-flex align-items-center  checkbox-li">
@@ -388,7 +388,7 @@
                           </div>
                           <div class="lead-inp-con">
                             <img src="{% static 'images/file-icon.svg' %}" alt="user_icon" class="img-fluid">
-                            <input type="file"  name="myfile" id="" placeholder="File Upload">
+                            <input type="file"  name="myfile" id="myfile" placeholder="File Upload">
                           </div>
                           <div class="lead-inp-con">
                             <img src="{% static 'images/user-icon.svg' %}" alt="user_icon" class="img-fluid">
@@ -401,7 +401,7 @@
                            
                           </div>
                          
-                          <button class="primary-button" name="create-using-file">Submit</button>
+                          <button class="primary-button" type="submit" name="create-using-file">Submit</button>
                         </form>
                        </div>
                       
