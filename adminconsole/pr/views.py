@@ -425,6 +425,7 @@ def create_lead(request):
                         "suggestionNotification":suggestionNotification
                         }
                     return render(request,"createLead.html",context)
+
                 if "create-using-file" in request.POST:
                     curent_date = date.today()
                     now = datetime.now()
