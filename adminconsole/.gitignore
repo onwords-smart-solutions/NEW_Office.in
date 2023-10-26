@@ -175,6 +175,7 @@ installation/__pycache__/
 it/__pycache__/
 pr/__pycache__/
 rnd/__pycache__/
+superadmin/__pycache__/
 *.py[cod]
 *$py.class
 
