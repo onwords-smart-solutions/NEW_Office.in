@@ -2673,7 +2673,8 @@ def workmanagerTl(request):
                     
     #         except:
     #             pass      
-    return render(request,'workmanagerTL.html')  
+    return render(request,'workmanagerTL.html') 
+ 
 def  deleteaccess(request):
     uid = request.COOKIES["uid"]
     name = request.COOKIES["name"]
@@ -2791,8 +2792,10 @@ def  deleteaccess(request):
     }
     return render(request,'deleteaccess.html',context)
 
+
 def forgetpassword(request):
-    return render(request,'deleteaccess.html')
+    return render(request,'forgot.html')
+
 def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
     try:
         asia_timezone = pytz.timezone('Asia/Kolkata')
@@ -2841,4 +2844,3 @@ def convert_to_12_hour_format(progress):
 
 
    
-    return render(request,'deleteaccess.html')   
