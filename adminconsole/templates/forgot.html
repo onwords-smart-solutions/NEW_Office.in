@@ -23,11 +23,11 @@
                     <div class="loginform-con">
 
                         <div class="signin-form" >
-                            <form action="">
+                            <form method="post" action="/forgetpassword/">
                                 <h2>Forgot PAssword</h2>
                               <div class="form-inp-cons">
                                 <img src="{% static 'images/email-icon.svg' %}" alt="email-icon">
-                                <input type="email" name="" id="" placeholder="Enter Your Email">
+                                <input type="email" name="email" id="" placeholder="Enter Your Email" required>
                               </div>
                             </form>
                             <button class="primary-button" onclick="reset()">Reset Your Password</button>

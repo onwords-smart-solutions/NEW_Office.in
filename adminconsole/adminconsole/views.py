@@ -3,6 +3,7 @@ import pyrebase, requests
 from datetime import date, datetime, timedelta, time
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 import pytz
 
 config = {
@@ -32,12 +33,12 @@ aiconfig = {
     "measurementId": "G-J4YXBZGFJY",
 }
 firebase = pyrebase.initialize_app(config)
-db = firebase.database()
+db1 = firebase.database()
 auth = firebase.auth()
 storage1 = firebase.storage()
 
 firebase1 = pyrebase.initialize_app(firebaseConfig)
-db1 = firebase1.database()
+db = firebase1.database()
 storage = firebase1.storage()
 
 aifirebase = pyrebase.initialize_app(aiconfig)
@@ -185,7 +186,7 @@ def login(request):
             return render(request, "login.html", context)
     else:
         return render(request, "login.html")
-    
+  
 
 def leave_form(request):
     uid = request.COOKIES["uid"]
@@ -391,8 +392,8 @@ def leave_form(request):
                     "duration": duration_str,
                 }
             db.child("leave_details").child(current_year).child(current_month).child(current_date).child(uid).child(leave_type).update(c) 
-
-    try:
+    leavehistory = []
+    try:   
         leavedata = db.child("leave_details").child(current_year).get().val()
         datelist,reasonlist,statelist,inchargelist=[],[],[],[]
         for monthdata in leavedata:
@@ -407,33 +408,31 @@ def leave_form(request):
                         except:
                             inchargelist.append(False)
                 except:
-                    pass            
-
+                    pass                 
         leavehistory = zip(datelist,reasonlist,statelist,inchargelist)
-        context = {
-            "leavehistory": leavehistory,
-            "dep":dep,
-            "name":name,
-            "profile":profile,
-            "general":general,
-            "approvalpage":approvalacccess,
-            "rnd":inprogressacccess,
-            "account":accountacccess,
-            "createlead":createleadacccess,
-            "customerdetails":customeracccess,
-            "quotation":quotationacccess,
-            "inventory":inventoryacccess,
-            "createstaff":createstaffacccess,
-            "viewworkmanager":viewmanageracccess,
-            "viewsuggestion":viewsuggestionacccess,
-            "userdata":userdataacccess,
-            "prdashboard":prdashboardacccess,
-            "suggestionNotification":suggestionNotification  
-        }
-        return render(request,'leave-form.html',context)
     except:
-        pass
-    return render(request,'leave-form.html',)
+        pass    
+    context = {
+        "leavehistory": leavehistory,
+        "dep":dep,
+        "name":name,
+        "profile":profile,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification  
+    }
+    return render(request,'leave-form.html',context)
 
 def approvalprocess(request):
     uid1 = request.COOKIES["uid"]
@@ -1698,16 +1697,10 @@ def coohome(request):
     installation = db.child("Installationdetails").get().val()
     current_date = datetime.now()
     formatted_date = current_date.strftime("%Y-%m-%d")
-
-    # Get the current year, month, and day
     current_year = str(current_date.year)
     current_month = str(current_date.month).zfill(2)
     current_day = str(current_date.day).zfill(2)
-
-    # Calculate yesterday's date
     yesterday = current_date - timedelta(days=1)
-
-    # Get yesterday's year, month, and day
     yesterday_year = str(yesterday.year)
     yesterday_month = str(yesterday.month).zfill(2)
     yesterday_day = str(yesterday.day).zfill(2)
@@ -1729,7 +1722,6 @@ def coohome(request):
         alluid = installation[selected_year][selected_month][date]
         date_object = datetime.strptime(date, '%Y-%m-%d')
 
-            # Check if the date is within the last 7 days
         if start_date <= date_object <= end_date:
             for num, data in alluid.items():
                 alllist.append((num, data)) 
@@ -1800,7 +1792,30 @@ def coohome(request):
                 attendance[current_date1][staffuid]
                 stafftotalpresent=stafftotalpresent+1
             except:
-                stafftotalabsent=stafftotalabsent+1              
+                stafftotalabsent=stafftotalabsent+1  
+    try:
+        generalcount = 0
+        sickcount = 0
+        leavedata = db.child("leave_details").get().val()
+        yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
+        for allMonths in leavedata[current_year]:
+
+            months = leavedata[current_year][allMonths]
+            for allDates in months:
+                try:
+                    le = leavedata[current_year][allMonths][allDates][uid]
+                    for leave_type, leave_info in le.items():
+                        if leave_type == "general":
+                            generalcount+=1
+                        if leave_type == "sick":
+                            sickcount+=1    
+                except:
+                    pass  
+    except:
+        pass 
+    generalleave = 24 - generalcount
+    sickleave = 12 - sickcount  
+    overallleave = generalleave + sickleave                                  
     context={
         "alllist":alllist,
         "inventoryall":inventoryall,
@@ -1827,7 +1842,12 @@ def coohome(request):
         "yescheckout": yesscheckout,
         "yesprogress":yesterdayprogress,
         "todayprogress":today_progress,
-        "day":day
+        "day":day,
+        "generalleave":generalleave,
+        "sickleave":sickleave,
+        "overallleave":overallleave,
+        "stafftotalpresent":stafftotalpresent,
+        "stafftotalabsent":stafftotalabsent,
     }    
     return render(request,'coohome.html',context)
 
@@ -2794,7 +2814,17 @@ def  deleteaccess(request):
 
 
 def forgetpassword(request):
-    return render(request,'forgot.html')
+    if request.method == "POST":
+        resetemail = request.POST["email"]
+        auth.send_password_reset_email(resetemail)
+        response = messages.info(
+            request,
+            "Your password reset Link has been Sent Check Your E-Mail, Kindly check your spam if not in your inbox :)",
+        )
+        response = redirect("login")
+        return response
+    else:
+        return render(request,'forgot.html')
 
 def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
     try:
