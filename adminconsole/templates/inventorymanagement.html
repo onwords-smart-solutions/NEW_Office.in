@@ -368,8 +368,9 @@
                             <div class="modal-body">
                                 <div class="cal-point" id="cal-point">
                                     <form action="">
-                                        <input type="text" placeholder="Calculate Point">
-                                        <input type="text" placeholder="Count">
+
+                                        <input type="text" placeholder="Calculate Point" required>
+                                        <input type="text" placeholder="Count" required>
                                         <button class="primary-button">Submit</button>
                                     </form>
                                 </div>
@@ -394,12 +395,12 @@
                                 <div class="addpoint-table" id="add-point">
                                     <form action="/inventorymanagement/" method="post">
                                         {%csrf_token%}
-                                        <input type="text" name="id" placeholder="Produt Id">
-                                        <input type="text" name="name" placeholder="Product Name">
-                                        <input type="text" name="obc" placeholder="OBC">
-                                        <input type="number" name="min_price" placeholder="Minimum Price">
-                                        <input type="number" name="max_price" placeholder="Maximum Price">
-                                        <input type="number" name="stock" placeholder="Stock">
+                                        <input type="text" name="id" placeholder="Produt Id" required>
+                                        <input type="text" name="name" placeholder="Product Name" required>
+                                        <input type="text" name="obc" placeholder="OBC" required>
+                                        <input type="number" name="min_price" placeholder="Minimum Price" required>
+                                        <input type="number" name="max_price" placeholder="Maximum Price" required>
+                                        <input type="number" name="stock" placeholder="Stock" required>
                                         <button type="submit" class="primary-button" name="update">Submit</button>
                                     </form>
                                 </div>
@@ -448,19 +449,19 @@
                 <div class="admin-points " id="admin-points">
                     <div class="adminpoints-nav ">
                         <span>
-                            <h5 class="up-cmo">Name <span><input class="cmo-input" type="text"></span> </h5>
+                            <h5 class="up-cmo">Name <span><input class="cmo-input" type="text" required></span> </h5>
                         </span>
                         <span>
-                            <h5 class="up-cmo">Points <span><input class="cmo-input" type="text"></span> </h5>
+                            <h5 class="up-cmo">Points <span><input class="cmo-input" type="text" required></span> </h5>
                         </span>
                         <span>
-                            <h5 class="up-cmo">Total Points <span><input class="cmo-input" type="text"></span> </h5>
+                            <h5 class="up-cmo">Total Points <span><input class="cmo-input" type="text" required></span> </h5>
                         </span>
                         <span>
-                            <h5 class="up-cmo">Pr Total <span><input class="cmo-input" type="text"></span> </h5>
+                            <h5 class="up-cmo">Pr Total <span><input class="cmo-input" type="text" required></span> </h5>
                         </span>
                         <span>
-                            <h5 class="up-cmo">Target Total <span><input class="cmo-input" type="text"></span> </h5>
+                            <h5 class="up-cmo">Target Total <span><input class="cmo-input" type="text" required></span> </h5>
                         </span>
                         <h5><button type="submit" class="primary-button">Submit</button></h5>
                     </div>
