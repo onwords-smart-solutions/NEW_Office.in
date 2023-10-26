@@ -362,7 +362,6 @@ def create_lead(request):
             suggestionNotification += 1        
     if loginState == "loggedIn":
         try:
-            print(request.POST)
             if request.method == "POST":
                 if "create-using-data" in request.POST:
                     data = db.get().val()
@@ -400,8 +399,7 @@ def create_lead(request):
                         "created_by": checkUserName(uid),
                         "customer_state": "New leads",
                     }
-                    print(data)
-                    # db.child("customer").child(phno).update(data)
+                    db.child("customer").child(phno).update(data)
                     context={
                         "akn": "user created success fully",
                         "colour": True,
@@ -473,7 +471,6 @@ def create_lead(request):
                                 "inquired_for": enqFor,
                                 "rating": 0
                             }
-                            print("=======================")
                             # custData = db.child("customer").get().val()
                             # if number not in custData:
                             #     db.child("customer").child(number).update(cust_data)
@@ -483,8 +480,7 @@ def create_lead(request):
                                 custData[number]
                                 alreadyExistList.append(number)
                             except Exception as err:
-                                print(cust_data)
-                                # db.child("customer").child(number).update(cust_data)
+                                db.child("customer").child(number).update(cust_data)
                             # return render(request,"pr/createlead.html",{"akn": "user created success fully", "colour": True, "tl":istl, "accounts": accounts,"management": management,"alreadyExistList": alreadyExistList})
                             # db.child("customer").child(number).update(cust_data)
                         else:
@@ -514,7 +510,6 @@ def create_lead(request):
                       }
                     return render(request, "createLead.html",context)
             else:
-                print("========",createleadacccess)
                 context={
                         "akn": "error creating user",
                         "colour": False,
@@ -540,7 +535,6 @@ def create_lead(request):
                     }
                 return render(request,"createLead.html",context)
         except:
-            print("qddw",approvalacccess)
             context={
                     "akn": "error creating user",
                     "colour": False,
