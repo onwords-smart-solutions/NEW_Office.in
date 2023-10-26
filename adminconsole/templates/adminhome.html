@@ -317,34 +317,36 @@
                             <div class="row d-flex align-items-center">
                                 <div class="col-md-4">
                                     <span>Check In</span><br>
-                                    <span>{{todaycheckin}}</span>
+                                    <span>{{ todaycheckin }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 65%;"
-                                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: {{ todayprogress }}%"
+                                            aria-valuenow="{{ todayprogress }}" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <span>Check Out</span><br>
-                                    <span>{{todaycheckout}}</span>
+                                    <span>{{ todaycheckout }}</span>
                                 </div>
                             </div>
-                            <h6>Yesterday</h6>
+                            <h6>{% if day %}{{ day }}{% else %}Yesterday{% endif %}</h6>
                             <div class="row d-flex align-items-center mt-1">
                                 <div class="col-md-4">
                                     <span>Check In</span><br>
-                                    <span>{{yesscheckin}}</span>
+                                    <span>{{ yescheckin }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 100%;"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div id="progress-bar" role="progressbar" style="width: {{ yesprogress }}%"
+                                            aria-valuenow="{{ yesprogress }}" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <span>Check Out</span><br>
-                                    <span>{{yesscheckout}}</span>
+                                    <span>{{ yescheckout }}</span>
                                 </div>
                             </div>
                         </div>

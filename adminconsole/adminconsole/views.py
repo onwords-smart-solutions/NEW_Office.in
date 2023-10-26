@@ -1974,6 +1974,7 @@ def workdonedetails(request):
     return render (request,'workdonedetails.html')
 
 def refreshment(request):
+    print("refreshment")
     suggestionNotification = 0
     suggestionData = db.child("suggestion").get().val()
     for suggestion in suggestionData:

@@ -254,6 +254,7 @@ def rndhome(request):
         }
         return render(request, "rndhome.html", context)
     except:
+        print("today",todaycheckin,todaycheckout)
         context = {
             "project": False,
             "name": name,
