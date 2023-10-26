@@ -2751,3 +2751,4 @@ def convert_to_12_hour_format(progress):
 
 
    
+    return render(request,'deleteaccess.html')   
