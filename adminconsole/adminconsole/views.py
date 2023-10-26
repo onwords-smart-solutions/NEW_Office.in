@@ -2827,6 +2827,7 @@ def  deleteaccess(request):
 def forgetpassword(request):
     if request.method == "POST":
         resetemail = request.POST["email"]
+        print("email",resetemail)
         auth.send_password_reset_email(resetemail)
         response = messages.info(
             request,

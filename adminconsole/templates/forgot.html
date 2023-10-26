@@ -24,13 +24,15 @@
 
                         <div class="signin-form" >
                             <form method="post" action="/forgetpassword/">
-                                <h2>Forgot PAssword</h2>
+                                {% csrf_token %}
+                                <h2>Forgot Password</h2>
                               <div class="form-inp-cons">
                                 <img src="{% static 'images/email-icon.svg' %}" alt="email-icon">
-                                <input type="email" name="email" id="" placeholder="Enter Your Email" required>
+                                <input type="email" name="email" id="" placeholder="Enter Your Email">
                               </div>
+                              <button class="primary-button" onclick="">Reset Your Password</button>
                             </form>
-                            <button class="primary-button" onclick="reset()">Reset Your Password</button>
+                            
                         </div>
                     </div>
                 </div>
