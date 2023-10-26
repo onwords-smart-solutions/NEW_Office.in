@@ -2665,62 +2665,6 @@ def workmanagerTl(request):
                     
     #         except:
     #             pass      
-<<<<<<< HEAD
     return render(request,'workmanagerTL.html')  
 def  deleteaccess(request):
     return render(request,'deleteaccess.html')   
-=======
-    return render(request,'workmanagerTL.html')   
-
-def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
-    try:
-        print("starting")
-        asia_timezone = pytz.timezone('Asia/Kolkata')
-        current_time = datetime.now(asia_timezone).strftime('%H:%M:%S')
-
-        if today_checkin != "No Entry":
-            today_checkin_time = datetime.strptime(today_checkin, "%H:%M:%S")
-            
-            if today_checkout == "No Entry":
-                today_checkout_time = datetime.strptime(current_time, "%H:%M:%S")
-            else:
-                today_checkout_time = datetime.strptime(today_checkout, "%H:%M:%S")
-
-            time_difference = today_checkout_time - today_checkin_time
-            progress_hours = time_difference.total_seconds() / 3600
-            progress_percentage = (progress_hours / goal_hours) * 100
-            print("func",progress_percentage)
-
-            return progress_percentage
-        else:
-            return "No Entry"
-    except Exception as e:
-        print(f"Error: {e}")
-        return "No Entry"
-   
-def calculate_progress(working_hours, goal_hours=9):
-    try:
-        # Convert the working_hours to a timedelta object
-        working_hours = datetime.strptime(working_hours, "%H:%M:%S").time()
-
-        # Calculate the total working time in seconds
-        total_working_seconds = working_hours.hour * 3600 + working_hours.minute * 60 + working_hours.second
-
-        # Calculate progress as a percentage
-        progress_percentage = min(100, (total_working_seconds / (goal_hours * 3600)) * 100)
-
-        return progress_percentage
-    except:
-        return "Absent"    
-
-def convert_to_12_hour_format(progress):
-    try:
-        time_24h_obj = datetime.strptime(progress, "%H:%M:%S")
-        time_12h = time_24h_obj.strftime("%I:%M %p")
-    except:
-        time_12h = "No Entry"    
-    return time_12h
-
-
-   
->>>>>>> 7e59a37c41b279d7f738729c8ae34a57198be7a5
