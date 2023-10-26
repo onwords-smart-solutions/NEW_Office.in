@@ -358,7 +358,7 @@ def inprocess(request):
         except:
             pass
     if custNameList == [] and custPhnList == []:
-        context = {"nocustomer": "No Customer is currently In Process", "tl": istl,"rndaproval":rndaproval}
+        context = {"nocustomer": "No Customer is currently In Process"}
         return render(request, "rnd/inprocess.html", context)
     # try:
     #     # for cust in data:
