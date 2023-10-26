@@ -846,24 +846,27 @@ def leave_approval(request):
     staff_data = db.child("staff").get().val()
     yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
     for staff in staff_data:
-        for allYears in leavedata:
-            years = leavedata[allYears]
-            for allMonths in years:
-                months = leavedata[allYears][allMonths]
-                for allDates in months:
-                    try:
-                        le = leavedata[allYears][allMonths][allDates][staff]
-                        
-                        for leave_type, leave_info in le.items():
-                            types = leave_type
-                            data = leave_info
-                            yearList.append(allYears)
-                            monthList.append(allMonths)
-                            dateList.append(allDates)
-                            typelist.append(types)
-                            datalist.append(data)
-                    except:
-                        pass
+        try:
+            for allYears in leavedata:
+                years = leavedata[allYears]
+                for allMonths in years:
+                    months = leavedata[allYears][allMonths]
+                    for allDates in months:
+                        try:
+                            le = leavedata[allYears][allMonths][allDates][staff]
+                            
+                            for leave_type, leave_info in le.items():
+                                types = leave_type
+                                data = leave_info
+                                yearList.append(allYears)
+                                monthList.append(allMonths)
+                                dateList.append(allDates)
+                                typelist.append(types)
+                                datalist.append(data)
+                        except:
+                            pass
+        except:
+            pass                
         
     allList = zip(yearList, monthList, dateList, typelist, datalist)
     allListMobile = zip(yearList, monthList, dateList, typelist, datalist)
@@ -955,24 +958,27 @@ def approval(request):
     staff_data = db.child("staff").get().val()
     yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
     for staff in staff_data:
-        for allYears in leavedata:
-            years = leavedata[allYears]
-            for allMonths in years:
-                months = leavedata[allYears][allMonths]
-                for allDates in months:
-                    try:
-                        le = leavedata[allYears][allMonths][allDates][staff]
-                        
-                        for leave_type, leave_info in le.items():
-                            types = leave_type
-                            data = leave_info
-                            yearList.append(allYears)
-                            monthList.append(allMonths)
-                            dateList.append(allDates)
-                            typelist.append(types)
-                            datalist.append(data)
-                    except:
-                        pass
+        try:
+            for allYears in leavedata:
+                years = leavedata[allYears]
+                for allMonths in years:
+                    months = leavedata[allYears][allMonths]
+                    for allDates in months:
+                        try:
+                            le = leavedata[allYears][allMonths][allDates][staff]
+                            
+                            for leave_type, leave_info in le.items():
+                                types = leave_type
+                                data = leave_info
+                                yearList.append(allYears)
+                                monthList.append(allMonths)
+                                dateList.append(allDates)
+                                typelist.append(types)
+                                datalist.append(data)
+                        except:
+                            pass
+        except:
+            pass                
         
     allList = zip(yearList, monthList, dateList, typelist, datalist)
 
