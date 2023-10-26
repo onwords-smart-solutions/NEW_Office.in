@@ -32,12 +32,12 @@ aiconfig = {
     "measurementId": "G-J4YXBZGFJY",
 }
 firebase = pyrebase.initialize_app(config)
-db = firebase.database()
+db1 = firebase.database()
 auth = firebase.auth()
 storage1 = firebase.storage()
 
 firebase1 = pyrebase.initialize_app(firebaseConfig)
-db1 = firebase1.database()
+db = firebase1.database()
 storage = firebase1.storage()
 
 aifirebase = pyrebase.initialize_app(aiconfig)
@@ -2211,7 +2211,24 @@ def editworkdone(request):
             else:
                 db.child("workmanager").child(thisYear).child(thisMonth).child(todayDate).child(uid).child(childName1).remove()
                 db.child("workmanager").child(thisYear).child(thisMonth).child(todayDate).child(uid).child(childName).set(context)
-    return redirect('ithome')
+        if dep == "APP":
+            return redirect('ithome')
+        if dep == "WEB":
+            return redirect('ithome')
+        if dep == "MEDIA":
+            return redirect('ithome')
+        if dep == "PR":
+            return redirect("prhome")
+        if dep == "RND":
+            return redirect("rndhome")
+        if dep == "ADMIN":
+            return redirect("adminhome")
+        if dep == "Installation":
+            return redirect("rndhome")
+        if dep == "AIML":
+            return redirect("ithome")
+        if dep == "HR":
+            return redirect("hrhome") 
 
 def checkUserDepartment(uid):
     data = db.child("staff").get().val()
