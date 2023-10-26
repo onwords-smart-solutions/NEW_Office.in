@@ -109,11 +109,7 @@ def rndhome(request):
     saturday_day = str(saturday_date.day).zfill(2) 
     try:
         try:
-            print("==")
-            print("date", current_year, current_month, current_day, uid)
             todaycheckin = attendence[current_year][current_month][current_day][uid]["check_in"]
-            
-            print("today", todaycheckin)
         except:
             todaycheckin = "No Entry"
 
@@ -155,12 +151,10 @@ def rndhome(request):
             else:    
                 yesprogress = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["working_hours"]
                 yesterdayprogress = calculate_progress(yesprogress)
-                print("progress", yesterdayprogress)
         except:
             yesterdayprogress = "Absent"    
         try:
             today_progress= calculate_progress_(todaycheckin, todaycheckout)
-            print("prog",today_progress)
         except:
             today_progress= "Absent"
         todaycheckout = convert_to_12_hour_format(todaycheckout)
@@ -254,7 +248,6 @@ def rndhome(request):
         }
         return render(request, "rndhome.html", context)
     except:
-        print("today",todaycheckin,todaycheckout)
         context = {
             "project": False,
             "name": name,
@@ -500,7 +493,6 @@ def create(request):
 def gate(request):
     if request.method == "POST":
         if "create-gate" in request.POST:
-            print("=============")
             _email = request.POST["email"]
             try:
                 if request.POST["cycle"]:
@@ -524,7 +516,6 @@ def gate(request):
                             "Gate_Status": False,
                             "Single_Gate_Status": False,
                         }
-                        print(_data)
                         shDB.child(uid).update({"Gate": True})
                         shDB.child(uid).child("GateAutomation").child("gate-1").set(_data)
                 except:

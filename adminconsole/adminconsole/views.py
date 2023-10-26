@@ -69,7 +69,6 @@ def login(request):
                 response = redirect("ithome")
                 return response
             if dep == "PR":
-                print("pr dep")
                 response = redirect("prhome")
                 return response
             if dep == "RND":
@@ -302,7 +301,6 @@ def leave_form(request):
                   
                     db.child("leave_details").child(year).child(month).child(from_date).child(uid).child(leave_type).update(c)    
             except:
-                print("inside half")
                 half_date = (request.POST.get('halfdate'))    
                 reason = request.POST.get('reason')
                 year, month, day = map(int, half_date.split('-'))
@@ -380,14 +378,12 @@ def leave_form(request):
             fromtime = request.POST.get('starttime')  
             totime = request.POST.get('endtime')  
             reason = request.POST.get('reason')
-            print("time",fromtime,totime,reason)
             if fromtime is not None and totime is not None:
                 fromtiming = datetime.strptime(fromtime, "%H:%M")
                 totiming = datetime.strptime(totime, "%H:%M")
                 duration = totiming - fromtiming
                 duration_hours, duration_minutes = divmod(duration.seconds, 3600)
                 duration_str = '{:02}:{:02}'.format(duration_hours, duration_minutes)
-                print("time", fromtime, totime, duration_str)
             else:
                 print("From time and/or to time not provided.")
             
@@ -406,7 +402,6 @@ def leave_form(request):
         datelist,reasonlist,statelist,inchargelist=[],[],[],[]
         for monthdata in leavedata:
             for datedata in leavedata[monthdata]:
-                print(datedata)
                 try:
                     for leavetype in leavedata[monthdata][datedata][uid]:
                         datelist.append(leavedata[monthdata][datedata][uid][leavetype]["date"])
@@ -419,7 +414,6 @@ def leave_form(request):
                 except:
                     pass            
 
-        print(datelist,reasonlist,statelist,inchargelist)
         leavehistory = zip(datelist,reasonlist,statelist,inchargelist)
         context = {
             "leavehistory": leavehistory,
@@ -1242,7 +1236,6 @@ def financialpost(request):
 
         if 'delete' in request.POST:
             if "fromExpense" in request.POST:
-                print("inside delete")
                 edata = db.child("FinancialAnalyzing").child("Expense").get().val()
                 oProductName = request.POST["oProductName"]
                 oPurchasedDate = request.POST["oPurchasedDate"]
@@ -1752,11 +1745,7 @@ def coohome(request):
 
     try:
         try:
-            print("==")
-            print("date", current_year, current_month, current_day, uid)
             todaycheckin = attendence[current_year][current_month][current_day][uid]["check_in"]
-            
-            print("today", todaycheckin)
         except:
             todaycheckin = "No Entry"
 
@@ -1796,12 +1785,10 @@ def coohome(request):
             else:    
                 yesprogress = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["working_hours"]
                 yesterdayprogress = calculate_progress(yesprogress)
-                print("progress", yesterdayprogress)
         except:
             yesterdayprogress = "Absent"    
         try:
             today_progress= calculate_progress_(todaycheckin, todaycheckout)
-            print("prog",today_progress)
         except:
             today_progress= "Absent"
         todaycheckout = convert_to_12_hour_format(todaycheckout)
@@ -1913,14 +1900,11 @@ def installation_details(request):
     installation = db.child("Installationdetails").get().val()
     if request.method == "POST":
         if "delete_entry" in request.POST:
-            print("==")
             num_to_delete = request.POST.get("delete_num")
             date_to_delete = request.POST.get("delete_date")
-            print("num",num_to_delete,date_to_delete)
             date_parts = date_to_delete.split("-")
             tyear = date_parts[0]
             tmonth = date_parts[1]
-            print("year",tyear,tmonth)
             db.child("Installationdetails").child(tyear).child(tmonth).child(date_to_delete).child(num_to_delete).remove()
             # installation[tyear][tmonth][date_to_delete].remove(num_to_delete)
 
@@ -2102,7 +2086,6 @@ def workdonedetails(request):
     return render (request,'workdonedetails.html')
 
 def refreshment(request):
-    print("refreshment")
     suggestionNotification = 0
     suggestionData = db.child("suggestion").get().val()
     for suggestion in suggestionData:
@@ -2380,9 +2363,9 @@ def checkUserName(uid):
                     z = data[x]["name"]
                     return z
         else:
-            print("No data found.")
+            pass
     except Exception as e:
-        print("An error occurred:", str(e))
+        pass
     return None 
 
 def getUidByName(name):
@@ -2483,7 +2466,7 @@ def prdashboard(request):
                 else:
                     pass
     except Exception as e:
-        print(f"An error occurred: {e}")
+        pass
 
     if "employeeofmonth" in request.POST:
         selected_uid = request.POST.get("name")  
@@ -2705,7 +2688,6 @@ def forgetpassword(request):
 
 def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
     try:
-        print("starting")
         asia_timezone = pytz.timezone('Asia/Kolkata')
         current_time = datetime.now(asia_timezone).strftime('%H:%M:%S')
 
@@ -2720,13 +2702,11 @@ def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
             time_difference = today_checkout_time - today_checkin_time
             progress_hours = time_difference.total_seconds() / 3600
             progress_percentage = (progress_hours / goal_hours) * 100
-            print("func",progress_percentage)
 
             return progress_percentage
         else:
             return "No Entry"
     except Exception as e:
-        print(f"Error: {e}")
         return "No Entry"
    
 def calculate_progress(working_hours, goal_hours=9):

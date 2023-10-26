@@ -349,7 +349,7 @@
                                   <div class="" id="halfday">
                                     <label for="from">Date</label>
                                     <div class="form-inp-con">
-                                        <input type="date" id="Date" placeholder="Date" name="halfdate">
+                                        <input type="date" id="Date" placeholder="Date" name="halfdate" required>
                                         <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
                                     </div>
                                   </div>
@@ -357,7 +357,7 @@
                                   <div id="fullday">
                                     <label for="leavefrom">From</label>
                                     <div class="form-inp-con">
-                                        <input type="date" class="leavefrom" placeholder="From" name="fromdate">
+                                        <input type="date" class="leavefrom" placeholder="From" name="fromdate" required>
                                         <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
                                     </div>
                                     <label for=""><small>(optional)</small></label>
@@ -370,7 +370,7 @@
                                   </div>
                                     <label for="reason">Reason</label>
                                     <div class="form-inp-con">
-                                        <input type="text" id="reason" placeholder="Reason" name="reason">
+                                        <input type="text" id="reason" placeholder="Reason" name="reason" required>
     
                                     </div>
                                     <input type="hidden" name="leave_type" value="general">
@@ -395,7 +395,7 @@
                                 <div class="" id="halfdaysick">
                                     <label for="sick-half">Date</label>
                                     <div class="form-inp-con">
-                                        <input type="date" class="" id="" placeholder="Date" name="halfdate">
+                                        <input type="date" class="" id="" placeholder="Date" name="halfdate" required>
                                         <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
                                     </div>
                                   </div>
@@ -404,7 +404,7 @@
                                 <div id="fulldaysick">
                                     <label for="leavefrom">From</label>
                                 <div class="form-inp-con">
-                                    <input type="date" class="leavefrom" placeholder="From" name="fromdate">
+                                    <input type="date" class="leavefrom" placeholder="From" name="fromdate" required>
                                     <!-- <img src="{% static 'images/date-set.png' %}" alt="date-icpn"> -->
                                 </div>
                                 
@@ -418,7 +418,7 @@
 
                                 <label for="reason">sick Reason</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="reason" placeholder="Reason" name="reason">
+                                    <input type="text" id="reason" placeholder="Reason" name="reason" required>
                                 </div>
                                 <input type="hidden" name="leave_type" value="sick">
                                 <button class="primary-button">Submit</button>
@@ -431,7 +431,7 @@
                         
                             <label for="reason">Reason</label>
                             <div class="form-inp-con">
-                                <input type="text" id="reason" placeholder="Reason" name="reason">
+                                <input type="text" id="reason" placeholder="Reason" name="reason" required>
                             </div>
                             
                             <div class="main-leave-con">
