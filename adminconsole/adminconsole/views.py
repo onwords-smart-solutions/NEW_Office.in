@@ -3,7 +3,7 @@ import pyrebase, requests
 from datetime import date, datetime, timedelta, time
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-
+import pytz
 
 config = {
     "apiKey": "AIzaSyCCTeiCYTB_npcWKKxl-Oj0StQLTmaFOaE",
@@ -51,6 +51,9 @@ def login(request):
         loginState = request.COOKIES["loginState"]
         if bool(loginState) == True:
             dep = checkUserDepartment(uid)
+            if uid == "pztngdZPCPQrEvmI37b3gf3w33d2":
+                response = redirect("coohome") 
+                return response 
             if dep == "APP":
                 response = redirect("ithome")
                 return response
@@ -68,9 +71,9 @@ def login(request):
                 response = redirect("rndhome")
                 return response
             if dep == "ADMIN":
-                response = redirect("adminhome")
+                response = redirect("superadmin")
                 return response
-            if dep == "INSTALLATION":
+            if dep == "Installation":
                 response = redirect("installationhome")
                 return response
             if dep == "AIML":
@@ -78,7 +81,8 @@ def login(request):
                 return response
             if dep == "HR":
                 response = redirect("hrhome")
-                return response   
+                return response
+             
     except:
         pass
 
@@ -92,6 +96,13 @@ def login(request):
             name = checkUserName(uid)
             profile=profileall(uid)
             exp = 100 * 365 * 24 * 60 * 60
+            if uid == "pztngdZPCPQrEvmI37b3gf3w33d2":
+                response = redirect("coohome")
+                response.set_cookie("uid", uid, expires=exp)
+                response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("name", name, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
+                response.set_cookie("loginState", "loggedIn", expires=exp)
             if dep == "APP":
                 response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
@@ -133,14 +144,14 @@ def login(request):
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "ADMIN":
-                response = redirect("adminhome")
+                response = redirect("superadmin")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
                 response.set_cookie("name", name, expires=exp)
                 response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
-            if dep == "INSTALLATION":
+            if dep == "Installation":
                 response = redirect("installationhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
@@ -156,6 +167,7 @@ def login(request):
                 response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
+            
             return redirect("login")
         except:
             context = {"error": "* The name or password you entered is incorrect."}
@@ -1679,11 +1691,32 @@ def coohome(request):
         if not suggestionData[suggestion]["isread"]:
             suggestionNotification += 1
     installation = db.child("Installationdetails").get().val()
+    current_date = datetime.now()
+    formatted_date = current_date.strftime("%Y-%m-%d")
+
+    # Get the current year, month, and day
+    current_year = str(current_date.year)
+    current_month = str(current_date.month).zfill(2)
+    current_day = str(current_date.day).zfill(2)
+
+    # Calculate yesterday's date
+    yesterday = current_date - timedelta(days=1)
+
+    # Get yesterday's year, month, and day
+    yesterday_year = str(yesterday.year)
+    yesterday_month = str(yesterday.month).zfill(2)
+    yesterday_day = str(yesterday.day).zfill(2)
+
+    saturday_date = yesterday - timedelta(days=1)
+    saturday_year = str(saturday_date.year)
+    saturday_month = str(saturday_date.month).zfill(2)
+    saturday_day = str(saturday_date.day).zfill(2)
     end_date = datetime.now()
     start_date = end_date - timedelta(days=7)
     current_date = datetime.now()
     selected_year = current_date.strftime('%Y')
     selected_month = current_date.strftime("%m")
+    attendence = db.child("attendance").get().val()
     alllist=[]
     alldates = installation[selected_year][selected_month]
     for date in alldates:
@@ -1696,8 +1729,68 @@ def coohome(request):
                 alllist.append((num, data)) 
     inventory=db.child("inventory_management").get().val()
     inventoryall=[]
-    for uid in inventory:
-        inventoryall.append(inventory[uid])                 
+    for uid1 in inventory:
+        inventoryall.append(inventory[uid1]) 
+
+    try:
+        try:
+            print("==")
+            print("date", current_year, current_month, current_day, uid)
+            todaycheckin = attendence[current_year][current_month][current_day][uid]["check_in"]
+            
+            print("today", todaycheckin)
+        except:
+            todaycheckin = "No Entry"
+
+        try:
+            todaycheckout = attendence[current_year][current_month][current_day][uid]["check_out"]
+            
+        except:
+            todaycheckout = "No Entry"
+        day = False
+        try:
+            if yesterday.weekday() == 6:
+                yescheckin = attendence[saturday_year][saturday_month][saturday_day][uid]["check_in"]
+                day = "Saturday"
+                yesscheckin = convert_to_12_hour_format(yescheckin)
+            else:
+                # If yesterday was not a Sunday, use the existing code for Sunday data
+                yescheckin = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_in"]
+                yesscheckin = convert_to_12_hour_format(yescheckin)
+                day = False
+        except:
+            yesscheckin = "No Entry"
+
+        try:
+            if yesterday.weekday() == 6:
+                yescheckout = attendence[saturday_year][saturday_month][saturday_day][uid]["check_out"]
+                yesscheckout = convert_to_12_hour_format(yescheckout)
+            else:    
+                yescheckout = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_out"]
+                yesscheckout = convert_to_12_hour_format(yescheckout)
+        except:
+            yesscheckout = "No Entry"
+
+        try:
+            if yesterday.weekday() == 6:
+                yesprogress = attendence[saturday_year][saturday_month][saturday_day][uid]["working_hours"]
+                yesterdayprogress = calculate_progress(yesprogress)
+            else:    
+                yesprogress = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["working_hours"]
+                yesterdayprogress = calculate_progress(yesprogress)
+                print("progress", yesterdayprogress)
+        except:
+            yesterdayprogress = "Absent"    
+        try:
+            today_progress= calculate_progress_(todaycheckin, todaycheckout)
+            print("prog",today_progress)
+        except:
+            today_progress= "Absent"
+        todaycheckout = convert_to_12_hour_format(todaycheckout)
+        todaycheckin = convert_to_12_hour_format(todaycheckin)   
+    except:
+        pass    
+                    
     context={
         "alllist":alllist,
         "inventoryall":inventoryall,
@@ -1717,7 +1810,14 @@ def coohome(request):
         "viewsuggestion":viewsuggestionacccess,
         "userdata":userdataacccess,
         "prdashboard":prdashboardacccess,
-        "suggestionNotification":suggestionNotification
+        "suggestionNotification":suggestionNotification,
+        "todaycheckin": todaycheckin,
+        "todaycheckout": todaycheckout,
+        "yescheckin": yesscheckin,
+        "yescheckout": yesscheckout,
+        "yesprogress":yesterdayprogress,
+        "todayprogress":today_progress,
+        "day":day
     }    
     return render(request,'coohome.html',context)
 
@@ -1974,6 +2074,7 @@ def workdonedetails(request):
     return render (request,'workdonedetails.html')
 
 def refreshment(request):
+    print("refreshment")
     suggestionNotification = 0
     suggestionData = db.child("suggestion").get().val()
     for suggestion in suggestionData:
@@ -2081,11 +2182,12 @@ def refreshment(request):
                         newLen = len(d[todayDate][choosen]["lunch_list"])
                         db.child("refreshments").child(todayDate).child("Lunch").update({choosen + "_count": newLen})
                     except:
-                        db.child("refreshments").child(todayDate).child("Lunch").child("lunch_list").update({"name" + str(a + 1): _name})
+                        db.child("refreshments").child(todayDate).child("Lunch").child("lunch_list").update({"name1": _name})
                         d = db.child("refreshments").get().val()
                         newLen = len(d[todayDate][choosen]["lunch_list"])
                         db.child("refreshments").child(todayDate).child("Lunch").update({choosen + "_count": newLen})
-        
+        if uid == "pztngdZPCPQrEvmI37b3gf3w33d2":
+            return redirect('coohome')
         if dep == "APP":
             return redirect('ithome')
         if dep == "WEB":
@@ -2104,6 +2206,8 @@ def refreshment(request):
             return redirect("ithome")
         if dep == "HR":
             return redirect("hrhome")
+        
+            
     
 def submitwork(request):
     uid = request.COOKIES["uid"]
@@ -2211,7 +2315,24 @@ def editworkdone(request):
             else:
                 db.child("workmanager").child(thisYear).child(thisMonth).child(todayDate).child(uid).child(childName1).remove()
                 db.child("workmanager").child(thisYear).child(thisMonth).child(todayDate).child(uid).child(childName).set(context)
-    return redirect('ithome')
+        if dep == "APP":
+            return redirect('ithome')
+        if dep == "WEB":
+            return redirect('ithome')
+        if dep == "MEDIA":
+            return redirect('ithome')
+        if dep == "PR":
+            return redirect("prhome")
+        if dep == "RND":
+            return redirect("rndhome")
+        if dep == "ADMIN":
+            return redirect("adminhome")
+        if dep == "Installation":
+            return redirect("rndhome")
+        if dep == "AIML":
+            return redirect("ithome")
+        if dep == "HR":
+            return redirect("hrhome") 
 
 def checkUserDepartment(uid):
     data = db.child("staff").get().val()
@@ -2361,6 +2482,8 @@ def prdashboard(request):
         "totalprgettarget":totalprgettarget,
         "totalprtarget":totalprtarget,
         "dep":dep,
+        "name":name,
+        "profile":profile,
         "dropdown":dropdown,
         "progress":progress1,
         "general":general,
@@ -2542,6 +2665,62 @@ def workmanagerTl(request):
                     
     #         except:
     #             pass      
+<<<<<<< HEAD
     return render(request,'workmanagerTL.html')  
 def  deleteaccess(request):
     return render(request,'deleteaccess.html')   
+=======
+    return render(request,'workmanagerTL.html')   
+
+def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
+    try:
+        print("starting")
+        asia_timezone = pytz.timezone('Asia/Kolkata')
+        current_time = datetime.now(asia_timezone).strftime('%H:%M:%S')
+
+        if today_checkin != "No Entry":
+            today_checkin_time = datetime.strptime(today_checkin, "%H:%M:%S")
+            
+            if today_checkout == "No Entry":
+                today_checkout_time = datetime.strptime(current_time, "%H:%M:%S")
+            else:
+                today_checkout_time = datetime.strptime(today_checkout, "%H:%M:%S")
+
+            time_difference = today_checkout_time - today_checkin_time
+            progress_hours = time_difference.total_seconds() / 3600
+            progress_percentage = (progress_hours / goal_hours) * 100
+            print("func",progress_percentage)
+
+            return progress_percentage
+        else:
+            return "No Entry"
+    except Exception as e:
+        print(f"Error: {e}")
+        return "No Entry"
+   
+def calculate_progress(working_hours, goal_hours=9):
+    try:
+        # Convert the working_hours to a timedelta object
+        working_hours = datetime.strptime(working_hours, "%H:%M:%S").time()
+
+        # Calculate the total working time in seconds
+        total_working_seconds = working_hours.hour * 3600 + working_hours.minute * 60 + working_hours.second
+
+        # Calculate progress as a percentage
+        progress_percentage = min(100, (total_working_seconds / (goal_hours * 3600)) * 100)
+
+        return progress_percentage
+    except:
+        return "Absent"    
+
+def convert_to_12_hour_format(progress):
+    try:
+        time_24h_obj = datetime.strptime(progress, "%H:%M:%S")
+        time_12h = time_24h_obj.strftime("%I:%M %p")
+    except:
+        time_12h = "No Entry"    
+    return time_12h
+
+
+   
+>>>>>>> 7e59a37c41b279d7f738729c8ae34a57198be7a5

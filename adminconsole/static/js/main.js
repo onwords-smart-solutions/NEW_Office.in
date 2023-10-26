@@ -57,15 +57,6 @@ for (var i = 0; i < btns.length; i++) {
     });
 }
 // ===============activd nav end============
-var header =document.getElementById('custom-parent')
-var btnscust = header.getElementsByClassName("custom-btn");
-for (var i = 0; i < btnscust.length; i++) {
-    btnscust[i].addEventListener("click", function () {
-        var current = document.getElementsByClassName("custom-active");
-        current[0].className = current[0].className.replace(" custom-active", "");
-        this.className += " custom-active";
-    });
-}
 
 // ===========check order button==============
 

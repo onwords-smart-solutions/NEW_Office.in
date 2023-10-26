@@ -273,6 +273,20 @@
                             </div>
                         </li>
                         {% endif %}
+
+                        {%if dep == "ADMIN"%}
+                        <li class="navlistmenu" onclick="location.href='/staffaccess'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Staff Access</h5>
+                            </div>
+                        </li>
+                        {%endif%}
+                        
                         {% if prdashboard %}
                         <li class="navlistmenu " onclick="location.href='/prdashboard'">
                             <div class="left-nav-list">
@@ -316,7 +330,7 @@
                             <img src="{% static 'images/leave-frm-img.svg' %}" alt="leave-form" class="img-fluid">
                         </div>
                         <div class="leave-list">
-                            <form action="createstaff" class=" leave-frm" method="post">
+                            <form action="/createstaff/" class=" leave-frm" method="post">
                                 {% csrf_token %}
                                 <label for="staffName">staff Name</label>
                                 <div class="form-inp-con">

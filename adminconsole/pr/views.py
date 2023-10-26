@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from adminconsole.views import db, checkUserName,checkUserDepartment
 from adminconsole.views import db, storage
 from datetime import date,datetime, timedelta
-import csv, codecs
+import csv, codecs,requests
 from it.views import convert_to_12_hour_format,calculate_progress,calculate_progress_
 from django.http import HttpResponse
 # Create your views here.
@@ -217,7 +217,7 @@ def prhome(request):
             pass
         except:
             pass
-                    
+        print("progr",yesterdayprogress)            
         generalleave = 24 - generalcount
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
@@ -362,7 +362,6 @@ def create_lead(request):
             suggestionNotification += 1        
     if loginState == "loggedIn":
         try:
-            print(request.POST)
             if request.method == "POST":
                 if "create-using-data" in request.POST:
                     data = db.get().val()
@@ -400,7 +399,7 @@ def create_lead(request):
                         "created_by": checkUserName(uid),
                         "customer_state": "New leads",
                     }
-                    print(data)
+                    print(phno,data)
                     # db.child("customer").child(phno).update(data)
                     context={
                         "akn": "user created success fully",
@@ -425,6 +424,7 @@ def create_lead(request):
                         "suggestionNotification":suggestionNotification
                         }
                     return render(request,"createLead.html",context)
+
                 if "create-using-file" in request.POST:
                     curent_date = date.today()
                     now = datetime.now()
@@ -432,12 +432,11 @@ def create_lead(request):
                     enqFor = request.POST["eqfor"]
                     name1 = request.POST["selectedName"]
                     reader=request.FILES['myfile']
-                    
                     a=0
                     read = csv.reader(codecs.iterdecode(reader, 'utf-8'))
                     for row in read:
                         if any(field.strip() for field in row):
-                            cname = row[0]
+                            name = row[0]
                             original_phone_number = row[1]
                             email = row[2]
                             city = row[3]
@@ -459,21 +458,20 @@ def create_lead(request):
                             else:
                                 number = original_phone_number
                             cust_data = {
-                                "name": cname,
+                                "name": name,
                                 "phone_number": number,
                                 "city": city,
                                 "email_id": email,
                                 "data_fetched_by": "Facebook Ads",
                                 "LeadIncharge": name1,
                                 "created_by": checkUserName(logedInUser),
-                                "created_by": name,
+                                "created_by": checkUserName(uid),
                                 "created_date": str(curent_date),
                                 "created_time": current_time,
                                 "customer_state": "New leads",
                                 "inquired_for": enqFor,
                                 "rating": 0
                             }
-                            print("=======================")
                             # custData = db.child("customer").get().val()
                             # if number not in custData:
                             #     db.child("customer").child(number).update(cust_data)
@@ -483,12 +481,12 @@ def create_lead(request):
                                 custData[number]
                                 alreadyExistList.append(number)
                             except Exception as err:
-                                print(cust_data)
+                                print(number,cust_data)
                                 # db.child("customer").child(number).update(cust_data)
                             # return render(request,"pr/createlead.html",{"akn": "user created success fully", "colour": True, "tl":istl, "accounts": accounts,"management": management,"alreadyExistList": alreadyExistList})
                             # db.child("customer").child(number).update(cust_data)
                         else:
-                            pass    
+                            pass        
                     context={
                             "akn": "user created success fully", 
                             "colour": True,
@@ -514,7 +512,6 @@ def create_lead(request):
                       }
                     return render(request, "createLead.html",context)
             else:
-                print("========",createleadacccess)
                 context={
                         "akn": "error creating user",
                         "colour": False,
@@ -540,7 +537,6 @@ def create_lead(request):
                     }
                 return render(request,"createLead.html",context)
         except:
-            print("qddw",approvalacccess)
             context={
                     "akn": "error creating user",
                     "colour": False,

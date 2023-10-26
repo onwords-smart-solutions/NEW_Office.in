@@ -321,8 +321,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 65%;"
-                                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: {{ todayprogress }}%"
+                                            aria-valuenow="{{ todayprogress }}" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -338,7 +339,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: {{yesprogress}}%;"
+                                        <div id="progress-bar" role="progressbar" style="width: {{yesprogress}}%;"
                                             aria-valuenow="{{yesprogress}}" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
@@ -522,9 +523,9 @@
                                     <div class="leave-chart">
                                         <canvas id="myChart2" width="100" height="100"></canvas>
                                         <div class="leave-precent">
-                                            <span class="top-num">17</span>
+                                            <span class="top-num">{{overallleave}}</span>
                                             <span class="dived-sympl">/</span>
-                                            <span class="bottom-num">24</span>
+                                            <span class="bottom-num">36</span>
                                         </div>
                                     </div>
                                 </div>
@@ -535,7 +536,7 @@
                                             <p class="leave-text">Sick Leave</p>
                                         </div>
                                         <div class="col-md-2">
-                                            <p class="leave-text leave-count">13</p>
+                                            <p class="leave-text leave-count">{{sickleave}}</p>
                                         </div>
                                         <div class="col-md-1"></div>
                                     </div>
@@ -545,7 +546,7 @@
                                             <p class="leave-text">Casual Leave</p>
                                         </div>
                                         <div class="col-md-2">
-                                            <p class="leave-text leave-count">24</p>
+                                            <p class="leave-text leave-count">{{generalleave}}</p>
                                         </div>
                                         <div class="col-md-1"></div>
                                     </div>
@@ -665,35 +666,20 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-
-            $(document).ready(function () {
-                var yesprogress = {{ yesprogress }
-            };
-            var progressBar = document.getElementById("progress-bar");
-            progressBar.style.width = yesprogress + "%";
-            if (yesprogress < 100) {
-                progressBar.style.backgroundColor = "red";
-            } else {
-                console.log("inside except")
-                progressBar.style.backgroundColor = "#e0ae09";
-            }
-            });
-        </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
 
             $(document).ready(function () {
-                var yesprogress = {{ yesprogress }
-            };
-            var progressBar = document.getElementById("progress-bar");
-            progressBar.style.width = yesprogress + "%";
-            if (yesprogress < 100) {
-                progressBar.style.backgroundColor = "red";
-            } else {
-                progressBar.style.backgroundColor = "#e0ae09";
-            }
-        });
+                var yesprogress = {{ yesprogress }};
+                console.log("progress",yesprogress)
+                var progressBar = document.getElementById("progress-bar");
+                progressBar.style.width = yesprogress + "%";
+                if (yesprogress < 100) {
+                    progressBar.style.backgroundColor = "red";
+                } else {
+                    progressBar.style.backgroundColor = "#e0ae09";
+                }
+            });
 
             $(document).ready(function () {
 

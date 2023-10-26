@@ -31,6 +31,7 @@ db1 = firebase1.database()
 storage = firebase1.storage()
 # Create your views here.
 def adminhome(request):
+    print("entering")
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     profile=request.COOKIES["profile"]
@@ -285,7 +286,7 @@ def adminhome(request):
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
         data[uid]["projects"]
-        
+        print("checkin",yesscheckin,yesscheckout)
         context={
             "project": True,
             "name":name,
@@ -344,8 +345,8 @@ def adminhome(request):
                 "aiaccess": aiaccess,
                 "todaycheckin": todaycheckin,
                 "todaycheckout": todaycheckout,
-                "yesscheckin": yesscheckin,
-                "yesscheckout": yesscheckout,
+                "yescheckin": yesscheckin,
+                "yescheckout": yesscheckout,
                 "yesprogress":yesterdayprogress,
                 "todayprogress":today_progress,
                 "listOfTodaysWork":listOfTodaysWork,

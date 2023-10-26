@@ -277,6 +277,19 @@
                         </li>
                         {% endif %}
 
+                        {%if dep == "ADMIN"%}
+                        <li class="navlistmenu" onclick="location.href='/staffaccess'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Staff Access</h5>
+                            </div>
+                        </li>
+                        {%endif%}
+
                         {% if prdashboard %}
                         <li class="navlistmenu " onclick="location.href='/prdashboard'">
                             <div class="left-nav-list">
@@ -923,6 +936,18 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
+    <script>
+        var headers =document.getElementById('custom-parent')
+var btnscust = headers.getElementsByClassName("custom-btn");
+for (var i = 0; i < btnscust.length; i++) {
+    btnscust[i].addEventListener("click", function () {
+        var current = document.getElementsByClassName("custom-active");
+        current[0].className = current[0].className.replace(" custom-active", "");
+        this.className += " custom-active";
+    });
+}
+
+    </script>
 
 </body>
 

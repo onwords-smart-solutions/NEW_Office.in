@@ -253,7 +253,7 @@ def hrhome(request):
             "prdashboard":prdashboardacccess,
             "suggestionNotification":suggestionNotification
         }
-        return render(request, "adminhome.html", context)
+        return render(request, "hrhome.html", context)
     except:
         context = {
             "project": False,
@@ -289,4 +289,4 @@ def hrhome(request):
             "prdashboard":prdashboardacccess,
             "suggestionNotification":suggestionNotification
         }
-    return render(request,'adminhome.html',context)
+    return render(request,'hrhome.html',context)

@@ -276,6 +276,19 @@
                         </li>
                         {% endif %}
 
+                        {%if dep == "ADMIN"%}
+                        <li class="navlistmenu" onclick="location.href='/staffaccess'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Staff Access</h5>
+                            </div>
+                        </li>
+                        {%endif%}
+
                         {% if prdashboard %}
                         <li class="navlistmenu " onclick="location.href='/prdashboard'">
                             <div class="left-nav-list">
@@ -332,7 +345,7 @@
                                     <span>{{ todaycheckout }}</span>
                                 </div>
                             </div>
-                            <h6>Yesterday</h6>
+                            <h6>{% if day %}{{ day }}{% else %}Yesterday{% endif %}</h6>
                             <div class="row d-flex align-items-center mt-1">
                                 <div class="col-md-4">
                                     <span>Check In</span><br>
