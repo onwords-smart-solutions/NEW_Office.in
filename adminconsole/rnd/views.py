@@ -85,7 +85,7 @@ def rndhome(request):
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
-    leavedetails = db.child("leaveDetails").get().val()
+    leavedetails = db.child("leave_details").get().val()
     
     current_date = datetime.now()
     formatted_date = current_date.strftime("%Y-%m-%d")
@@ -176,7 +176,7 @@ def rndhome(request):
         try:
             generalcount = 0
             sickcount = 0
-            leavedata = db.child("leaveDetails").get().val()
+            leavedata = db.child("leave_details").get().val()
             yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
             for allMonths in leavedata[current_year]:
 

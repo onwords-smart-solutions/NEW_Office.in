@@ -6,12 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
     <link rel="stylesheet" href="{% static 'css/pr.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 
     <!-- chart js start  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
@@ -105,7 +106,7 @@
                                 <h5>Late Form</h5>
                             </div>
                         </li>
-                        <li class="navlistmenu navlistmenu " onclick="location.href='/suggestion'">
+                        <li class="navlistmenu" onclick="location.href='/suggestion'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/suggestion.png' %}" alt="dashboard_Icon">
@@ -210,7 +211,7 @@
                         {% endif %}
 
                         {% if inventory %}
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/inventorymanagement'">
+                        <li class="navlistmenu" onclick="location.href='/inventorymanagement'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/invoice.png' %}" alt="inventory_Icon">
@@ -250,7 +251,7 @@
                         {% endif %}
 
                         {% if viewsuggestion %}
-                        <li class="navlistmenu " onclick="location.href='/viewsuggestion'">
+                        <li class="navlistmenu" onclick="location.href='/viewsuggestion'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/viewsuggestion.svg' %}" alt="userdata_Icon">
@@ -264,7 +265,7 @@
                         {% endif %}
 
                         {% if userdata %}
-                        <li class="navlistmenu " onclick="location.href='/userdata'">
+                        <li class="navlistmenu" onclick="location.href='/userdata'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
@@ -275,20 +276,6 @@
                             </div>
                         </li>
                         {% endif %}
-
-                        {%if dep == "ADMIN"%}
-                        <li class="navlistmenu" onclick="location.href='/staffaccess'">
-                            <div class="left-nav-list">
-                                <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
-                                </div>
-                            </div>
-                            <div class="right-nav-list">
-                                <h5>Staff Access</h5>
-                            </div>
-                        </li>
-                        {%endif%}
-
                         {% if prdashboard %}
                         <li class="navlistmenu " onclick="location.href='/prdashboard'">
                             <div class="left-nav-list">
@@ -321,262 +308,79 @@
                 </div>
             </nav>
         </div>
-
         <div class="right-con " id="rightCon" onclick="rightcon()">
-            <div class="container-fluid">
-                <div class="product-nav cmo-nav my-3">
-                    <h5 class="  active-inv  li-inventry" onclick="productBtn()" id="pro-nav">Product
-                    </h5>
-                    <!-- <h5 class=" li-inventry" onclick="updateBtn()" id="update-nav">Updates</h5> -->
-                    <h5 class=" li-inventry" onclick="adminBtn()" id="admin-nav">Adminpoints</h5>
-                    <h5 class="  li-inventry" onclick="prpercBtn()" id="prper-nav">PR percentage Dashboard
-                    </h5>
 
-                </div>
-                <div class="row ">
-                    <div class="col-md-3">
-
-
-                    </div>
-                    <div class="col-md-5"></div>
-                    <div class="col-md-2 my-3">
-                        <h4 class=" primary-button Calculate-cmo" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            id="calculate-Btn" onclick="calInpBox()">Calculate
-                            Point
-                        </h4>
-                    </div>
-                    <div class="col-md-2 my-3">
-                        <h4 class="primary-button Calculate-cmo" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop " id="addBtn" onclick="addInpBox()">Add Product</h4>
-                    </div>
+            <div class="container">
+                <div class="forms-con">
+                    <p class="" onclick="location.href='/staffaccess'" id="Permission-nav">Permission Access</p>
+                    <p class="active-form-li" onclick="location.href='/deleteaccess'" id="delete-form">Delete Access</p>
                 </div>
 
-
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content calculate">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">
-                                    <h4 class="cmo-h">Calculate Point</h4>
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                <div class="access-page-con" id="staff-access">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="staff-access-form-con">
+                                <h3>Delete Access</h3>
+                                <form action="/staffaccess/" method="post">
+                                    {%csrf_token%}
+                                    <div class="form-inp-access">
+                                        <img src="{% static 'images/user-icon.svg' %}" alt="user-icon">
+                                        <select name="uid" id="">
+                                            <option value="">Select Staff</option>
+                                            {%for uid , name in allstaff%}
+                                            <option value="{{uid}}">{{name}}</option>
+                                            {%endfor%}
+                                        </select>
+                                    </div>
+                                    <!-- <div class="form-inp-access">
+                                        <img src="{% static 'images/position.svg' %}" alt="user-icon">
+                                        <input type="text" id="position" placeholder="Staff Position" >
+                                    </div> -->
+                                    <div class="form-inp-access">
+                                        <img src="{% static 'images/access-icon.svg' %}" alt="user-icon">
+                                        <select name="access" id="">
+                                            <option value="">Access Page</option>
+                                            <option value="customer details">Customer Details</option>
+                                            <option value="approval">Approval</option>
+                                            <option value="Account">Account</option>
+                                            <option value="Create Lead">Create Lead</option>
+                                            <option value="Quotation Page">Quotation Page</option>
+                                            <option value="Inventory Page">Inventory Page</option>
+                                            <option value="Create Staff">Create Staff</option>
+                                            <option value="Viewwork Manager">Viewwork Manager</option>
+                                            <option value="View Suggestion">View Suggestion</option>
+                                            <option value="User Data">User Data</option>
+                                            <option value="Prdashboard">Prdashboard</option>
+                                            <option value="inprogress">Inprogress</option>
+                                        </select>
+                                    </div>
+                                    <button class="primary-button">Permission</button>
+                                </form>
                             </div>
-                            <div class="modal-body">
-                                <div class="cal-point" id="cal-point">
-                                    <form action="">
-
-                                        <input type="text" placeholder="Calculate Point" required>
-                                        <input type="text" placeholder="Count" required>
-                                        <button class="primary-button">Submit</button>
-                                    </form>
-                                </div>
-                            </div>
-
+                        </div>
+                        <div class="col-md-6">
+                            <img src="{% static 'images/access-page.svg' %}" alt="access-page" class="img-fluid">
                         </div>
                     </div>
                 </div>
 
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content product">
-                            <div class="modal-header">
-                                <h5 class="modal-title">
-                                    <h4 class="cmo-h">Add Product</h4>
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="addpoint-table" id="add-point">
-                                    <form action="/inventorymanagement/" method="post">
-                                        {%csrf_token%}
-                                        <input type="text" name="id" placeholder="Produt Id" required>
-                                        <input type="text" name="name" placeholder="Product Name" required>
-                                        <input type="text" name="obc" placeholder="OBC" required>
-                                        <input type="number" name="min_price" placeholder="Minimum Price" required>
-                                        <input type="number" name="max_price" placeholder="Maximum Price" required>
-                                        <input type="number" name="stock" placeholder="Stock" required>
-                                        <button type="submit" class="primary-button" name="update">Submit</button>
-                                    </form>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="product-table" id="product-table">
-                    <table class="table">
-                        <thead class="product-table-head">
-                            <tr class="text-center">
-                                <th>S.No</th>
-                                <th>Product Id</th>
-                                <th>Max Price</th>
-                                <th>Min Price</th>
-                                <th>Name</th>
-                                <th>Obc</th>
-                                <th>Stock</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table my-3">
-                            <form action="/inventorymanagement/" method="post">
-                                {%for sno,y in allinventory%}
-                                {%csrf_token%}
-                                <tr class="product-details">
-                                    <td><input type="number" value="{{sno}}"></td>
-                                    <td><input type="text" name="id" value="{{y.id}}"></td>
-                                    <td><input type="text" name="max_price" value="{{y.max_price}}"></td>
-                                    <td><input type="text" name="min_price" value="{{y.min_price}}"></td>
-                                    <td><input type="text" style="width: 400px;" name="name" value="{{y.name}}"></td>
-                                    <td><input type="text" name="obc" value="{{y.obc}}"></td>
-                                    <td><input type="text" name="stock" value="{{y.stock}}"></td>
-                                    <td><button type="submit" class="primary-button-update" name="update"><img
-                                                src="{% static 'images/nav-icon/edit.svg' %}" alt="del"
-                                                class="img-fluid"></button></td>
-                                </tr>
-                                {%endfor%}
-                            </form>
-                        </tbody>
-                    </table>
-                </div>
-
-
-                <div class="admin-points " id="admin-points">
-                    <div class="adminpoints-nav ">
-                        <span>
-                            <h5 class="up-cmo">Name <span><input class="cmo-input" type="text" required></span> </h5>
-                        </span>
-                        <span>
-                            <h5 class="up-cmo">Points <span><input class="cmo-input" type="text" required></span> </h5>
-                        </span>
-                        <span>
-                            <h5 class="up-cmo">Total Points <span><input class="cmo-input" type="text" required></span> </h5>
-                        </span>
-                        <span>
-                            <h5 class="up-cmo">Pr Total <span><input class="cmo-input" type="text" required></span> </h5>
-                        </span>
-                        <span>
-                            <h5 class="up-cmo">Target Total <span><input class="cmo-input" type="text" required></span> </h5>
-                        </span>
-                        <h5><button type="submit" class="primary-button">Submit</button></h5>
-                    </div>
-                    <div class="adminpoints-nav-con my-3">
-                        <table class="table">
-                            <thead class="product-table-head">
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Name</th>
-                                    <th>Points</th>
-                                    <th>Total Points</th>
-                                    <th>Pr Total</th>
-                                    <th>Target Total</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table my-3">
-                                <tr class="product-details">
-                                    <td>1</td>
-                                    <td>Arun Kumar</td>
-                                    <td>1</td>
-                                    <td>4</td>
-                                    <td>100</td>
-                                    <td>408</td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-                <div class="pr-percentage-dashboard " id="prdashboard">
-                    <div class="product-nav cmo-nav" id="">
-                        <h5 class=" active-inv  li-inventry" id="notipanl-Btn" onclick="notipanel()">Notification
-                            Pannel</h5>
-                        <h5 class=" li-inventry" id="install-Btn" onclick="installation()">Instalation</h5>
-                        <h5 class=" li-inventry" id="weekly-Btn" onclick="target()">Weekly Target</h5>
-                    </div>
-                    <center>
-                        <form action="" class="">
-                            <div class="installation-pending inventory-small-table" id="firstline-Btn">
-                                <h5>Firstline</h5>
-                                <input type="number" name="" id="" placeholder="0">
-                                <button class="primary-button">submit</button>
-                            </div>
-                        </form>
-                    </center>
-                    <center>
-                        <form action="" class="e">
-                            <div class="installation-pending inventory-small-tabl" id="target-Btn">
-                                <h5>Target Point</h5>
-                                <input type="number" name="" id="" placeholder="0">
-                                <button class="primary-button">submit</button>
-                            </div>
-                        </form>
-                    </center>
-                    <center>
-                        <form action="">
-                            <div class="installation-pending inventory-small-tabl" id="pending-Btn">
-                                <h5>pending installation</h5>
-                                <input type="number" name="" id="" placeholder="0">
-                                <input type="number" name="" id="" placeholder="0">
-                                <button class="primary-button">submit</button>
-                            </div>
-                        </form>
-                    </center>
-                </div>
             </div>
         </div>
+    </div>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
+    <!-- js script  start -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <!-- js script  end -->
+    <script>
 
-        <!-- bootstrap js -->
-        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <!-- js script  start -->
-        <script src="{% static 'js/main.js' %}"></script>
-        <script src="{% static 'js/login.js' %}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
-        <!-- js script  end -->
-        <script>
-            const firstline = document.getElementById('firstline-Btn')
-            const targetBtn = document.getElementById('target-Btn')
-            const pending = document.getElementById('pending-Btn')
-            const notipanlBtn = document.getElementById('notipanl-Btn')
-            const installBtn = document.getElementById('install-Btn')
-            const weeklyBtn = document.getElementById('weekly-Btn')
+    </script>
 
-            function notipanel() {
-                firstline.style.display = 'block'
-                targetBtn.style.display = 'none'
-                pending.style.display = 'none'
-                notipanlBtn.classList.add('active-inv')
-                installBtn.classList.remove('active-inv')
-                weeklyBtn.classList.remove('active-inv')
-            }
-            function installation() {
-                firstline.style.display = 'none'
-                targetBtn.style.display = 'block'
-                pending.style.display = 'none'
-                notipanlBtn.classList.remove('active-inv')
-                installBtn.classList.add('active-inv')
-                weeklyBtn.classList.remove('active-inv')
-            }
-            function target() {
-                firstline.style.display = 'none'
-                targetBtn.style.display = 'none'
-                pending.style.display = 'block'
-                notipanlBtn.classList.remove('active-inv')
-                installBtn.classList.remove('active-inv')
-                weeklyBtn.classList.add('active-inv')
-            }
-        </script>
-        <script>
-
-        </script>
 </body>
 
 </html>

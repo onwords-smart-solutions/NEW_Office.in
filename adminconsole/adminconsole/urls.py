@@ -30,7 +30,7 @@ urlpatterns = [
     path("logout/",views.logout,name="logout"),
     path("workdonedetails/",views.workdonedetails,name="workdonedetails"),
     path("workmanagerTl/",views.workmanagerTl,name='workmanagreTl'),
-
+    path("forgetpassword/",views.forgetpassword,name="forgetpassword"),
     # ========================coo page =========================
 
     path('prdashboard/',views.prdashboard,name='pradshboard'),
@@ -50,6 +50,7 @@ urlpatterns = [
     path("pinvoiceForm/", prviews.pinvoiceForm, name="pinvoiceForm"),
     path("quoteForm/", prviews.quoteForm, name="quoteForm"),
     path("leadinfo/",prviews.leadinfo,name='leadinfo'),
+    
     
     path("leadinfo/",prviews.leadinfo,name="leadinfo"),
     path("addnotes/",prviews.addnotes,name="addnotes"),
@@ -83,7 +84,7 @@ urlpatterns = [
     path("viewsuggestion/",superadminviews.viewsuggestion,name='viewsuggestion'),
     path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager'),
     path("markasread/", superadminviews.markasread, name="markasread"),
-
+    path("deleteaccess",views.deleteaccess,name='deleteaccess'),
     # =====================hr====================================
     path("hrhome/",hrviews.hrhome,name='hrhome'),
    
