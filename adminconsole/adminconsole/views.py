@@ -2361,6 +2361,8 @@ def prdashboard(request):
         "totalprgettarget":totalprgettarget,
         "totalprtarget":totalprtarget,
         "dep":dep,
+        "name":name,
+        "profile":profile,
         "dropdown":dropdown,
         "progress":progress1,
         "general":general,

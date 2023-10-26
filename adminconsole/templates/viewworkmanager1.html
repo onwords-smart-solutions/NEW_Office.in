@@ -118,7 +118,7 @@
 
                         <!-- ===========tl's============================ -->
                         {% if approvalpage %}
-                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/approval'">
+                        <li class="navlistmenu " onclick="location.href='/approval'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/approval.png' %}" alt="dashboard_Icon">
@@ -235,7 +235,7 @@
                         {% endif %}
 
                         {% if viewworkmanager %}
-                        <li class="navlistmenu" onclick="location.href='/viewworkmanager'">
+                        <li class="navlistmenu navlistmenu-active" onclick="location.href='/viewworkmanager'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
                                     <img src="{% static 'images/nav-icon/viewworkmanager.svg' %}"
@@ -274,6 +274,19 @@
                             </div>
                         </li>
                         {% endif %}
+                        
+                        {%if dep == "ADMIN"%}
+                        <li class="navlistmenu" onclick="location.href='/staffaccess'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Staff Access</h5>
+                            </div>
+                        </li>
+                        {%endif%}
 
                         {% if prdashboard %}
                         <li class="navlistmenu " onclick="location.href='/prdashboard'">

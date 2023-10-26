@@ -274,7 +274,7 @@
                             </div>
                         </li>
                         {% endif %}
-
+                        {%if dep == "ADMIN"%}
                         <li class="navlistmenu" onclick="location.href='/staffaccess'">
                             <div class="left-nav-list">
                                 <div class="menu-icon">
@@ -285,6 +285,7 @@
                                 <h5>Staff Access</h5>
                             </div>
                         </li>
+                        {%endif%}
 
                         {% if prdashboard %}
                         <li class="navlistmenu " onclick="location.href='/prdashboard'">
