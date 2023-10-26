@@ -16,7 +16,7 @@ def prhome(request):
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
-    leavedetails = db.child("leaveDetails").get().val()
+    leavedetails = db.child("leave_details").get().val()
     webaccess=db.child("webaccess").get().val()
     general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
     for accessuid in webaccess["customer details"]:
@@ -163,7 +163,7 @@ def prhome(request):
         try:
             generalcount = 0
             sickcount = 0
-            leavedata = db.child("leaveDetails").get().val()
+            leavedata = db.child("leave_details").get().val()
             yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
             for allMonths in leavedata[current_year]:
 

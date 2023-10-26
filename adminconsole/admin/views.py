@@ -139,7 +139,7 @@ def adminhome(request):
     data = db.child("staff").get().val()
     attendence = db.child("attendance").get().val()
     workmanager = db.child("workmanager").get().val()
-    leavedetails = db.child("leaveDetails").get().val()
+    leavedetails = db.child("leave_details").get().val()
     name = checkUserName(uid)
     istl = False
     itaproval = False
@@ -244,7 +244,7 @@ def adminhome(request):
         try:
             generalcount = 0
             sickcount = 0
-            leavedata = db.child("leaveDetails").get().val()
+            leavedata = db.child("leave_details").get().val()
             yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
             for allMonths in leavedata[current_year]:
 
@@ -625,7 +625,7 @@ def checkin(request):
     tmonth = date_parts[1]
     tday = date_parts[2]   
 
-    leavedetails=db.child("leaveDetails").get().val()
+    leavedetails=db.child("leave_details").get().val()
     alltypes=[]
     allstatus=[]
     allnames=[]
@@ -736,7 +736,7 @@ def attendanced(request):
     current_month = datetime.now().strftime("%m")
     current_date = datetime.now().strftime("%Y-%m-%d")
     staff=db.child("staff").get().val()
-    leaveapplied=db.child("leaveDetails").child(current_year).child(current_month).get().val()
+    leaveapplied=db.child("leave_details").child(current_year).child(current_month).get().val()
     attendance=db.child("attendance").child(current_year).child(current_month).get().val()
     leavecountlist=[]
     staffpresentlist=[]
@@ -875,7 +875,7 @@ def attendancesort(request):
         current_year = todaysDate[:4]
         current_month = todaysDate[5:7]
         staff=db.child("staff").get().val()
-        leaveapplied=db.child("leaveDetails").child(current_year).child(current_month).get().val()
+        leaveapplied=db.child("leave_details").child(current_year).child(current_month).get().val()
         attendance=db.child("attendance").child(current_year).child(current_month).get().val()
         leavecountlist=[]
         staffpresentlist=[]
@@ -1008,7 +1008,7 @@ def indvattendanced(request):
     current_month = date[4:6]
     staff=db.child("staff").get().val()
     datelist,leavetypelist,leavenode,permissioncountlist = [],[],[],[]
-    leaveapplied=db.child("leaveDetails").child(current_year).child(current_month).get().val()
+    leaveapplied=db.child("leave_details").child(current_year).child(current_month).get().val()
     generalleavecount=0
     sickleavecount=0
     for date in leaveapplied:

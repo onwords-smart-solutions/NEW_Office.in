@@ -198,7 +198,7 @@ def leave_form(request):
     dep = request.COOKIES["dep"]
     profile=request.COOKIES["profile"]
     name = request.COOKIES["name"]
-    leave_data = db.child("leaveDetails").get().val()
+    leave_data = db.child("leave_details").get().val()
     current_date = datetime.now().strftime('%Y-%m-%d')
     current_year = datetime.now().strftime("%Y")
     current_month = datetime.now().strftime("%m")
@@ -283,9 +283,9 @@ def leave_form(request):
                         year, month, day = map(int, date.split('-'))
                         c["date"] = date
                         if from_date == to_date:
-                            db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
+                            db.child("leave_details").child(year).child(month).child(date).child(uid).child(leave_type).update(c)
                         else:
-                            db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
+                            db.child("leave_details").child(year).child(month).child(date).child(uid).child(leave_type).update(c)
                 except:
                     from_date = datetime.strptime(request.POST['fromdate'], '%Y-%m-%d') 
                     year, month, day = map(int, from_date.split('-'))
@@ -300,7 +300,7 @@ def leave_form(request):
                     }
 
                   
-                    db.child("leaveDetails").child(year).child(month).child(from_date).child(uid).child(leave_type).set(c)    
+                    db.child("leave_details").child(year).child(month).child(from_date).child(uid).child(leave_type).update(c)    
             except:
                 print("inside half")
                 half_date = (request.POST.get('halfdate'))    
@@ -315,7 +315,7 @@ def leave_form(request):
                     "node":"Half Day",
                     "date":half_date,
                 }
-                db.child("leaveDetails").child(year).child(month).child(half_date).child(uid).child(leave_type).set(c)
+                db.child("leave_details").child(year).child(month).child(half_date).child(uid).child(leave_type).update(c)
         if leave_type == "sick":
             try:
                 try:
@@ -342,9 +342,9 @@ def leave_form(request):
                         c["date"] = date
 
                         if from_date == to_date:
-                            db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
+                            db.child("leave_details").child(year).child(month).child(date).child(uid).child(leave_type).update(c)
                         else:
-                            db.child("leaveDetails").child(year).child(month).child(date).child(uid).child(leave_type).set(c)
+                            db.child("leave_details").child(year).child(month).child(date).child(uid).child(leave_type).update(c)
                 except:
                     from_date = datetime.strptime(request.POST['fromdate'], '%Y-%m-%d') 
                     year, month, day = map(int, from_date.split('-'))
@@ -359,7 +359,7 @@ def leave_form(request):
                     }
 
                     
-                    db.child("leaveDetails").child(year).child(month).child(from_date).child(uid).child(leave_type).set(c)    
+                    db.child("leave_details").child(year).child(month).child(from_date).child(uid).child(leave_type).update(c)    
             except:
                 half_date = (request.POST.get('halfdate'))       
                 reason = request.POST.get('reason')
@@ -373,7 +373,7 @@ def leave_form(request):
                     "node":"Half Day",
                     "date":half_date,
                 }
-                db.child("leaveDetails").child(year).child(month).child(half_date).child(uid).child(leave_type).set(c) 
+                db.child("leave_details").child(year).child(month).child(half_date).child(uid).child(leave_type).update(c) 
 
 
         if leave_type == "permission":   
@@ -399,10 +399,10 @@ def leave_form(request):
                     "date":current_date,
                     "duration": duration_str,
                 }
-            db.child("leaveDetails").child(current_year).child(current_month).child(current_date).child(uid).child(leave_type).set(c) 
+            db.child("leave_details").child(current_year).child(current_month).child(current_date).child(uid).child(leave_type).update(c) 
 
     try:
-        leavedata = db.child("leaveDetails").child(current_year).get().val()
+        leavedata = db.child("leave_details").child(current_year).get().val()
         datelist,reasonlist,statelist,inchargelist=[],[],[],[]
         for monthdata in leavedata:
             for datedata in leavedata[monthdata]:
@@ -448,21 +448,21 @@ def leave_form(request):
 
 def approvalprocess(request):
     uid1 = request.COOKIES["uid"]
-    data = db.child("leaveDetails").get().val()
+    data = db.child("leave_details").get().val()
     name1 = checkUserName(uid1)
     if "approve" in request.POST:
         name = request.POST["namee1"]
         date = request.POST["_datee"]
         type = request.POST["type"]
         uid = getUidByName(name)
-        db.child("leaveDetails").child(date[0:4]).child(date[5:7]).child(date).child(uid).child(type).update({"status": "Approved","updated_by":name1})
+        db.child("leave_details").child(date[0:4]).child(date[5:7]).child(date).child(uid).child(type).update({"status": "Approved","updated_by":name1})
 
     if "deny" in request.POST:
         name = request.POST["namee1"]
         date = request.POST["_datee"]
         type = request.POST["type"]
         uid = getUidByName(name)
-        db.child("leaveDetails").child(date[0:4]).child(date[5:7]).child(date).child(uid).child(type).update({"status": "Declined","updated_by":name1})
+        db.child("leave_details").child(date[0:4]).child(date[5:7]).child(date).child(uid).child(type).update({"status": "Declined","updated_by":name1})
     return redirect('/leaveapproval/')
 
 
@@ -854,7 +854,7 @@ def leave_approval(request):
     for suggestion in suggestionData:
         if not suggestionData[suggestion]["isread"]:
             suggestionNotification += 1
-    leavedata = db.child("leaveDetails").get().val()
+    leavedata = db.child("leave_details").get().val()
     staff_data = db.child("staff").get().val()
     yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
     for staff in staff_data:
@@ -963,7 +963,7 @@ def approval(request):
     for suggestion in suggestionData:
         if not suggestionData[suggestion]["isread"]:
             suggestionNotification += 1
-    leavedata = db.child("leaveDetails").get().val()
+    leavedata = db.child("leave_details").get().val()
     staff_data = db.child("staff").get().val()
     yearList, monthList, dateList, typelist, datalist = [], [], [], [], []
     for staff in staff_data:
@@ -2695,13 +2695,11 @@ def workmanagerTl(request):
                     
     #         except:
     #             pass      
-<<<<<<< HEAD
     return render(request,'workmanagerTL.html')  
 def  deleteaccess(request):
-    return render(request,'deleteaccess.html')   
-=======
-    return render(request,'workmanagerTL.html')   
-
+    return render(request,'deleteaccess.html')
+def forgetpassword(request):
+    return render(request,'deleteaccess.html')
 def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
     try:
         print("starting")
@@ -2753,4 +2751,3 @@ def convert_to_12_hour_format(progress):
 
 
    
->>>>>>> 7e59a37c41b279d7f738729c8ae34a57198be7a5
