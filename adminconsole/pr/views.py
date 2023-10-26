@@ -217,7 +217,7 @@ def prhome(request):
             pass
         except:
             pass
-                    
+        print("progr",yesterdayprogress)            
         generalleave = 24 - generalcount
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
