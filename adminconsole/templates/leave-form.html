@@ -386,12 +386,10 @@
                             <div class="leave-lists mt-3" >
                                 <p class=" formhov  active-forms" id="fulldaysickBtn" onclick="fulldaysick()">Full Day</p>
                                 <p  class="formhov px-4" id="halfdaysickBtn" onclick="halfdaysick()">Half Day</p>
-                                
                             </div>
 
                             <form action="/leave_form/" method="post" class="sick-leave leave-frm">
                                 {% csrf_token %}
-
                                 <div class="" id="halfdaysick">
                                     <label for="sick-half">Date</label>
                                     <div class="form-inp-con">
@@ -400,7 +398,6 @@
                                     </div>
                                   </div>
 
-                              
                                 <div id="fulldaysick">
                                     <label for="leavefrom">From</label>
                                 <div class="form-inp-con">

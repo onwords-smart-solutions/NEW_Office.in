@@ -259,8 +259,10 @@ def leave_form(request):
             try:
                 try:
                     from_date = datetime.strptime(request.POST['fromdate'], '%Y-%m-%d')
-                    to_date = datetime.strptime(request.POST['todate'], '%Y-%m-%d')
-                   
+                    try:
+                        to_date = datetime.strptime(request.POST['todate'], '%Y-%m-%d')
+                    except:
+                        to_date=from_date
                     reason = request.POST['reason']
                     c = {
                         "dep": dep,
@@ -314,8 +316,11 @@ def leave_form(request):
             try:
                 try:
                     from_date = datetime.strptime(request.POST['fromdate'], '%Y-%m-%d')
-                    to_date = datetime.strptime(request.POST['todate'], '%Y-%m-%d')
-                   
+                    try:
+                        to_date = datetime.strptime(request.POST['todate'], '%Y-%m-%d')
+                    except:
+                        to_date=from_date
+
                     reason = request.POST['reason']
                     c = {
                         "dep": dep,
@@ -372,7 +377,7 @@ def leave_form(request):
 
         if leave_type == "permission":   
             fromtime = request.POST.get('starttime')  
-            totime = request.POST.get('endtime')  
+            totime = request.POST.get('endtime')
             reason = request.POST.get('reason')
             if fromtime is not None and totime is not None:
                 fromtiming = datetime.strptime(fromtime, "%H:%M")
