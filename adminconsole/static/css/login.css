@@ -1,17 +1,12 @@
 #fwd {
     display: none;
 }
-
-form {
-    /* background: #fff; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0 50px;
-    height: 100%;
+.loginform-con{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px 10px;
+    margin-top: 20%;
     text-align: center;
-    transform: translate(0%, 10%);
 }
 
 input {
@@ -36,31 +31,14 @@ input {
     font-family: abzee-regular;
 }
 
+.forgot-btn{
+    text-align: end !important;
 
-
-.forgot-btn {
-    float: right;
-    border: none;
-    outline: none;
-    transform: translate(-100%, 50%);
-    color: blue;
-    transform: translate(-56px, 137px);
-    position: inherit;
-    background-color: white;
 }
 
-.reset {
-    padding: 7px;
-    border-radius: 5px;
-    border: none;
-    outline-offset: none;
-    font-size: 20px;
-    font-weight: 600;
-    font-family: abzee-regular;
-    transform: translate(167px, 78px);
-    position: inherit;
-    background-color: #FBD87F;
-}
+
+
+
 
 /* CMO PRODUCT PAGE */
 

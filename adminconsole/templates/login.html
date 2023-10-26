@@ -22,36 +22,32 @@
                 <div class="col-md-6">
                     <div class="login-admin">
 
-                        <div class="login-form" id="login">
-                            
-                            <form action="/" class="login-form" method="post">
-                                {% csrf_token %}
-                                <div class="h2">Signin</div>
-                                <div class="form-inp-cons">
-                                    <img src="{% static '/images/user-icons.svg'%}" alt="user-icon" class="img-fluid">
-                                    <input type="email" name="email" id="" placeholder="Email">
-                                </div>
-                                <div class="form-inp-cons">
-                                    <img src="{% static 'images/lockmain.svg' %}" alt="lock" class="img-fluid">
-                                    <input type="password" name="password" id="" placeholder="Password">
-                                </div>
-                               
+                     <div class="loginform-con">
+                          
+                        <form action="/" class="login-form" method="post">
+                            {% csrf_token %}
+                            <div class="h2">Signin</div>
+                            <div class="form-inp-cons">
+                                <img src="{% static '/images/user-icons.svg'%}" alt="user-icon" class="img-fluid">
+                                <input type="email" name="email" id="" placeholder="Email">
+                            </div>
+                            <div class="form-inp-cons">
+                                <img src="{% static 'images/lockmain.svg' %}" alt="lock" class="img-fluid">
+                                <input type="password" name="password" id="" placeholder="Password">
+                            </div>
+                           
+                            <button type="submit" class="primary-button ">Signin</button>
 
-                                <button class="primary-button ">Signin</button>
-
-                            </form>
-                            <button class="forgot-btn" onclick="forgot()">Forgot Password?</button>
+                        </form>
+                        
+                        <div class="forgot-btn">
+                            <a href="/forgetpassword">Forgot Password?</a>
                         </div>
-                        <div class="signin-form" id="fwd">
-                            <form action="">
-                                <h2>Forgot PAssword</h2>
-                              <div class="form-inp-cons">
-                                <img src="{% static 'images/email-icon.svg' %}" alt="email-icon">
-                                <input type="email" name="" id="" placeholder="Enter Your Email">
-                              </div>
-                            </form>
-                            <button class="btn  reset" onclick="reset()">Reset Your Password</button>
-                        </div>
+                       
+                     </div>
+                          
+                      
+                       
                     </div>
                 </div>
             </div>
