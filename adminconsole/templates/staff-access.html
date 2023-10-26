@@ -354,7 +354,7 @@
                                             <option value="inprogress">Inprogress</option>
                                         </select>
                                     </div>
-                                    <button class="primary-button">Permission</button>
+                                    <button class="primary-button" name="grantaccess">Permission</button>
                                 </form>
                             </div>
                         </div>
@@ -374,8 +374,8 @@
                                         <img src="{% static 'images/user-icon.svg' %}" alt="user-icon">
                                         <select name="uid" id="">
                                             <option value="">Select Staff</option>
-                                            {%for uid , name in allstaff%}
-                                            <option value="{{uid}}">{{name}}</option>
+                                            {%for uid1 , name1 in allstaff1%}
+                                            <option value="{{uid1}}">{{name1}}</option>
                                             {%endfor%}
                                         </select>
                                     </div>
@@ -385,7 +385,7 @@
                                     </div> -->
                                     <div class="form-inp-access">
                                         <img src="{% static 'images/access-icon.svg' %}" alt="user-icon">
-                                        <select name="access" id="">
+                                        <select name="removeaccess" id="">
                                             <option value="">Access Page</option>
                                             <option value="customer details">Customer Details</option>
                                             <option value="approval">Approval</option>
@@ -401,7 +401,7 @@
                                             <option value="inprogress">Inprogress</option>
                                         </select>
                                     </div>
-                                    <button class="primary-button">Permission</button>
+                                    <button class="primary-button" name="deleteaccess">Permission</button>
                                 </form>
                             </div>
                         </div>

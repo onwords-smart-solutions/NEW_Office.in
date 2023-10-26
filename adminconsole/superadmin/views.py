@@ -90,11 +90,16 @@ def superadmin(request):
     inventoryall=[]
     for uid in inventory:
         inventoryall.append(inventory[uid])
-    
+    customer=db.child("customer").get().val()
+    totallead=0
+    for cusno in customer:
+        if customer[cusno]["created_date"] == current_date_today:
+            totallead=totallead+1
     context={
         "name":name,
         "dep":dep,
         "profile":profile,
+        "totallead":totallead,
         "inventoryall":inventoryall,
         "stafftotalpresent":stafftotalpresent,
         "stafftotalabsent":stafftotalabsent,
@@ -179,10 +184,12 @@ def createstaff(request):
 
     if request.method == "POST":
         try:
+            print("=========star")
             _name = request.POST["name"]
             _email = request.POST["email"]
             _department = request.POST["department"]
             _password = request.POST["password"]
+            print("=========star1")
             try:
                 _pt = request.POST["pt"]
                 data = {
@@ -192,15 +199,22 @@ def createstaff(request):
                     "partTime": True,
                 }
             except:
+                print("=========star2")
                 data = {
                     "name": _name,
                     "email": _email,
                     "department": _department,
                 }
-            usr = auth.create_user_with_email_and_password(_email,_password)
+            print("=========star3")
+            try:
+                usr = auth.create_user_with_email_and_password(_email,_password)
+            except Exception as e:
+                print("error",e)    
+            print("=========start4")
             db.child("staff").child(usr["localId"]).set(data)
+            print("=========start5")
             auth.send_password_reset_email(_email)
-
+            print("=========start6")
             context={
                     "message": "User Created Successfully",
                     "name":name,
@@ -302,22 +316,33 @@ def staffaccess(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
-
     if request.method == "POST":
-        uid = request.POST["uid"]
-        access = request.POST["access"]
-        web=db.child("webaccess").get().val()
-        try:
-            count=len(web[access])
-            print(count)
-        except:
-            print('ll')
-            count=0
-        data={
-            "uid"+str(count+1):uid
-        }
-        print(data)
-        db.child("webaccess").child(access).update(data)
+        if "grantaccess" in request.POST:
+            uid = request.POST["uid"]
+            access = request.POST["access"]
+            web=db.child("webaccess").get().val()
+            try:
+                count=len(web[access])
+                print(count)
+            except:
+                print('ll')
+                count=0
+            data={
+                "uid"+str(count+1):uid
+            }
+            print(data)
+            db.child("webaccess").child(access).update(data)
+        if "deleteaccess" in request.POST:
+            uid = request.POST["uid"]
+            access = request.POST["removeaccess"]
+            web=db.child("webaccess").child(access).get().val()
+            for uid1 in web:
+                if uid == web[uid1]:
+                    data={
+                        uid1:"removed"
+                    }
+                    print(data)
+                    db.child("webaccess").child(access).update(data)
     staff=db.child("staff").get().val()
     namelist=[]
     uidlist=[]
@@ -332,6 +357,7 @@ def staffaccess(request):
                 suggestionNotification += 1
     context={
         "allstaff":allstaff,
+        "allstaff1":allstaff,
         "name":name,
         "dep":dep,
         "profile":profile,

@@ -68,7 +68,7 @@ def login(request):
                 response = redirect("rndhome")
                 return response
             if dep == "ADMIN":
-                response = redirect("adminhome")
+                response = redirect("superadmin")
                 return response
             if dep == "INSTALLATION":
                 response = redirect("installationhome")
@@ -133,7 +133,7 @@ def login(request):
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "ADMIN":
-                response = redirect("adminhome")
+                response = redirect("superadmin")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
                 response.set_cookie("name", name, expires=exp)
