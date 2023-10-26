@@ -433,7 +433,7 @@ def leave_form(request):
         return render(request,'leave-form.html',context)
     except:
         pass
-    return render(request,'leave-form.html')
+    return render(request,'leave-form.html',)
 
 def approvalprocess(request):
     uid1 = request.COOKIES["uid"]
