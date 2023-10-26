@@ -2542,4 +2542,6 @@ def workmanagerTl(request):
                     
     #         except:
     #             pass      
-    return render(request,'workmanagerTL.html')      
+    return render(request,'workmanagerTL.html')  
+def  deleteaccess(request):
+    return render(request,'deleteaccess.html')   

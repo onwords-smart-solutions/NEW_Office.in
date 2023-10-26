@@ -256,9 +256,11 @@
     justify-content: space-between;
     padding: 10px;
 }
-.custom-btn:hover{
+
+.custom-btn:hover {
     border: 2px solid #282828;
 }
+
 .custom-active {
     border: 2px solid #282828;
 }
@@ -854,7 +856,7 @@
 /* ==========access page ========= */
 .access-page-con {
     width: 80%;
-    height: 85vh;
+    height: 77vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1232,4 +1234,3 @@ input::-webkit-inner-spin-button {
 .cirs {
     margin: 0 2px;
 }
-
