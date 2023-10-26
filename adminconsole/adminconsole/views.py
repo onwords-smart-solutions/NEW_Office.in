@@ -2695,6 +2695,11 @@ def workmanagerTl(request):
                     
     #         except:
     #             pass      
+<<<<<<< HEAD
+    return render(request,'workmanagerTL.html')  
+def  deleteaccess(request):
+    return render(request,'deleteaccess.html')   
+=======
     return render(request,'workmanagerTL.html')   
 
 def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
@@ -2748,3 +2753,4 @@ def convert_to_12_hour_format(progress):
 
 
    
+>>>>>>> 7e59a37c41b279d7f738729c8ae34a57198be7a5

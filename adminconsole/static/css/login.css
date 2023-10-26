@@ -11,7 +11,7 @@ form {
     padding: 0 50px;
     height: 100%;
     text-align: center;
-    transform: translate(0%, 50%);
+    transform: translate(0%, 10%);
 }
 
 input {
@@ -337,9 +337,10 @@ input {
 
 .li-inventry:hover,
 .active-inv {
-    background-color: #FBD87F;
+    background-color: #FBD87F !important;
     border-radius: 5px;
 }
+
 
 .view-date:hover {
     background-color: #fff;
@@ -642,12 +643,4 @@ input {
 
 .main-workdoneprint {
     display: none;
-}
-
-#delete-access {
-    display: none;
-}
-
-.staff-access-form-con h3 {
-    transform: translate(0, 90px);
 }
