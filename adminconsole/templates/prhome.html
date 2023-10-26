@@ -275,19 +275,6 @@
                         </li>
                         {% endif %}
 
-                        {%if dep == "ADMIN"%}
-                        <li class="navlistmenu" onclick="location.href='/staffaccess'">
-                            <div class="left-nav-list">
-                                <div class="menu-icon">
-                                    <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
-                                </div>
-                            </div>
-                            <div class="right-nav-list">
-                                <h5>Staff Access</h5>
-                            </div>
-                        </li>
-                        {%endif%}
-
                         {% if prdashboard %}
                         <li class="navlistmenu " onclick="location.href='/prdashboard'">
                             <div class="left-nav-list">
@@ -701,7 +688,7 @@
                     var currentHour = currentDate.getHours();
                     var currentMinutes = currentDate.getMinutes();
 
-                    var showTeaCoffeeMilk = (currentHour === 12 && currentMinutes >= 0) || (currentHour === 12 && currentMinutes <= 45);
+                    var showTeaCoffeeMilk = (currentHour === 9 && currentMinutes >= 0) || (currentHour === 10 && currentMinutes <= 45);
                     var showTeaCoffee = (currentHour === 14 && currentMinutes >= 0) || (currentHour === 15 && currentMinutes <= 30);
 
                     if (showTeaCoffeeMilk) {
