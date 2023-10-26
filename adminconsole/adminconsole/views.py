@@ -2698,7 +2698,122 @@ def workmanagerTl(request):
     return render(request,'workmanagerTL.html') 
  
 def  deleteaccess(request):
-    return render(request,'deleteaccess.html')
+    uid = request.COOKIES["uid"]
+    name = request.COOKIES["name"]
+    dep = request.COOKIES["dep"]
+    profile = request.COOKIES["profile"]
+    webaccess=db.child("webaccess").get().val()
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    for accessuid in webaccess["customer details"]:
+        if webaccess["customer details"][accessuid] == uid:
+            customeracccess=True
+
+    for accessuid in webaccess[ "Account"]:
+        if webaccess[ "Account"][accessuid] == uid:    
+            accountacccess=True
+
+    for accessuid in webaccess["Create Lead"]:
+        if webaccess["Create Lead"][accessuid] == uid:    
+            createleadacccess=True
+
+    for accessuid in webaccess["Create Staff"]:
+        if webaccess["Create Staff"][accessuid] == uid:    
+            createstaffacccess=True
+
+    for accessuid in webaccess["Inventory Page"]:
+        if webaccess["Inventory Page"][accessuid] == uid:    
+            inventoryacccess=True
+
+    for accessuid in webaccess["Prdashboard"]:
+        if webaccess["Prdashboard"][accessuid] == uid:
+            prdashboardacccess=True
+
+    for accessuid in webaccess["Quotation Page"]:
+        if webaccess["Quotation Page"][accessuid] == uid:
+            quotationacccess=True
+
+    for accessuid in webaccess["User Data"]:
+        if webaccess["User Data"][accessuid] == uid:
+            userdataacccess=True
+
+    for accessuid in webaccess["View Suggestion"]:
+        if webaccess["View Suggestion"][accessuid] == uid:
+            viewsuggestionacccess=True
+
+    for accessuid in webaccess[ "Viewwork Manager"]:
+        if webaccess[ "Viewwork Manager"][accessuid] == uid:
+            viewmanageracccess=True
+
+    for accessuid in webaccess["approval"]:
+        if webaccess["approval"][accessuid] == uid:
+            approvalacccess=True
+
+    for accessuid in webaccess["inprogress"]:
+        if webaccess["inprogress"][accessuid] == uid:
+            inprogressacccess=True            
+    if uid is not None:
+        general=True
+    accesslist=[]
+    editname="NULL"
+    edituid="NULL" 
+    staff=db.child("staff").get().val() 
+    if request.method == "POST":
+        if "removeaccess" in request.POST:
+            staffuid = request.POST["euid"]
+            staffaccess = request.POST["access"]
+            # access = request.POST["removeaccess"]
+            web=db.child("webaccess").get().val()
+            for datauid in web[staffaccess]:
+                if staffuid == web[staffaccess][datauid]:
+                    db.child("webaccess").child(staffaccess).update({datauid:"NULL"})
+
+        else:
+            staffuid = request.POST["uid"]
+            # access = request.POST["removeaccess"]
+            web=db.child("webaccess").get().val()
+            for accessall in web:
+                for alluid in web[accessall]:
+                    if staffuid == web[accessall][alluid]:
+                        accesslist.append(accessall)
+            editname=staff[staffuid]["name"]
+            edituid=staffuid          
+    
+    namelist=[]
+    uidlist=[]
+    for uid in staff:
+        namelist.append(staff[uid]["name"])
+        uidlist.append(uid) 
+    allstaff=zip(uidlist,namelist)
+    suggestionNotification = 0
+    suggestionData = db.child("suggestion").get().val()
+    for suggestion in suggestionData:
+            if not suggestionData[suggestion]["isread"]:
+                suggestionNotification += 1
+    context={
+        "editname":editname,
+        "edituid":edituid,
+        "allstaff":allstaff,
+        "accesslist":accesslist,
+        "name":name,
+        "dep":dep,
+        "profile":profile,
+        "general":general,
+        "approvalpage":approvalacccess,
+        "rnd":inprogressacccess,
+        "account":accountacccess,
+        "createlead":createleadacccess,
+        "customerdetails":customeracccess,
+        "quotation":quotationacccess,
+        "inventory":inventoryacccess,
+        "createstaff":createstaffacccess,
+        "viewworkmanager":viewmanageracccess,
+        "viewsuggestion":viewsuggestionacccess,
+        "userdata":userdataacccess,
+        "prdashboard":prdashboardacccess,
+        "suggestionNotification":suggestionNotification
+    }
+    return render(request,'deleteaccess.html',context)
+
 
 def forgetpassword(request):
     if request.method == "POST":
