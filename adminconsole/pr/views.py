@@ -399,7 +399,8 @@ def create_lead(request):
                         "created_by": checkUserName(uid),
                         "customer_state": "New leads",
                     }
-                    db.child("customer").child(phno).update(data)
+                    print(phno,data)
+                    # db.child("customer").child(phno).update(data)
                     context={
                         "akn": "user created success fully",
                         "colour": True,
@@ -435,7 +436,7 @@ def create_lead(request):
                     read = csv.reader(codecs.iterdecode(reader, 'utf-8'))
                     for row in read:
                         if any(field.strip() for field in row):
-                            cname = row[0]
+                            name = row[0]
                             original_phone_number = row[1]
                             email = row[2]
                             city = row[3]
@@ -457,14 +458,14 @@ def create_lead(request):
                             else:
                                 number = original_phone_number
                             cust_data = {
-                                "name": cname,
+                                "name": name,
                                 "phone_number": number,
                                 "city": city,
                                 "email_id": email,
                                 "data_fetched_by": "Facebook Ads",
                                 "LeadIncharge": name1,
                                 "created_by": checkUserName(logedInUser),
-                                "created_by": name,
+                                "created_by": checkUserName(uid),
                                 "created_date": str(curent_date),
                                 "created_time": current_time,
                                 "customer_state": "New leads",
@@ -480,11 +481,12 @@ def create_lead(request):
                                 custData[number]
                                 alreadyExistList.append(number)
                             except Exception as err:
-                                db.child("customer").child(number).update(cust_data)
+                                print(number,cust_data)
+                                # db.child("customer").child(number).update(cust_data)
                             # return render(request,"pr/createlead.html",{"akn": "user created success fully", "colour": True, "tl":istl, "accounts": accounts,"management": management,"alreadyExistList": alreadyExistList})
                             # db.child("customer").child(number).update(cust_data)
                         else:
-                            pass    
+                            pass        
                     context={
                             "akn": "user created success fully", 
                             "colour": True,
