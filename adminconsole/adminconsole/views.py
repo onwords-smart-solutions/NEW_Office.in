@@ -52,7 +52,6 @@ def login(request):
         if bool(loginState) == True:
             dep = checkUserDepartment(uid)
             if uid == "pztngdZPCPQrEvmI37b3gf3w33d2":
-                print("inside redirect1")
                 response = redirect("coohome") 
                 return response 
             if uid == "A5kpLL2U0UaOkPrw2GeI8llH49s1" or uid == "yleZdWDZgFYTBxwzC5NtHVeb3733" or uid== "jDYzpwcpv3akKaoDL9N4mllsGCs2":
@@ -71,7 +70,6 @@ def login(request):
                 response = redirect("prhome")
                 return response
             if dep == "RND":
-                print("inside rnd")
                 response = redirect("rndhome")
                 return response
             if dep == "ADMIN":
@@ -100,7 +98,6 @@ def login(request):
             name = checkUserName(uid)
             profile=profileall(uid)
             exp = 100 * 365 * 24 * 60 * 60
-            print("==log",uid)
             if uid == "pztngdZPCPQrEvmI37b3gf3w33d2":
                 response = redirect("coohome")
                 response.set_cookie("uid", uid, expires=exp)
@@ -150,7 +147,6 @@ def login(request):
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "RND":
-                print("inside rnd")
                 response = redirect("rndhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
@@ -2734,24 +2730,36 @@ def  deleteaccess(request):
             inprogressacccess=True            
     if uid is not None:
         general=True
+    accesslist=[]
+    editname="NULL"
+    edituid="NULL" 
+    staff=db.child("staff").get().val() 
     if request.method == "POST":
-        if "deleteaccess" in request.POST:
-            uid = request.POST["uid"]
-            access = request.POST["removeaccess"]
-            web=db.child("webaccess").child(access).get().val()
-            for uid1 in web:
-                if uid == web[uid1]:
-                    data={
-                        uid1:"removed"
-                    }
-                    print(data)
-                    db.child("webaccess").child(access).update(data)
-    staff=db.child("staff").get().val()
+        if "removeaccess" in request.POST:
+            staffuid = request.POST["euid"]
+            staffaccess = request.POST["access"]
+            # access = request.POST["removeaccess"]
+            web=db.child("webaccess").get().val()
+            for datauid in web[staffaccess]:
+                if staffuid == web[staffaccess][datauid]:
+                    db.child("webaccess").child(staffaccess).update({datauid:"NULL"})
+
+        else:
+            staffuid = request.POST["uid"]
+            # access = request.POST["removeaccess"]
+            web=db.child("webaccess").get().val()
+            for accessall in web:
+                for alluid in web[accessall]:
+                    if staffuid == web[accessall][alluid]:
+                        accesslist.append(accessall)
+            editname=staff[staffuid]["name"]
+            edituid=staffuid          
+    
     namelist=[]
     uidlist=[]
     for uid in staff:
         namelist.append(staff[uid]["name"])
-        uidlist.append(uid)
+        uidlist.append(uid) 
     allstaff=zip(uidlist,namelist)
     suggestionNotification = 0
     suggestionData = db.child("suggestion").get().val()
@@ -2759,8 +2767,10 @@ def  deleteaccess(request):
             if not suggestionData[suggestion]["isread"]:
                 suggestionNotification += 1
     context={
+        "editname":editname,
+        "edituid":edituid,
         "allstaff":allstaff,
-        "allstaff1":allstaff,
+        "accesslist":accesslist,
         "name":name,
         "dep":dep,
         "profile":profile,
@@ -2779,7 +2789,7 @@ def  deleteaccess(request):
         "prdashboard":prdashboardacccess,
         "suggestionNotification":suggestionNotification
     }
-    return render(request,'deleteaccess.html')
+    return render(request,'deleteaccess.html',context)
 
 def forgetpassword(request):
     return render(request,'deleteaccess.html')

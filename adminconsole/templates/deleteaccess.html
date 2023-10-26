@@ -321,40 +321,39 @@
                         <div class="col-md-6">
                             <div class="staff-access-form-con">
                                 <h3>Delete Access</h3>
-                                <form action="/staffaccess/" method="post">
+                                <form action="/deleteaccess/" method="post" id="datetime">
                                     {%csrf_token%}
                                     <div class="form-inp-access">
                                         <img src="{% static 'images/user-icon.svg' %}" alt="user-icon">
-                                        <select name="uid" id="">
+                                        <select name="uid" id="" onchange="dateTimeSubmit()">
+                                            {%if editname == "NULL"%}
                                             <option value="">Select Staff</option>
+                                            {%else%}
+                                            <option value="">{{editname}}</option>
+                                            {%endif%}
                                             {%for uid , name in allstaff%}
                                             <option value="{{uid}}">{{name}}</option>
                                             {%endfor%}
                                         </select>
                                     </div>
+                                </form>    
                                     <!-- <div class="form-inp-access">
                                         <img src="{% static 'images/position.svg' %}" alt="user-icon">
                                         <input type="text" id="position" placeholder="Staff Position" >
                                     </div> -->
+                                <form action="/deleteaccess/" method="post">
+                                    {%csrf_token%}   
                                     <div class="form-inp-access">
                                         <img src="{% static 'images/access-icon.svg' %}" alt="user-icon">
+                                        <input type="hidden" name="euid" value="{{edituid}}">
                                         <select name="access" id="">
                                             <option value="">Access Page</option>
-                                            <option value="customer details">Customer Details</option>
-                                            <option value="approval">Approval</option>
-                                            <option value="Account">Account</option>
-                                            <option value="Create Lead">Create Lead</option>
-                                            <option value="Quotation Page">Quotation Page</option>
-                                            <option value="Inventory Page">Inventory Page</option>
-                                            <option value="Create Staff">Create Staff</option>
-                                            <option value="Viewwork Manager">Viewwork Manager</option>
-                                            <option value="View Suggestion">View Suggestion</option>
-                                            <option value="User Data">User Data</option>
-                                            <option value="Prdashboard">Prdashboard</option>
-                                            <option value="inprogress">Inprogress</option>
+                                            {%for data in accesslist%}
+                                            <option value="{{data}}">{{data}}</option>
+                                            {%endfor%}
                                         </select>
                                     </div>
-                                    <button class="primary-button">Permission</button>
+                                    <button class="primary-button" name="removeaccess">Permission</button>
                                 </form>
                             </div>
                         </div>
@@ -378,7 +377,12 @@
         crossorigin="anonymous"></script>
     <!-- js script  end -->
     <script>
-
+        function dateTimeSubmit(){
+           document.getElementById("datetime").submit()
+         }
+    </script>
+    <script>
+    
     </script>
 
 </body>

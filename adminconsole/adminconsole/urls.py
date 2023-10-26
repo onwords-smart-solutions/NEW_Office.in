@@ -84,7 +84,8 @@ urlpatterns = [
     path("viewsuggestion/",superadminviews.viewsuggestion,name='viewsuggestion'),
     path("viewworkmanager/",superadminviews.viewworkmanager,name='viewworkmanager'),
     path("markasread/", superadminviews.markasread, name="markasread"),
-    path("deleteaccess",views.deleteaccess,name='deleteaccess'),
+    path("deleteaccess/",views.deleteaccess,name='deleteaccess'),
+
     # =====================hr====================================
     path("hrhome/",hrviews.hrhome,name='hrhome'),
    
