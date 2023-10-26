@@ -371,24 +371,25 @@
                         </div>
                        <div class="create-lead-list">
                         <form action="/create_lead/" method="post" class="create-lead-forms" enctype="multipart/form-data">
+                        <form action="/create_lead/" method="post" class="create-lead-forms" enctype="multipart/form-data" >
                             {% csrf_token %}
                           <div class="lead-inp-con d-flex align-items-center justify-content-around">
                            <div class="d-flex align-items-center  checkbox-li">
                             <label for="smarthome">SH</label>
-                            <input type="checkbox" id="smarthome"name="eqfor" value="SmartHome">
+                            <input type="radio" id="smarthome"name="eqfor" value="SmartHome">
                            </div>
                            <div class="d-flex align-items-center checkbox-li">
                             <label for="gate">Gate</label>
-                            <input type="checkbox" id="gate"  name="eqfor" value="Gate Automation">
+                            <input type="radio" id="gate"  name="eqfor" value="Gate Automation">
                            </div>
                            <div class="d-flex align-items-center checkbox-li">
                             <label for="others" class="lable-li">Others</label>
-                            <input type="checkbox" name="eqfor" id="others" value="others">
+                            <input type="radio" name="eqfor" id="others" value="others">
                            </div>
                           </div>
                           <div class="lead-inp-con">
                             <img src="{% static 'images/file-icon.svg' %}" alt="user_icon" class="img-fluid">
-                            <input type="file"  name="myfile" id="myfile" placeholder="File Upload">
+                            <input type="file"  name="myfile"  placeholder="File Upload" id="myfile" required onchange="fileValidation()">
                           </div>
                           <div class="lead-inp-con">
                             <img src="{% static 'images/user-icon.svg' %}" alt="user_icon" class="img-fluid">
@@ -421,6 +422,16 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
+    <script>
+    function fileValidation() {
+        var fileInput = document.getElementById('myfile');
+        var filePath = fileInput.value;
+        if (filePath.split(".")[1] !== "csv") {
+          alert("Please upload file having extensions .csv only")
+          fileInput.value = '';
+        }
+      }
+    </script>
  
 </body>
 
