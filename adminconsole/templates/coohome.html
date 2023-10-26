@@ -527,15 +527,15 @@
                     </div>
                     <div class="col-md-4">
                         <div class="leavebalance-con p-2">
-                            <h4>Installation Leave Details</h4>
+                            <h4>Leave Balance</h4>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="leave-chart">
                                         <canvas id="myChart2" width="100" height="100"></canvas>
                                         <div class="leave-precent">
-                                            <span class="top-num">17</span>
+                                            <span class="top-num">{{overallleave}}</span>
                                             <span class="dived-sympl">/</span>
-                                            <span class="bottom-num">24</span>
+                                            <span class="bottom-num">36</span>
                                         </div>
                                     </div>
                                 </div>
@@ -546,7 +546,7 @@
                                             <p class="leave-text">Sick Leave</p>
                                         </div>
                                         <div class="col-md-2">
-                                            <p class="leave-text leave-count">13</p>
+                                            <p class="leave-text leave-count">{{sickleave}}</p>
                                         </div>
                                         <div class="col-md-1"></div>
                                     </div>
@@ -556,7 +556,7 @@
                                             <p class="leave-text">Casual Leave</p>
                                         </div>
                                         <div class="col-md-2">
-                                            <p class="leave-text leave-count">24</p>
+                                            <p class="leave-text leave-count">{{generalleave}}</p>
                                         </div>
                                         <div class="col-md-1"></div>
                                     </div>
@@ -609,7 +609,7 @@
                                         <h5>Present</h5>
                                     </div>
                                     <div class="quot-count">
-                                        <h5>54</h5>
+                                        <h5>{{stafftotalpresent}}</h5>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mx-3">
@@ -618,7 +618,7 @@
                                         <h5>Absent</h5>
                                     </div>
                                     <div class="quot-count">
-                                        <h5>6</h5>
+                                        <h5>{{stafftotalabsent}}</h5>
                                     </div>
                                 </div>
                                
