@@ -275,6 +275,17 @@
                         </li>
                         {% endif %}
 
+                        <li class="navlistmenu" onclick="location.href='/staffaccess'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/userdata.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Staff Access</h5>
+                            </div>
+                        </li>
+
                         {% if prdashboard %}
                         <li class="navlistmenu " onclick="location.href='/prdashboard'">
                             <div class="left-nav-list">
@@ -287,6 +298,7 @@
                             </div>
                         </li>
                         {% endif %}
+                        
                         
                         <!-- =========================== -->
 
@@ -340,7 +352,7 @@
                                 <div class="lead-dashboardbox">
                                     <h3>Today
                                         Lead</h3>
-                                    <h2>34</h2>
+                                    <h2>{{totallead}}</h2>
                                 </div>
                                 <div class="lead-dashboardbox">
                                     <h3>Today

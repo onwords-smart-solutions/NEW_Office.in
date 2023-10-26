@@ -316,7 +316,7 @@
                             <img src="{% static 'images/leave-frm-img.svg' %}" alt="leave-form" class="img-fluid">
                         </div>
                         <div class="leave-list">
-                            <form action="createstaff" class=" leave-frm" method="post">
+                            <form action="/createstaff/" class=" leave-frm" method="post">
                                 {% csrf_token %}
                                 <label for="staffName">staff Name</label>
                                 <div class="form-inp-con">
