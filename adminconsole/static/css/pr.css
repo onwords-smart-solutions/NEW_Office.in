@@ -79,7 +79,8 @@
 }
 
 #myChart3,
-#myChart4 {
+#myChart4,
+#myChart6 {
     position: absolute;
     top: -50px;
     left: 0;

@@ -2695,11 +2695,24 @@ def workmanagerTl(request):
                     
     #         except:
     #             pass      
-    return render(request,'workmanagerTL.html')  
+    return render(request,'workmanagerTL.html') 
+ 
 def  deleteaccess(request):
     return render(request,'deleteaccess.html')
+
 def forgetpassword(request):
-    return render(request,'deleteaccess.html')
+    if request.method == "POST":
+        resetemail = request.POST["email"]
+        auth.send_password_reset_email(resetemail)
+        response = messages.info(
+            request,
+            "Your password reset Link has been Sent Check Your E-Mail, Kindly check your spam if not in your inbox :)",
+        )
+        response = redirect("login")
+        return response
+    else:
+        return render(request,'forgot.html')
+
 def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
     try:
         asia_timezone = pytz.timezone('Asia/Kolkata')
@@ -2748,4 +2761,3 @@ def convert_to_12_hour_format(progress):
 
 
    
-    return render(request,'deleteaccess.html')   
