@@ -48,12 +48,17 @@ aistorage = aifirebase.storage()
 def login(request):
     try:
         uid = request.COOKIES["uid"]
+        print("=====",uid)
         loginState = request.COOKIES["loginState"]
         if bool(loginState) == True:
             dep = checkUserDepartment(uid)
             if uid == "pztngdZPCPQrEvmI37b3gf3w33d2":
+                print("inside redirect1")
                 response = redirect("coohome") 
                 return response 
+            if uid == "A5kpLL2U0UaOkPrw2GeI8llH49s1" or uid == "yleZdWDZgFYTBxwzC5NtHVeb3733" or uid== "jDYzpwcpv3akKaoDL9N4mllsGCs2":
+                response = redirect("adminhome") 
+                return response
             if dep == "APP":
                 response = redirect("ithome")
                 return response
@@ -68,6 +73,7 @@ def login(request):
                 response = redirect("prhome")
                 return response
             if dep == "RND":
+                print("inside rnd")
                 response = redirect("rndhome")
                 return response
             if dep == "ADMIN":
@@ -96,6 +102,7 @@ def login(request):
             name = checkUserName(uid)
             profile=profileall(uid)
             exp = 100 * 365 * 24 * 60 * 60
+            print("==log",uid)
             if uid == "pztngdZPCPQrEvmI37b3gf3w33d2":
                 response = redirect("coohome")
                 response.set_cookie("uid", uid, expires=exp)
@@ -103,6 +110,15 @@ def login(request):
                 response.set_cookie("name", name, expires=exp)
                 response.set_cookie("profile", profile, expires=exp)
                 response.set_cookie("loginState", "loggedIn", expires=exp)
+                return response
+            if uid == "A5kpLL2U0UaOkPrw2GeI8llH49s1" or uid == "yleZdWDZgFYTBxwzC5NtHVeb3733" or uid== "jDYzpwcpv3akKaoDL9N4mllsGCs2":
+                response = redirect("adminhome")
+                response.set_cookie("uid", uid, expires=exp)
+                response.set_cookie("dep", dep, expires=exp)
+                response.set_cookie("name", name, expires=exp)
+                response.set_cookie("profile", profile, expires=exp)
+                response.set_cookie("loginState", "loggedIn", expires=exp)
+                return response
             if dep == "APP":
                 response = redirect("ithome")
                 response.set_cookie("uid", uid, expires=exp)
@@ -136,6 +152,7 @@ def login(request):
                 response.set_cookie("loginState", "loggedIn", expires=exp)
                 return response
             if dep == "RND":
+                print("inside rnd")
                 response = redirect("rndhome")
                 response.set_cookie("uid", uid, expires=exp)
                 response.set_cookie("dep", dep, expires=exp)
@@ -1716,6 +1733,7 @@ def coohome(request):
     current_date = datetime.now()
     selected_year = current_date.strftime('%Y')
     selected_month = current_date.strftime("%m")
+    current_date1 = datetime.now().strftime("%d")
     attendence = db.child("attendance").get().val()
     alllist=[]
     alldates = installation[selected_year][selected_month]
@@ -1789,8 +1807,18 @@ def coohome(request):
         todaycheckout = convert_to_12_hour_format(todaycheckout)
         todaycheckin = convert_to_12_hour_format(todaycheckin)   
     except:
-        pass    
-                    
+        pass
+    staff=db.child("staff").get().val()
+    attendance=db.child("attendance").child(current_year).child(current_month).get().val()
+    stafftotalpresent=0
+    stafftotalabsent=0
+    for staffuid in staff:
+        if staff[staffuid]["department"] != "ADMIN":
+            try:
+                attendance[current_date1][staffuid]
+                stafftotalpresent=stafftotalpresent+1
+            except:
+                stafftotalabsent=stafftotalabsent+1              
     context={
         "alllist":alllist,
         "inventoryall":inventoryall,
@@ -2188,6 +2216,8 @@ def refreshment(request):
                         db.child("refreshments").child(todayDate).child("Lunch").update({choosen + "_count": newLen})
         if uid == "pztngdZPCPQrEvmI37b3gf3w33d2":
             return redirect('coohome')
+        if uid == "A5kpLL2U0UaOkPrw2GeI8llH49s1" or uid == "yleZdWDZgFYTBxwzC5NtHVeb3733" or uid== "jDYzpwcpv3akKaoDL9N4mllsGCs2":
+            return redirect('adminhome')
         if dep == "APP":
             return redirect('ithome')
         if dep == "WEB":
