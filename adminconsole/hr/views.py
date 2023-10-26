@@ -106,11 +106,7 @@ def hrhome(request):
         aiaccess = True   
     try:
         try:
-            print("==")
-            print("date", current_year, current_month, current_day, uid)
             todaycheckin = attendence[current_year][current_month][current_day][uid]["check_in"]
-            
-            print("today", todaycheckin)
         except:
             todaycheckin = "No Entry"
 
@@ -152,19 +148,16 @@ def hrhome(request):
             else:    
                 yesprogress = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["working_hours"]
                 yesterdayprogress = calculate_progress(yesprogress)
-                print("progress", yesterdayprogress)
         except:
             yesterdayprogress = "Absent"    
         try:
             today_progress= calculate_progress_(todaycheckin, todaycheckout)
-            print("prog",today_progress)
         except:
             today_progress= "Absent"
         todaycheckout = convert_to_12_hour_format(todaycheckout)
         todaycheckin = convert_to_12_hour_format(todaycheckin)   
 
         listOfTodaysWork= []
-        print("date",formatted_date)
         try:
             for z in workmanager[current_year][current_month][formatted_date][uid]:
                 listOfTodaysWork.append(workmanager[current_year][current_month][formatted_date][uid][z])

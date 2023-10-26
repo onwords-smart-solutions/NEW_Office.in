@@ -349,35 +349,35 @@
                                 {% csrf_token %}
                                 <label for="from">Date</label>
                                 <div class="form-inp-con">
-                                    <input type="date" id="from" placeholder="From" name="selectdate">
+                                    <input type="date" id="from" placeholder="From" name="selectdate" required>
                                     <img src="{% static 'images/date-set.png' %}" alt="date-icpn">
                                 </div>
 
                                 <label for="to">Workdone</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Enter your Workdone" name="workdone">
+                                    <input type="text" id="from" placeholder="Enter your Workdone" name="workdone" required>
                                 </div>
                                 <div class="main-leave-con">
                                     <div class="">
                                         <label for="starttime">From</label>
                                         <div class="time-inp">
-                                            <input type="time" id="starttime" name="fromtime">
+                                            <input type="time" id="starttime" name="fromtime" required>
                                         </div>
                                     </div>
                                     <div class="">
                                         <label for="endtime">To</label>
                                         <div class="time-inp">
-                                            <input type="time" id="endtime" name="totime" onchange="timediff()">
+                                            <input type="time" id="endtime" name="totime" onchange="timediff()" required>
                                         </div>
                                     </div>
                                 </div>
                                 <label for="to">Work Percentage</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="%" name="workpercent">
+                                    <input type="text" id="from" placeholder="%" name="workpercent" required>
                                 </div>
                                 <label for="to">Reason</label>
                                 <div class="form-inp-con">
-                                    <input type="text" id="from" placeholder="Reason" name="reason">
+                                    <input type="text" id="from" placeholder="Reason" name="reason" required>
                                 </div>
                                 <button class="primary-button">Submit</button>
                             </form>

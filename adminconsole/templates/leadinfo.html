@@ -428,10 +428,10 @@
                           <form class="notepad" method="post" action="/addnotes/">
                             {% csrf_token %}
                             <br />
-                            <input type="text" name="nts" placeholder="Enter Notes Here"  class="not-texr"/>
+                            <input type="text" name="nts" placeholder="Enter Notes Here"  class="not-texr" required/>
                             <br />
-                            <input type="hidden" name="phone" value="{{userData.phone_number}}" />
-                            <input type="submit" class="primary-button" value="Submit" />
+                            <input type="hidden" name="phone" value="{{userData.phone_number}}" required/>
+                            <input type="submit" class="primary-button" value="Submit" required/>
                           </form>
                         </div>
                       </div>
@@ -454,8 +454,8 @@
                   <div class="box-3" id="box-3">
                     <form action="/deletelead/" method="post" id="delete-form">
                       {% csrf_token %}
-                      <input type="hidden" name="phno" value="{{userData.phone_number}}" />
-                      <input type="hidden" name="nam" value="{{userData.name}}" />
+                      <input type="hidden" name="phno" value="{{userData.phone_number}}" required/>
+                      <input type="hidden" name="nam" value="{{userData.name}}" required/>
                       <input type="text" name="rsn" id="rsn" placeholder="Reason to delete the customer" required />
                       <br><br>
                     </form>

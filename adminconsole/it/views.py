@@ -105,11 +105,7 @@ def ithome(request):
         aiaccess = True   
     try:
         try:
-            print("==")
-            print("date", current_year, current_month, current_day, uid)
             todaycheckin = attendence[current_year][current_month][current_day][uid]["check_in"]
-            
-            print("today", todaycheckin)
         except:
             todaycheckin = "No Entry"
 
@@ -149,19 +145,16 @@ def ithome(request):
             else:    
                 yesprogress = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["working_hours"]
                 yesterdayprogress = calculate_progress(yesprogress)
-                print("progress", yesterdayprogress)
         except:
             yesterdayprogress = "Absent"    
         try:
             today_progress= calculate_progress_(todaycheckin, todaycheckout)
-            print("prog",today_progress)
         except:
             today_progress= "Absent"
         todaycheckout = convert_to_12_hour_format(todaycheckout)
         todaycheckin = convert_to_12_hour_format(todaycheckin)   
 
         listOfTodaysWork= []
-        print("date",formatted_date)
         try:
             for z in workmanager[current_year][current_month][formatted_date][uid]:
                 listOfTodaysWork.append(workmanager[current_year][current_month][formatted_date][uid][z])
@@ -270,7 +263,6 @@ def ithome(request):
         }
         return render(request, "ithome.html", context)
     except:
-        print(yesscheckout)
         context = {
             "project": False,
             "name": name,
@@ -310,7 +302,6 @@ def ithome(request):
     
 def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
     try:
-        print("starting")
         asia_timezone = pytz.timezone('Asia/Kolkata')
         current_time = datetime.now(asia_timezone).strftime('%H:%M:%S')
 
@@ -325,13 +316,11 @@ def calculate_progress_(today_checkin, today_checkout, goal_hours=9):
             time_difference = today_checkout_time - today_checkin_time
             progress_hours = time_difference.total_seconds() / 3600
             progress_percentage = (progress_hours / goal_hours) * 100
-            print("func",progress_percentage)
 
             return progress_percentage
         else:
             return "No Entry"
     except Exception as e:
-        print(f"Error: {e}")
         return "No Entry"
    
 def calculate_progress(working_hours, goal_hours=9):

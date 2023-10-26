@@ -31,7 +31,6 @@ db1 = firebase1.database()
 storage = firebase1.storage()
 # Create your views here.
 def adminhome(request):
-    print("entering")
     uid = request.COOKIES["uid"]
     dep = request.COOKIES["dep"]
     profile=request.COOKIES["profile"]
@@ -216,19 +215,16 @@ def adminhome(request):
             else:    
                 yesprogress = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["working_hours"]
                 yesterdayprogress = calculate_progress(yesprogress)
-                # print("progress", yesterdayprogress)
         except:
             yesterdayprogress = "Absent"    
         try:
             today_progress= calculate_progress_(todaycheckin, todaycheckout)
-            # print("prog",today_progress)
         except:
             today_progress= "Absent"
         todaycheckout = convert_to_12_hour_format(todaycheckout)
         todaycheckin = convert_to_12_hour_format(todaycheckin)   
 
         listOfTodaysWork= []
-        # print("date",formatted_date)
         try:
             for z in workmanager[current_year][current_month][formatted_date][uid]:
                 listOfTodaysWork.append(workmanager[current_year][current_month][formatted_date][uid][z])
@@ -286,7 +282,6 @@ def adminhome(request):
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
         data[uid]["projects"]
-        print("checkin",yesscheckin,yesscheckout)
         context={
             "project": True,
             "name":name,
@@ -328,7 +323,6 @@ def adminhome(request):
         }     
         return render(request,'adminhome.html',context)
     except:
-        print(todaycheckin,todaycheckout,yesscheckin,yesscheckout,yesterdayprogress)
         context={
                 "project": False,
                 "name": name,
@@ -462,8 +456,7 @@ def checkin(request):
     #     tmonth = date_parts[1]
     #     tday = date_parts[2] 
     if request.method == 'POST':
-        form_type = request.POST.get("form_type")
-        print("form",form_type)    
+        form_type = request.POST.get("form_type")   
         if form_type == 'presentForm':
             dates = request.POST.get("date")
             current_date = datetime.now()
@@ -471,7 +464,6 @@ def checkin(request):
             dates1 = formatted_date
         elif form_type == 'absentForm':
             dates1 = request.POST.get("date")
-            print("dates1",dates1)
             todaysDate = datetime.today()
             yesterdayDate = todaysDate - timedelta(days=1)
             if yesterdayDate.weekday() == 6:  
@@ -619,7 +611,6 @@ def checkin(request):
         absentworkinghourlist = sorted(zip(absentstaff, absentworkinghours), key=lambda x: x[0])
     except:
         sorted_finallist = []
-    print("dates1",dates1)
     date_parts = dates1.split("-")
     tyear = date_parts[0]
     tmonth = date_parts[1]
@@ -631,7 +622,6 @@ def checkin(request):
     allnames=[]
     for uid in staffDB:
         try:
-            print("uid",uid)
             types=leavedetails[tyear][tmonth][dates1][uid]
             for leave_type, details in types.items():
                 alltypes.append(leave_type)
@@ -866,7 +856,6 @@ def attendancesort(request):
             suggestionNotification += 1
     if request.method =="POST":
         date1=request.POST["get-total1"]
-        print(date1)
         uid = request.COOKIES["uid"]
         dep = request.COOKIES["dep"]
         profile=request.COOKIES["profile"]
@@ -1040,7 +1029,6 @@ def indvattendanced(request):
     for time_str in permissioncountlist:
         hours, minutes = map(int, time_str.split(':'))
         permissioncount += hours + minutes / 60.0                        
-    print(datelist,leavetypelist,leavenode)
     leaveall=zip(datelist,leavetypelist,leavenode)                        
     context={
         "name":name,

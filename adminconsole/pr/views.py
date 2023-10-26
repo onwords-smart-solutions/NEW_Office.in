@@ -216,8 +216,7 @@ def prhome(request):
         try:
             pass
         except:
-            pass
-        print("progr",yesterdayprogress)            
+            pass        
         generalleave = 24 - generalcount
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
@@ -399,7 +398,6 @@ def create_lead(request):
                         "created_by": checkUserName(uid),
                         "customer_state": "New leads",
                     }
-                    print(phno,data)
                     # db.child("customer").child(phno).update(data)
                     context={
                         "akn": "user created success fully",
@@ -481,7 +479,8 @@ def create_lead(request):
                                 custData[number]
                                 alreadyExistList.append(number)
                             except Exception as err:
-                                print(number,cust_data)
+                                pass
+                                # print(number,cust_data)
                                 # db.child("customer").child(number).update(cust_data)
                             # return render(request,"pr/createlead.html",{"akn": "user created success fully", "colour": True, "tl":istl, "accounts": accounts,"management": management,"alreadyExistList": alreadyExistList})
                             # db.child("customer").child(number).update(cust_data)
