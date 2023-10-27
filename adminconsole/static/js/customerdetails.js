@@ -147,10 +147,10 @@ function colorChange() {
       } else if (customerState === "Delayed") {
         document.getElementById("myTable").rows[i].style.backgroundColor =
           "orange";
-      } else if (customerState === "Rejected from Customer end") {
+      } else if (customerState === "Rejected from Customer") {
         document.getElementById("myTable").rows[i].style.backgroundColor =
           "#f55f5f";
-      } else if (customerState === "Rejected from management side") {
+      } else if (customerState === "Rejected from MGMT") {
         document.getElementById("myTable").rows[i].style.backgroundColor =
           "#f55f5f";
       } else if (customerState === "Advanced") {
