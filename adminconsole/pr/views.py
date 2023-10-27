@@ -94,6 +94,48 @@ def prhome(request):
     saturday_year = str(saturday_date.year)
     saturday_month = str(saturday_date.month).zfill(2)
     saturday_day = str(saturday_date.day).zfill(2)
+    current_date_today = datetime.now().strftime("%Y-%m-%d")
+    current_date_day = datetime.now().strftime("%d")
+    current_date_year = datetime.now().strftime("%Y")
+    current_date_month = datetime.now().strftime("%m")
+    quotedata=db.child("QuotationAndInvoice").child("INVOICE").child(current_date_year).child(current_date_month).child().get().val()
+    invoicecount=0
+    for iid in quotedata:
+        timestamp=quotedata[iid]["TimeStamp"]
+        date = str(datetime.fromtimestamp(timestamp).date())
+        if date == current_date_today:
+                invoicecount=invoicecount+1
+
+    quotedata=db.child("QuotationAndInvoice").child("PROFORMA_INVOICE").child(current_date_year).child(current_date_month).child().get().val()
+    perfomacount=0
+    for pid in quotedata:
+        timestamp=quotedata[pid]["TimeStamp"]
+        date = str(datetime.fromtimestamp(timestamp).date())
+        if date == current_date_today:
+            perfomacount=perfomacount+1
+
+    quotedata=db.child("QuotationAndInvoice").child("QUOTATION").child(current_date_year).child(current_date_month).child().get().val()
+    quotationcount=0
+    for qid in quotedata:
+        timestamp=quotedata[qid]["TimeStamp"]
+        date = str(datetime.fromtimestamp(timestamp).date())
+        if date == current_date_today:
+            quotationcount=quotationcount+1        
+
+    customer=db.child("customer").get().val()
+    current_date_today = datetime.now().strftime("%Y-%m-%d")
+    totallead=0
+    for cusno in customer:
+        if customer[cusno]["created_date"] == current_date_today:
+            totallead=totallead+1
+    data = db.child("customer").get().val()
+    inprocesscount=0
+    for cust in data:
+        try:
+            if data[cust]["InProcess"]:
+               inprocesscount=inprocesscount+1
+        except:
+            pass               
     try:
         try:
             todaycheckin = attendence[current_year][current_month][current_day][uid]["check_in"]
@@ -189,7 +231,12 @@ def prhome(request):
             leavehistory = zip(yearList, monthList, dateList, typelist, datalist)
             context = {
                 "leavehistory": leavehistory,
+                "inprocesscount":inprocesscount,
+                "totallead":totallead,
                 "name":name,
+                "invoicecount":invoicecount,
+                "perfomacount":perfomacount,
+                "quotationcount":quotationcount,
                 "dep":dep,
                 "profile":profile,
                 "general":general,
@@ -224,8 +271,13 @@ def prhome(request):
         context = {
             "project": True,
             "name": name,
+            "inprocesscount":inprocesscount,
             "dep": dep,
+            "totallead":totallead,
             "profile":profile,
+            "invoicecount":invoicecount,
+            "perfomacount":perfomacount,
+            "quotationcount":quotationcount,
             "todaycheckin": todaycheckin,
             "todaycheckout": todaycheckout,
             "yescheckin": yesscheckin,
@@ -258,7 +310,12 @@ def prhome(request):
             "project": False,
             "name": name,
             "dep": dep,
+            "inprocesscount":inprocesscount,
             "profile":profile,
+            "invoicecount":invoicecount,
+            "perfomacount":perfomacount,
+            "quotationcount":quotationcount,
+            "totallead":totallead,
             "todaycheckin": todaycheckin,
             "todaycheckout": todaycheckout,
             "yescheckin": yesscheckin,
@@ -479,8 +536,6 @@ def create_lead(request):
                                 custData[number]
                                 alreadyExistList.append(number)
                             except Exception as err:
-                                pass
-                                print(number,cust_data)
                                 db.child("customer").child(number).update(cust_data)
                             # return render(request,"pr/createlead.html",{"akn": "user created success fully", "colour": True, "tl":istl, "accounts": accounts,"management": management,"alreadyExistList": alreadyExistList})
                             # db.child("customer").child(number).update(cust_data)

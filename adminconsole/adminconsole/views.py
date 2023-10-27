@@ -1439,7 +1439,6 @@ def financial(request):
                     try:
                         for f in id[_year][_month]:
                             mm = (id[_year][_month][f]["PaidDate"]).split("-")[1]
-                            # print(mm)
                             if thisMonth == mm:
                                 incomeList.append(id[_year][_month][f])
                                 incomeData = True
@@ -1593,7 +1592,6 @@ def inventorymanagement(request):
         name=request.POST['name']
         obc=request.POST['obc']
         stock=request.POST['stock']
-        print(id,max_price,min_price,name,obc,stock)
         data={
             "id":id,
             "max_price":max_price,
@@ -2827,7 +2825,6 @@ def  deleteaccess(request):
 def forgetpassword(request):
     if request.method == "POST":
         resetemail = request.POST["email"]
-        print("email",resetemail)
         auth.send_password_reset_email(resetemail)
         response = messages.info(
             request,

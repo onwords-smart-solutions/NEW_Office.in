@@ -206,7 +206,6 @@ def createstaff(request):
                 usr = auth.create_user_with_email_and_password(_email,_password)
             except Exception as e:
                 pass
-                # print("error",e)    
             db.child("staff").child(usr["localId"]).set(data)
             auth.send_password_reset_email(_email)
             context={
