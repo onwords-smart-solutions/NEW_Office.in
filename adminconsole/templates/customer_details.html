@@ -429,7 +429,7 @@
                                 <div class="first-custm-text">
                                     <h6>Advanced</h6>
                                     <h4>{{advancedCount}}</h4>
-                                    <input type="checkbox" hidden name="state" id="aId" value="Advanced" 
+                                    <input type="checkbox" name="state" id="aId" value="Advanced" 
                                                         onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -936,18 +936,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-    <script>
-        var headers =document.getElementById('custom-parent')
-var btnscust = headers.getElementsByClassName("custom-btn");
-for (var i = 0; i < btnscust.length; i++) {
-    btnscust[i].addEventListener("click", function () {
-        var current = document.getElementsByClassName("custom-active");
-        current[0].className = current[0].className.replace(" custom-active", "");
-        this.className += " custom-active";
-    });
-}
-
-    </script>
+    
 
 </body>
 
