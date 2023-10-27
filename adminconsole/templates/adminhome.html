@@ -598,7 +598,7 @@
                                 <h2 class="install-attendance"><span>{{current_date_today}}</span></h2>
                             </div>
                             <div class="quot-chart">
-                                <canvas id="myChart6"></canvas>
+                                <canvas id="myChart10"></canvas>
                             </div>
 
                             <div class="bottom-quot-list">
@@ -660,6 +660,31 @@
           
         </script>
         <script>
+            var xValues = [];
+            var yValues = [{{stafftotalpresent}},{{stafftotalabsent}}];
+            var barColors = [
+                "#7FA9FB",
+                "#266386",
+                // "#a78f0d",
+            ];
+            new Chart("myChart10", {
+                type: "doughnut",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues,
+                        borderColor: 'transparent'
+                    }]
+                },
+                options: {
+                    cutoutPercentage: 80,
+                    title: {
+                        display: true,
+                        text: ""
+                    }
+                }
+            });
             var densityCanvas = document.getElementById("densityChart");
 
             Chart.defaults.global.defaultFontFamily = "Lato";

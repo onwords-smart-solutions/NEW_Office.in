@@ -373,7 +373,7 @@ def installationadd(request):
             "clientdetails":clientdetails
         }
       
-        db.child("Installationdetails").child(tyear).child(tmonth).child(date).child(clientnumber).set(data)
+        db.child("Installationdetails").child(tyear).child(tmonth).child(date).child(clientnumber).update(data)
 
         
 
