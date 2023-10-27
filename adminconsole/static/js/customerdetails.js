@@ -161,11 +161,21 @@ function colorChange() {
           "#9ea1d4";
       } else if (customerState === "Under Construction") {
         document.getElementById("myTable").rows[i].style.backgroundColor =
-          "#a8d1d1";
+          "#F099D2";
       } else if (customerState === "Installation Completed") {
         document.getElementById("myTable").rows[i].style.backgroundColor =
           "#16f0b6";
+      } else if (customerState === "Product") {
+        document.getElementById("myTable").rows[i].style.backgroundColor =
+          "#63E0E9";
+      } else if (customerState === "Interested") {
+        document.getElementById("myTable").rows[i].style.backgroundColor =
+          "#9EA1D4";
+      } else if (customerState === "New leads") {
+        document.getElementById("myTable").rows[i].style.backgroundColor =
+          "#F55F5F78";
       }
+
     }
   }
 }
