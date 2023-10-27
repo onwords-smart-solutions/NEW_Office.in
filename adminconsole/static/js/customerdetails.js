@@ -976,7 +976,8 @@ function othersFunction() {
     "Hot lead",
     "Under Construction",
     "Product",
-    "Interested"
+    "Interested",
+    "New leads"
   ];
   ss = getCheckedByName()
   isCh = document.getElementById("othersId").checked;

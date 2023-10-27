@@ -741,7 +741,8 @@ def customer_details(request):
             "Under Construction",
             "Onwords",
             "Interested",
-            "newleadscount"
+            "newleadscount",
+            "New leads"
         ]
         if cusState not in allList:
             othersCount += 1
