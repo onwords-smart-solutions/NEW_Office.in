@@ -118,6 +118,7 @@
                         {% endif %}
 
                         <!-- ===========tl's============================ -->
+
                         {% if approvalpage %}
                         <li class="navlistmenu" onclick="location.href='/approval'">
                             <div class="left-nav-list">
@@ -301,6 +302,21 @@
                             </div>
                         </li>
                         {% endif %}
+
+                        
+                        <li class="navlistmenu " onclick="location.href='/installationadd'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/prdashboard.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Installation Add</h5>
+                            </div>
+                        </li>
+                        
+
+                        
 
                         <!-- =========================== -->
 
@@ -499,7 +515,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-8 ">
-                        <div class="notification-con p-2">
+                        <div class="notification-con p-2" onclick="location.href='/installation_details'">
                             <div class=" carousel-container1">
                                 <h4>Installation</h4>
                                 <table class="table">
