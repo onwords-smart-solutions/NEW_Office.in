@@ -141,7 +141,7 @@ input {
     flex-direction: column;
     /* padding: 0 50px; */
     text-align: center;
-    height: 194px;
+    height: 100%;
 }
 
 .addpoint-table input {

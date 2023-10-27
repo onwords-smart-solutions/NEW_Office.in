@@ -302,6 +302,19 @@
                         </li>
                         {% endif %}
 
+                        {% if installationadd %}
+                        <li class="navlistmenu " onclick="location.href='/installationadd'">
+                            <div class="left-nav-list">
+                                <div class="menu-icon">
+                                    <img src="{% static 'images/nav-icon/prdashboard.svg' %}" alt="userdata_Icon">
+                                </div>
+                            </div>
+                            <div class="right-nav-list">
+                                <h5>Installation Add</h5>
+                            </div>
+                        </li>
+                        {% endif %}
+
                         <!-- =========================== -->
 
                     </ul>
@@ -324,15 +337,6 @@
 
         <div class="right-con " id="rightCon" onclick="rightcon()">
             <div class="container-fluid">
-                <div class="product-nav cmo-nav my-3">
-                    <h5 class="  active-inv  li-inventry" onclick="productBtn()" id="pro-nav">Product
-                    </h5>
-                    <!-- <h5 class=" li-inventry" onclick="updateBtn()" id="update-nav">Updates</h5> -->
-                    <h5 class=" li-inventry" onclick="adminBtn()" id="admin-nav">Adminpoints</h5>
-                    <h5 class="  li-inventry" onclick="prpercBtn()" id="prper-nav">PR percentage Dashboard
-                    </h5>
-
-                </div>
                 <div class="row ">
                     <div class="col-md-3">
 
@@ -340,10 +344,7 @@
                     </div>
                     <div class="col-md-5"></div>
                     <div class="col-md-2 my-3">
-                        <h4 class=" primary-button Calculate-cmo" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            id="calculate-Btn" onclick="calInpBox()">Calculate
-                            Point
-                        </h4>
+                       
                     </div>
                     <div class="col-md-2 my-3">
                         <h4 class="primary-button Calculate-cmo" data-bs-toggle="modal"
@@ -354,31 +355,7 @@
 
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content calculate">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">
-                                    <h4 class="cmo-h">Calculate Point</h4>
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="cal-point" id="cal-point">
-                                    <form action="">
-
-                                        <input type="text" placeholder="Calculate Point" required>
-                                        <input type="text" placeholder="Count" required>
-                                        <button class="primary-button">Submit</button>
-                                    </form>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+            
 
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -447,89 +424,6 @@
                     </table>
                 </div>
 
-
-                <div class="admin-points " id="admin-points">
-                    <div class="adminpoints-nav ">
-                        <span>
-                            <h5 class="up-cmo">Name <span><input class="cmo-input" type="text" required></span> </h5>
-                        </span>
-                        <span>
-                            <h5 class="up-cmo">Points <span><input class="cmo-input" type="text" required></span> </h5>
-                        </span>
-                        <span>
-                            <h5 class="up-cmo">Total Points <span><input class="cmo-input" type="text" required></span> </h5>
-                        </span>
-                        <span>
-                            <h5 class="up-cmo">Pr Total <span><input class="cmo-input" type="text" required></span> </h5>
-                        </span>
-                        <span>
-                            <h5 class="up-cmo">Target Total <span><input class="cmo-input" type="text" required></span> </h5>
-                        </span>
-                        <h5><button type="submit" class="primary-button">Submit</button></h5>
-                    </div>
-                    <div class="adminpoints-nav-con my-3">
-                        <table class="table">
-                            <thead class="product-table-head">
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Name</th>
-                                    <th>Points</th>
-                                    <th>Total Points</th>
-                                    <th>Pr Total</th>
-                                    <th>Target Total</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table my-3">
-                                <tr class="product-details">
-                                    <td>1</td>
-                                    <td>Arun Kumar</td>
-                                    <td>1</td>
-                                    <td>4</td>
-                                    <td>100</td>
-                                    <td>408</td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-                <div class="pr-percentage-dashboard " id="prdashboard">
-                    <div class="product-nav cmo-nav" id="">
-                        <h5 class=" active-inv  li-inventry" id="notipanl-Btn" onclick="notipanel()">Notification
-                            Pannel</h5>
-                        <h5 class=" li-inventry" id="install-Btn" onclick="installation()">Instalation</h5>
-                        <h5 class=" li-inventry" id="weekly-Btn" onclick="target()">Weekly Target</h5>
-                    </div>
-                    <center>
-                        <form action="" class="">
-                            <div class="installation-pending inventory-small-table" id="firstline-Btn">
-                                <h5>Firstline</h5>
-                                <input type="number" name="" id="" placeholder="0">
-                                <button class="primary-button">submit</button>
-                            </div>
-                        </form>
-                    </center>
-                    <center>
-                        <form action="" class="e">
-                            <div class="installation-pending inventory-small-tabl" id="target-Btn">
-                                <h5>Target Point</h5>
-                                <input type="number" name="" id="" placeholder="0">
-                                <button class="primary-button">submit</button>
-                            </div>
-                        </form>
-                    </center>
-                    <center>
-                        <form action="">
-                            <div class="installation-pending inventory-small-tabl" id="pending-Btn">
-                                <h5>pending installation</h5>
-                                <input type="number" name="" id="" placeholder="0">
-                                <input type="number" name="" id="" placeholder="0">
-                                <button class="primary-button">submit</button>
-                            </div>
-                        </form>
-                    </center>
-                </div>
             </div>
         </div>
 
@@ -544,42 +438,7 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
         <!-- js script  end -->
-        <script>
-            const firstline = document.getElementById('firstline-Btn')
-            const targetBtn = document.getElementById('target-Btn')
-            const pending = document.getElementById('pending-Btn')
-            const notipanlBtn = document.getElementById('notipanl-Btn')
-            const installBtn = document.getElementById('install-Btn')
-            const weeklyBtn = document.getElementById('weekly-Btn')
-
-            function notipanel() {
-                firstline.style.display = 'block'
-                targetBtn.style.display = 'none'
-                pending.style.display = 'none'
-                notipanlBtn.classList.add('active-inv')
-                installBtn.classList.remove('active-inv')
-                weeklyBtn.classList.remove('active-inv')
-            }
-            function installation() {
-                firstline.style.display = 'none'
-                targetBtn.style.display = 'block'
-                pending.style.display = 'none'
-                notipanlBtn.classList.remove('active-inv')
-                installBtn.classList.add('active-inv')
-                weeklyBtn.classList.remove('active-inv')
-            }
-            function target() {
-                firstline.style.display = 'none'
-                targetBtn.style.display = 'none'
-                pending.style.display = 'block'
-                notipanlBtn.classList.remove('active-inv')
-                installBtn.classList.remove('active-inv')
-                weeklyBtn.classList.add('active-inv')
-            }
-        </script>
-        <script>
-
-        </script>
+        
 </body>
 
 </html>
