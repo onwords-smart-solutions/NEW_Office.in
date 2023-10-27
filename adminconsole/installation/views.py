@@ -353,6 +353,7 @@ def installationadd(request):
             suggestionNotification += 1
     if request.method == "POST":
         selected_names = request.POST.getlist("selected_names")
+        print("names",selected_names)
         name_list = ", ".join(selected_names) 
         date=request.POST["selectdate"] 
         place=request.POST["place"]

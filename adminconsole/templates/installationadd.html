@@ -378,9 +378,9 @@
                                 {% csrf_token %}
                                 <label for="name">Name</label>
                               <div class="form-inp-con multi-select">
-                                <select id="multi_option" multiple name="native-select" placeholder=" Select Name" data-silent-initial-value-set="false">
+                                <select id="multi_option" multiple name="selected_names" placeholder=" Select Name" data-silent-initial-value-set="false">
                                     {% for name in installname %}
-                                    <option value="{name}">{{name}}</option>
+                                    <option value="{{name}}">{{name}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
