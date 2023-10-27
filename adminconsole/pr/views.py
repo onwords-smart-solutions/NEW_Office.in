@@ -479,8 +479,6 @@ def create_lead(request):
                                 custData[number]
                                 alreadyExistList.append(number)
                             except Exception as err:
-                                pass
-                                print(number,cust_data)
                                 db.child("customer").child(number).update(cust_data)
                             # return render(request,"pr/createlead.html",{"akn": "user created success fully", "colour": True, "tl":istl, "accounts": accounts,"management": management,"alreadyExistList": alreadyExistList})
                             # db.child("customer").child(number).update(cust_data)
