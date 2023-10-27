@@ -18,6 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="{% static 'js/customerdetails.js' %}?{% now 'U' %}"></script>
     <!-- chart js end -->
     <title>adminconsole</title>
 </head>
@@ -350,15 +351,15 @@
                                 Sort <img src="{% static 'images/sort-icon.svg' %}" alt="sort-icon">
                             </button>
 
-                            <input type="button" value="sort" onclick="srt()" class="sortbtn" />
+                            <input type="button" value="sort" onclick="srt1()" class="sortbtn" />
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="dropdown-item from-date">
                                     <label for="from-date">From</label><br>
-                                    <input type="date" name="date" id="from-date1" />
+                                    <input type="date" name="date" id="from-date" />
                                 </li>
                                 <li class="dropdown-item to-date">
                                     <label for="to-date">To</label><br>
-                                    <input type="date" name="date" id="to-date1" />
+                                    <input type="date" name="date" id="to-date" />
                                 </li>
                             </ul>
                         </div>
@@ -429,7 +430,7 @@
                                 <div class="first-custm-text">
                                     <h6>Advanced</h6>
                                     <h4>{{advancedCount}}</h4>
-                                    <input type="checkbox" name="state" id="aId" value="Advanced" 
+                                    <input type="checkbox" hidden name="state" id="aId" value="Advanced" 
                                                         onclick="sortByState()" />
                                 </div>
                                 <div class="second-custom-img">
@@ -533,141 +534,223 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <li> <span class="dropdown-item">
-                                                <label for="anithaId">
-                                                    Anithaa
-                                                    <span id="u-anitha"></span>
-                                                </label>
-                                                <input type="checkbox" name="staff-name" id="anithaId" value="Anitha"
-                                                    onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                      
-                                        <li>
-                                            <span class="dropdown-items">
-                                                <label for="gId">Gowtham <span id="u-gowtham"></span></label>
-                                                <input type="checkbox" name="staff-name" id="gId" value="Gowtham"
-                                                    onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                      
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="arunId">Arun Kumar <span id="u-arun"></span></label>
-                                                <input type="checkbox" name="staff-name" id="arunId" value="Arun Kumar"
-                                                    onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                      
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="pradeepId">Pradeep Kanth <span
-                                                        id="u-pradeep"></span></label>
-                                                <input type="checkbox" name="staff-name" id="pradeepId"
-                                                    value="Pradeep Kanth" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                    
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="onwordsIdd">Onwords <span id="u-onwords"></span></label>
-                                                <input type="checkbox" name="staff-name" id="onwordsIdd" value="Onwords"
-                                                    onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                      
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="harshiniuIdd">Harshini U<span
-                                                        id="u-harshiniu"></span></label>
-                                                <input type="checkbox" name="staff-name" id="harshiniuIdd"
-                                                    value="Harshini U" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="aishwaryakIdd">Aishwarya K<span
-                                                        id="u-aishwaryak"></span></label>
-                                                <input type="checkbox" name="staff-name" id="aishwaryakIdd"
-                                                    value="Aishwarya K" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="karthikamIdd">Karthika M<span
-                                                        id="u-karthikam"></span></label>
-                                                <input type="checkbox" name="staff-name" id="karthikamIdd"
-                                                    value="Karthika M" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="sanjethtIdd">Sanjeth T<span id="u-sanjetht"></span></label>
-                                                <input type="checkbox" name="staff-name" id="sanjethtIdd"
-                                                    value="Sanjeth T" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="gokulnathnIdd">Gokulnath N<span
-                                                        id="u-gokulnathn"></span></label>
-                                                <input type="checkbox" name="staff-name" id="gokulnathnIdd"
-                                                    value="Gokulnath N" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="mohamedthouficIdd">Mohamed Thoufic<span
-                                                        id="u-mohamedthoufic"></span></label>
-                                                <input type="checkbox" name="staff-name" id="mohamedthouficIdd"
-                                                    value="Mohamed Thoufic" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="logeshpIdd">Logesh P<span id="u-logeshp"></span></label>
-                                                <input type="checkbox" name="staff-name" id="logeshpIdd"
-                                                    value="Logesh P" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="rajkannanbIdd">Rajkannan B<span
-                                                        id="u-rajkannanb"></span></label>
-                                                <input type="checkbox" name="staff-name" id="rajkannanbIdd"
-                                                    value="Rajkannan B" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="karthickrajaaIdd">Karthickraja A<span
-                                                        id="u-karthickrajaa"></span></label>
-                                                <input type="checkbox" name="staff-name" id="karthickrajaaIdd"
-                                                    value="Karthickraja A" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="pradeepkumarIdd">Pradeep kumar<span
-                                                        id="u-pradeepkumar"></span></label>
-                                                <input type="checkbox" name="staff-name" id="pradeepkumarIdd"
-                                                    value="Pradeep kumar" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="AnushaUnnikrishnanIdd">Anusha Unnikrishnan<span
-                                                        id="u-AnushaUnnikrishnan"></span></label>
-                                                <input type="checkbox" name="staff-name" id="AnushaUnnikrishnanIdd"
-                                                    value="Anusha Unnikrishnan" onclick="sortByName()" />
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="dropdpwn-items">
-                                                <label for="ArasiSIdd">Arasi S<span id="u-ArasiS"></span></label>
-                                                <input type="checkbox" name="staff-name" id="ArasiSIdd" value="Arasi S"
-                                                    onclick="sortByName()" />
-                                            </span>
-                                        </li>
+                                            <label for="anithaId">
+                                                Anithaa
+                                                <span id="u-anitha"></span>
+                                            </label>
+                                            <input type="checkbox" name="staff-name" id="anithaId"
+                                                value="Anitha" onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdown-items">
+                                            <label for="jeevaId">
+                                                Jeeva
+                                                <span id="u-jeeva"></span>
+                                            </label>
+                                            <input type="checkbox" name="staff-name" id="jeevaId"
+                                                value="Jeeva" onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdown-items">
+                                            <label for="gId">Gowtham <span
+                                                    id="u-gowtham"></span></label>
+                                            <input type="checkbox" name="staff-name" id="gId"
+                                                value="Gowtham" onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="abdulId">Abdul Abbas <span
+                                                    id="u-abdul"></span></label>
+                                            <input type="checkbox" name="staff-name" id="abdulId"
+                                                value="Abdul Abbas" onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="arunId">Arun Kumar <span
+                                                    id="u-arun"></span></label>
+                                            <input type="checkbox" name="staff-name" id="arunId"
+                                                value="Arun Kumar" onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="vasanthId">Vasanth Kumar <span
+                                                    id="u-vasanth"></span></label>
+                                            <input type="checkbox" name="staff-name" id="vasanthId"
+                                                value="Vasanth Kumar" onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="pradeepId">Pradeep Kanth <span
+                                                    id="u-pradeep"></span></label>
+                                            <input type="checkbox" name="staff-name" id="pradeepId"
+                                                value="Pradeep Kanth" onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="sakthiId">Sakthivel Nagaraj <span
+                                                    id="u-sakthi"></span></label>
+                                            <input type="checkbox" name="staff-name" id="sakthiId"
+                                                value="Sakthivel Nagaraj" onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="radhaId">Radhakrishnan <span
+                                                    id="u-radha"></span></label>
+                                            <input type="checkbox" name="staff-name" id="radhaId"
+                                                value="Radhakrishnan" onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="onwordsIdd">Onwords <span
+                                                    id="u-onwords"></span></label>
+                                            <input type="checkbox" name="staff-name" id="onwordsIdd"
+                                                value="Onwords" onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="iyyappanIdd">Iyyappan K<span
+                                                    id="u-iyyappan"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="iyyappanIdd" value="Iyyappan K"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="abdulkareemIdd">Abdul Kareem<span
+                                                    id="u-abdulkareem"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="abdulkareemIdd" value="Abdul Kareem"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="ashikaboobackerIdd">Ashik Aboobacker<span
+                                                    id="u-ashikaboobacker"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="ashikaboobackerIdd" value="Ashik Aboobacker"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="harshiniuIdd">Harshini U<span
+                                                    id="u-harshiniu"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="harshiniuIdd" value="Harshini U"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="aishwaryakIdd">Aishwarya K<span
+                                                    id="u-aishwaryak"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="aishwaryakIdd" value="Aishwarya K"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="karthikamIdd">Karthika M<span
+                                                    id="u-karthikam"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="karthikamIdd" value="Karthika M"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="sanjethtIdd">Sanjeth T<span
+                                                    id="u-sanjetht"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="sanjethtIdd" value="Sanjeth T"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="gokulnathnIdd">Gokulnath N<span
+                                                    id="u-gokulnathn"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="gokulnathnIdd" value="Gokulnath N"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="mohamedthouficIdd">Mohamed Thoufic<span
+                                                    id="u-mohamedthoufic"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="mohamedthouficIdd" value="Mohamed Thoufic"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="logeshpIdd">Logesh P<span
+                                                    id="u-logeshp"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="logeshpIdd" value="Logesh P"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="rajkannanbIdd">Rajkannan B<span
+                                                    id="u-rajkannanb"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="rajkannanbIdd" value="Rajkannan B"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="karthickrajaaIdd">Karthickraja A<span
+                                                    id="u-karthickrajaa"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="karthickrajaaIdd" value="Karthickraja A"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="pradeepkumarIdd">Pradeep kumar<span
+                                                    id="u-pradeepkumar"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="pradeepkumarIdd" value="Pradeep kumar"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="AnushaUnnikrishnanIdd">Anusha Unnikrishnan<span
+                                                    id="u-AnushaUnnikrishnan"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="AnushaUnnikrishnanIdd" value="Anusha Unnikrishnan"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="dropdpwn-items">
+                                            <label for="ArasiSIdd">Arasi S<span
+                                                    id="u-ArasiS"></span></label>
+                                            <input type="checkbox" name="staff-name"
+                                                id="ArasiSIdd" value="Arasi S"
+                                                onclick="sortByName()" />
+                                        </span>
+                                    </li>
                                     </ul>
 
                                 </div>
@@ -679,7 +762,7 @@
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <li> <span class="dropdown-item">
                                                 <label for="anithaIdd">
-                                                    Anithaa
+                                                    Anitha
                                                     <span id="b-anitha"></span>
                                                 </label>
                                                 <input type="checkbox" name="bd-staff-name" id="anithaIdd"
@@ -936,7 +1019,19 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <!-- js script  end -->
-    
+    <script>
+        var headers =document.getElementById('custom-parent')
+        var btnscust = headers.getElementsByClassName("custom-btn");
+        for (var i = 0; i < btnscust.length; i++) {
+            btnscust[i].addEventListener("click", function () {
+                var current = document.getElementsByClassName("custom-active");
+                current[0].className = current[0].className.replace(" custom-active", "");
+                this.className += " custom-active";
+    });
+}
+
+    </script>
+
 
 </body>
 

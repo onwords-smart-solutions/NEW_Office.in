@@ -108,9 +108,10 @@ function countPerUser() {
       }
     }
   }
-  document.getElementById("u-anitha").innerHTML = "(" + u_anitha + ")";
-  document.getElementById("u-jeeva").innerHTML = "(" + u_jeeva + ")";
+  console.log(u_gowtham,u_anitha)
   document.getElementById("u-gowtham").innerHTML = "(" + u_gowtham + ")";
+  document.getElementById("u-jeeva").innerHTML = "(" + u_jeeva + ")";
+  document.getElementById("u-anitha").innerHTML = "(" + u_anitha + ")";
   document.getElementById("u-abdul").innerHTML = "(" + u_abdul + ")";
   document.getElementById("u-arun").innerHTML = "(" + u_arun + ")";
   document.getElementById("u-vasanth").innerHTML = "(" + u_vasanth + ")";
@@ -366,6 +367,7 @@ function getBlackDots() {
       }
     }
   }
+  console.log(bd_anitha,bd_gowtham)
   document.getElementById("b-anitha").innerHTML = "(" + bd_anitha + ")";
   document.getElementById("b-jeeva").innerHTML = "(" + bd_jeeva + ")";
   document.getElementById("b-gowtham").innerHTML = "(" + bd_gowtham + ")";
@@ -495,6 +497,7 @@ function searchFunction() {
   }
 }
 function srt() {
+  console.log("=========================")
   fi = document.getElementById("from-date1").value;
   si = document.getElementById("to-date1").value;
   if (fi == "" || si == "") {
@@ -502,6 +505,7 @@ function srt() {
   } else {
     fdate = document.getElementById("from-date1").value;
     tdate = document.getElementById("to-date1").value;
+    console.log(fdate,tdate)
     fyear = fdate.slice(0, 4);
     fmonth = fdate.slice(5, 7);
     fday = fdate.slice(8, 10);
@@ -724,11 +728,13 @@ function subState() {
 // functions with return
 function sortByState() {
   a = getCheckedByState();
+  console.log("inside func")
   if (a.length == 0) {
+    console.log("inside if")
     document.getElementById("anithaId").disabled = false;
     // // document.getElementById("balaId").disabled = false;
     // // document.getElementById("jnId").disabled = false;
-    document.getElementById("jeevaId").disabled = false;
+    document.getElementById("jeevaIdd").disabled = false;
     // // document.getElementById("akhilId").disabled = false;
     // document.getElementById("gId").disabled = false;
     // document.getElementById("thiyaguId").disabled = false;
@@ -739,10 +745,11 @@ function sortByState() {
       }
     }
   } else {
+    console.log("inside else")
     document.getElementById("anithaId").disabled = true;
     // // document.getElementById("balaId").disabled = true;
     // // document.getElementById("jnId").disabled = true;
-    document.getElementById("jeevaId").disabled = true;
+    document.getElementById("jeevaIdd").disabled = true;
     // // document.getElementById("akhilId").disabled = true;
     // document.getElementById("gId").disabled = true;
     // document.getElementById("thiyaguId").disabled = true;
