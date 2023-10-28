@@ -4,31 +4,7 @@ from datetime import datetime, timedelta
 import pyrebase
 from datetime import datetime,timedelta
 from it.views import convert_to_12_hour_format,calculate_progress,calculate_progress_
-config = {
-    "apiKey": "AIzaSyCCTeiCYTB_npcWKKxl-Oj0StQLTmaFOaE",
-    "authDomain": "marketing-data-d141d.firebaseapp.com",
-    "databaseURL": "https://marketing-data-d141d-default-rtdb.firebaseio.com/",
-    "storageBucket": "marketing-data-d141d.appspot.com",
-}
-firebaseConfig = {
-  "apiKey": "AIzaSyBTcgfGrYDzHXN6aPyRP6LTIeRv-1w-Bio",
-  "authDomain": "testadminconsole.firebaseapp.com",
-  "projectId": "testadminconsole",
-  "databaseURL":"https://testadminconsole-default-rtdb.firebaseio.com/",
-  "storageBucket": "testadminconsole.appspot.com",
-  "messagingSenderId": "982262166733",
-  "appId": "1:982262166733:web:b14a765e30b114ba37a584",
-  "measurementId": "G-PSYFW4L5W9"
-}
 
-firebase = pyrebase.initialize_app(config)
-db = firebase.database()
-auth = firebase.auth()
-storage1 = firebase.storage()
-
-firebase1 = pyrebase.initialize_app(firebaseConfig)
-db1 = firebase1.database()
-storage = firebase1.storage()
 # Create your views here.
 def adminhome(request):
     uid = request.COOKIES["uid"]
@@ -264,7 +240,7 @@ def adminhome(request):
                             datalist.append(data)
                     except:
                         pass
-            
+            print("leave1",generalleave,sickleave)
             leavehistory = zip(yearList, monthList, dateList, typelist, datalist)
             context = {
                 "leavehistory": leavehistory,
@@ -283,6 +259,7 @@ def adminhome(request):
         generalleave = 24 - generalcount
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
+        print("leave",generalleave,sickleave)
         data[uid]["projects"]
         context={
             "project": True,
