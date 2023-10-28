@@ -456,7 +456,7 @@ def approvalprocess(request):
         type = request.POST["type"]
         uid = getUidByName(name)
         db.child("leave_details").child(date[0:4]).child(date[5:7]).child(date).child(uid).child(type).update({"status": "Declined","updated_by":name1})
-    return redirect('/leaveapproval/')
+    return redirect('/approval/')
 
 
 def late_form(request):

@@ -388,7 +388,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="leave-chart">
-                                        <canvas id="myChart2" width="100" height="100"></canvas>
+                                        <canvas id="myChart12" width="100" height="100"></canvas>
                                         <!-- <div class="leave-precent">
                                             <span class="top-num">17</span>
                                             <span class="dived-sympl">/</span>
@@ -509,11 +509,11 @@
         <script>
             // break
             var xValues = [];
-            var yValues = [45, 37, 18];
+            var yValues = [{{stafftotalpresent}}, {{stafftotalabsent}}];
             var barColors = [
                 "#7FA9FB",
                 "#266386",
-                "#a78f0d",
+                // "#a78f0d",
             ];
             new Chart("myChart4", {
                 type: "doughnut",

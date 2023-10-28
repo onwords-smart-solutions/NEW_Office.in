@@ -84,7 +84,7 @@ var barColors = [
     "#7FA9FB",
     "#266386",
 ];
-new Chart("myChart2", {
+new Chart("myChart12", {
     type: "doughnut",
     data: {
         labels: xValues,

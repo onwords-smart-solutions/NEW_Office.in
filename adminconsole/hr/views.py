@@ -83,7 +83,7 @@ def hrhome(request):
     current_year = str(current_date.year)
     current_month = str(current_date.month).zfill(2)
     current_day = str(current_date.day).zfill(2)
-
+    current_date1 = datetime.now().strftime("%d")
     # Calculate yesterday's date
     yesterday = current_date - timedelta(days=1)
 
@@ -115,19 +115,20 @@ def hrhome(request):
             
         except:
             todaycheckout = "No Entry"
-        day = False
+        day1 = False
         try:
             if yesterday.weekday() == 6:
                 yescheckin = attendence[saturday_year][saturday_month][saturday_day][uid]["check_in"]
-                day = "Saturday"
+                day1 = "Saturday"
                 yesscheckin = convert_to_12_hour_format(yescheckin)
             else:
                 # If yesterday was not a Sunday, use the existing code for Sunday data
                 yescheckin = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_in"]
                 yesscheckin = convert_to_12_hour_format(yescheckin)
-                day = False
+                day1 = False
         except:
             yesscheckin = "No Entry"
+        
 
         try:
             if yesterday.weekday() == 6:
@@ -207,7 +208,45 @@ def hrhome(request):
             }
         except:
             pass 
-                    
+        staff=db.child("staff").get().val()
+        attendance=db.child("attendance").child(current_year).child(current_month).get().val()
+        stafftotalpresent=0
+        stafftotalabsent=0
+        for staffuid in staff:
+            if staff[staffuid]["department"] != "ADMIN":
+                try:
+                    attendance[current_date1][staffuid]
+                    stafftotalpresent=stafftotalpresent+1
+                except:
+                    stafftotalabsent=stafftotalabsent+1
+            
+        start_of_week = current_date - timedelta(days=current_date.weekday() + 1)
+        days_of_week = [start_of_week + timedelta(days=i) for i in range(1,7)]
+        weekdaylist=[]
+        for day in days_of_week:
+            weekdaylist.append(day.strftime("%Y-%m-%d"))
+        allpresentlist,allabsentlist,alldatelist=[],[],[]
+        for days in weekdaylist:
+            current_year = days[:4]
+            days = days[8:10]
+            totalstafftotalabsent=0
+            totalstafftotalpresent=0
+            for staffuid in staff:
+                if staff[staffuid]["department"] != "ADMIN":
+                    try:
+                        attendance[days]
+                        try:
+                            attendance[days][staffuid]
+                            totalstafftotalpresent=totalstafftotalpresent+1
+                        except:
+                            totalstafftotalabsent=totalstafftotalabsent+1
+                    except:
+                        pass        
+
+            allpresentlist.append(totalstafftotalpresent)
+            allabsentlist.append(totalstafftotalabsent)   
+        weeklypresentlist=zip(allpresentlist,allabsentlist,alldatelist)  
+        print(allpresentlist,allabsentlist)        
         generalleave = 24 - generalcount
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
@@ -227,7 +266,7 @@ def hrhome(request):
             "yesprogress":yesterdayprogress,
             "todayprogress":today_progress,
             "listOfTodaysWork" : listOfTodaysWork,
-            "day":day,
+            "day":day1,
             "generalleave":generalleave,
             "sickleave":sickleave,
             "overallleave":overallleave,
@@ -244,7 +283,12 @@ def hrhome(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
-            "suggestionNotification":suggestionNotification
+            "suggestionNotification":suggestionNotification,
+            "allpresentlist":allpresentlist,
+            "allabsentlist":allabsentlist,
+            "weeklypresentlist":weeklypresentlist,
+            "stafftotalpresent":stafftotalpresent,
+            "stafftotalabsent":stafftotalabsent
         }
         return render(request, "hrhome.html", context)
     except:
@@ -263,7 +307,7 @@ def hrhome(request):
             "yesprogress":yesterdayprogress,
             "todayprogress":today_progress,
             "listOfTodaysWork":listOfTodaysWork,
-            "day":day,
+            "day":day1,
             "generalleave":generalleave,
             "sickleave":sickleave,
             "overallleave":overallleave,
@@ -280,6 +324,11 @@ def hrhome(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
-            "suggestionNotification":suggestionNotification
+            "suggestionNotification":suggestionNotification,
+            "allpresentlist":allpresentlist,
+            "allabsentlist":allabsentlist,
+            "weeklypresentlist":weeklypresentlist,
+            "stafftotalpresent":stafftotalpresent,
+            "stafftotalabsent":stafftotalabsent,
         }
     return render(request,'hrhome.html',context)

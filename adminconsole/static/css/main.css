@@ -78,7 +78,12 @@ h6 {
     background-color: #F6F7FB;
     height: 100vh;
     overflow: hidden;
-    position: sticky;
+    position: sticky !important;
+    top: 0;
+    left: 0;
+}
+nav{
+    position: fixed;
     top: 0;
     left: 0;
 }

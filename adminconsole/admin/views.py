@@ -99,6 +99,7 @@ def adminhome(request):
 
     staff=db.child("staff").get().val()
     attendance=db.child("attendance").child(current_year).child(current_month).get().val()
+    attendance1=db.child("attendance").child(current_year).get().val()
     stafftotalpresent=0
     stafftotalabsent=0
     for staffuid in staff:
@@ -117,15 +118,16 @@ def adminhome(request):
     allpresentlist,allabsentlist,alldatelist=[],[],[]
     for days in weekdaylist:
         current_year = days[:4]
+        month = days[5:7]
         days = days[8:10]
         totalstafftotalabsent=0
         totalstafftotalpresent=0
         for staffuid in staff:
             if staff[staffuid]["department"] != "ADMIN":
                 try:
-                    attendance[days]
+                    attendance1[month][days]
                     try:
-                        attendance[days][staffuid]
+                        attendance1[month][days][staffuid]
                         totalstafftotalpresent=totalstafftotalpresent+1
                     except:
                         totalstafftotalabsent=totalstafftotalabsent+1
@@ -748,13 +750,16 @@ def attendanced(request):
     for staffuid in staff:
         if staff[staffuid]["department"]!="ADMIN":
             staffleavecount=0
-            for date in leaveapplied:
-                try:
-                    for leavetype in leaveapplied[date][staffuid]:
-                        if leavetype != "permission":
-                            staffleavecount=staffleavecount+1 
-                except:
-                    pass
+            try:
+                for date in leaveapplied:
+                    try:
+                        for leavetype in leaveapplied[date][staffuid]:
+                            if leavetype != "permission":
+                                staffleavecount=staffleavecount+1 
+                    except:
+                        pass
+            except:
+                pass        
             staffattendancecount=0
             for date in attendance:
                 try:
@@ -1000,31 +1005,34 @@ def indvattendanced(request):
     leaveapplied=db.child("leave_details").child(current_year).child(current_month).get().val()
     generalleavecount=0
     sickleavecount=0
-    for date in leaveapplied:
-        for uid in leaveapplied[date]:
-            if uid == getuid:
-                for leavetype in leaveapplied[date][uid]:
-                    datelist.append(date)
-                    if leavetype == "permission":
-                        leavetypelist.append(leavetype)
-                        leavenode.append(leaveapplied[date][uid][leavetype]["duration"])
-                        permissioncountlist.append(leaveapplied[date][uid][leavetype]["duration"])
-                    elif leavetype == "sick":
-                        leavetypelist.append(leavetype)
-                        if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
-                            leavenode.append("Full Day")
-                            sickleavecount=sickleavecount+1
+    try:
+        for date in leaveapplied:
+            for uid in leaveapplied[date]:
+                if uid == getuid:
+                    for leavetype in leaveapplied[date][uid]:
+                        datelist.append(date)
+                        if leavetype == "permission":
+                            leavetypelist.append(leavetype)
+                            leavenode.append(leaveapplied[date][uid][leavetype]["duration"])
+                            permissioncountlist.append(leaveapplied[date][uid][leavetype]["duration"])
+                        elif leavetype == "sick":
+                            leavetypelist.append(leavetype)
+                            if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                                leavenode.append("Full Day")
+                                sickleavecount=sickleavecount+1
+                            else:
+                                leavenode.append("Half Day")
+                                sickleavecount=sickleavecount+0.5    
                         else:
-                            leavenode.append("Half Day")
-                            sickleavecount=sickleavecount+0.5    
-                    else:
-                        leavetypelist.append(leavetype)
-                        if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
-                            leavenode.append("Full Day")
-                            generalleavecount=generalleavecount+1 
-                        else:
-                            leavenode.append("Half Day")
-                            generalleavecount=generalleavecount+0.5
+                            leavetypelist.append(leavetype)
+                            if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                                leavenode.append("Full Day")
+                                generalleavecount=generalleavecount+1 
+                            else:
+                                leavenode.append("Half Day")
+                                generalleavecount=generalleavecount+0.5
+    except:
+        pass                            
     permissioncount = 0.0
     for time_str in permissioncountlist:
         hours, minutes = map(int, time_str.split(':'))

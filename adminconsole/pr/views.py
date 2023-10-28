@@ -499,11 +499,11 @@ def create_lead(request):
                             if len(altered_phone_number)>10:
                                 if "p:" in altered_phone_number:
                                     altered_phone_number = altered_phone_number.replace("p:","")
-                                if len(altered_phone_number) >= 13 and "+91" in altered_phone_number:
+                                if len(altered_phone_number) >= 11 and "+91" in altered_phone_number:
                                     altered_phone_number = altered_phone_number.replace("+91","")
-                                if len(altered_phone_number) >= 12 and "+1" in altered_phone_number:
+                                if len(altered_phone_number) >= 11 and "+1" in altered_phone_number:
                                     altered_phone_number = altered_phone_number.replace("+1","")
-                                if len(altered_phone_number) >= 12 and "+78" in altered_phone_number:
+                                if len(altered_phone_number) >= 11 and "+78" in altered_phone_number:
                                     altered_phone_number = altered_phone_number.replace("+78","")
                                 if altered_phone_number[0] == "0":
                                     altered_phone_number = altered_phone_number.replace("0", "", 1)
@@ -512,6 +512,7 @@ def create_lead(request):
                                 number = altered_phone_number
                             else:
                                 number = original_phone_number
+                            print(number)    
                             cust_data = {
                                 "name": name,
                                 "phone_number": number,
@@ -540,7 +541,7 @@ def create_lead(request):
                             # return render(request,"pr/createlead.html",{"akn": "user created success fully", "colour": True, "tl":istl, "accounts": accounts,"management": management,"alreadyExistList": alreadyExistList})
                             # db.child("customer").child(number).update(cust_data)
                         else:
-                            pass        
+                            pass    
                     context={
                             "akn": "user created success fully", 
                             "colour": True,
