@@ -38,37 +38,40 @@
                             <img src="{% static 'images/nav-icon/main-log.svg' %}" alt="small_Icon" class="main-logo">
                         </div>
                     </div>
+                    <div id="userprofilelist">
+                        <div class="user-profiles">
+                            <div class="user-img">
+                                {%if profile == "NULL"%}
+                                <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                {%else%}
+                                <img src="{{profile}}" alt="user-profile">
+                                {%endif%}
+                            </div>
+                            <div class="emply-id">
+                                <span>{{ name }}</span><br>
+                                <span>{% if dep == "WEB" %}
+                                    <p>Web Developer</p>
+                                    {% elif dep == "APP" %}
+                                    <p>App developer</p>
+                                    {% elif dep == "MEDIA" %}
+                                    <p>Graphic designer</p>
+                                    {% elif dep == "PR" %}
+                                    <p>PR</p>
+                                    {% elif dep == "RND" %}
+                                    <p>R&D</p>
+                                    {% else %}
+                                    <p>Admin</p>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="user-profile">
                         <li class="user-visual">
                             <div class="left-nav-list"> <img src="{% static 'images/menu.png' %}" alt="menu_Icon"
                                     class="menu-icons"></div>
                             <div class="right-nav-list">
-                                <div class="user-profiles">
-                                    <div class="user-img">
-                                        {%if profile == "NULL"%}
-                                        <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
-                                        {%else%}
-                                        <img src="{{profile}}" alt="user-profile">
-                                        {%endif%}
-                                    </div>
-                                    <div class="emply-id">
-                                        <span>{{ name }}</span><br>
-                                        <span>{% if dep == "WEB" %}
-                                            <p>Web Developer</p>
-                                            {% elif dep == "APP" %}
-                                            <p>App developer</p>
-                                            {% elif dep == "MEDIA" %}
-                                            <p>Graphic designer</p>
-                                            {% elif dep == "PR" %}
-                                            <p>PR</p>
-                                            {% elif dep == "RND" %}
-                                            <p>R&D</p>
-                                            {% else %}
-                                            <p>Admin</p>
-                                            {% endif %}
-                                        </span>
-                                    </div>
-                                </div>
+
                             </div>
                         </li>
 

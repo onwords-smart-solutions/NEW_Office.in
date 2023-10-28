@@ -6,10 +6,12 @@ function navcon() {
     var closeIcon = document.querySelector('.close-icons')
     var menuIcon = document.querySelector('.menu-icons')
     var navmaincon = document.getElementById('nav-main-con');
+    var userprofilelist = document.getElementById('userprofilelist');
     if (navCon.style.width == '5%') {
         navCon.style.width = '18%'
         rightCon.style.width = '82%'
         navmaincon.style.height='56vh'
+        userprofilelist.style.display='block'
         for (const rightcon of rightnavlist) {
             rightcon.style.display = 'block'
         }
@@ -30,6 +32,7 @@ function navcon() {
         closeIcon.style.display = 'none'
         menuIcon.style.display = 'block'
         navmaincon.style.height='76vh'
+        userprofilelist.style.display='none'
     }
 }
 function rightcon() {
