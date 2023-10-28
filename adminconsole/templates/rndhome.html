@@ -710,7 +710,31 @@
     <!-- js script  end -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        var xValues = [];
+        var yValues = [{{generalleave}}, {{sickleave}}];
+        var barColors = [
+            "#7FA9FB",
+            "#266386",
+        ];
+        new Chart("myChart2", {
+            type: "doughnut",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues,
+                    borderColor: 'transparent'
 
+                }]
+            },
+            options: {
+                cutoutPercentage: 80,
+                title: {
+                    display: true,
+                    text: ""
+                }
+            }
+        });
         $(document).ready(function() {
             var progressBar = document.getElementById("progress-bar");
             progressBar.style.width = "{{ yesprogress }}%";
