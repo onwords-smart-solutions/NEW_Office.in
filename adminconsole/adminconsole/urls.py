@@ -26,7 +26,6 @@ urlpatterns = [
     path("todo/", views.todo, name="todo"),
     path("approvalprocess/", views.approvalprocess, name="approvalprocess"),
     path("financialpost/",views.financialpost,name="financialpost"),
-    path("attendancesort/",adminviews.attendancesort,name="attendancesort"),
     path("logout/",views.logout,name="logout"),
     path("workdonedetails/",views.workdonedetails,name="workdonedetails"),
     path("workmanagerTl/",views.workmanagerTl,name='workmanagreTl'),
@@ -71,6 +70,7 @@ urlpatterns = [
     path("checkin/",adminviews.checkin,name='checkin'),
     path("attendanced/",adminviews.attendanced,name='attendanced'),
     path("indvattendanced/",adminviews.indvattendanced,name='indvattendanced'),
+    path("attendancesort/",adminviews.attendancesort,name="attendancesort"),
 
     # ======= CMO Product Page ==========
     path("inventorymanagement/",views.inventorymanagement,name='inventorymanagement'),

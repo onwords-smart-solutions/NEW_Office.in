@@ -33,12 +33,12 @@ aiconfig = {
     "measurementId": "G-J4YXBZGFJY",
 }
 firebase = pyrebase.initialize_app(config)
-db1 = firebase.database()
+db = firebase.database()
 auth = firebase.auth()
 storage1 = firebase.storage()
 
 firebase1 = pyrebase.initialize_app(firebaseConfig)
-db = firebase1.database()
+db1 = firebase1.database()
 storage = firebase1.storage()
 
 aifirebase = pyrebase.initialize_app(aiconfig)
@@ -1941,11 +1941,14 @@ def installation_details(request):
         selected_year = current_date.strftime('%Y')
         selected_month = current_date.strftime("%m")
     alllist=[]
-    alldates = installation[selected_year][selected_month]
-    for date in alldates:
-        alluid = installation[selected_year][selected_month][date]
-        for num, data in alluid.items():
-            alllist.append((num, data))       
+    try:
+        alldates = installation[selected_year][selected_month]
+        for date in alldates:
+            alluid = installation[selected_year][selected_month][date]
+            for num, data in alluid.items():
+                alllist.append((num, data))  
+    except:
+        pass                 
     context={
         "alllist":alllist,
         "name":name,

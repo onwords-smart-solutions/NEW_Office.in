@@ -344,7 +344,7 @@
                         <form action="">
                             <div class="customer-searchbar">
                                 <div class="cust-inp">
-                                    <input type="text" placeholder="Search">
+                                    <input type="text" placeholder="Search" id="searchInput">
                                 </div>
                                 <div class="searchBtn" type="submit">
                                     <img src="{% static 'images/search-icon.svg' %}" alt="search-icon"
@@ -388,6 +388,7 @@
                                         {%csrf_token%}
                                         <input type="hidden" name="suid" value="{{staffuid}}">
                                         <input type="hidden" name="date" value="{{datelist}}">
+                                        <input type="hidden" name="form_identifier" value="form2">
                                         <td><button type="submit" class="eyeview"><img
                                                 src="{% static 'images/eye-view.svg'  %}" alt="eyeView" class="img-fluid">
                                                 </button>
@@ -426,6 +427,22 @@
         function dateTimeSubmit(){
            document.getElementById("datetime1").submit()
          }
+         document.getElementById("searchInput").addEventListener("keyup", function () {
+            const searchText = this.value.toLowerCase();
+            const rows = document.querySelectorAll("#checkin-table tbody tr");
+
+            rows.forEach(function (row) {
+                const nameCell = row.querySelector("td:nth-child(2)");
+                if (nameCell) {
+                    const nameText = nameCell.textContent.toLowerCase();
+                    if (nameText.includes(searchText)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+        });
     </script>
 
 </body>

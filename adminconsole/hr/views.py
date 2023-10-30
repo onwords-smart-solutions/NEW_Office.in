@@ -210,6 +210,7 @@ def hrhome(request):
             pass 
         staff=db.child("staff").get().val()
         attendance=db.child("attendance").child(current_year).child(current_month).get().val()
+        attendance1=db.child("attendance").child(current_year).get().val()
         stafftotalpresent=0
         stafftotalabsent=0
         for staffuid in staff:
@@ -228,15 +229,16 @@ def hrhome(request):
         allpresentlist,allabsentlist,alldatelist=[],[],[]
         for days in weekdaylist:
             current_year = days[:4]
+            month = days[5:7]
             days = days[8:10]
             totalstafftotalabsent=0
             totalstafftotalpresent=0
             for staffuid in staff:
                 if staff[staffuid]["department"] != "ADMIN":
                     try:
-                        attendance[days]
+                        attendance1[month][days]
                         try:
-                            attendance[days][staffuid]
+                            attendance1[month][days][staffuid]
                             totalstafftotalpresent=totalstafftotalpresent+1
                         except:
                             totalstafftotalabsent=totalstafftotalabsent+1
@@ -245,8 +247,8 @@ def hrhome(request):
 
             allpresentlist.append(totalstafftotalpresent)
             allabsentlist.append(totalstafftotalabsent)   
-        weeklypresentlist=zip(allpresentlist,allabsentlist,alldatelist)  
-        print(allpresentlist,allabsentlist)        
+        weeklypresentlist=zip(allpresentlist,allabsentlist,alldatelist)
+    
         generalleave = 24 - generalcount
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
