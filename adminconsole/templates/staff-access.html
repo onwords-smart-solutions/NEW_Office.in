@@ -23,6 +23,7 @@
 </head>
 
 <body>
+   <div class="main-dis">
     <div class="main-con ">
         <div class="nav-con " onclick="navcon()">
             <nav class="px-2">
@@ -392,58 +393,15 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
               
-=======
-                <div class="access-page-con" id="delete-access">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="staff-access-form-con">
-                                <h3>Delete Access</h3>
-                                <form action="/staffaccess/" method="post">
-                                    {%csrf_token%}
-                                    <div class="form-inp-access">
-                                        <img src="{% static 'images/user-icon.svg' %}" alt="user-icon">
-                                        <select name="uid" id="">
-                                            <option value="">Select Staff</option>
-                                            {%for uid1 , name1 in allstaff1%}
-                                            <option value="{{uid1}}">{{name1}}</option>
-                                            {%endfor%}
-                                        </select>
-                                    </div>
-                                    <!-- <div class="form-inp-access">
-                                        <img src="{% static 'images/position.svg' %}" alt="user-icon">
-                                        <input type="text" id="position" placeholder="Staff Position" >
-                                    </div> -->
-                                    <div class="form-inp-access">
-                                        <img src="{% static 'images/access-icon.svg' %}" alt="user-icon">
-                                        <select name="removeaccess" id="">
-                                            <option value="">Access Page</option>
-                                            <option value="customer details">Customer Details</option>
-                                            <option value="approval">Approval</option>
-                                            <option value="Account">Account</option>
-                                            <option value="Create Lead">Create Lead</option>
-                                            <option value="Quotation Page">Quotation Page</option>
-                                            <option value="Inventory Page">Inventory Page</option>
-                                            <option value="Create Staff">Create Staff</option>
-                                            <option value="Viewwork Manager">Viewwork Manager</option>
-                                            <option value="View Suggestion">View Suggestion</option>
-                                            <option value="User Data">User Data</option>
-                                            <option value="Prdashboard">Prdashboard</option>
-                                            <option value="inprogress">Inprogress</option>
-                                        </select>
-                                    </div>
-                                    <button class="primary-button" name="deleteaccess">Permission</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <img src="{% static 'images/access-page.svg' %}" alt="access-page" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
->>>>>>> 7e59a37c41b279d7f738729c8ae34a57198be7a5
             </div>
+        </div>
+    </div>
+   </div>
+    <div class="notfound">
+        <div class="nopage">
+            <h2>404</h2>
+            <h2>Not Found</h2>
         </div>
     </div>
     <!-- bootstrap js -->
