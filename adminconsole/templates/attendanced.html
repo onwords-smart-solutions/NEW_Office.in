@@ -348,7 +348,7 @@
                             <form action="">
                                 <div class="customer-searchbar">
                                     <div class="cust-inp">
-                                        <input type="text" placeholder="Search">
+                                        <input type="text" placeholder="Search" id="searchInput">
                                     </div>
                                     <div class="searchBtn" type="submit">
                                         <img src="{% static 'images/search-icon.svg' %}" alt="search-icon"
@@ -441,7 +441,7 @@
          }
          document.getElementById("searchInput").addEventListener("keyup", function () {
             const searchText = this.value.toLowerCase();
-            const rows = document.querySelectorAll("#checkin-table tbody tr");
+            const rows = document.querySelectorAll("#attendance-table tbody tr");
 
             rows.forEach(function (row) {
                 const nameCell = row.querySelector("td:nth-child(2)");
