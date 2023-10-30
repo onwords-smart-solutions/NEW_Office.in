@@ -692,10 +692,9 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         var xValues = [];
-        var yValues = [{{ generalleave }}, { { sickleave } }];
+        var yValues = [{{ generalleave }}, {{ sickleave }}];
         var barColors = [
             "#7FA9FB",
             "#266386",
@@ -720,17 +719,15 @@
             }
         });
         $(document).ready(function () {
-            var yesprogress = {{ yesprogress }
-        };
-        console.log("progress", yesprogress)
-        var progressBar = document.getElementById("progress-bar");
-        progressBar.style.width = yesprogress + "%";
-        if (yesprogress < 100) {
-            progressBar.style.backgroundColor = "red";
-        } else {
-            progressBar.style.backgroundColor = "#e0ae09";
-        }
-            });
+            var yesprogress = {{ yesprogress }};
+            var progressBar = document.getElementById("progress-bar");
+            progressBar.style.width = yesprogress + "%";
+            if (yesprogress < 100) {
+                progressBar.style.backgroundColor = "red";
+            } else {
+                progressBar.style.backgroundColor = "#e0ae09";
+            }
+                });
 
         $(document).ready(function () {
 

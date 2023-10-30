@@ -669,26 +669,25 @@
 
     <script>
         $(document).ready(function () {
-            var yesprogress = {{ yesprogress }
-        };
-        var progressBar = document.getElementById("progress-bar");
-        progressBar.style.width = yesprogress + "%";
-        if (yesprogress === "Absent") {
-            progressBar.style.backgroundColor = "#FF0000";
-            console.log("inside absent")
-        }
-        else if (yesprogress < 100) {
-            progressBar.style.backgroundColor = "#FF0000";
-            console.log("inside present")
-        } else {
-            progressBar.style.backgroundColor = "#e0ae09";
-        }
-            });
+            var yesprogress = {{ yesprogress }};
+            var progressBar = document.getElementById("progress-bar");
+            progressBar.style.width = yesprogress + "%";
+            if (yesprogress === "Absent") {
+                progressBar.style.backgroundColor = "#FF0000";
+                console.log("inside absent")
+            }
+            else if (yesprogress < 100) {
+                progressBar.style.backgroundColor = "#FF0000";
+                console.log("inside present")
+            } else {
+                progressBar.style.backgroundColor = "#e0ae09";
+            }
+        });
 
     </script>
     <script>
         var xValues = [];
-        var yValues = [{{ generalleave }}, { { sickleave } }];
+        var yValues = [{{ generalleave }}, {{ sickleave }}];
         var barColors = [
             "#7FA9FB",
             "#266386",
@@ -714,7 +713,7 @@
         });
 
         var xValues = [];
-        var yValues = [{{ stafftotalpresent }}, { { stafftotalabsent } }];
+        var yValues = [{{ stafftotalpresent }}, {{ stafftotalabsent }}];
         var barColors = [
             "#7FA9FB",
             "#266386",
@@ -770,14 +769,24 @@
                     barPercentage: 1,
                     categoryPercentage: 0.6
                 }],
-                yAxes: [{
-                    id: "y-axis-density"
-                }, {
-                    id: "y-axis-gravity"
-                }],
-                datasets: [{
-                    label: 'hied',
-                }]
+                yAxes: [
+                    {
+                        id: "y-axis-density",
+                        ticks: {
+                            max: 60, 
+                            stepSize: 10, 
+                            beginAtZero: true 
+                        }
+                    },
+                    {
+                        id: "y-axis-gravity",
+                        ticks: {
+                            max: 20, 
+                            stepSize: 4, 
+                            beginAtZero: true 
+                        }
+                    }
+                ]
             }
         };
 
@@ -790,18 +799,6 @@
     </script>
 
     <script>
-
-        $(document).ready(function () {
-            var yesprogress = {{ yesprogress }
-        };
-        var progressBar = document.getElementById("progress-bar");
-        progressBar.style.width = yesprogress + "%";
-        if (yesprogress < 100) {
-            progressBar.style.backgroundColor = "red";
-        } else {
-            progressBar.style.backgroundColor = "#e0ae09";
-        }
-        });
 
         $(document).ready(function () {
 
