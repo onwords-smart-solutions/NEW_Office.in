@@ -511,8 +511,7 @@ def create_lead(request):
                             if len(altered_phone_number) == 10:
                                 number = altered_phone_number
                             else:
-                                number = original_phone_number
-                            print(number)    
+                                number = original_phone_number    
                             cust_data = {
                                 "name": name,
                                 "phone_number": number,
@@ -959,24 +958,14 @@ def points_workdone(request):
         except:
             pass
     try:
+        alldata=[]
         prpoints = db.child("PRPoints").get().val()
         if prpoints[uid][thisYear][thisMonth][todaysDate]:
-            calls = prpoints[uid][thisYear][thisMonth][todaysDate]["calls"]
-            message = prpoints[uid][thisYear][thisMonth][todaysDate]["message"]
-            visit = prpoints[uid][thisYear][thisMonth][todaysDate]["visit"]
-            quote = prpoints[uid][thisYear][thisMonth][todaysDate]["quote"]
-            invoice = prpoints[uid][thisYear][thisMonth][todaysDate]["invoice"]
-            points = prpoints[uid][thisYear][thisMonth][todaysDate]["points"]
-
+            alldata.append(prpoints[uid][thisYear][thisMonth][todaysDate])
             context = {
                 "state": "update",
                 "name": name,
-                "calls": calls,
-                "message": message,
-                "visit": visit,
-                "quote": quote,
-                "invoice": invoice,
-                "points": points,
+                "alldata":alldata,
                 "followingupCount": followingupCount,
                 "delayedCount": delayedCount,
                 "totalLeadCount": totalLeadCount,

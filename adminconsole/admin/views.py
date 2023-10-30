@@ -240,7 +240,6 @@ def adminhome(request):
                             datalist.append(data)
                     except:
                         pass
-            print("leave1",generalleave,sickleave)
             leavehistory = zip(yearList, monthList, dateList, typelist, datalist)
             context = {
                 "leavehistory": leavehistory,
@@ -259,7 +258,6 @@ def adminhome(request):
         generalleave = 24 - generalcount
         sickleave = 12 - sickcount  
         overallleave = generalleave + sickleave 
-        print("leave",generalleave,sickleave)
         data[uid]["projects"]
         context={
             "project": True,
@@ -435,7 +433,7 @@ def checkin(request):
     #     tmonth = date_parts[1]
     #     tday = date_parts[2] 
     if request.method == 'POST':
-        form_type = request.POST.get("form_type")   
+        form_type = request.POST.get("form_type")  
         if form_type == 'presentForm':
             dates = request.POST.get("date")
             current_date = datetime.now()
@@ -971,71 +969,128 @@ def indvattendanced(request):
     for suggestion in suggestionData:
         if not suggestionData[suggestion]["isread"]:
             suggestionNotification += 1
-    getuid=request.POST["suid"]
-    date=request.POST["date"]
-    name=checkUserName(getuid)
-    dep=checkUserDepartment(getuid)
-    current_year = date[:4]
-    current_month = date[4:6]
-    staff=db.child("staff").get().val()
-    datelist,leavetypelist,leavenode,permissioncountlist = [],[],[],[]
-    leaveapplied=db.child("leave_details").child(current_year).child(current_month).get().val()
-    generalleavecount=0
-    sickleavecount=0
-    try:
-        for date in leaveapplied:
-            for uid in leaveapplied[date]:
-                if uid == getuid:
-                    for leavetype in leaveapplied[date][uid]:
-                        datelist.append(date)
-                        if leavetype == "permission":
-                            leavetypelist.append(leavetype)
-                            leavenode.append(leaveapplied[date][uid][leavetype]["duration"])
-                            permissioncountlist.append(leaveapplied[date][uid][leavetype]["duration"])
-                        elif leavetype == "sick":
-                            leavetypelist.append(leavetype)
-                            if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
-                                leavenode.append("Full Day")
-                                sickleavecount=sickleavecount+1
-                            else:
-                                leavenode.append("Half Day")
-                                sickleavecount=sickleavecount+0.5    
-                        else:
-                            leavetypelist.append(leavetype)
-                            if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
-                                leavenode.append("Full Day")
-                                generalleavecount=generalleavecount+1 
-                            else:
-                                leavenode.append("Half Day")
-                                generalleavecount=generalleavecount+0.5
-    except:
-        pass                            
-    permissioncount = 0.0
-    for time_str in permissioncountlist:
-        hours, minutes = map(int, time_str.split(':'))
-        permissioncount += hours + minutes / 60.0                        
-    leaveall=zip(datelist,leavetypelist,leavenode)                        
-    context={
-        "name":name,
-        "dep":dep,
-        "profile":profile,
-        "leaveall":leaveall,
-        "permissioncount":permissioncount,
-        "sickleavecount":sickleavecount,
-        "generalleavecount":generalleavecount,
-        "general":general,
-        "approvalpage":approvalacccess,
-        "rnd":inprogressacccess,
-        "account":accountacccess,
-        "createlead":createleadacccess,
-        "customerdetails":customeracccess,
-        "quotation":quotationacccess,
-        "inventory":inventoryacccess,
-        "createstaff":createstaffacccess,
-        "viewworkmanager":viewmanageracccess,
-        "viewsuggestion":viewsuggestionacccess,
-        "userdata":userdataacccess,
-        "prdashboard":prdashboardacccess,
-        "suggestionNotification":suggestionNotification
+    if request.method =="POST":
+        form_identifier = request.POST['form_identifier']
+        if form_identifier == 'form1':
+            date1=request.POST["get-total1"]
+            name1=request.POST["names"]
+            staff=db.child("staff").get().val()
+            for uid in staff:
+                if staff[uid]["name"] == name1:
+                    getuid = uid
+
+
+            name=checkUserName(getuid)
+            dep=checkUserDepartment(getuid)         
+            todaysDate=str(date1)
+            current_year = date1[:4]
+            current_month = date1[5:7]
+            
+            datelist,leavetypelist,leavenode,permissioncountlist = [],[],[],[]
+            leaveapplied=db.child("leave_details").child(current_year).child(current_month).get().val()
+            generalleavecount=0
+            sickleavecount=0
+            try:
+                for date in leaveapplied:
+                    for uid in leaveapplied[date]:
+                        if uid == getuid:
+                            for leavetype in leaveapplied[date][uid]:
+                                datelist.append(date)
+                                if leavetype == "permission":
+                                    leavetypelist.append(leavetype)
+                                    leavenode.append(leaveapplied[date][uid][leavetype]["duration"])
+                                    permissioncountlist.append(leaveapplied[date][uid][leavetype]["duration"])
+                                elif leavetype == "sick":
+                                    leavetypelist.append(leavetype)
+                                    if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                                        leavenode.append("Full Day")
+                                        sickleavecount=sickleavecount+1
+                                    else:
+                                        leavenode.append("Half Day")
+                                        sickleavecount=sickleavecount+0.5    
+                                else:
+                                    leavetypelist.append(leavetype)
+                                    if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                                        leavenode.append("Full Day")
+                                        generalleavecount=generalleavecount+1 
+                                    else:
+                                        leavenode.append("Half Day")
+                                        generalleavecount=generalleavecount+0.5
+            except:
+                pass                            
+            permissioncount = 0.0
+            for time_str in permissioncountlist:
+                hours, minutes = map(int, time_str.split(':'))
+                permissioncount += hours + minutes / 60.0                        
+            leaveall=zip(datelist,leavetypelist,leavenode) 
+        elif form_identifier == 'form2':  
+            getuid=request.POST["suid"]
+            date=request.POST["date"]
+            name=checkUserName(getuid)
+            dep=checkUserDepartment(getuid)
+            current_year = date[:4]
+            current_month = date[4:6]
+            staff=db.child("staff").get().val()
+            datelist,leavetypelist,leavenode,permissioncountlist = [],[],[],[]
+            leaveapplied=db.child("leave_details").child(current_year).child(current_month).get().val()
+            generalleavecount=0
+            sickleavecount=0
+            try:
+                for date in leaveapplied:
+                    for uid in leaveapplied[date]:
+                        if uid == getuid:
+                            for leavetype in leaveapplied[date][uid]:
+                                datelist.append(date)
+                                if leavetype == "permission":
+                                    leavetypelist.append(leavetype)
+                                    leavenode.append(leaveapplied[date][uid][leavetype]["duration"])
+                                    permissioncountlist.append(leaveapplied[date][uid][leavetype]["duration"])
+                                elif leavetype == "sick":
+                                    leavetypelist.append(leavetype)
+                                    if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                                        leavenode.append("Full Day")
+                                        sickleavecount=sickleavecount+1
+                                    else:
+                                        leavenode.append("Half Day")
+                                        sickleavecount=sickleavecount+0.5    
+                                else:
+                                    leavetypelist.append(leavetype)
+                                    if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                                        leavenode.append("Full Day")
+                                        generalleavecount=generalleavecount+1 
+                                    else:
+                                        leavenode.append("Half Day")
+                                        generalleavecount=generalleavecount+0.5
+            except:
+                pass                            
+            permissioncount = 0.0
+            for time_str in permissioncountlist:
+                hours, minutes = map(int, time_str.split(':'))
+                permissioncount += hours + minutes / 60.0                        
+            leaveall=zip(datelist,leavetypelist,leavenode) 
+         
+        context={
+            "name":name,
+            "dep":dep,
+            "profile":profile,
+            "leaveall":leaveall,
+            "permissioncount":permissioncount,
+            "sickleavecount":sickleavecount,
+            "generalleavecount":generalleavecount,
+            "general":general,
+            "approvalpage":approvalacccess,
+            "rnd":inprogressacccess,
+            "account":accountacccess,
+            "createlead":createleadacccess,
+            "customerdetails":customeracccess,
+            "quotation":quotationacccess,
+            "inventory":inventoryacccess,
+            "createstaff":createstaffacccess,
+            "viewworkmanager":viewmanageracccess,
+            "viewsuggestion":viewsuggestionacccess,
+            "userdata":userdataacccess,
+            "prdashboard":prdashboardacccess,
+            "suggestionNotification":suggestionNotification
     }
     return render(request,'indvattendanced.html',context)
+                 

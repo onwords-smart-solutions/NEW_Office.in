@@ -439,6 +439,22 @@
         function dateTimeSubmit(){
            document.getElementById("datetime1").submit()
          }
+         document.getElementById("searchInput").addEventListener("keyup", function () {
+            const searchText = this.value.toLowerCase();
+            const rows = document.querySelectorAll("#checkin-table tbody tr");
+
+            rows.forEach(function (row) {
+                const nameCell = row.querySelector("td:nth-child(2)");
+                if (nameCell) {
+                    const nameText = nameCell.textContent.toLowerCase();
+                    if (nameText.includes(searchText)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+        });
     </script>
 
 </body>

@@ -781,30 +781,31 @@
             progressBar.style.backgroundColor = "#e0ae09";
         }
         });
-
-        $(document).ready(function () {
-
-            function updateOptions() {
-                var currentDate = new Date();
-                var currentHour = currentDate.getHours();
-                var currentMinutes = currentDate.getMinutes();
-
-                var showTeaCoffeeMilk = (currentHour === 13 && currentMinutes >= 0) || (currentHour === 13 && currentMinutes <= 45);
-                var showTeaCoffee = (currentHour === 14 && currentMinutes >= 0) || (currentHour === 15 && currentMinutes <= 30);
-
-                if (showTeaCoffeeMilk) {
-                    $("#tea-coffee-milk").show();
-                    $("#tea-coffee").show();
-                } else if (showTeaCoffee) {
-                    $("#tea-coffee-milk").show();
-                    $("#tea-coffee").hide();
-                } else {
-
-                    $("#tea-coffee-milk").hide();
-                    $("#tea-coffee").hide();
-                    $("#main-refresh").hide();
-                    $('#refresh-over').show();
-                    //if no time for refreshment
+    
+            $(document).ready(function () {
+    
+                function updateOptions() {
+                    var currentDate = new Date();
+                    var currentHour = currentDate.getHours();
+                    var currentMinutes = currentDate.getMinutes();
+                  
+                    var showTeaCoffeeMilk = (currentHour === 9 && currentMinutes >= 0) || (currentHour === 10 && currentMinutes <= 45);
+                    var showTeaCoffee = (currentHour === 14 && currentMinutes >= 0) || (currentHour === 15 && currentMinutes <= 30);
+    
+                    if (showTeaCoffeeMilk) {
+                        $("#tea-coffee-milk").show();
+                        $("#tea-coffee").show();
+                    } else if (showTeaCoffee) {
+                        $("#tea-coffee-milk").show();
+                        $("#tea-coffee").hide();
+                    } else {
+    
+                        $("#tea-coffee-milk").hide();
+                        $("#tea-coffee").hide();
+                        $("#main-refresh").hide();
+                        $('#refresh-over').show();
+                        //if no time for refreshment
+                    }
                 }
             }
             updateOptions();

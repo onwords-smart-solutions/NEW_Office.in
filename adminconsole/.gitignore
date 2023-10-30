@@ -1,7 +1,7 @@
 videos
 .vscode/
 keys.py
-myenv
+myvenv
 # Created by https://www.toptal.com/developers/gitignore/api/pycharm,visualstudiocode,python,git,macos,windows,venv,virtualenv
 # Edit at https://www.toptal.com/developers/gitignore?templates=pycharm,visualstudiocode,python,git,macos,windows,venv,virtualenv
 

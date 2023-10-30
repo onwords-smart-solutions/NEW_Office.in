@@ -349,7 +349,7 @@
                             <form action="">
                                 <div class="customer-searchbar">
                                     <div class="cust-inp">
-                                        <input type="text" placeholder="Search" id="searchInput">
+                                        <input type="text" placeholder="Search" id="searchInput1">
                                     </div>
                                     <div class="searchBtn" type="submit">
                                         <img src="{% static 'images/search-icon.svg' %}" alt="search-icon"
@@ -386,8 +386,8 @@
                             </thead>
                             <tbody>
                                 {% for num,data in alllist %}
+                                <form method="post" action="/installation_details/">
                                 <tr class="table-body-li my-3 trclass">
-                                    <form method="post" action="/installation_details/">
                                         {% csrf_token %}
                                     <td class="tdclass"></td>
                                     <td>{{ data.name }}</td>
@@ -402,8 +402,8 @@
                                     <td><button class="primary-button" type="submit" name="delete_entry" value="{{ num }}">
                                         <img src="{% static 'images/nav-icon/del-icon.svg' %}" alt="">
                                     </button></td>
-                                </form>
                                 </tr>
+                            </form>
                                 {% endfor %}
 
                             </tbody>
@@ -437,22 +437,23 @@
     function dateTimeSubmit() {
         document.getElementById("datetime1").submit();
     }
-    document.getElementById("searchInput").addEventListener("keyup", function () {
-            const searchText = this.value.toLowerCase();
-            const rows = document.querySelectorAll("#myTable tbody tr");
-
-            rows.forEach(function (row) {
-                const nameCell = row.querySelector("td:nth-child(2)");
-                if (nameCell) {
-                    const nameText = nameCell.textContent.toLowerCase();
-                    if (nameText.includes(searchText)) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
+        document.getElementById("searchInput1").addEventListener("keyup", function () {
+            console.log("Search input changed");
+        const searchText = this.value.toLowerCase();
+        const rows = document.querySelectorAll("#myTable tbody tr");       
+        rows.forEach(function (row) {
+            const nameCell = row.querySelector("td:nth-child(2)"); // Name cell (2nd column)
+            if (nameCell) {
+                const nameText = nameCell.textContent.toLowerCase();
+                if (nameText.includes(searchText)) {
+                    row.style.display = ""; // Show the row
+                } else {
+                    row.style.display = "none"; // Hide the row
                 }
-            });
+            }
         });
+    });
+
         const rows = document.querySelectorAll('.trclass');
         rows.forEach((row, index) => {
             const snoCell = row.querySelector('.tdclass');

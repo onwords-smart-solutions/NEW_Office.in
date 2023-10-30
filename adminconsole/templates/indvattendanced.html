@@ -355,12 +355,17 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-2">
-                        <div class="cust-inps">
-                            <input type="month">
-                        </div>
+                    <form action="/indvattendanced/" method="post" id="datetime1">
+                        {% csrf_token %}
+                        <div class="col-md-2">
+                            <div class="cust-inps">
+                                <input type="hidden" name="names" value="{{ name }}">
+                                <input type="hidden" name="form_identifier" value="form1">
+                                <input type="month" name="get-total1" id="sortDate" onchange="dateTimeSubmit()">
+                            </div>
 
-                    </div>
+                        </div>
+                    </form>    
                 </div>
                 <div class="check-table-con">
                 <div>
@@ -433,5 +438,9 @@
     <!-- js script  end -->
 
 </body>
-
+<script>
+function dateTimeSubmit(){
+    document.getElementById("datetime1").submit()
+  }
+</script>
 </html>
