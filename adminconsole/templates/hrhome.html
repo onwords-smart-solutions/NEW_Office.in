@@ -22,6 +22,7 @@
 </head>
 
 <body>
+   <div class="main-dis">
     <div class="main-con ">
         <div class="nav-con " onclick="navcon()">
             <nav class="px-2">
@@ -38,24 +39,40 @@
                             <img src="{% static 'images/nav-icon/main-log.svg' %}" alt="small_Icon" class="main-logo">
                         </div>
                     </div>
+                    <div id="userprofilelist">
+                        <div class="user-profiles">
+                            <div class="user-img">
+                                {%if profile == "NULL"%}
+                                <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                {%else%}
+                                <img src="{{profile}}" alt="user-profile">
+                                {%endif%}
+                            </div>
+                            <div class="emply-id">
+                                <span>{{ name }}</span><br>
+                                <span>{% if dep == "WEB" %}
+                                    <p>Web Developer</p>
+                                    {% elif dep == "APP" %}
+                                    <p>App developer</p>
+                                    {% elif dep == "MEDIA" %}
+                                    <p>Graphic designer</p>
+                                    {% elif dep == "PR" %}
+                                    <p>PR</p>
+                                    {% elif dep == "RND" %}
+                                    <p>R&D</p>
+                                    {% else %}
+                                    <p>Admin</p>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="user-profile">
                         <li class="user-visual">
                             <div class="left-nav-list"> <img src="{% static 'images/menu.png' %}" alt="menu_Icon"
                                     class="menu-icons"></div>
                             <div class="right-nav-list">
-                                <div class="user-profiles">
-                                    <div class="user-img">
-                                        {%if profile == "NULL"%}
-                                        <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
-                                        {%else%}
-                                        <img src="{{profile}}" alt="user-profile">
-                                        {%endif%}
-                                    </div>
-                                    <div class="emply-id">
-                                        <span>{{name}}</span><br>
-                                        <span>{{dep}}</span>
-                                    </div>
-                                </div>
+
                             </div>
                         </li>
 
@@ -184,7 +201,8 @@
                                 <div class="col-md-4">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: {{ todayprogress }}%"
-                                         aria-valuenow="{{ todayprogress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                            aria-valuenow="{{ todayprogress }}" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
 
                                     </div>
                                 </div>
@@ -202,12 +220,13 @@
                                 <div class="col-md-4">
                                     <div class="progress">
                                         <div id="progress-bar" role="progressbar" style="width: {{ yesprogress }}%;"
-                                         aria-valuenow="{{ yesprogress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                            aria-valuenow="{{ yesprogress }}" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
                                     </div>
-                                    
-                                    
-                                    
-                                    
+
+
+
+
                                 </div>
                                 <div class="col-md-4">
                                     <span>Check Out</span><br>
@@ -231,7 +250,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="emoj">
-                                            <img src="{% static 'images/coffee-animated-emoji.gif' %}" alt="coffee-emoj" class="img-fluid">
+                                            <img src="{% static 'images/coffee-animated-emoji.gif' %}" alt="coffee-emoj"
+                                                class="img-fluid">
                                         </div>
                                     </div>
                                 </div>
@@ -467,248 +487,257 @@
 
             </div>
         </div>
-        <!-- bootstrap js -->
-        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <!-- js script  start -->
-        <script src="{% static 'js/main.js' %}"></script>
-        <script src="{% static 'js/attendanceChart.js' %}?{% now 'U' %}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
-        <!-- js script  end -->
+    </div>
+   </div>
+    <div class="notfound">
+        <div class="nopage">
+            <h2>404</h2>
+            <h2>Not Found</h2>
+        </div>
+    </div>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- js script  start -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/attendanceChart.js' %}?{% now 'U' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <!-- js script  end -->
 
-        <script>
-            // break
-            var xValues = [];
-            var yValues = [{{generalleave}}, {{sickleave}}];
-            var barColors = [
-                "#7FA9FB",
-                "#266386",
-            ];
-            new Chart("myChart2", {
-                type: "doughnut",
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        backgroundColor: barColors,
-                        data: yValues,
-                        borderColor: 'transparent'
+    <script>
+        // break
+        var xValues = [];
+        var yValues = [{{ generalleave }}, { { sickleave } }];
+        var barColors = [
+            "#7FA9FB",
+            "#266386",
+        ];
+        new Chart("myChart2", {
+            type: "doughnut",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues,
+                    borderColor: 'transparent'
 
-                    }]
-                },
-                options: {
-                    cutoutPercentage: 80,
-                    title: {
-                        display: true,
-                        text: ""
-                    }
+                }]
+            },
+            options: {
+                cutoutPercentage: 80,
+                title: {
+                    display: true,
+                    text: ""
                 }
-            });
-          
-            var xValues = [];
-            var yValues = [{{stafftotalpresent}},{{stafftotalabsent}}];
-            var barColors = [
-                "#7FA9FB",
-                "#266386",
-                // "#a78f0d",
-            ];
-            new Chart("myChart4", {
-                type: "doughnut",
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        backgroundColor: barColors,
-                        data: yValues,
-                        borderColor: 'transparent'
-                    }]
-                },
-                options: {
-                    cutoutPercentage: 80,
-                    title: {
-                        display: true,
-                        text: ""
-                    }
-                }
-            });
-        </script>
-        <script>
-            var densityCanvas = document.getElementById("densityChart");
-            console.log("===")
-            Chart.defaults.global.defaultFontFamily = "Lato";
-            Chart.defaults.global.defaultFontSize = 16;
+            }
+        });
 
-            var densityData = {
-                label: 'Present',
-                data: {{allpresentlist}},
-                backgroundColor: 'rgba(0, 99, 132, 0.6)',
-                borderColor: 'rgba(0, 99, 132, 1)',
+        var xValues = [];
+        var yValues = [{{ stafftotalpresent }}, { { stafftotalabsent } }];
+        var barColors = [
+            "#7FA9FB",
+            "#266386",
+            // "#a78f0d",
+        ];
+        new Chart("myChart4", {
+            type: "doughnut",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues,
+                    borderColor: 'transparent'
+                }]
+            },
+            options: {
+                cutoutPercentage: 80,
+                title: {
+                    display: true,
+                    text: ""
+                }
+            }
+        });
+    </script>
+    <script>
+        var densityCanvas = document.getElementById("densityChart");
+        console.log("===")
+        Chart.defaults.global.defaultFontFamily = "Lato";
+        Chart.defaults.global.defaultFontSize = 16;
+
+        var densityData = {
+            label: 'Present',
+            data: {{ allpresentlist }},
+        backgroundColor: 'rgba(0, 99, 132, 0.6)',
+            borderColor: 'rgba(0, 99, 132, 1)',
                 yAxisID: "y-axis-density"
             };
 
-            var gravityData = {
-                label: 'Absent',
-                data: {{allabsentlist}},
-                backgroundColor: 'rgba(99, 132, 0, 0.6)',
-                borderColor: 'rgba(99, 132, 0, 1)',
+        var gravityData = {
+            label: 'Absent',
+            data: {{ allabsentlist }},
+        backgroundColor: 'rgba(99, 132, 0, 0.6)',
+            borderColor: 'rgba(99, 132, 0, 1)',
                 yAxisID: "y-axis-gravity"
             };
 
-            var planetData = {
-                labels: ["Monday", "Tuesday", "Wednesady", "Thursday", "Friday", "Saturday"],
-                datasets: [densityData, gravityData]
-            };
+        var planetData = {
+            labels: ["Monday", "Tuesday", "Wednesady", "Thursday", "Friday", "Saturday"],
+            datasets: [densityData, gravityData]
+        };
 
-            var chartOptions = {
-                scales: {
-                    xAxes: [{
-                        barPercentage: 1,
-                        categoryPercentage: 0.6
-                    }],
-                    yAxes: [{
-                        id: "y-axis-density"
-                    }, {
-                        id: "y-axis-gravity"
-                    }],
-                    datasets: [{
-                        label: 'hied',
-                    }]
-                }
-            };
-
-            var barChart = new Chart(densityCanvas, {
-                type: 'bar',
-                data: planetData,
-                options: chartOptions
-            });
-            
-        </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-    
-        $(document).ready(function () {
-            var yesprogress = {{yesprogress}};
-            var progressBar = document.getElementById("progress-bar");
-            progressBar.style.width = yesprogress + "%"; 
-            if (yesprogress < 100) {
-                progressBar.style.backgroundColor = "red";
-            } else {
-                progressBar.style.backgroundColor = "#e0ae09";
+        var chartOptions = {
+            scales: {
+                xAxes: [{
+                    barPercentage: 1,
+                    categoryPercentage: 0.6
+                }],
+                yAxes: [{
+                    id: "y-axis-density"
+                }, {
+                    id: "y-axis-gravity"
+                }],
+                datasets: [{
+                    label: 'hied',
+                }]
             }
+        };
+
+        var barChart = new Chart(densityCanvas, {
+            type: 'bar',
+            data: planetData,
+            options: chartOptions
         });
-    
-            $(document).ready(function () {
-    
-                function updateOptions() {
-                    var currentDate = new Date();
-                    var currentHour = currentDate.getHours();
-                    var currentMinutes = currentDate.getMinutes();
-                  
-                    var showTeaCoffeeMilk = (currentHour === 9 && currentMinutes >= 0) || (currentHour === 10 && currentMinutes <= 45);
-                    var showTeaCoffee = (currentHour === 14 && currentMinutes >= 0) || (currentHour === 15 && currentMinutes <= 30);
-    
-                    if (showTeaCoffeeMilk) {
-                        $("#tea-coffee-milk").show();
-                        $("#tea-coffee").show();
-                    } else if (showTeaCoffee) {
-                        $("#tea-coffee-milk").show();
-                        $("#tea-coffee").hide();
-                    } else {
-    
-                        $("#tea-coffee-milk").hide();
-                        $("#tea-coffee").hide();
-                        $("#main-refresh").hide();
-                        $('#refresh-over').show();
-                        //if no time for refreshment
-                    }
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            var yesprogress = {{ yesprogress }
+        };
+        var progressBar = document.getElementById("progress-bar");
+        progressBar.style.width = yesprogress + "%";
+        if (yesprogress < 100) {
+            progressBar.style.backgroundColor = "red";
+        } else {
+            progressBar.style.backgroundColor = "#e0ae09";
+        }
+        });
+
+        $(document).ready(function () {
+
+            function updateOptions() {
+                var currentDate = new Date();
+                var currentHour = currentDate.getHours();
+                var currentMinutes = currentDate.getMinutes();
+
+                var showTeaCoffeeMilk = (currentHour === 9 && currentMinutes >= 0) || (currentHour === 10 && currentMinutes <= 45);
+                var showTeaCoffee = (currentHour === 14 && currentMinutes >= 0) || (currentHour === 15 && currentMinutes <= 30);
+
+                if (showTeaCoffeeMilk) {
+                    $("#tea-coffee-milk").show();
+                    $("#tea-coffee").show();
+                } else if (showTeaCoffee) {
+                    $("#tea-coffee-milk").show();
+                    $("#tea-coffee").hide();
+                } else {
+
+                    $("#tea-coffee-milk").hide();
+                    $("#tea-coffee").hide();
+                    $("#main-refresh").hide();
+                    $('#refresh-over').show();
+                    //if no time for refreshment
                 }
-                updateOptions();
-                setInterval(updateOptions, 1000);
-    
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $("#refreshment-form").on("submit", function (event) {
-                    event.preventDefault();
-    
-                    var formData = $(this).serialize();
-                    $.ajax({
-                        type: "POST",
-                        url: "/refreshment/",
-                        data: formData,
-                        success: function (response) {
-                            window.location.reload();
-                        },
-                        error: function (xhr, status, error) {
-    
-                            console.log("AJAX Error: " + error);
-                        }
-                    });
+            }
+            updateOptions();
+            setInterval(updateOptions, 1000);
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#refreshment-form").on("submit", function (event) {
+                event.preventDefault();
+
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/refreshment/",
+                    data: formData,
+                    success: function (response) {
+                        window.location.reload();
+                    },
+                    error: function (xhr, status, error) {
+
+                        console.log("AJAX Error: " + error);
+                    }
                 });
             });
-            
-        </script>
-        <script>
-            
-            // reload testing starts----------------
-            // (function()
-            // {
-            //   if( window.localStorage )
-            //   {
-            //     if(!localStorage.getItem('firstLoad')){
-            //       localStorage['firstLoad'] = true;
-            //       window.location.reload();
-            //     }
-            //     else
-            //       localStorage.removeItem('firstLoad');
-            //   }
-            // })();
-    
-            // ==================================================================
-            // window.onload = function() {
-            //   if(!window.location.hash) {
-            //     window.location = window.location + '#loaded';
-            //     window.location.reload();
-            //   }
-            // }
-            // ==========================================================
-            // reload testing ends================
-            // setTimeout('location.reload()', 60000)
-            
-            // b = diff(start, end)
-            b = 1;
-            document.addEventListener("DOMContentLoaded", function () {
-                if (!Notification) {
-                    alert("Desktop notifications not available in your browser. Try Chromium.");
-                    return;
-                }
-                if (Notification.permission !== "granted") {
-                    Notification.requestPermission();
-                }
-            });
-            if (b > "01:30") {
-                if (Notification.permission == "denied") {
-                    Notification.requestPermission();
-                } else {
-                    var user = document.getElementById("user").innerHTML;
-                    var notification = new Notification("Team Onwords", {
-                        icon: "/static/images/mainLogo.png",
-                        body: "Hey " + user + " you may be busy at your work to update workdone, Kindly Update your workdone and continue your work",
-                    });
-                    // notification.onclick = function () {
-                    //   window.open('http://stackoverflow.com/a/13328397/1269037');
-                    // };
-                }
+        });
+
+    </script>
+    <script>
+
+        // reload testing starts----------------
+        // (function()
+        // {
+        //   if( window.localStorage )
+        //   {
+        //     if(!localStorage.getItem('firstLoad')){
+        //       localStorage['firstLoad'] = true;
+        //       window.location.reload();
+        //     }
+        //     else
+        //       localStorage.removeItem('firstLoad');
+        //   }
+        // })();
+
+        // ==================================================================
+        // window.onload = function() {
+        //   if(!window.location.hash) {
+        //     window.location = window.location + '#loaded';
+        //     window.location.reload();
+        //   }
+        // }
+        // ==========================================================
+        // reload testing ends================
+        // setTimeout('location.reload()', 60000)
+
+        // b = diff(start, end)
+        b = 1;
+        document.addEventListener("DOMContentLoaded", function () {
+            if (!Notification) {
+                alert("Desktop notifications not available in your browser. Try Chromium.");
+                return;
             }
-            // var fname = document.getElementById("workDone");
-            // fname.addEventListener("input", () => {
-            //   if (fname.validity.tooLong || fname.validity.tooShort || fname.validity.valueMissing) {
-            //     fname.setCustomValidity("Describe your workdone in detail!");
-            //     fname.reportValidity();
-            //   } else { fname.setCustomValidity(""); }
-            // });
-        </script>
+            if (Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
+        });
+        if (b > "01:30") {
+            if (Notification.permission == "denied") {
+                Notification.requestPermission();
+            } else {
+                var user = document.getElementById("user").innerHTML;
+                var notification = new Notification("Team Onwords", {
+                    icon: "/static/images/mainLogo.png",
+                    body: "Hey " + user + " you may be busy at your work to update workdone, Kindly Update your workdone and continue your work",
+                });
+                // notification.onclick = function () {
+                //   window.open('http://stackoverflow.com/a/13328397/1269037');
+                // };
+            }
+        }
+        // var fname = document.getElementById("workDone");
+        // fname.addEventListener("input", () => {
+        //   if (fname.validity.tooLong || fname.validity.tooShort || fname.validity.valueMissing) {
+        //     fname.setCustomValidity("Describe your workdone in detail!");
+        //     fname.reportValidity();
+        //   } else { fname.setCustomValidity(""); }
+        // });
+    </script>
 
 </body>
 

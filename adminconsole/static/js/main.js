@@ -5,17 +5,23 @@ function navcon() {
     var smallLogo = document.querySelector('.small-logo')
     var closeIcon = document.querySelector('.close-icons')
     var menuIcon = document.querySelector('.menu-icons')
+    var navmaincon = document.getElementById('nav-main-con');
+    var userprofilelist = document.getElementById('userprofilelist');
     if (navCon.style.width == '5%') {
         navCon.style.width = '18%'
         rightCon.style.width = '82%'
+        navmaincon.style.height='56vh'
+        userprofilelist.style.display='block'
         for (const rightcon of rightnavlist) {
             rightcon.style.display = 'block'
         }
         smallLogo.style.display = 'none'
         closeIcon.style.display = 'block'
         menuIcon.style.display = 'none'
+    
 
     }
+ 
     else {
         navCon.style.width = '5%'
         rightCon.style.width = '95%'
@@ -25,6 +31,8 @@ function navcon() {
         smallLogo.style.display = 'block'
         closeIcon.style.display = 'none'
         menuIcon.style.display = 'block'
+        navmaincon.style.height='76vh'
+        userprofilelist.style.display='none'
     }
 }
 function rightcon() {
@@ -34,6 +42,7 @@ function rightcon() {
     var smallLogo = document.querySelector('.small-logo')
     var closeIcon = document.querySelector('.close-icons')
     var menuIcon = document.querySelector('.menu-icons')
+ 
     navCon.style.width = '5%'
     rightCon.style.width = '95%'
     for (const rightnav of rightnavlist) {
@@ -42,6 +51,7 @@ function rightcon() {
     smallLogo.style.display = 'block'
     closeIcon.style.display = 'none'
     menuIcon.style.display = 'block'
+    navmaincon.style.height='76vh'
 
 }
 

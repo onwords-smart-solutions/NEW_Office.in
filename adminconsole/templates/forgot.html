@@ -13,30 +13,38 @@
 
 <body>
 
-    <div class="container">
-        <div class="login-con">
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="{% static 'images/leave-frm-img.svg' %}" alt="login-img" class="img-fluid">
-                </div>
-                <div class="col-md-6">
-                    <div class="loginform-con">
-
-                        <div class="signin-form" >
-                            <form method="post" action="/forgetpassword/">
-                                {% csrf_token %}
-                                <h2>Forgot Password</h2>
-                              <div class="form-inp-cons">
-                                <img src="{% static 'images/email-icon.svg' %}" alt="email-icon">
-                                <input type="email" name="email" id="" placeholder="Enter Your Email">
-                              </div>
-                              <button class="primary-button" onclick="">Reset Your Password</button>
-                            </form>
-                            
+    <div class="main-dis">
+        <div class="container">
+            <div class="login-con">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{% static 'images/leave-frm-img.svg' %}" alt="login-img" class="img-fluid">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="loginform-con">
+    
+                            <div class="signin-form" >
+                                <form method="post" action="/forgetpassword/">
+                                    {% csrf_token %}
+                                    <h2>Forgot Password</h2>
+                                  <div class="form-inp-cons">
+                                    <img src="{% static 'images/email-icon.svg' %}" alt="email-icon">
+                                    <input type="email" name="email" id="" placeholder="Enter Your Email">
+                                  </div>
+                                  <button class="primary-button" onclick="">Reset Your Password</button>
+                                </form>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="notfound">
+        <div class="nopage">
+            <h2>404</h2>
+            <h2>Not Found</h2>
         </div>
     </div>
 

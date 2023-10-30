@@ -22,6 +22,7 @@
 </head>
 
 <body>
+   <div class="main-dis">
     <div class="main-con ">
         <div class="nav-con " onclick="navcon()">
             <nav class="px-2">
@@ -38,37 +39,40 @@
                             <img src="{% static 'images/nav-icon/main-log.svg' %}" alt="small_Icon" class="main-logo">
                         </div>
                     </div>
+                    <div id="userprofilelist">
+                        <div class="user-profiles">
+                            <div class="user-img">
+                                {%if profile == "NULL"%}
+                                <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
+                                {%else%}
+                                <img src="{{profile}}" alt="user-profile">
+                                {%endif%}
+                            </div>
+                            <div class="emply-id">
+                                <span>{{ name }}</span><br>
+                                <span>{% if dep == "WEB" %}
+                                    <p>Web Developer</p>
+                                    {% elif dep == "APP" %}
+                                    <p>App developer</p>
+                                    {% elif dep == "MEDIA" %}
+                                    <p>Graphic designer</p>
+                                    {% elif dep == "PR" %}
+                                    <p>PR</p>
+                                    {% elif dep == "RND" %}
+                                    <p>R&D</p>
+                                    {% else %}
+                                    <p>Admin</p>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="user-profile">
                         <li class="user-visual">
                             <div class="left-nav-list"> <img src="{% static 'images/menu.png' %}" alt="menu_Icon"
                                     class="menu-icons"></div>
                             <div class="right-nav-list">
-                                <div class="user-profiles">
-                                    <div class="user-img">
-                                        {%if profile == "NULL"%}
-                                        <img src="{% static 'images/user-profile.svg' %}" alt="user-profile">
-                                        {%else%}
-                                        <img src="{{profile}}" alt="user-profile">
-                                        {%endif%}
-                                    </div>
-                                    <div class="emply-id">
-                                        <span>{{ name }}</span><br>
-                                        <span>{% if dep == "WEB" %}
-                                            <p>Web Developer</p>
-                                            {% elif dep == "APP" %}
-                                            <p>App developer</p>
-                                            {% elif dep == "MEDIA" %}
-                                            <p>Graphic designer</p>
-                                            {% elif dep == "PR" %}
-                                            <p>PR</p>
-                                            {% elif dep == "RND" %}
-                                            <p>R&D</p>
-                                            {% else %}
-                                            <p>Admin</p>
-                                            {% endif %}
-                                        </span>
-                                    </div>
-                                </div>
+
                             </div>
                         </li>
 
@@ -354,7 +358,7 @@
 
 
                 <!-- Modal -->
-            
+
 
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -403,7 +407,7 @@
                             {%for sno,y in allinventory%}
                             <form action="/inventorymanagement/" method="post">
                                 {%csrf_token%}
-                               
+
                                 <tr class="product-details">
                                     <td><input type="number" value="{{sno}}"></td>
                                     <td><input type="text" name="id" value="{{y.id}}"></td>
@@ -416,7 +420,7 @@
                                                 src="{% static 'images/nav-icon/edit.svg' %}" alt="del"
                                                 class="img-fluid"></button></td>
                                 </tr>
-                                
+
                             </form>
                             {%endfor%}
                         </tbody>
@@ -425,19 +429,27 @@
 
             </div>
         </div>
+    </div>
+   </div>
+    <div class="notfound">
+        <div class="nopage">
+            <h2>404</h2>
+            <h2>Not Found</h2>
+        </div>
+    </div>
 
-        <!-- bootstrap js -->
-        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <!-- js script  start -->
-        <script src="{% static 'js/main.js' %}"></script>
-        <script src="{% static 'js/login.js' %}"></script>
-       
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
-        <!-- js script  end -->
-        
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- js script  start -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <!-- js script  end -->
+
 </body>
 
 </html>
