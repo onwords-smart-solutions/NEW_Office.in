@@ -764,3 +764,7 @@ ul {
         font-weight: 600;
     }
 }
+
+.deleteaccess{
+    min-width: 230px;
+}

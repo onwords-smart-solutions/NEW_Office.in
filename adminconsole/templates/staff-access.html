@@ -355,7 +355,7 @@
                                     {%csrf_token%}
                                     <div class="form-inp-access">
                                         <img src="{% static 'images/user-icon.svg' %}" alt="user-icon">
-                                        <select name="uid" id="">
+                                        <select name="uid" id="" class="deleteaccess">
                                             <option value="">Select Staff</option>
                                             {%for uid , name in allstaff%}
                                             <option value="{{uid}}">{{name}}</option>
@@ -368,7 +368,7 @@
                                     </div> -->
                                     <div class="form-inp-access">
                                         <img src="{% static 'images/access-icon.svg' %}" alt="user-icon">
-                                        <select name="access" id="">
+                                        <select name="access" id="" class="deleteaccess">
                                             <option value="">Access Page</option>
                                             <option value="customer details">Customer Details</option>
                                             <option value="approval">Approval</option>

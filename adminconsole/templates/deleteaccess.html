@@ -341,7 +341,7 @@
                                     {%csrf_token%}
                                     <div class="form-inp-access">
                                         <img src="{% static 'images/user-icon.svg' %}" alt="user-icon">
-                                        <select name="uid" id="" onchange="dateTimeSubmit()">
+                                        <select name="uid" id="" class="deleteaccess" onchange="dateTimeSubmit()">
                                             {%if editname == "NULL"%}
                                             <option value="">Select Staff</option>
                                             {%else%}
@@ -362,14 +362,14 @@
                                     <div class="form-inp-access">
                                         <img src="{% static 'images/access-icon.svg' %}" alt="user-icon">
                                         <input type="hidden" name="euid" value="{{edituid}}">
-                                        <select name="access" id="">
+                                        <select name="access" id="" class="deleteaccess">
                                             <option value="">Access Page</option>
                                             {%for data in accesslist%}
                                             <option value="{{data}}">{{data}}</option>
                                             {%endfor%}
                                         </select>
                                     </div>
-                                    <button class="primary-button" name="removeaccess">Permission</button>
+                                    <button class="primary-button" name="removeaccess">Delete Access</button>
                                 </form>
                             </div>
                         </div>
