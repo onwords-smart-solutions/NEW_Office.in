@@ -1765,7 +1765,7 @@ def deletelead(request):
         dc = {phno: a}
         db.child("deletedcustomers").update(dc)
         db.child("customer").child(phno).remove()
-        return redirect("customerdetails")
+        return redirect("customer_details")
     return redirect("customer_details")
 
 def checkUserName(uid):
