@@ -1002,7 +1002,7 @@ def indvattendanced(request):
                                     permissioncountlist.append(leaveapplied[date][uid][leavetype]["duration"])
                                 elif leavetype == "sick":
                                     leavetypelist.append(leavetype)
-                                    if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                                    if leaveapplied[date][uid][leavetype]["mode"] == "Full Day":
                                         leavenode.append("Full Day")
                                         sickleavecount=sickleavecount+1
                                     else:
@@ -1010,7 +1010,7 @@ def indvattendanced(request):
                                         sickleavecount=sickleavecount+0.5    
                                 else:
                                     leavetypelist.append(leavetype)
-                                    if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                                    if leaveapplied[date][uid][leavetype]["mode"] == "Full Day":
                                         leavenode.append("Full Day")
                                         generalleavecount=generalleavecount+1 
                                     else:
@@ -1018,10 +1018,21 @@ def indvattendanced(request):
                                         generalleavecount=generalleavecount+0.5
             except:
                 pass                            
-            permissioncount = 0.0
-            for time_str in permissioncountlist:
-                hours, minutes = map(int, time_str.split(':'))
-                permissioncount += hours + minutes / 60.0                        
+            total_hours = 0
+            total_minutes = 0
+            try: 
+                for time_str in permissioncountlist:
+                    time_str = str(time_str)  # Convert to string to ensure it's splittable
+                    hours, minutes = map(int, time_str.split('.'))
+                    total_hours += hours
+                    total_minutes += minutes
+                totalminutes = total_minutes * 6
+                if totalminutes >= 60:
+                    additional_hours = totalminutes // 60
+                    total_hours += additional_hours
+                    totalminutes %= 60
+            except:
+                pass                        
             leaveall=zip(datelist,leavetypelist,leavenode) 
         elif form_identifier == 'form2':  
             getuid=request.POST["suid"]
@@ -1047,7 +1058,7 @@ def indvattendanced(request):
                                     permissioncountlist.append(leaveapplied[date][uid][leavetype]["duration"])
                                 elif leavetype == "sick":
                                     leavetypelist.append(leavetype)
-                                    if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                                    if leaveapplied[date][uid][leavetype]["mode"] == "Full Day":
                                         leavenode.append("Full Day")
                                         sickleavecount=sickleavecount+1
                                     else:
@@ -1055,18 +1066,30 @@ def indvattendanced(request):
                                         sickleavecount=sickleavecount+0.5    
                                 else:
                                     leavetypelist.append(leavetype)
-                                    if leaveapplied[date][uid][leavetype]["node"] == "Full Day":
+                                    if leaveapplied[date][uid][leavetype]["mode"] == "Full Day":
                                         leavenode.append("Full Day")
                                         generalleavecount=generalleavecount+1 
                                     else:
                                         leavenode.append("Half Day")
                                         generalleavecount=generalleavecount+0.5
             except:
-                pass                            
-            permissioncount = 0.0
-            for time_str in permissioncountlist:
-                hours, minutes = map(int, time_str.split(':'))
-                permissioncount += hours + minutes / 60.0                        
+                pass   
+                                    
+            total_hours = 0
+            total_minutes = 0
+            try: 
+                for time_str in permissioncountlist:
+                    time_str = str(time_str)  # Convert to string to ensure it's splittable
+                    hours, minutes = map(int, time_str.split('.'))
+                    total_hours += hours
+                    total_minutes += minutes
+                totalminutes = total_minutes * 6
+                if totalminutes >= 60:
+                    additional_hours = totalminutes // 60
+                    total_hours += additional_hours
+                    totalminutes %= 60
+            except:
+                pass    
             leaveall=zip(datelist,leavetypelist,leavenode) 
          
         context={
@@ -1074,7 +1097,8 @@ def indvattendanced(request):
             "dep":dep,
             "profile":profile,
             "leaveall":leaveall,
-            "permissioncount":permissioncount,
+            "totalhours":total_hours,
+            "totalminutes":totalminutes,
             "sickleavecount":sickleavecount,
             "generalleavecount":generalleavecount,
             "general":general,

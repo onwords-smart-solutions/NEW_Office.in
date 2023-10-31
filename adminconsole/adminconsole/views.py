@@ -33,12 +33,12 @@ aiconfig = {
     "measurementId": "G-J4YXBZGFJY",
 }
 firebase = pyrebase.initialize_app(config)
-db = firebase.database()
+db1 = firebase.database()
 auth = firebase.auth()
 storage1 = firebase.storage()
 
 firebase1 = pyrebase.initialize_app(firebaseConfig)
-db1 = firebase1.database()
+db = firebase1.database()
 storage = firebase1.storage()
 
 aifirebase = pyrebase.initialize_app(aiconfig)
@@ -269,7 +269,7 @@ def leave_form(request):
                         "name": name,
                         "reason": reason,
                         "status": "Pending",
-                        "node":"Full Day",
+                        "mode":"Full Day",
                     }
                     date_list = []
 
@@ -292,7 +292,7 @@ def leave_form(request):
                         "name": name,
                         "reason": reason,
                         "status": "Pending",
-                        "node":"Full Day",
+                        "mode":"Full Day",
                         "date":from_date,
                     }
 
@@ -308,7 +308,7 @@ def leave_form(request):
                     "name": name,
                     "reason": reason,
                     "status": "Pending",
-                    "node":"Half Day",
+                    "mode":"Half Day",
                     "date":half_date,
                 }
                 db.child("leave_details").child(year).child(month).child(half_date).child(uid).child(leave_type).update(c)
@@ -327,7 +327,7 @@ def leave_form(request):
                         "name": name,
                         "reason": reason,
                         "status": "Pending",
-                        "node":"Full Day",
+                        "mode":"Full Day",
                     }
 
                     date_list = []
@@ -353,7 +353,7 @@ def leave_form(request):
                         "name": name,
                         "reason": reason,
                         "status": "Pending",
-                        "node":"Full Day",
+                        "mode":"Full Day",
                         "date":from_date,
                     }
 
@@ -369,7 +369,7 @@ def leave_form(request):
                     "name": name,
                     "reason": reason,
                     "status": "Pending",
-                    "node":"Half Day",
+                    "mode":"Half Day",
                     "date":half_date,
                 }
                 db.child("leave_details").child(year).child(month).child(half_date).child(uid).child(leave_type).update(c) 
@@ -382,9 +382,8 @@ def leave_form(request):
             if fromtime is not None and totime is not None:
                 fromtiming = datetime.strptime(fromtime, "%H:%M")
                 totiming = datetime.strptime(totime, "%H:%M")
-                duration = totiming - fromtiming
-                duration_hours, duration_minutes = divmod(duration.seconds, 3600)
-                duration_str = '{:02}:{:02}'.format(duration_hours, duration_minutes)
+                duration = (totiming - fromtiming).total_seconds() / 3600
+                duration_int = round(duration, 1)
             else:
                 print("From time and/or to time not provided.")
             
@@ -394,7 +393,7 @@ def leave_form(request):
                     "reason": reason,
                     "status": "Pending",
                     "date":current_date,
-                    "duration": duration_str,
+                    "duration": duration_int,
                 }
             db.child("leave_details").child(current_year).child(current_month).child(current_date).child(uid).child(leave_type).update(c) 
     leavehistory = []
