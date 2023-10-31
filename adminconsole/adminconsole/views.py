@@ -33,12 +33,12 @@ aiconfig = {
     "measurementId": "G-J4YXBZGFJY",
 }
 firebase = pyrebase.initialize_app(config)
-db1 = firebase.database()
+db = firebase.database()
 auth = firebase.auth()
 storage1 = firebase.storage()
 
 firebase1 = pyrebase.initialize_app(firebaseConfig)
-db = firebase1.database()
+db1 = firebase1.database()
 storage = firebase1.storage()
 
 aifirebase = pyrebase.initialize_app(aiconfig)
