@@ -764,11 +764,9 @@
                 var currentDate = new Date();
                 var currentHour = currentDate.getHours();
                 var currentMinutes = currentDate.getMinutes();
-                console.log("hour",currentHour)
               
                 var showTeaCoffeeMilk = (currentHour === 9 && currentMinutes >= 0) || (currentHour === 10 && currentMinutes <= 45);
                 var showTeaCoffee = (currentHour === 14 && currentMinutes >= 0) || (currentHour === 15 && currentMinutes <= 30);
-                console.log("time",showTeaCoffee)
                 if (showTeaCoffeeMilk) {
                     $("#tea-coffee-milk").show();
                     $("#tea-coffee").show();
@@ -776,7 +774,6 @@
                     $("#tea-coffee-milk").show();
                     $("#tea-coffee").hide();
                 } else {
-                    console.log("===")
                     $("#tea-coffee-milk").hide();
                     $("#tea-coffee").hide();
                     $("#main-refresh").hide();
