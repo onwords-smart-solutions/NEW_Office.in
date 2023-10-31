@@ -166,7 +166,7 @@ def prhome(request):
                 # If yesterday was a Sunday, retrieve Saturday data
                 
                 yescheckout = attendence[saturday_year][saturday_month][saturday_day][uid]["check_out"]
-                yesscheckout = convert_to_12_hour_format(yescheckin)
+                yesscheckout = convert_to_12_hour_format(yescheckout)
             else:    
                 yescheckout = attendence[yesterday_year][yesterday_month][yesterday_day][uid]["check_out"]
                 yesscheckout = convert_to_12_hour_format(yescheckout)
