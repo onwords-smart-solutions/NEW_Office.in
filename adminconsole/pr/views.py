@@ -1523,7 +1523,7 @@ def leadinfo(request):
     name = request.COOKIES["name"]
     profile = request.COOKIES["profile"]
     webaccess=db.child("webaccess").get().val()
-    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess=False,False,False,False,False,False,False,False,False,False,False,False,False
+    general,customeracccess,accountacccess,createleadacccess,createstaffacccess,inventoryacccess,prdashboardacccess,quotationacccess,userdataacccess,viewsuggestionacccess,viewmanageracccess,approvalacccess,inprogressacccess,leadinfoacccess=False,False,False,False,False,False,False,False,False,False,False,False,False,False
     for accessuid in webaccess["customer details"]:
         if webaccess["customer details"][accessuid] == uid:
             customeracccess=True
@@ -1571,6 +1571,11 @@ def leadinfo(request):
     for accessuid in webaccess["inprogress"]:
         if webaccess["inprogress"][accessuid] == uid:
             inprogressacccess=True
+
+    for accessuid in webaccess["leadinfo"]:
+        if webaccess["leadinfo"][accessuid] == uid:
+            leadinfoacccess=True
+
     suggestionNotification = 0
     suggestionData = db.child("suggestion").get().val()
     for suggestion in suggestionData:
@@ -1685,6 +1690,7 @@ def leadinfo(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
+            "leadinfoacccess":leadinfoacccess,
             "suggestionNotification":suggestionNotification 
         }
     else:
@@ -1710,6 +1716,7 @@ def leadinfo(request):
             "viewsuggestion":viewsuggestionacccess,
             "userdata":userdataacccess,
             "prdashboard":prdashboardacccess,
+            "leadinfoacccess":leadinfoacccess,
             "suggestionNotification":suggestionNotification 
         }
     response = render(request, "leadinfo.html", context)
