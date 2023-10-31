@@ -677,7 +677,7 @@
 
     <script>
         var xValues = [];
-        var yValues = [{{ generalleave }}, { { sickleave } }];
+        var yValues = [{{ generalleave }}, {{ sickleave }}];
         var barColors = [
             "#7FA9FB",
             "#266386",
@@ -703,7 +703,7 @@
         });
         // break
         var xValues = [];
-        var yValues = [{{ stafftotalpresent }}, { { stafftotalabsent } }];
+        var yValues = [{{ stafftotalpresent }}, {{ stafftotalabsent }}];
         var barColors = [
             "#7FA9FB",
             "#266386",
@@ -771,27 +771,25 @@
     <script>
 
         $(document).ready(function () {
-            var yesprogress = {{ yesprogress }
-        };
-        var progressBar = document.getElementById("progress-bar");
-        progressBar.style.width = yesprogress + "%";
-        if (yesprogress < 100) {
-            progressBar.style.backgroundColor = "red";
-        } else {
-            progressBar.style.backgroundColor = "#e0ae09";
-        }
-        });
+            var yesprogress = {{ yesprogress }};
+            var progressBar = document.getElementById("progress-bar");
+            progressBar.style.width = yesprogress + "%";
+            if (yesprogress < 100) {
+                progressBar.style.backgroundColor = "red";
+            } else {
+                progressBar.style.backgroundColor = "#e0ae09";
+            }
+            });
     
             $(document).ready(function () {
-    
                 function updateOptions() {
                     var currentDate = new Date();
                     var currentHour = currentDate.getHours();
                     var currentMinutes = currentDate.getMinutes();
-                  
+
                     var showTeaCoffeeMilk = (currentHour === 9 && currentMinutes >= 0) || (currentHour === 10 && currentMinutes <= 45);
                     var showTeaCoffee = (currentHour === 14 && currentMinutes >= 0) || (currentHour === 15 && currentMinutes <= 30);
-    
+
                     if (showTeaCoffeeMilk) {
                         $("#tea-coffee-milk").show();
                         $("#tea-coffee").show();
@@ -799,7 +797,6 @@
                         $("#tea-coffee-milk").show();
                         $("#tea-coffee").hide();
                     } else {
-    
                         $("#tea-coffee-milk").hide();
                         $("#tea-coffee").hide();
                         $("#main-refresh").hide();
@@ -807,11 +804,12 @@
                         //if no time for refreshment
                     }
                 }
-            }
-            updateOptions();
-            setInterval(updateOptions, 1000);
 
-        });
+                updateOptions();
+                setInterval(updateOptions, 1000);
+
+                });
+
     </script>
     <script>
         $(document).ready(function () {
