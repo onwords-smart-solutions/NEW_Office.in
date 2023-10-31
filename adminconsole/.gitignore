@@ -168,14 +168,14 @@ modules.xml
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
-admin/__pycache__/
-adminconsole/__pycache__/
-hr/__pycache__/
-installation/__pycache__/
-it/__pycache__/
-pr/__pycache__/
-rnd/__pycache__/
-superadmin/__pycache__/
+__pycache__/
+# adminconsole/__pycache__/
+# hr/__pycache__/
+# installation/__pycache__/
+# it/__pycache__/
+# pr/__pycache__/
+# rnd/__pycache__/
+# superadmin/__pycache__/
 *.py[cod]
 *$py.class
 
